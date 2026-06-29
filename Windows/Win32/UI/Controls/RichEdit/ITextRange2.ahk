@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextSelection.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITextFont2.ahk
-#Include .\ITextPara2.ahk
-#Include .\ITextRow.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IStream.ahk
+#Include .\ITextSelection.ahk
+#Include .\ITextRow.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\ITextPara2.ahk
+#Include .\ITextFont2.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITextRange2 interface is derived from ITextRange, and its objects are powerful editing and data-binding tools that enable a program to select text in a story and then examine or change that text.
@@ -388,7 +390,7 @@ class ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-geturl
      */
     GetURL() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(84, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -1098,7 +1100,7 @@ class ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-gettext2
      */
     GetText2(Flags) {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(96, this, "int", Flags, "ptr", pbstr, "HRESULT")
         return pbstr
     }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\COLORINFO.ahk
 #Include .\CIECHROMA.ahk
+#Include .\COLORINFO.ahk
 
 /**
  * The DEVHTINFO structure is used as input to the HTUI_DeviceColorAdjustment function.

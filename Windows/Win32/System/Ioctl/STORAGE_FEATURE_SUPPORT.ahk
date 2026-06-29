@@ -9,7 +9,7 @@ class STORAGE_FEATURE_SUPPORT extends Win32Struct {
 
     static packingSize => 8
 
-    class _Flags_e__Union extends Win32Struct {
+    class _Flags extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -58,12 +58,12 @@ class STORAGE_FEATURE_SUPPORT extends Win32Struct {
     }
 
     /**
-     * @type {_Flags_e__Union}
+     * @type {_Flags}
      */
     Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := STORAGE_FEATURE_SUPPORT._Flags_e__Union(8, this)
+                this.__Flags := STORAGE_FEATURE_SUPPORT._Flags(8, this)
             return this.__Flags
         }
     }

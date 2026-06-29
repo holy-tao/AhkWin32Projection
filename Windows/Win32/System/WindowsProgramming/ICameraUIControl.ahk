@@ -1,8 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Include .\CameraUIControlCaptureMode.ahk
+#Include .\CameraUIControlVideoFormat.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\CameraUIControlLinearSelectionMode.ahk
+#Include .\CameraUIControlMode.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ICameraUIControlEventCallback.ahk
+#Include .\CameraUIControlViewType.ahk
+#Include .\CameraUIControlPhotoFormat.ahk
 
 /**
  * Enables a user interface control for a camera device..
@@ -100,7 +111,7 @@ class ICameraUIControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nf-camerauicontrol-icamerauicontrol-getactiveitem
      */
     GetActiveItem() {
-        pbstrActiveItemPath := BSTR()
+        pbstrActiveItemPath := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrActiveItemPath, "HRESULT")
         return pbstrActiveItemPath
     }

@@ -3,8 +3,8 @@
 #Include .\D3D12_RESOURCE_DIMENSION.ahk
 #Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include ..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk
-#Include .\D3D12_TEXTURE_LAYOUT.ahk
 #Include .\D3D12_RESOURCE_FLAGS.ahk
+#Include .\D3D12_TEXTURE_LAYOUT.ahk
 
 /**
  * Describes a resource, such as a texture. This structure is used extensively.

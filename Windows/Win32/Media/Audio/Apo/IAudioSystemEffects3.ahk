@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\AUDIO_SYSTEMEFFECT_STATE.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\AUDIO_SYSTEMEFFECT.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\IAudioSystemEffects2.ahk
 
 /**

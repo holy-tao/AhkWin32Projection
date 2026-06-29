@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -28,13 +29,9 @@ class ITransactionExport extends IUnknown {
     static VTableNames => ["Export", "GetTransactionCookie"]
 
     /**
-     * An application-defined callback function used with ReadEncryptedFileRaw.
-     * @remarks
-     * You can use the application-defined context block for internal tracking of information such as the file handle 
-     *      and the current offset in the file.
+     * 
      * @param {IUnknown} punkTransaction 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nc-winbase-pfe_export_func
      */
     Export(punkTransaction) {
         result := ComCall(3, this, "ptr", punkTransaction, "uint*", &pcbTransactionCookie := 0, "HRESULT")

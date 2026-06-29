@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IStream.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\IPersist.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables the saving and loading of objects that use a simple serial stream for their storage needs.

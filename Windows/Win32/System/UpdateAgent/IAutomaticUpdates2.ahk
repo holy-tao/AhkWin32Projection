@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IAutomaticUpdates.ahk
 #Include .\IAutomaticUpdatesResults.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the functionality of Automatic Updates. (IAutomaticUpdates2)

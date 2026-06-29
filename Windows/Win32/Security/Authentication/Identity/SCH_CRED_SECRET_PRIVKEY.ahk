@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains private key information needed to authenticate a client or server.

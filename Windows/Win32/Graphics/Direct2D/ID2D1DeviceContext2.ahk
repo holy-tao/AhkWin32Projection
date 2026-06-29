@@ -1,15 +1,29 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1DeviceContext1.ahk
-#Include .\ID2D1Ink.ahk
-#Include .\ID2D1InkStyle.ahk
-#Include .\ID2D1GradientMesh.ahk
-#Include .\ID2D1ImageSourceFromWic.ahk
-#Include .\ID2D1LookupTable3D.ahk
-#Include .\ID2D1ImageSource.ahk
+#Include ..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
+#Include .\D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES.ahk
+#Include Common\D2D1_ALPHA_MODE.ahk
+#Include .\D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS.ahk
+#Include .\D2D1_INK_STYLE_PROPERTIES.ahk
 #Include Common\D2D_RECT_F.ahk
+#Include .\ID2D1Ink.ahk
 #Include .\ID2D1TransformedImageSource.ahk
+#Include .\ID2D1InkStyle.ahk
+#Include .\ID2D1Brush.ahk
+#Include .\ID2D1ImageSource.ahk
+#Include .\D2D1_IMAGE_SOURCE_LOADING_OPTIONS.ahk
+#Include .\ID2D1GdiMetafile.ahk
+#Include .\D2D1_BUFFER_PRECISION.ahk
+#Include ..\Dxgi\IDXGISurface.ahk
+#Include .\ID2D1GradientMesh.ahk
+#Include .\D2D1_GRADIENT_MESH_PATCH.ahk
+#Include .\D2D1_INK_POINT.ahk
+#Include .\ID2D1LookupTable3D.ahk
+#Include ..\Imaging\IWICBitmapSource.ahk
+#Include .\ID2D1ImageSourceFromWic.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID2D1DeviceContext1.ahk
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext1 interface, plus it enables functionality such as ink rendering, gradient mesh rendering, and improved image loading.

@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFMediaType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Controls a capture sink, which is an object that receives one or more streams from a capture device.

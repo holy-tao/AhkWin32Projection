@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IObjectId.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IObjectId.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Can be used to define an extension for a certificate request.
@@ -105,7 +108,7 @@ class IX509Extension extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extension-get_rawdata
      */
     get_RawData(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(9, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }

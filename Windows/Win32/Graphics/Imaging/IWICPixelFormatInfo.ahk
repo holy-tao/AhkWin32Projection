@@ -4,6 +4,7 @@
 #Include .\IWICComponentInfo.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWICColorContext.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that provide information about a pixel format.

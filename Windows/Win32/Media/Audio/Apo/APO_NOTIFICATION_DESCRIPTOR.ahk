@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\APO_NOTIFICATION_TYPE.ahk
+#Include .\AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR.ahk
 #Include .\AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR.ahk
 #Include ..\IMMDevice.ahk
-#Include .\AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR.ahk
-#Include .\AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR.ahk
 #Include .\AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR.ahk
+#Include .\APO_NOTIFICATION_TYPE.ahk
 
 /**
  * Specifies a requested APO notification.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.Media.Audio.Apo
  */
 class APO_NOTIFICATION_DESCRIPTOR extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 

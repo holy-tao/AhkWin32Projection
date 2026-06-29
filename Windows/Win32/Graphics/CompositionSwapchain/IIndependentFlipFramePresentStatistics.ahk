@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SystemInterruptTime.ahk
 #Include .\IPresentStatistics.ahk
+#Include ..\..\Foundation\LUID.ahk
 
 /**
  * Describes how the system displayed an instance of a particular piece of content within a particular independent-flip present.

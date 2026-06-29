@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RASAPIVERSION.ahk
-#Include .\RASTUNNELENDPOINT.ahk
 #Include ..\..\Networking\WinSock\IN_ADDR.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Include .\RASTUNNELENDPOINT.ahk
+#Include .\RASAPIVERSION.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras

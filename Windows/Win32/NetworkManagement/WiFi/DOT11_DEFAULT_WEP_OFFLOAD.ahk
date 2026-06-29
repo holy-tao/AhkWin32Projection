@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\DOT11_OFFLOAD_TYPE.ahk
 #Include .\DOT11_KEY_DIRECTION.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\DOT11_IV48_COUNTER.ahk
+#Include .\DOT11_OFFLOAD_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

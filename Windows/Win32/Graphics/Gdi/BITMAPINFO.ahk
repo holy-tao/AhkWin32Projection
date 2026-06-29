@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BITMAPINFOHEADER.ahk
 #Include .\RGBQUAD.ahk
+#Include .\BITMAPINFOHEADER.ahk
 
 /**
  * The BITMAPINFO structure defines the dimensions and color information for a DIB.

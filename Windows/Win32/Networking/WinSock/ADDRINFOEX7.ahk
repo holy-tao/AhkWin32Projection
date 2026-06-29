@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKADDR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\ADDRINFOEX7.ahk
+#Include .\SOCKADDR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\ADDRINFO_DNS_SERVER.ahk
 

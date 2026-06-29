@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include Common\DXGI_RATIONAL.ahk
 #Include Common\DXGI_MODE_SCANLINE_ORDER.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include Common\DXGI_RATIONAL.ahk
 #Include Common\DXGI_MODE_SCALING.ahk
 
 /**

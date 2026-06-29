@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\CERT_EXTENSION.ahk
+#Include .\OCSP_BASIC_REVOKED_INFO.ahk
 #Include .\OCSP_CERT_ID.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\OCSP_BASIC_REVOKED_INFO.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\CERT_EXTENSION.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains the current certificate status for a single certificate.

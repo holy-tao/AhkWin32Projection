@@ -1,11 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMVisual.ahk
-#Include .\XPS_POINT.ahk
-#Include .\IXpsOMFontResource.ahk
-#Include .\IXpsOMBrush.ahk
 #Include .\IXpsOMGlyphsEditor.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IXpsOMFontResource.ahk
+#Include .\IXpsOMVisual.ahk
+#Include .\IXpsOMBrush.ahk
+#Include .\XPS_GLYPH_MAPPING.ahk
+#Include .\XPS_STYLE_SIMULATION.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\XPS_GLYPH_INDEX.ahk
+#Include .\XPS_POINT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Describes the text that appears on a page.

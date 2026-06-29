@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Describes an event class that notifies subscribers whenever a method on the object that implements it either is called or returns from a call.

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS.ahk
+#Include .\ID3D12VideoDecoder.ahk
+#Include .\D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS1.ahk
 #Include .\ID3D12VideoDecodeCommandList.ahk
 
 /**

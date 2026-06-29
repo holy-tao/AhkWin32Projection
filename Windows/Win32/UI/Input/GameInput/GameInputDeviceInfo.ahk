@@ -1,29 +1,29 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputUsage.ahk
-#Include .\GameInputVersion.ahk
-#Include ..\..\..\Foundation\APP_LOCAL_DEVICE_ID.ahk
-#Include .\GameInputDeviceFamily.ahk
-#Include .\GameInputDeviceCapabilities.ahk
-#Include .\GameInputKind.ahk
-#Include .\GameInputRumbleMotors.ahk
-#Include .\GameInputRawDeviceReportInfo.ahk
-#Include .\GameInputControllerAxisInfo.ahk
-#Include .\GameInputControllerButtonInfo.ahk
-#Include .\GameInputControllerSwitchInfo.ahk
-#Include .\GameInputKeyboardInfo.ahk
 #Include .\GameInputMouseInfo.ahk
-#Include .\GameInputTouchSensorInfo.ahk
+#Include .\GameInputDeviceFamily.ahk
+#Include .\GameInputKeyboardInfo.ahk
 #Include .\GameInputMotionInfo.ahk
-#Include .\GameInputArcadeStickInfo.ahk
-#Include .\GameInputFlightStickInfo.ahk
-#Include .\GameInputGamepadInfo.ahk
-#Include .\GameInputRacingWheelInfo.ahk
-#Include .\GameInputUiNavigationInfo.ahk
-#Include .\GameInputForceFeedbackMotorInfo.ahk
-#Include .\GameInputHapticFeedbackMotorInfo.ahk
-#Include .\GameInputString.ahk
+#Include .\GameInputKind.ahk
+#Include .\GameInputControllerSwitchInfo.ahk
 #Include .\GameInputSystemButtons.ahk
+#Include .\GameInputRumbleMotors.ahk
+#Include .\GameInputVersion.ahk
+#Include .\GameInputUiNavigationInfo.ahk
+#Include .\GameInputHapticFeedbackMotorInfo.ahk
+#Include .\GameInputTouchSensorInfo.ahk
+#Include .\GameInputUsage.ahk
+#Include .\GameInputFlightStickInfo.ahk
+#Include .\GameInputControllerButtonInfo.ahk
+#Include .\GameInputDeviceCapabilities.ahk
+#Include .\GameInputArcadeStickInfo.ahk
+#Include .\GameInputRacingWheelInfo.ahk
+#Include ..\..\..\Foundation\APP_LOCAL_DEVICE_ID.ahk
+#Include .\GameInputGamepadInfo.ahk
+#Include .\GameInputString.ahk
+#Include .\GameInputControllerAxisInfo.ahk
+#Include .\GameInputForceFeedbackMotorInfo.ahk
+#Include .\GameInputRawDeviceReportInfo.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

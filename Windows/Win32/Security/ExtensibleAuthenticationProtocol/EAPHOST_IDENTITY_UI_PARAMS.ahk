@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\EAP_METHOD_TYPE.ahk
-#Include .\EAP_TYPE.ahk
 #Include .\EAP_ERROR.ahk
+#Include .\EAP_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol

@@ -1,10 +1,61 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\HACMDRIVERID.ahk
+#Include .\HACMDRIVER.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include .\ACMFILTERDETAILSW.ahk
+#Include .\HWAVEIN.ahk
+#Include .\ERole.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
-#Include .\IMessageFilter.ahk
+#Include .\IActivateAudioInterfaceCompletionHandler.ahk
+#Include .\MIXERLINEA.ahk
+#Include .\WAVEOUTCAPSA.ahk
 #Include .\IActivateAudioInterfaceAsyncOperation.ahk
+#Include .\MIXERCONTROLDETAILS.ahk
+#Include .\ACMSTREAMHEADER.ahk
+#Include .\MIDI_WAVE_OPEN_TYPE.ahk
+#Include .\HMIDIIN.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ACMFORMATTAGDETAILSW.ahk
+#Include .\ACMFILTERCHOOSEA.ahk
+#Include .\ACMFILTERCHOOSEW.ahk
+#Include .\ACMFORMATCHOOSEA.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IAudioStateMonitor.ahk
+#Include .\IMessageFilter.ahk
+#Include ..\..\Foundation\HMODULE.ahk
+#Include .\HMIXEROBJ.ahk
+#Include .\MIXERLINECONTROLSW.ahk
+#Include .\HMIDISTRM.ahk
+#Include .\WAVEOUTCAPSW.ahk
+#Include .\HMIDIOUT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\ACMFORMATDETAILSA.ahk
+#Include .\ACMDRIVERDETAILSW.ahk
+#Include .\HACMOBJ.ahk
+#Include .\ACMDRIVERDETAILSA.ahk
+#Include .\WAVEFORMATEX.ahk
+#Include .\HMIXER.ahk
+#Include .\SND_FLAGS.ahk
+#Include .\ACMFORMATTAGDETAILSA.ahk
+#Include .\HMIDI.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\MIXERLINECONTROLSA.ahk
+#Include .\ACMFILTERDETAILSA.ahk
+#Include .\MIXERLINEW.ahk
+#Include .\WAVEFILTER.ahk
+#Include .\ACMFILTERTAGDETAILSA.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\HWAVEOUT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\ACMFILTERTAGDETAILSW.ahk
+#Include .\HACMSTREAM.ahk
+#Include .\tACMFORMATDETAILSW.ahk
+#Include .\AUDIO_STREAM_CATEGORY.ahk
+#Include .\ACMFORMATCHOOSEW.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -539,8 +590,7 @@ class Audio {
     static PKEY_AudioEndpoint_FormFactor {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}").CopyTo(value.fmtid.ptr)
             value.pid := 0
             return value
         }
@@ -552,8 +602,7 @@ class Audio {
     static PKEY_AudioEndpoint_ControlPanelPageProvider {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}").CopyTo(value.fmtid.ptr)
             value.pid := 1
             return value
         }
@@ -565,8 +614,7 @@ class Audio {
     static PKEY_AudioEndpoint_Association {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -578,8 +626,7 @@ class Audio {
     static PKEY_AudioEndpoint_PhysicalSpeakers {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -591,8 +638,7 @@ class Audio {
     static PKEY_AudioEndpoint_GUID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -604,8 +650,7 @@ class Audio {
     static PKEY_AudioEndpoint_Disable_SysFx {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -627,8 +672,7 @@ class Audio {
     static PKEY_AudioEndpoint_FullRangeSpeakers {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -640,8 +684,7 @@ class Audio {
     static PKEY_AudioEndpoint_Supports_EventDriven_Mode {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -653,8 +696,7 @@ class Audio {
     static PKEY_AudioEndpoint_JackSubType {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -666,8 +708,7 @@ class Audio {
     static PKEY_AudioEndpoint_Default_VolumeInDb {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -679,8 +720,7 @@ class Audio {
     static PKEY_AudioEndpoint_Max_VolumeInDb {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -692,8 +732,7 @@ class Audio {
     static PKEY_AudioEndpoint_Min_VolumeInDb {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -705,8 +744,7 @@ class Audio {
     static PKEY_AudioEngine_DeviceFormat {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f19f064d-082c-4e27-bc73-6882a1bb8e4c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f19f064d-082c-4e27-bc73-6882a1bb8e4c}").CopyTo(value.fmtid.ptr)
             value.pid := 0
             return value
         }
@@ -718,8 +756,7 @@ class Audio {
     static PKEY_AudioEngine_OEMFormat {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e4870e26-3cc5-4cd2-ba46-ca0a9a70ed04}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e4870e26-3cc5-4cd2-ba46-ca0a9a70ed04}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -731,8 +768,7 @@ class Audio {
     static PKEY_AudioEndpointLogo_IconEffects {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f1ab780d-2010-4ed3-a3a6-8b87f0f0c476}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f1ab780d-2010-4ed3-a3a6-8b87f0f0c476}").CopyTo(value.fmtid.ptr)
             value.pid := 0
             return value
         }
@@ -744,8 +780,7 @@ class Audio {
     static PKEY_AudioEndpointLogo_IconPath {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f1ab780d-2010-4ed3-a3a6-8b87f0f0c476}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f1ab780d-2010-4ed3-a3a6-8b87f0f0c476}").CopyTo(value.fmtid.ptr)
             value.pid := 1
             return value
         }
@@ -757,8 +792,7 @@ class Audio {
     static PKEY_AudioEndpointSettings_MenuText {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{14242002-0320-4de4-9555-a7d82b73c286}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{14242002-0320-4de4-9555-a7d82b73c286}").CopyTo(value.fmtid.ptr)
             value.pid := 0
             return value
         }
@@ -770,8 +804,7 @@ class Audio {
     static PKEY_AudioEndpointSettings_LaunchContract {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{14242002-0320-4de4-9555-a7d82b73c286}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{14242002-0320-4de4-9555-a7d82b73c286}").CopyTo(value.fmtid.ptr)
             value.pid := 1
             return value
         }

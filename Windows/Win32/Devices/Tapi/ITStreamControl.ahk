@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumStream.ahk
+#Include .\TERMINAL_DIRECTION.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITStream.ahk
-#Include .\IEnumStream.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITStreamControl interface represents the media streaming features of a call and exposes methods that allow an application to enumerate, create, or remove streams.

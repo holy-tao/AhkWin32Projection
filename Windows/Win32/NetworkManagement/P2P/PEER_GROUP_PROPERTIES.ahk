@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The PEER_GROUP_PROPERTIES structure contains data about the membership policy of a peer group.
@@ -7,7 +9,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
 class PEER_GROUP_PROPERTIES extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -124,10 +126,13 @@ class PEER_GROUP_PROPERTIES extends Win32Struct {
     /**
      * <b>Windows Vista or later.</b> GUID value that indicates the peer group role for which the password is required for authentication.
      * @deprecated
-     * @type {Pointer}
+     * @type {Guid}
      */
     groupPasswordRole {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get {
+            if(!this.HasProp("__groupPasswordRole"))
+                this.__groupPasswordRole := Guid(80, this)
+            return this.__groupPasswordRole
+        }
     }
 }

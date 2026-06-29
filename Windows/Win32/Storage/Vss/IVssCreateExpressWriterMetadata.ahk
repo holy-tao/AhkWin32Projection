@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\VSS_RESTOREMETHOD_ENUM.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\VSS_COMPONENT_TYPE.ahk
+#Include .\VSS_WRITERRESTORE_ENUM.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVssCreateExpressWriterMetadata interface is a COM interface containing methods to construct the Writer Metadata Document for an express writer.
@@ -698,7 +704,7 @@ class IVssCreateExpressWriterMetadata extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscreateexpresswritermetadata-saveasxml
      */
     SaveAsXML() {
-        pbstrXML := BSTR()
+        pbstrXML := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrXML, "HRESULT")
         return pbstrXML
     }

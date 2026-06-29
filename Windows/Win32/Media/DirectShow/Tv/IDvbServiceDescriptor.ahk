@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) service descriptor.
@@ -76,7 +77,7 @@ class IDvbServiceDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getserviceprovidernamew
      */
     GetServiceProviderNameW() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -99,7 +100,7 @@ class IDvbServiceDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getprocessedservicename
      */
     GetProcessedServiceName() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -112,7 +113,7 @@ class IDvbServiceDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getservicenameemphasized
      */
     GetServiceNameEmphasized() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }

@@ -4,6 +4,7 @@
 #Include ..\Com\IDispatch.ahk
 #Include .\IUpdateHistoryEntry.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an ordered read-only list of IUpdateHistoryEntry interfaces.

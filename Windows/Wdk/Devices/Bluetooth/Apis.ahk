@@ -36,8 +36,7 @@ class Bluetooth {
     static DEVPKEY_Bluetooth_DeviceAddress {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}").CopyTo(value.fmtid.ptr)
             value.pid := 1
             return value
         }
@@ -49,8 +48,7 @@ class Bluetooth {
     static DEVPKEY_Bluetooth_ServiceGUID {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -62,8 +60,7 @@ class Bluetooth {
     static DEVPKEY_Bluetooth_DeviceFlags {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -75,8 +72,7 @@ class Bluetooth {
     static DEVPKEY_Bluetooth_DeviceManufacturer {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -88,8 +84,7 @@ class Bluetooth {
     static DEVPKEY_Bluetooth_DeviceModelNumber {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -101,8 +96,7 @@ class Bluetooth {
     static DEVPKEY_Bluetooth_DeviceVIDSource {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -114,8 +108,7 @@ class Bluetooth {
     static DEVPKEY_Bluetooth_DeviceVID {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -127,8 +120,7 @@ class Bluetooth {
     static DEVPKEY_Bluetooth_DevicePID {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -140,8 +132,7 @@ class Bluetooth {
     static DEVPKEY_Bluetooth_DeviceProductVersion {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -153,8 +144,7 @@ class Bluetooth {
     static DEVPKEY_Bluetooth_ClassOfDevice_Deprecated {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -166,8 +156,7 @@ class Bluetooth {
     static DEVPKEY_Bluetooth_LastConnectedTime_Deprecated {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -179,8 +168,7 @@ class Bluetooth {
     static DEVPKEY_Bluetooth_ClassOfDevice {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -192,8 +180,7 @@ class Bluetooth {
     static DEVPKEY_Bluetooth_LastConnectedTime {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -205,8 +192,7 @@ class Bluetooth {
     static DEVPKEY_Bluetooth_LastSeenTime {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2bd67d8b-8beb-48d5-87e0-6cda3428040a}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }

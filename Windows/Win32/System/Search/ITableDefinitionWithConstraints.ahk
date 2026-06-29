@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DBCONSTRAINTDESC.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\DBPROPSET.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\DBCOLUMNDESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Storage\IndexServer\DBID.ahk
 #Include .\ITableCreation.ahk
 
 /**

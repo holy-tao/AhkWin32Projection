@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_certificate_authentication0">IKEEXT_CERTIFICATE_AUTHENTICATION0</see>, <see href="https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_certificate_authentication1">IKEEXT_CERTIFICATE_AUTHENTICATION1</see>, <see href="https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_certificate_authentication2">IKEEXT_CERTIFICATE_AUTHENTICATION2</see>.
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class IKEEXT_CERT_AUTH extends Win32BitflagEnum {

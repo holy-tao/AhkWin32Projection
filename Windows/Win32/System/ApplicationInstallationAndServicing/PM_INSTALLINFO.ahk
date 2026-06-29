@@ -1,21 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
 class PM_INSTALLINFO extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 88
 
     static packingSize => 8
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ProductID {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__ProductID"))
+                this.__ProductID := Guid(0, this)
+            return this.__ProductID
+        }
     }
 
     /**
@@ -24,57 +29,63 @@ class PM_INSTALLINFO extends Win32Struct {
     PackagePath {
         get {
             if(!this.HasProp("__PackagePath"))
-                this.__PackagePath := BSTR(8, this)
+                this.__PackagePath := BSTR(16, this)
             return this.__PackagePath
         }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     InstanceID {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__InstanceID"))
+                this.__InstanceID := Guid(24, this)
+            return this.__InstanceID
+        }
     }
 
     /**
      * @type {Pointer<Integer>}
      */
     pbLicense {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     cbLicense {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * @type {BOOL}
      */
     IsUninstallDisabled {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
      * @type {Integer}
      */
     DeploymentOptions {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     OfferID {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get {
+            if(!this.HasProp("__OfferID"))
+                this.__OfferID := Guid(60, this)
+            return this.__OfferID
+        }
     }
 
     /**
@@ -83,7 +94,7 @@ class PM_INSTALLINFO extends Win32Struct {
     MarketplaceAppVersion {
         get {
             if(!this.HasProp("__MarketplaceAppVersion"))
-                this.__MarketplaceAppVersion := BSTR(56, this)
+                this.__MarketplaceAppVersion := BSTR(80, this)
             return this.__MarketplaceAppVersion
         }
     }

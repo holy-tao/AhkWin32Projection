@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\WTSSBX_SESSION_STATE.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * Contains information about sessions that are available to Remote Desktop Connection Broker (RD Connection Broker).

@@ -2,8 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITAddress.ahk
 #Include .\ITCallInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITAddress.ahk
 
 /**
  * The ITAddressDeviceSpecificEvent exposes methods that allow an application to retrieve information about a device-specific event.

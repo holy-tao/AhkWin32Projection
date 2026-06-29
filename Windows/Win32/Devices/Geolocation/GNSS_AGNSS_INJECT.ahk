@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\GNSS_AGNSS_REQUEST_TYPE.ahk
 #Include .\GNSS_AGNSS_INJECTTIME.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\GNSS_AGNSS_INJECTPOSITION.ahk
+#Include .\GNSS_AGNSS_REQUEST_TYPE.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 #Include .\GNSS_FIXDATA_BASIC.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\GNSS_FIXDATA_ACCURACY.ahk
+#Include .\GNSS_AGNSS_INJECTPOSITION.ahk
 #Include .\GNSS_AGNSS_INJECTBLOB.ahk
 
 /**

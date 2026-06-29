@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\LOGFONTW.ahk
-#Include ..\..\Graphics\Gdi\FONT_CHARSET.ahk
-#Include ..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk
-#Include ..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk
 #Include ..\..\Graphics\Gdi\FONT_QUALITY.ahk
+#Include ..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk
+#Include ..\..\Graphics\Gdi\FONT_CHARSET.ahk
+#Include ..\..\Graphics\Gdi\LOGFONTW.ahk
+#Include ..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk
 
 /**
  * Contains the scalable metrics associated with the nonclient area of a nonminimized window. (Unicode)

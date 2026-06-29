@@ -1,19 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PEER_APPLICATION.ahk
 #Include .\PEER_COLLAB_EVENT_TYPE.ahk
-#Include .\PEER_EVENT_WATCHLIST_CHANGED_DATA.ahk
-#Include .\PEER_CONTACT.ahk
-#Include .\PEER_CHANGE_TYPE.ahk
 #Include .\PEER_EVENT_PRESENCE_CHANGED_DATA.ahk
 #Include .\PEER_ENDPOINT.ahk
-#Include .\PEER_PRESENCE_INFO.ahk
-#Include .\PEER_EVENT_APPLICATION_CHANGED_DATA.ahk
-#Include .\PEER_APPLICATION.ahk
 #Include .\PEER_EVENT_OBJECT_CHANGED_DATA.ahk
-#Include .\PEER_OBJECT.ahk
-#Include .\PEER_EVENT_ENDPOINT_CHANGED_DATA.ahk
-#Include .\PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA.ahk
+#Include .\PEER_CONTACT.ahk
 #Include .\PEER_PEOPLE_NEAR_ME.ahk
+#Include .\PEER_EVENT_WATCHLIST_CHANGED_DATA.ahk
+#Include .\PEER_EVENT_ENDPOINT_CHANGED_DATA.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\PEER_EVENT_APPLICATION_CHANGED_DATA.ahk
+#Include .\PEER_PRESENCE_INFO.ahk
+#Include .\PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA.ahk
+#Include .\PEER_OBJECT.ahk
+#Include .\PEER_CHANGE_TYPE.ahk
 #Include .\PEER_EVENT_REQUEST_STATUS_CHANGED_DATA.ahk
 
 /**

@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
 class MPR_IPINIP_INTERFACE_0 extends Win32Struct {
-    static sizeof => 528
+    static sizeof => 532
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {String}
@@ -18,10 +19,13 @@ class MPR_IPINIP_INTERFACE_0 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Guid {
-        get => NumGet(this, 520, "ptr")
-        set => NumPut("ptr", value, this, 520)
+        get {
+            if(!this.HasProp("__Guid"))
+                this.__Guid := Guid(516, this)
+            return this.__Guid
+        }
     }
 }

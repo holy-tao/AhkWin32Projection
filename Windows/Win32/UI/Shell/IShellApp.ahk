@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\APPINFODATA.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\SLOWAPPINFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that provide general information about an application to the Add/Remove Programs Application.

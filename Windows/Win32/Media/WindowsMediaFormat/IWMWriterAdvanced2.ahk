@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWMWriterAdvanced.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WMT_ATTR_DATATYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMWriterAdvanced2 interface provides the ability to set and retrieve named settings for an input.IWMWriterAdvanced2 exists for every instance of the writer object. To obtain a pointer to this interface, call QueryInterface on the writer object.

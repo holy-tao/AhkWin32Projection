@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_DISK_PROP2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\VDS_DISK_FREE_EXTENT.ahk
 
 /**
  * Provides a method to retrieve property information for a disk, including the disk's location path.

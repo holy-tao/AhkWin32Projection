@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDCompositionVisual2.ahk
+#Include ..\Direct2D\Common\D2D1_COLOR_F.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a debug visual.

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D12Resource.ahk
+#Include .\D3D12_SHADING_RATE.ahk
+#Include .\D3D12_SHADING_RATE_COMBINER.ahk
 #Include .\ID3D12GraphicsCommandList4.ahk
 
 /**

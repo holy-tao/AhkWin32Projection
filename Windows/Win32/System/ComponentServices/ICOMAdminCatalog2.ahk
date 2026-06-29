@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ICOMAdminCatalog.ahk
-#Include ..\Com\IDispatch.ahk
+#Include .\COMAdminApplicationInstallOptions.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\COMAdminApplicationExportOptions.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\ICOMAdminCatalog.ahk
+#Include .\COMAdminInUse.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * An extension of the ICOMAdminCatalog interface.
@@ -94,7 +100,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-getapplicationinstanceidfromprocessid
      */
     GetApplicationInstanceIDFromProcessID(lProcessID) {
-        pbstrApplicationInstanceID := BSTR()
+        pbstrApplicationInstanceID := BSTR({Value: 0}, True)
         result := ComCall(34, this, "int", lProcessID, "ptr", pbstrApplicationInstanceID, "HRESULT")
         return pbstrApplicationInstanceID
     }
@@ -284,7 +290,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
         bstrApplicationInstanceID := bstrApplicationInstanceID is String ? BSTR.Alloc(bstrApplicationInstanceID).Value : bstrApplicationInstanceID
         bstrDirectory := bstrDirectory is String ? BSTR.Alloc(bstrDirectory).Value : bstrDirectory
 
-        pbstrDumpFile := BSTR()
+        pbstrDumpFile := BSTR({Value: 0}, True)
         result := ComCall(40, this, "ptr", bstrApplicationInstanceID, "ptr", bstrDirectory, "int", lMaxImages, "ptr", pbstrDumpFile, "HRESULT")
         return pbstrDumpFile
     }
@@ -349,7 +355,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
     GetPartitionID(bstrApplicationIDOrName) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
 
-        pbstrPartitionID := BSTR()
+        pbstrPartitionID := BSTR({Value: 0}, True)
         result := ComCall(44, this, "ptr", bstrApplicationIDOrName, "ptr", pbstrPartitionID, "HRESULT")
         return pbstrPartitionID
     }
@@ -363,7 +369,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
     GetPartitionName(bstrApplicationIDOrName) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
 
-        pbstrPartitionName := BSTR()
+        pbstrPartitionName := BSTR({Value: 0}, True)
         result := ComCall(45, this, "ptr", bstrApplicationIDOrName, "ptr", pbstrPartitionName, "HRESULT")
         return pbstrPartitionName
     }
@@ -387,7 +393,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_currentpartitionid
      */
     get_CurrentPartitionID() {
-        pbstrPartitionID := BSTR()
+        pbstrPartitionID := BSTR({Value: 0}, True)
         result := ComCall(47, this, "ptr", pbstrPartitionID, "HRESULT")
         return pbstrPartitionID
     }
@@ -398,7 +404,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_currentpartitionname
      */
     get_CurrentPartitionName() {
-        pbstrPartitionName := BSTR()
+        pbstrPartitionName := BSTR({Value: 0}, True)
         result := ComCall(48, this, "ptr", pbstrPartitionName, "HRESULT")
         return pbstrPartitionName
     }
@@ -409,7 +415,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_globalpartitionid
      */
     get_GlobalPartitionID() {
-        pbstrGlobalPartitionID := BSTR()
+        pbstrGlobalPartitionID := BSTR({Value: 0}, True)
         result := ComCall(49, this, "ptr", pbstrGlobalPartitionID, "HRESULT")
         return pbstrGlobalPartitionID
     }

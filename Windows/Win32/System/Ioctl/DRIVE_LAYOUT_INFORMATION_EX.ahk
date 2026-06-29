@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DRIVE_LAYOUT_INFORMATION_MBR.ahk
-#Include .\DRIVE_LAYOUT_INFORMATION_GPT.ahk
-#Include .\PARTITION_INFORMATION_EX.ahk
 #Include .\PARTITION_STYLE.ahk
-#Include .\PARTITION_INFORMATION_MBR.ahk
-#Include .\PARTITION_INFORMATION_GPT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\DRIVE_LAYOUT_INFORMATION_GPT.ahk
 #Include .\GPT_ATTRIBUTES.ahk
+#Include .\PARTITION_INFORMATION_MBR.ahk
+#Include .\PARTITION_INFORMATION_EX.ahk
+#Include .\PARTITION_INFORMATION_GPT.ahk
 
 /**
  * Contains extended information about a drive's partitions.
@@ -14,7 +16,7 @@
  * @namespace Windows.Win32.System.Ioctl
  */
 class DRIVE_LAYOUT_INFORMATION_EX extends Win32Struct {
-    static sizeof => 168
+    static sizeof => 192
 
     static packingSize => 8
 
@@ -71,7 +73,7 @@ class DRIVE_LAYOUT_INFORMATION_EX extends Win32Struct {
     PartitionEntry {
         get {
             if(!this.HasProp("__PartitionEntryProxyArray"))
-                this.__PartitionEntryProxyArray := Win32FixedArray(this.ptr + 40, 1, PARTITION_INFORMATION_EX, "")
+                this.__PartitionEntryProxyArray := Win32FixedArray(this.ptr + 48, 1, PARTITION_INFORMATION_EX, "")
             return this.__PartitionEntryProxyArray
         }
     }

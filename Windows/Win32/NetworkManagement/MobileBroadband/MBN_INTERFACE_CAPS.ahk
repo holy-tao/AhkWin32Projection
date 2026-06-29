@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MBN_CELLULAR_CLASS.ahk
-#Include .\MBN_VOICE_CLASS.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\MBN_VOICE_CLASS.ahk
+#Include .\MBN_CELLULAR_CLASS.ahk
 
 /**
  * The MBN_INTERFACE_CAPS structure represents the interface capabilities.

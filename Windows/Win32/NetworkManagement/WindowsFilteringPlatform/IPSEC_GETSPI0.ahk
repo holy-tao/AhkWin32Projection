@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_TRAFFIC0.ahk
 #Include .\FWP_IP_VERSION.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IPSEC_TRAFFIC_TYPE.ahk
+#Include .\IPSEC_TRAFFIC0.ahk
 #Include .\IPSEC_V4_UDP_ENCAPSULATION0.ahk
 
 /**

@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include .\IModelObject.ahk
 #Include .\IKeyEnumerator.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

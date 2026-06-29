@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\SpectralInversion.ahk
+#Include ..\LNB_Source.ahk
+#Include ..\Pilot.ahk
+#Include ..\RollOff.ahk
 #Include .\IDVBSLocator.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides information to enable a tuner to acquire a Digital Video Broadcasting-Satellite (DVB-S) transmission.

@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IEnumProgressItems.ahk
 #Include ..\..\System\Ole\IEnumVARIANT.ahk
 #Include .\IProgressItem.ahk
-#Include .\IEnumProgressItems.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to enumerate the progress items in a result image.

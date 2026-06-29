@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The DHCP_SERVER_OPTIONS structure specifies requested DHCP Server options.

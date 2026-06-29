@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ACCESSRECTLIST.ahk
 #Include .\VMEMHEAP.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
 #Include .\DDPIXELFORMAT.ahk
+#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

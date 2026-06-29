@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\JOYREGHWSETTINGS.ahk
 
 /**
@@ -58,9 +59,9 @@
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
 class DIJOYTYPEINFO extends Win32Struct {
-    static sizeof => 2088
+    static sizeof => 2092
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the size of the structure in bytes. This member must be initialized before the structure is used.
@@ -85,11 +86,14 @@ class DIJOYTYPEINFO extends Win32Struct {
 
     /**
      * Specifies a CLSID for the joystick type configuration object. Pass this CLSID to CoCreateInstance to create a configuration object. This field is zero if the type does not have custom configuration.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidConfig {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__clsidConfig"))
+                this.__clsidConfig := Guid(12, this)
+            return this.__clsidConfig
+        }
     }
 
     /**
@@ -97,8 +101,8 @@ class DIJOYTYPEINFO extends Win32Struct {
      * @type {String}
      */
     wszDisplayName {
-        get => StrGet(this.ptr + 24, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 255, "UTF-16")
+        get => StrGet(this.ptr + 28, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 28, 255, "UTF-16")
     }
 
     /**
@@ -106,8 +110,8 @@ class DIJOYTYPEINFO extends Win32Struct {
      * @type {String}
      */
     wszCallout {
-        get => StrGet(this.ptr + 536, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 536, 259, "UTF-16")
+        get => StrGet(this.ptr + 540, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 540, 259, "UTF-16")
     }
 
     /**
@@ -115,8 +119,8 @@ class DIJOYTYPEINFO extends Win32Struct {
      * @type {String}
      */
     wszHardwareId {
-        get => StrGet(this.ptr + 1056, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 1056, 255, "UTF-16")
+        get => StrGet(this.ptr + 1060, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 1060, 255, "UTF-16")
     }
 
     /**
@@ -124,8 +128,8 @@ class DIJOYTYPEINFO extends Win32Struct {
      * @type {Integer}
      */
     dwFlags1 {
-        get => NumGet(this, 1568, "uint")
-        set => NumPut("uint", value, this, 1568)
+        get => NumGet(this, 1572, "uint")
+        set => NumPut("uint", value, this, 1572)
     }
 
     /**
@@ -133,15 +137,15 @@ class DIJOYTYPEINFO extends Win32Struct {
      * @type {Integer}
      */
     dwFlags2 {
-        get => NumGet(this, 1572, "uint")
-        set => NumPut("uint", value, this, 1572)
+        get => NumGet(this, 1576, "uint")
+        set => NumPut("uint", value, this, 1576)
     }
 
     /**
      * @type {String}
      */
     wszMapFile {
-        get => StrGet(this.ptr + 1576, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 1576, 255, "UTF-16")
+        get => StrGet(this.ptr + 1580, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 1580, 255, "UTF-16")
     }
 }

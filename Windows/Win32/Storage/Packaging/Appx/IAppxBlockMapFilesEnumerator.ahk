@@ -3,6 +3,8 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAppxBlockMapFile.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Enumerates the files from a block map.

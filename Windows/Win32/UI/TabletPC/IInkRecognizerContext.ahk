@@ -1,13 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkStrokes.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IInkRecognizerGuide.ahk
 #Include .\IInkWordList.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IInkStrokes.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IInkRecognizer.ahk
+#Include .\InkRecognitionStatus.ahk
 #Include .\IInkRecognitionResult.ahk
+#Include .\InkRecognizerCharacterAutoCompletionMode.ahk
+#Include .\InkRecognitionModes.ahk
 
 /**
  * . (IInkRecognizerContext)
@@ -207,7 +213,7 @@ class IInkRecognizerContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_factoid
      */
     get_Factoid() {
-        Factoid := BSTR()
+        Factoid := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", Factoid, "HRESULT")
         return Factoid
     }
@@ -308,7 +314,7 @@ class IInkRecognizerContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_prefixtext
      */
     get_PrefixText() {
-        Prefix := BSTR()
+        Prefix := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", Prefix, "HRESULT")
         return Prefix
     }
@@ -360,7 +366,7 @@ class IInkRecognizerContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_suffixtext
      */
     get_SuffixText() {
-        Suffix := BSTR()
+        Suffix := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", Suffix, "HRESULT")
         return Suffix
     }

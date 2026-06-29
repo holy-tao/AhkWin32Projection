@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IMetaDataImport.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IMetaDataImport interface to provide the capability of working with generic types.

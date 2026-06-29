@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IInspectable.ahk
 #Include .\HSTRING.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT
@@ -48,7 +49,7 @@ class ICorrelationVectorInformation extends IInspectable {
      * @returns {HSTRING} 
      */
     get_LastCorrelationVectorForThread() {
-        cv := HSTRING()
+        cv := HSTRING({Value: 0}, True)
         result := ComCall(6, this, "ptr", cv, "HRESULT")
         return cv
     }
@@ -58,7 +59,7 @@ class ICorrelationVectorInformation extends IInspectable {
      * @returns {HSTRING} 
      */
     get_NextCorrelationVectorForThread() {
-        cv := HSTRING()
+        cv := HSTRING({Value: 0}, True)
         result := ComCall(7, this, "ptr", cv, "HRESULT")
         return cv
     }

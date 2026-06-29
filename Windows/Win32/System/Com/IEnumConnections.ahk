@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUnknown.ahk
+#Include .\CONNECTDATA.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enumerates the current connections for a connectable object.

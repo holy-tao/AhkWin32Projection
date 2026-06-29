@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\THUMBBUTTONMASK.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
 #Include .\THUMBBUTTONFLAGS.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
+#Include .\THUMBBUTTONMASK.ahk
 
 /**
  * Used by methods of the ITaskbarList3 interface to define buttons used in a toolbar embedded in a window's thumbnail representation.

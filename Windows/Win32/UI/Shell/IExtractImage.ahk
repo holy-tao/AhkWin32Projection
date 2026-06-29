@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that request a thumbnail image from a Shell folder.
@@ -120,7 +123,7 @@ class IExtractImage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iextractimage-extract
      */
     Extract() {
-        phBmpThumbnail := HBITMAP()
+        phBmpThumbnail := HBITMAP({Value: 0}, True)
         result := ComCall(4, this, "ptr", phBmpThumbnail, "HRESULT")
         return phBmpThumbnail
     }

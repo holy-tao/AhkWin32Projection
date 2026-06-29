@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WAVEFORMATEX.ahk
+#Include .\SpatialAudioHrtfEnvironmentType.ahk
+#Include .\ISpatialAudioObjectRenderStreamNotify.ahk
+#Include .\SpatialAudioHrtfDirectivityUnion.ahk
 #Include .\AudioObjectType.ahk
 #Include .\AUDIO_STREAM_CATEGORY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\ISpatialAudioObjectRenderStreamNotify.ahk
+#Include .\WAVEFORMATEX.ahk
 #Include .\SpatialAudioHrtfDistanceDecay.ahk
-#Include .\SpatialAudioHrtfDirectivityUnion.ahk
-#Include .\SpatialAudioHrtfEnvironmentType.ahk
 
 /**
  * Specifies the activation parameters for an ISpatialAudioRenderStreamForHrtf.

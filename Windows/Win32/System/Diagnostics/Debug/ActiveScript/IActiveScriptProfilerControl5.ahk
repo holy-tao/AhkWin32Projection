@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\PROFILER_HEAP_ENUM_FLAGS.ahk
 #Include .\IActiveScriptProfilerControl4.ahk
 #Include .\IActiveScriptProfilerHeapEnum.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

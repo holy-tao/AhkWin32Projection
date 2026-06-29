@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ICommDlgBrowser2.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IShellView.ahk
 
 /**
  * Extends the capabilities of ICommDlgBrowser2, and used by the common file dialog boxes when they host a Shell browser.

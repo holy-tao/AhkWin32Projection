@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\WinSock\SOCKADDR_STORAGE.ahk
 #Include ..\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\WinSock\SOCKADDR_STORAGE.ahk
 
 /**
  * The WINHTTP_CONNECTION_INFO structure contains the source and destination IP address of the request that generated the response.

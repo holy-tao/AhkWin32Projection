@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\D3D11_AUTHENTICATED_QUERY_OUTPUT.ahk
-#Include .\D3D11_OMAC.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\D3D11_OMAC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the response to a D3D11_AUTHENTICATED_QUERY_ENCRYPTION_WHEN_ACCESSIBLE_GUID query.
@@ -10,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
 class D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_ENCRYPTION_GUID_OUTPUT extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -31,16 +33,19 @@ class D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_ENCRYPTION_GUID_OUTPUT extends Win
      * @type {Integer}
      */
     EncryptionGuidIndex {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * A GUID that specifies a supported encryption type.
-     * @type {Pointer}
+     * @type {Guid}
      */
     EncryptionGuid {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get {
+            if(!this.HasProp("__EncryptionGuid"))
+                this.__EncryptionGuid := Guid(52, this)
+            return this.__EncryptionGuid
+        }
     }
 }

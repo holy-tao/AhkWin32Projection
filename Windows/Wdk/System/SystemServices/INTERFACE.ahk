@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes a cross timestamp retrieved from a network adapter.
- * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/ns-iphlpapi-interface_hardware_crosstimestamp
  * @namespace Windows.Wdk.System.SystemServices
  */
 class INTERFACE extends Win32Struct {

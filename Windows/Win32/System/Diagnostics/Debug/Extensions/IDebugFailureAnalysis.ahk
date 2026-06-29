@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\FA_ENTRY.ahk
+#Include .\DEBUG_FAILURE_TYPE.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include .\DEBUG_FLR_PARAM_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -66,24 +69,11 @@ class IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * Retrieves a handle to the first control in a group of controls that precedes (or follows) the specified control in a dialog box.
-     * @remarks
-     * The <b>GetNextDlgGroupItem</b> function searches controls in the order (or reverse order) they were created in the dialog box template. The first control in the group must have the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/dlgbox-programming-considerations">WS_GROUP</a> style; all other controls in the group must have been consecutively created and must not have the <b>WS_GROUP</b> style. 
      * 
-     * When searching for the previous control, the function returns the first control it locates that is visible and not disabled. If the control specified by <i>hCtl</i> has the <b>WS_GROUP</b> style, the function temporarily reverses the search to locate the first control having the <b>WS_GROUP</b> style, then resumes the search in the original direction, returning the first control it locates that is visible and not disabled, or returning <i>hCtl</i> if no such control is found. 
-     * 
-     * When searching for the next control, the function returns the first control it locates that is visible, not disabled, and does not have the <b>WS_GROUP</b> style. If it encounters a control having the <b>WS_GROUP</b> style, the function reverses the search, locates the first control having the <b>WS_GROUP</b> style, and returns this control if it is visible and not disabled. Otherwise, the function resumes the search in the original direction and returns the first control it locates that is visible and not disabled, or returns <i>hCtl</i> if no such control is found. 
-     * 
-     * If the search for the next control in the group encounters a window with the <b>WS_EX_CONTROLPARENT</b> style, the system recursively searches the window's children.
      * @param {Pointer<FA_ENTRY>} Entry 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {DEBUG_FLR_PARAM_TYPE} TagMask 
-     * @returns {Pointer<FA_ENTRY>} Type: <b>HWND</b>
-     * 
-     * If the function succeeds, the return value is a handle to the previous (or next) control in the group of controls. 
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getnextdlggroupitem
+     * @returns {Pointer<FA_ENTRY>} 
      */
     GetNext(Entry, Tag, TagMask) {
         result := ComCall(7, this, "ptr", Entry, "int", Tag, "int", TagMask, "ptr")
@@ -91,16 +81,11 @@ class IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * Returns a string located at a given position within a BLOB.
+     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Str 
      * @param {Integer} MaxSize 
-     * @returns {Pointer<FA_ENTRY>} If the function is successful, the return value is NMERR\_SUCCESS.
-     * 
-     * If the function is unsuccessful, the return value is a NMERR value that indicates the error.
-     * 
-     * If the specified **Owner**, **Category**, or **Tag** data does not exist, the function returns **NMERR\_BLOB\_ENTRY\_DOES\_NOT\_EXIST**.
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/getstringfromblob
+     * @returns {Pointer<FA_ENTRY>} 
      */
     GetString(Tag, Str, MaxSize) {
         result := ComCall(8, this, "int", Tag, "ptr", Str, "uint", MaxSize, "ptr")
@@ -108,16 +93,11 @@ class IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * Retrieves a pointer to the buffer bitmap if the buffer is a device-independent bitmap (DIB).
-     * @remarks
-     * The number of bits per pixel depends on the pixel format passed to <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
+     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Buf 
      * @param {Integer} _Size 
-     * @returns {Pointer<FA_ENTRY>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * Returns S_OK if successful, or an error value otherwise. If an error occurs, <i>ppbBuffer</i>  is set to <b>NULL</b> and <i>pcxRow</i> is set to zero.
-     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getbufferedpaintbits
+     * @returns {Pointer<FA_ENTRY>} 
      */
     GetBuffer(Tag, Buf, _Size) {
         result := ComCall(9, this, "int", Tag, "ptr", Buf, "uint", _Size, "ptr")

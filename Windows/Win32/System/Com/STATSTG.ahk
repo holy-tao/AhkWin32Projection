@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\STGM.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * Contains statistical data about an open storage, stream, or byte-array object.
@@ -9,7 +11,7 @@
  * @namespace Windows.Win32.System.Com
  */
 class STATSTG extends Win32Struct {
-    static sizeof => 72
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -101,11 +103,14 @@ class STATSTG extends Win32Struct {
 
     /**
      * Indicates the class identifier for the storage object; set to CLSID_NULL for new storage objects. This member is not used for streams or byte arrays.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(56, this)
+            return this.__clsid
+        }
     }
 
     /**
@@ -114,8 +119,8 @@ class STATSTG extends Win32Struct {
      * @type {Integer}
      */
     grfStateBits {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -123,12 +128,12 @@ class STATSTG extends Win32Struct {
      * @type {Integer}
      */
     reserved {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 72
+        this.cbSize := 80
     }
 }

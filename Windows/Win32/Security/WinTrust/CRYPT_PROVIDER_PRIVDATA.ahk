@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains private data to be used by a provider.
@@ -22,11 +23,14 @@ class CRYPT_PROVIDER_PRIVDATA extends Win32Struct {
 
     /**
      * <b>GUID</b> that identifies the provider.
-     * @type {Pointer}
+     * @type {Guid}
      */
     gProviderID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__gProviderID"))
+                this.__gProviderID := Guid(4, this)
+            return this.__gProviderID
+        }
     }
 
     /**
@@ -34,8 +38,8 @@ class CRYPT_PROVIDER_PRIVDATA extends Win32Struct {
      * @type {Integer}
      */
     cbProvData {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**

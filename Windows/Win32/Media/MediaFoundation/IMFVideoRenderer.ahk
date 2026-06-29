@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFTransform.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFVideoPresenter.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Sets a new mixer or presenter for the Enhanced Video Renderer (EVR).

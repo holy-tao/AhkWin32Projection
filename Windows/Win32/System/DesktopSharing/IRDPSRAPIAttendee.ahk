@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Include .\CTRL_LEVEL.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IRDPSRAPIInvitation.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Attendee objects are created as a result of clients connecting to the session and being authenticated. After an attendee object is created, it is automatically added to the attendees list.
@@ -101,7 +103,7 @@ class IRDPSRAPIAttendee extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_remotename
      */
     get_RemoteName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
         return pVal
     }

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSMAN_CERTIFICATE_DETAILS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\WSMAN_CERTIFICATE_DETAILS.ahk
 
 /**
  * Specifies the client details for every inbound request.

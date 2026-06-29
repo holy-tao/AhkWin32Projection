@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\StackOverflowType.ahk
 #Include ..\Diagnostics\Debug\EXCEPTION_POINTERS.ahk
+#Include .\StackOverflowType.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting

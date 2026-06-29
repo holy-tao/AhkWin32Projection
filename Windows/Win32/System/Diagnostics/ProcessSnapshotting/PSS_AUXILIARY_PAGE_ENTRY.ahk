@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\FILETIME.ahk
+#Include ..\..\Memory\VIRTUAL_ALLOCATION_TYPE.ahk
 #Include ..\..\Memory\MEMORY_BASIC_INFORMATION.ahk
 #Include ..\..\Memory\PAGE_PROTECTION_FLAGS.ahk
-#Include ..\..\Memory\VIRTUAL_ALLOCATION_TYPE.ahk
 #Include ..\..\Memory\PAGE_TYPE.ahk
-#Include ..\..\..\Foundation\FILETIME.ahk
 
 /**
  * Holds auxiliary page entry information returned by PssWalkSnapshot.

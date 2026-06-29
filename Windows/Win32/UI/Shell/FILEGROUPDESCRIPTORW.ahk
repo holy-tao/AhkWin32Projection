@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\POINTL.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\FILEDESCRIPTORW.ahk
 #Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\Foundation\POINTL.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * Defines the CF_FILEGROUPDESCRIPTOR clipboard format. (Unicode)
@@ -15,9 +16,9 @@
  * @charset Unicode
  */
 class FILEGROUPDESCRIPTORW extends Win32Struct {
-    static sizeof => 600
+    static sizeof => 596
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>UINT</b>
@@ -39,7 +40,7 @@ class FILEGROUPDESCRIPTORW extends Win32Struct {
     fgd {
         get {
             if(!this.HasProp("__fgdProxyArray"))
-                this.__fgdProxyArray := Win32FixedArray(this.ptr + 8, 1, FILEDESCRIPTORW, "")
+                this.__fgdProxyArray := Win32FixedArray(this.ptr + 4, 1, FILEDESCRIPTORW, "")
             return this.__fgdProxyArray
         }
     }

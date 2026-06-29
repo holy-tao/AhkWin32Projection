@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\PROFILER_HEAP_OBJECT_OPTIONAL_INFO_TYPE.ahk
-#Include .\PROFILER_HEAP_OBJECT_SCOPE_LIST.ahk
-#Include .\PROFILER_HEAP_OBJECT_RELATIONSHIP.ahk
 #Include .\PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include .\PROFILER_HEAP_OBJECT_RELATIONSHIP.ahk
+#Include .\PROFILER_HEAP_OBJECT_SCOPE_LIST.ahk
+#Include .\PROFILER_HEAP_OBJECT_OPTIONAL_INFO_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

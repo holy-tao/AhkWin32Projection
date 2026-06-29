@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ADDRESS_CAPABILITY.ahk
 #Include .\IEnumBstr.ahk
+#Include .\ADDRESS_CAPABILITY_STRING.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITAddressCapabilities interface is used to obtain information about an address's capabilities. It is on the Address object, and an application can access it by calling QueryInterface on the Address object.
@@ -74,7 +77,7 @@ class ITAddressCapabilities extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_addresscapabilitystring
      */
     get_AddressCapabilityString(AddressCapString) {
-        ppCapabilityString := BSTR()
+        ppCapabilityString := BSTR({Value: 0}, True)
         result := ComCall(8, this, "int", AddressCapString, "ptr", ppCapabilityString, "HRESULT")
         return ppCapabilityString
     }

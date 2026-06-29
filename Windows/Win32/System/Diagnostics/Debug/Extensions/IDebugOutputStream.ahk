@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -28,13 +30,9 @@ class IDebugOutputStream extends IUnknown {
     static VTableNames => ["Write"]
 
     /**
-     * The WriteBackRootHintDatafile method writes the RootHints back to the DNS Cache file.
+     * 
      * @param {PWSTR} psz 
-     * @returns {HRESULT} This method has no parameters.
-     * 
-     * 
-     * This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-roothints-writebackroothintdatafile
+     * @returns {HRESULT} 
      */
     Write(psz) {
         psz := psz is String ? StrPtr(psz) : psz

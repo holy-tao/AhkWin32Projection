@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DTBLLABEL.ahk
-#Include .\DTBLEDIT.ahk
 #Include .\DTBLLBX.ahk
-#Include .\DTBLCOMBOBOX.ahk
 #Include .\DTBLDDLBX.ahk
-#Include .\DTBLCHECKBOX.ahk
-#Include .\DTBLGROUPBOX.ahk
-#Include .\DTBLBUTTON.ahk
-#Include .\DTBLRADIOBUTTON.ahk
 #Include .\DTBLMVLISTBOX.ahk
-#Include .\DTBLMVDDLBX.ahk
+#Include .\DTBLEDIT.ahk
+#Include .\DTBLGROUPBOX.ahk
+#Include .\DTBLCOMBOBOX.ahk
 #Include .\DTBLPAGE.ahk
+#Include .\DTBLMVDDLBX.ahk
+#Include .\DTBLLABEL.ahk
+#Include .\DTBLCHECKBOX.ahk
+#Include .\DTBLRADIOBUTTON.ahk
+#Include .\DTBLBUTTON.ahk
 
 /**
  * Describes a control that will be used in a dialog box built from a display table.
@@ -35,7 +35,7 @@ class DTCTL extends Win32Struct {
 
     static packingSize => 8
 
-    class _ctl_e__Union extends Win32Struct {
+    class _ctl extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -280,12 +280,12 @@ class DTCTL extends Win32Struct {
 
     /**
      * > A structure that holds the data for the control and corresponds to the control's **PR_CONTROL_STRUCTURE** ([PidTagControlStructure](pidtagcontrolstructure-canonical-property.md)) property. Each type of control has a different structure.
-     * @type {_ctl_e__Union}
+     * @type {_ctl}
      */
     ctl {
         get {
             if(!this.HasProp("__ctl"))
-                this.__ctl := DTCTL._ctl_e__Union(40, this)
+                this.__ctl := DTCTL._ctl(40, this)
             return this.__ctl
         }
     }

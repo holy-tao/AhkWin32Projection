@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\DirectSound\IDirectSound.ahk
+#Include ..\DirectSound\IDirectSoundBuffer.ahk
+#Include .\IDirectMusicSynth.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\IReferenceClock.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IDirectMusicSynthSink interface is now largely obsolete and is supported only by versions of DirectMusic before DirectX 8.

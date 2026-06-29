@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmQuotaObject.ahk
+#Include .\FsrmTemplateApplyOptions.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\FsrmCommitOptions.ahk
 #Include .\IFsrmDerivedObjectsResult.ahk
+#Include .\IFsrmQuotaObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to automatically add the quota to new and existing subdirectories of the directory on which the automatic quota is applied.

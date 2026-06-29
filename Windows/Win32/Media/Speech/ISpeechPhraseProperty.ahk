@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\ISpeechPhraseProperties.ahk
+#Include .\SpeechEngineConfidence.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -98,7 +100,7 @@ class ISpeechPhraseProperty extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        Name := BSTR()
+        Name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", Name, "HRESULT")
         return Name
     }

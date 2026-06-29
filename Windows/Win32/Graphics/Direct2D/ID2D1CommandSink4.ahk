@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D2D1_PRIMITIVE_BLEND.ahk
 #Include .\ID2D1CommandSink3.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface performs all the same functions as the existing ID2D1CommandSink3 interface. It also enables access to the new primitive blend mode, MAX, through the SetPrimitiveBlend2 method.

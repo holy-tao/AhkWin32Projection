@@ -9,7 +9,7 @@ class WINDOWS_IAS_QUERY extends Win32Struct {
 
     static packingSize => 4
 
-    class _irdaAttribute_e__Union extends Win32Struct {
+    class _irdaAttribute extends Win32Struct {
         static sizeof => 1028
         static packingSize => 4
 
@@ -83,7 +83,7 @@ class WINDOWS_IAS_QUERY extends Win32Struct {
         irdaAttribOctetSeq {
             get {
                 if(!this.HasProp("__irdaAttribOctetSeq"))
-                    this.__irdaAttribOctetSeq := WINDOWS_IAS_QUERY._irdaAttribute_e__Union._irdaAttribOctetSeq(0, this)
+                    this.__irdaAttribOctetSeq := WINDOWS_IAS_QUERY._irdaAttribute._irdaAttribOctetSeq(0, this)
                 return this.__irdaAttribOctetSeq
             }
         }
@@ -94,7 +94,7 @@ class WINDOWS_IAS_QUERY extends Win32Struct {
         irdaAttribUsrStr {
             get {
                 if(!this.HasProp("__irdaAttribUsrStr"))
-                    this.__irdaAttribUsrStr := WINDOWS_IAS_QUERY._irdaAttribute_e__Union._irdaAttribUsrStr(0, this)
+                    this.__irdaAttribUsrStr := WINDOWS_IAS_QUERY._irdaAttribute._irdaAttribUsrStr(0, this)
                 return this.__irdaAttribUsrStr
             }
         }
@@ -136,12 +136,12 @@ class WINDOWS_IAS_QUERY extends Win32Struct {
     }
 
     /**
-     * @type {_irdaAttribute_e__Union}
+     * @type {_irdaAttribute}
      */
     irdaAttribute {
         get {
             if(!this.HasProp("__irdaAttribute"))
-                this.__irdaAttribute := WINDOWS_IAS_QUERY._irdaAttribute_e__Union(328, this)
+                this.__irdaAttribute := WINDOWS_IAS_QUERY._irdaAttribute(328, this)
             return this.__irdaAttribute
         }
     }

@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The operation converts pptfContainer into pptlHimetric. Cannot be used with XFORMCOORDS_HIMETRICTOCONTAINER.
- * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iolecontrolsite-transformcoords
  * @namespace Windows.Win32.System.Ole
  */
 class XFORMCOORDS extends Win32Enum {

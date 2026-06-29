@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Contains version information for a programmatic interface for a CNG provider.
- * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_interface_version
  * @namespace Windows.Win32.Security.Cryptography
  */
 class BCRYPT_INTERFACE extends Win32Enum {

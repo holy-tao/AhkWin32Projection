@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\DMUS_CLOCKTYPE.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
 class DMUS_CLOCKINFO7 extends Win32Struct {
-    static sizeof => 272
+    static sizeof => 280
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -27,18 +28,21 @@ class DMUS_CLOCKINFO7 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidClock {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidClock"))
+                this.__guidClock := Guid(8, this)
+            return this.__guidClock
+        }
     }
 
     /**
      * @type {String}
      */
     wszDescription {
-        get => StrGet(this.ptr + 16, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 127, "UTF-16")
+        get => StrGet(this.ptr + 24, 127, "UTF-16")
+        set => StrPut(value, this.ptr + 24, 127, "UTF-16")
     }
 }

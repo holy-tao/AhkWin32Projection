@@ -3,6 +3,8 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcSignatureRelationshipReference.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * A read-only enumerator of IOpcSignatureRelationshipReference interface pointers.

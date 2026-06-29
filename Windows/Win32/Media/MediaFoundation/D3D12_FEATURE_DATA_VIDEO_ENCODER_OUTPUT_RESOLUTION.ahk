@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_RATIO_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Retrieves the list of supported resolutions for the specified codec.

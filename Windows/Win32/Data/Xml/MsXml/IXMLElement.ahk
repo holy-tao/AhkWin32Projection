@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IXMLElementCollection.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
- * Supports collection of XML elements for indexed access.
- * @see https://learn.microsoft.com/windows/win32/api/msxml/nn-msxml-ixmlelementcollection
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
 class IXMLElement extends IDispatch {
@@ -74,7 +73,7 @@ class IXMLElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_tagName() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", p, "HRESULT")
         return p
     }
@@ -161,7 +160,7 @@ class IXMLElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_text() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", p, "HRESULT")
         return p
     }

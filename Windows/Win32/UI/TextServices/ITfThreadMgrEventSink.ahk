@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfDocumentMgr.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITfContext.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfThreadMgrEventSink interface is implemented by an application or TSF text service to receive notifications of certain thread manager events. Call the TSF manager ITfSource::AdviseSink with IID_ITfThreadMgrEventSink to install this advise sink.

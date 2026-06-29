@@ -1,6 +1,50 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\TAKE_SNAPSHOT_VHDSET_PARAMETERS.ahk
+#Include .\SET_VIRTUAL_DISK_INFO.ahk
+#Include .\RAW_SCSI_VIRTUAL_DISK_FLAG.ahk
+#Include .\APPLY_SNAPSHOT_VHDSET_PARAMETERS.ahk
+#Include ..\..\System\IO\OVERLAPPED.ahk
+#Include .\MERGE_VIRTUAL_DISK_FLAG.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\EXPAND_VIRTUAL_DISK_PARAMETERS.ahk
+#Include .\MODIFY_VHDSET_PARAMETERS.ahk
+#Include .\MIRROR_VIRTUAL_DISK_PARAMETERS.ahk
+#Include .\VIRTUAL_DISK_PROGRESS.ahk
+#Include .\ATTACH_VIRTUAL_DISK_PARAMETERS.ahk
+#Include .\GET_STORAGE_DEPENDENCY_FLAG.ahk
+#Include .\DELETE_SNAPSHOT_VHDSET_FLAG.ahk
+#Include .\FORK_VIRTUAL_DISK_FLAG.ahk
+#Include .\CREATE_VIRTUAL_DISK_PARAMETERS.ahk
+#Include .\MIRROR_VIRTUAL_DISK_FLAG.ahk
+#Include .\ATTACH_VIRTUAL_DISK_FLAG.ahk
+#Include .\APPLY_SNAPSHOT_VHDSET_FLAG.ahk
+#Include .\EXPAND_VIRTUAL_DISK_FLAG.ahk
+#Include .\VIRTUAL_STORAGE_TYPE.ahk
+#Include .\COMPACT_VIRTUAL_DISK_FLAG.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\WIN32_ERROR.ahk
+#Include .\FORK_VIRTUAL_DISK_PARAMETERS.ahk
+#Include .\QUERY_CHANGES_VIRTUAL_DISK_RANGE.ahk
+#Include .\VIRTUAL_DISK_ACCESS_MASK.ahk
+#Include .\STORAGE_DEPENDENCY_INFO.ahk
+#Include .\MODIFY_VHDSET_FLAG.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\TAKE_SNAPSHOT_VHDSET_FLAG.ahk
+#Include .\DETACH_VIRTUAL_DISK_FLAG.ahk
+#Include .\OPEN_VIRTUAL_DISK_PARAMETERS.ahk
+#Include .\DELETE_SNAPSHOT_VHDSET_PARAMETERS.ahk
+#Include .\RAW_SCSI_VIRTUAL_DISK_PARAMETERS.ahk
+#Include .\MERGE_VIRTUAL_DISK_PARAMETERS.ahk
+#Include .\COMPACT_VIRTUAL_DISK_PARAMETERS.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
+#Include .\RESIZE_VIRTUAL_DISK_FLAG.ahk
+#Include .\RAW_SCSI_VIRTUAL_DISK_RESPONSE.ahk
+#Include .\OPEN_VIRTUAL_DISK_FLAG.ahk
+#Include .\RESIZE_VIRTUAL_DISK_PARAMETERS.ahk
+#Include .\QUERY_CHANGES_VIRTUAL_DISK_FLAG.ahk
+#Include .\CREATE_VIRTUAL_DISK_FLAG.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Vhd

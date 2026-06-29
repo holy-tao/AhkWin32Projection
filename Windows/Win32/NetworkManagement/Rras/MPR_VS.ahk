@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * RRAS dials PPTP first. If PPTP fails, L2TP is attempted. The protocol that succeeds is tried first in subsequent dialing for this entry.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_interface_2
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
 class MPR_VS extends Win32Enum {

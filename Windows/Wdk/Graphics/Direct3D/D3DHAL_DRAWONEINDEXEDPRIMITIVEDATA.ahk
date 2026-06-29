@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Win32\Graphics\Direct3D9\D3DPRIMITIVETYPE.ahk
 #Include ..\..\..\Win32\Graphics\Direct3D9\D3DVERTEXTYPE.ahk
+#Include ..\..\..\Win32\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

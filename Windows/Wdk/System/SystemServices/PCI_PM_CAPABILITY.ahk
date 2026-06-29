@@ -9,7 +9,7 @@ class PCI_PM_CAPABILITY extends Win32Struct {
 
     static packingSize => 8
 
-    class _PMC_e__Union extends Win32Struct {
+    class _PMC extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -30,7 +30,7 @@ class PCI_PM_CAPABILITY extends Win32Struct {
         }
     }
 
-    class _PMCSR_e__Union extends Win32Struct {
+    class _PMCSR extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -51,7 +51,7 @@ class PCI_PM_CAPABILITY extends Win32Struct {
         }
     }
 
-    class _PMCSR_BSE_e__Union extends Win32Struct {
+    class _PMCSR_BSE extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -81,34 +81,34 @@ class PCI_PM_CAPABILITY extends Win32Struct {
     }
 
     /**
-     * @type {_PMC_e__Union}
+     * @type {_PMC}
      */
     PMC {
         get {
             if(!this.HasProp("__PMC"))
-                this.__PMC := PCI_PM_CAPABILITY._PMC_e__Union(8, this)
+                this.__PMC := PCI_PM_CAPABILITY._PMC(8, this)
             return this.__PMC
         }
     }
 
     /**
-     * @type {_PMCSR_e__Union}
+     * @type {_PMCSR}
      */
     PMCSR {
         get {
             if(!this.HasProp("__PMCSR"))
-                this.__PMCSR := PCI_PM_CAPABILITY._PMCSR_e__Union(16, this)
+                this.__PMCSR := PCI_PM_CAPABILITY._PMCSR(16, this)
             return this.__PMCSR
         }
     }
 
     /**
-     * @type {_PMCSR_BSE_e__Union}
+     * @type {_PMCSR_BSE}
      */
     PMCSR_BSE {
         get {
             if(!this.HasProp("__PMCSR_BSE"))
-                this.__PMCSR_BSE := PCI_PM_CAPABILITY._PMCSR_BSE_e__Union(24, this)
+                this.__PMCSR_BSE := PCI_PM_CAPABILITY._PMCSR_BSE(24, this)
             return this.__PMCSR_BSE
         }
     }

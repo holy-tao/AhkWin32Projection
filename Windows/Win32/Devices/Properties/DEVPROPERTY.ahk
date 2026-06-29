@@ -2,8 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DEVPROPCOMPKEY.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
-#Include .\DEVPROPSTORE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\DEVPROPTYPE.ahk
+#Include .\DEVPROPSTORE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Properties

@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include .\CRYPTUI_VIEWCERTIFICATE_FLAGS.ahk
-#Include ..\CERT_CONTEXT.ahk
 #Include ..\..\WinTrust\CRYPT_PROVIDER_DATA.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
-#Include ..\HCERTSTORE.ahk
+#Include ..\CERT_CONTEXT.ahk
+#Include .\CRYPTUI_VIEWCERTIFICATE_FLAGS.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\UI\Controls\PROPSHEETPAGEA.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\HCERTSTORE.ahk
 
 /**
  * Contains information about a certificate to view. This structure is used in the CryptUIDlgViewCertificate function. (ANSI)

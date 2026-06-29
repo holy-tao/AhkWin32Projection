@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RESOURCE_MONITOR_STATE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\RESOURCE_MONITOR_STATE.ahk
 
 /**
  * The MONITOR_STATE structure is part of the resapi.h header used by Windows Clustering.

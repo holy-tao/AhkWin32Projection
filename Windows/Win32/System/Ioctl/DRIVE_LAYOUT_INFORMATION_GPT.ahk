@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains information about a drive's GUID partition table (GPT) partitions.
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.System.Ioctl
  */
 class DRIVE_LAYOUT_INFORMATION_GPT extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
     /**
      * The <b>GUID</b> of the disk.
-     * @type {Pointer}
+     * @type {Guid}
      */
     DiskId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__DiskId"))
+                this.__DiskId := Guid(0, this)
+            return this.__DiskId
+        }
     }
 
     /**
@@ -25,8 +29,8 @@ class DRIVE_LAYOUT_INFORMATION_GPT extends Win32Struct {
      * @type {Integer}
      */
     StartingUsableOffset {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
+        get => NumGet(this, 16, "int64")
+        set => NumPut("int64", value, this, 16)
     }
 
     /**
@@ -34,8 +38,8 @@ class DRIVE_LAYOUT_INFORMATION_GPT extends Win32Struct {
      * @type {Integer}
      */
     UsableLength {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
+        get => NumGet(this, 24, "int64")
+        set => NumPut("int64", value, this, 24)
     }
 
     /**
@@ -43,7 +47,7 @@ class DRIVE_LAYOUT_INFORMATION_GPT extends Win32Struct {
      * @type {Integer}
      */
     MaxPartitionCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

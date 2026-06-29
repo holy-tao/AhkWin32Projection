@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The WSABUF structure enables the creation or manipulation of a data buffer used by some Winsock functions.

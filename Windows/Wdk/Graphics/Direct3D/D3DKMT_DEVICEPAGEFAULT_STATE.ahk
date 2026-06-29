@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXGK_RENDER_PIPELINE_STAGE.ahk
 #Include .\DXGK_PAGE_FAULT_FLAGS.ahk
+#Include .\DXGK_RENDER_PIPELINE_STAGE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

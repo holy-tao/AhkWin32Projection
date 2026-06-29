@@ -2,6 +2,7 @@
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
 #Include ..\System\Com\IUnknown.ahk
+#Include ..\Foundation\HRESULT.ahk
 
 /**
  * The IReferenceClockTimerControl interface changes the timer period used by a reference clock. This interface is exposed by the DirectShow System Reference Clock.

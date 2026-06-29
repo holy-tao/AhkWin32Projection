@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -44,13 +46,10 @@ class INetCfgComponentSetup extends IUnknown {
     }
 
     /**
-     * The UpgradeCode property is a GUID representing a related set of products. The UpgradeCode is used in the Upgrade Table to search for related versions of the product that are already installed.This property is used by the RegisterProduct action.
-     * @remarks
-     * It is strongly recommended that authors of installation packages specify an **UpgradeCode** for their application.
+     * 
      * @param {Integer} dwSetupFlags 
      * @param {Integer} dwUpgradeFomBuildNo 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Msi/upgradecode
      */
     Upgrade(dwSetupFlags, dwUpgradeFomBuildNo) {
         result := ComCall(4, this, "uint", dwSetupFlags, "uint", dwUpgradeFomBuildNo, "HRESULT")

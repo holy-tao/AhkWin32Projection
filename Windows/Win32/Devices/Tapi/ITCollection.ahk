@@ -4,6 +4,7 @@
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITCollection interface allows Automation client applications, such as those written in Visual Basic, to retrieve collection information.

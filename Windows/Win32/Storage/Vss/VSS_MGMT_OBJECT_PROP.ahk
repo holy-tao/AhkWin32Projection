@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\VSS_MGMT_OBJECT_TYPE.ahk
-#Include .\VSS_MGMT_OBJECT_UNION.ahk
-#Include .\VSS_VOLUME_PROP.ahk
-#Include .\VSS_DIFF_VOLUME_PROP.ahk
 #Include .\VSS_DIFF_AREA_PROP.ahk
+#Include .\VSS_DIFF_VOLUME_PROP.ahk
+#Include .\VSS_VOLUME_PROP.ahk
+#Include .\VSS_MGMT_OBJECT_UNION.ahk
 
 /**
  * Defines the properties of a volume, shadow copy storage volume, or a shadow copy storage area.

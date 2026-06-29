@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\VIDEOMEMORY.ahk
 #Include .\DDPIXELFORMAT.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The DD_SURFACE_GLOBAL structure contains global surface-related data that can be shared between multiple surfaces.

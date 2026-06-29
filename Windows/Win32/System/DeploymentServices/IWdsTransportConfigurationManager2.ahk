@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWdsTransportConfigurationManager.ahk
 #Include .\IWdsTransportMulticastSessionPolicy.ahk
+#Include .\IWdsTransportConfigurationManager.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface inherits from the IWdsTransportConfigurationManager interface and extends it with configuration settings, such as multicast session policy, that are available beginning with Windows Server 2008 R2.

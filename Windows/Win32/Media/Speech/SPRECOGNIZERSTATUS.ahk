@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SPAUDIOSTATUS.ahk
 #Include .\SPAUDIOSTATE.ahk
 
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.Media.Speech
  */
 class SPRECOGNIZERSTATUS extends Win32Struct {
-    static sizeof => 120
+    static sizeof => 128
 
     static packingSize => 8
 
@@ -47,19 +48,22 @@ class SPRECOGNIZERSTATUS extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidEngine {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get {
+            if(!this.HasProp("__clsidEngine"))
+                this.__clsidEngine := Guid(56, this)
+            return this.__clsidEngine
+        }
     }
 
     /**
      * @type {Integer}
      */
     cLangIDs {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -68,7 +72,7 @@ class SPRECOGNIZERSTATUS extends Win32Struct {
     aLangID {
         get {
             if(!this.HasProp("__aLangIDProxyArray"))
-                this.__aLangIDProxyArray := Win32FixedArray(this.ptr + 68, 20, Primitive, "ushort")
+                this.__aLangIDProxyArray := Win32FixedArray(this.ptr + 76, 20, Primitive, "ushort")
             return this.__aLangIDProxyArray
         }
     }
@@ -77,7 +81,7 @@ class SPRECOGNIZERSTATUS extends Win32Struct {
      * @type {Integer}
      */
     ullRecognitionStreamTime {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 120, "uint")
+        set => NumPut("uint", value, this, 120)
     }
 }

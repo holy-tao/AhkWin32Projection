@@ -2,13 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FWP_DATA_TYPE.ahk
 #Include .\FWP_BYTE_ARRAY16.ahk
-#Include .\FWP_BYTE_BLOB.ahk
-#Include ..\..\Security\SID.ahk
 #Include .\FWP_TOKEN_INFORMATION.ahk
-#Include .\FWP_BYTE_ARRAY6.ahk
-#Include .\FWP_V4_ADDR_AND_MASK.ahk
-#Include .\FWP_V6_ADDR_AND_MASK.ahk
 #Include .\FWP_RANGE0.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\SID.ahk
+#Include .\FWP_V6_ADDR_AND_MASK.ahk
+#Include .\FWP_BYTE_BLOB.ahk
+#Include .\FWP_V4_ADDR_AND_MASK.ahk
+#Include .\FWP_BYTE_ARRAY6.ahk
 
 /**
  * Contains values that are used in filter conditions when testing for matching filters.

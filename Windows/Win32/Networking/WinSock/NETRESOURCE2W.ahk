@@ -1,13 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\NS_INFOA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  * @charset Unicode
  */
 class NETRESOURCE2W extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -79,26 +82,29 @@ class NETRESOURCE2W extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ServiceType {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get {
+            if(!this.HasProp("__ServiceType"))
+                this.__ServiceType := Guid(56, this)
+            return this.__ServiceType
+        }
     }
 
     /**
      * @type {Integer}
      */
     dwProtocols {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
      * @type {Pointer<Integer>}
      */
     lpiProtocols {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 }

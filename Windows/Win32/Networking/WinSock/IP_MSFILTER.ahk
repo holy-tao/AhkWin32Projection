@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IN_ADDR.ahk
 #Include .\MULTICAST_MODE_TYPE.ahk
+#Include .\IN_ADDR.ahk
 
 /**
  * The ip_msfilter structure provides multicast filtering parameters for IPv4 addresses.

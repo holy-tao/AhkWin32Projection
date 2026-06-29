@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFAttributes.ahk
+#Include .\IMFStreamDescriptor.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Describes the details of a presentation. A presentation is a set of related media streams that share a common presentation time.

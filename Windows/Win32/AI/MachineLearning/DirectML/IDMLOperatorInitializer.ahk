@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IDMLDispatchable.ahk
+#Include .\IDMLCompiledOperator.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a specialized object whose purpose is to initialize compiled operators. To create an instance of this object, call IDMLDevice::CreateOperatorInitializer.

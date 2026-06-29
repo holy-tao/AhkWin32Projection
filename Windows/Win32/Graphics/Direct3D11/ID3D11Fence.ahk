@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
 #Include .\ID3D11DeviceChild.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a fence, an object used for synchronization of the CPU and one or more GPUs. (ID3D11Fence)
@@ -83,7 +86,7 @@ class ID3D11Fence extends ID3D11DeviceChild {
     CreateSharedHandle(pAttributes, dwAccess, lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        pHandle := HANDLE()
+        pHandle := HANDLE({Value: 0}, True)
         result := ComCall(7, this, "ptr", pAttributes, "uint", dwAccess, "ptr", lpName, "ptr", pHandle, "HRESULT")
         return pHandle
     }

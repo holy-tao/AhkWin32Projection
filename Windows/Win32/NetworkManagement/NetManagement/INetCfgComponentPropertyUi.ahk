@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -38,33 +41,9 @@ class INetCfgComponentPropertyUi extends IUnknown {
     }
 
     /**
-     * Enables a transport application to set attributes of a security context for a security package. This function is supported only by the Schannel security package. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The sspi.h header defines SetContextAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {IUnknown} pUnkReserved 
-     * @returns {HRESULT} If the function succeeds, the function returns SEC_E_OK.
-     * 
-     * If the function fails, it returns a nonzero error code. The following error code is one of the possible error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_UNSUPPORTED_FUNCTION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * This value is returned by Schannel kernel mode to indicate that this function is not supported.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-setcontextattributesw
+     * @returns {HRESULT} 
      */
     SetContext(pUnkReserved) {
         result := ComCall(4, this, "ptr", pUnkReserved, "HRESULT")

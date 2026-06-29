@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EOC_ChangeType.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\EOC_ChangeType.ahk
 
 /**
  * Represents a system event structure, which contains the partition and application ID from which an event originated.

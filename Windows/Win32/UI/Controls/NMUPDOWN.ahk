@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information specific to up-down control notification messages. It is identical to and replaces the NM_UPDOWN structure.

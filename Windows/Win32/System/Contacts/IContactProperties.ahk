@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IStream.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\IContactPropertyCollection.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Do not use. Used to retrieve, set, create, and remove properties on an IContact. Property names and extension mechanisms are described in icontactproperties.h.

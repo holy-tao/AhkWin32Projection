@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ID3D11LinkingNode.ahk
 #Include ..\Direct3D\ID3DBlob.ahk
+#Include .\ID3D11Module.ahk
+#Include .\ID3D11LinkingNode.ahk
+#Include .\ID3D11ModuleInstance.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\D3D11_PARAMETER_DESC.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A function-linking-graph interface is used for constructing shaders that consist of a sequence of precompiled function calls that pass values to each other.

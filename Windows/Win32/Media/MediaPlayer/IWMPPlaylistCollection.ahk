@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWMPPlaylist.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IWMPPlaylistArray.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMPPlaylistCollection interface provides methods for manipulating the IWMPPlaylist and IWMPPlaylistArray interfaces.

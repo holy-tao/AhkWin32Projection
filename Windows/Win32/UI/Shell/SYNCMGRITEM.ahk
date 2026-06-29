@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
  * Provides information about items being enumerated by the ISyncMgrEnumItems interface.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.UI.Shell
  */
 class SYNCMGRITEM extends Win32Struct {
-    static sizeof => 296
+    static sizeof => 304
 
     static packingSize => 8
 
@@ -39,11 +40,14 @@ class SYNCMGRITEM extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * The identifier for this item.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ItemID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ItemID"))
+                this.__ItemID := Guid(8, this)
+            return this.__ItemID
+        }
     }
 
     /**
@@ -51,8 +55,8 @@ class SYNCMGRITEM extends Win32Struct {
      * @type {Integer}
      */
     dwItemState {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -64,7 +68,7 @@ class SYNCMGRITEM extends Win32Struct {
     hIcon {
         get {
             if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(24, this)
+                this.__hIcon := HICON(32, this)
             return this.__hIcon
         }
     }
@@ -76,8 +80,8 @@ class SYNCMGRITEM extends Win32Struct {
      * @type {String}
      */
     wszItemName {
-        get => StrGet(this.ptr + 32, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 32, 127, "UTF-16")
+        get => StrGet(this.ptr + 40, 127, "UTF-16")
+        set => StrPut(value, this.ptr + 40, 127, "UTF-16")
     }
 
     /**
@@ -89,13 +93,13 @@ class SYNCMGRITEM extends Win32Struct {
     ftLastUpdate {
         get {
             if(!this.HasProp("__ftLastUpdate"))
-                this.__ftLastUpdate := FILETIME(288, this)
+                this.__ftLastUpdate := FILETIME(296, this)
             return this.__ftLastUpdate
         }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 296
+        this.cbSize := 304
     }
 }

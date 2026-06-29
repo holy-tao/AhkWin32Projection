@@ -1,20 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PIPE_STATE.ahk
-#Include .\PIPE_TERMINATION.ahk
-#Include .\KS_FRAMING_RANGE.ahk
-#Include .\KS_FRAMING_RANGE_WEIGHTED.ahk
-#Include .\KS_COMPRESSION.ahk
-#Include .\KS_LogicalMemoryType.ahk
-#Include .\PIPE_ALLOCATOR_PLACE.ahk
 #Include .\PIPE_DIMENSIONS.ahk
+#Include .\KS_FRAMING_RANGE_WEIGHTED.ahk
 #Include .\IKsAllocatorEx.ahk
+#Include .\KS_FRAMING_RANGE.ahk
+#Include .\PIPE_STATE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\PIPE_ALLOCATOR_PLACE.ahk
+#Include .\PIPE_TERMINATION.ahk
+#Include .\KS_LogicalMemoryType.ahk
+#Include .\KS_COMPRESSION.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class ALLOCATOR_PROPERTIES_EX extends Win32Struct {
-    static sizeof => 248
+    static sizeof => 264
 
     static packingSize => 8
 
@@ -51,27 +52,33 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     MemoryType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__MemoryType"))
+                this.__MemoryType := Guid(16, this)
+            return this.__MemoryType
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     BusType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__BusType"))
+                this.__BusType := Guid(32, this)
+            return this.__BusType
+        }
     }
 
     /**
      * @type {PIPE_STATE}
      */
     State {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -80,7 +87,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct {
     Input {
         get {
             if(!this.HasProp("__Input"))
-                this.__Input := PIPE_TERMINATION(36, this)
+                this.__Input := PIPE_TERMINATION(52, this)
             return this.__Input
         }
     }
@@ -91,7 +98,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct {
     Output {
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := PIPE_TERMINATION(92, this)
+                this.__Output := PIPE_TERMINATION(108, this)
             return this.__Output
         }
     }
@@ -100,40 +107,40 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct {
      * @type {Integer}
      */
     Strategy {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
+        get => NumGet(this, 164, "uint")
+        set => NumPut("uint", value, this, 164)
     }
 
     /**
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
+        get => NumGet(this, 168, "uint")
+        set => NumPut("uint", value, this, 168)
     }
 
     /**
      * @type {Integer}
      */
     Weight {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
+        get => NumGet(this, 172, "uint")
+        set => NumPut("uint", value, this, 172)
     }
 
     /**
      * @type {KS_LogicalMemoryType}
      */
     LogicalMemoryType {
-        get => NumGet(this, 160, "int")
-        set => NumPut("int", value, this, 160)
+        get => NumGet(this, 176, "int")
+        set => NumPut("int", value, this, 176)
     }
 
     /**
      * @type {PIPE_ALLOCATOR_PLACE}
      */
     AllocatorPlace {
-        get => NumGet(this, 164, "int")
-        set => NumPut("int", value, this, 164)
+        get => NumGet(this, 180, "int")
+        set => NumPut("int", value, this, 180)
     }
 
     /**
@@ -142,7 +149,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct {
     Dimensions {
         get {
             if(!this.HasProp("__Dimensions"))
-                this.__Dimensions := PIPE_DIMENSIONS(168, this)
+                this.__Dimensions := PIPE_DIMENSIONS(184, this)
             return this.__Dimensions
         }
     }
@@ -153,7 +160,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct {
     PhysicalRange {
         get {
             if(!this.HasProp("__PhysicalRange"))
-                this.__PhysicalRange := KS_FRAMING_RANGE(204, this)
+                this.__PhysicalRange := KS_FRAMING_RANGE(220, this)
             return this.__PhysicalRange
         }
     }
@@ -162,22 +169,6 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct {
      * @type {IKsAllocatorEx}
      */
     PrevSegment {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CountNextSegments {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
-    }
-
-    /**
-     * @type {Pointer<IKsAllocatorEx>}
-     */
-    NextSegments {
         get => NumGet(this, 232, "ptr")
         set => NumPut("ptr", value, this, 232)
     }
@@ -185,16 +176,32 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct {
     /**
      * @type {Integer}
      */
-    InsideFactors {
+    CountNextSegments {
         get => NumGet(this, 240, "uint")
         set => NumPut("uint", value, this, 240)
+    }
+
+    /**
+     * @type {Pointer<IKsAllocatorEx>}
+     */
+    NextSegments {
+        get => NumGet(this, 248, "ptr")
+        set => NumPut("ptr", value, this, 248)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    InsideFactors {
+        get => NumGet(this, 256, "uint")
+        set => NumPut("uint", value, this, 256)
     }
 
     /**
      * @type {Integer}
      */
     NumberPins {
-        get => NumGet(this, 244, "uint")
-        set => NumPut("uint", value, this, 244)
+        get => NumGet(this, 260, "uint")
+        set => NumPut("uint", value, this, 260)
     }
 }

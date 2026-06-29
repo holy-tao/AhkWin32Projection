@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\FH_SERVICE_PIPE_HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileHistory
@@ -232,7 +234,7 @@ class FileHistory {
      * @since windows8.0
      */
     static FhServiceOpenPipe(StartServiceIfStopped) {
-        Pipe := FH_SERVICE_PIPE_HANDLE()
+        Pipe := FH_SERVICE_PIPE_HANDLE({Value: 0}, True)
         result := DllCall("fhsvcctl.dll\FhServiceOpenPipe", "int", StartServiceIfStopped, "ptr", Pipe, "HRESULT")
         return Pipe
     }

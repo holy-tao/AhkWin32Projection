@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\VM_HOST_NOTIFY_STATUS.ahk
+#Include .\VM_NOTIFY_ENTRY.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\VM_NOTIFY_STATUS.ahk
+#Include .\VM_NOTIFY_INFO.ahk
 
 /**
  * Exposes methods that notify Remote Desktop Connection Broker (RD Connection Broker) about the provisioning of virtual machines.

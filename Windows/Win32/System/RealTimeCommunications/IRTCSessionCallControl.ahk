@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -85,15 +87,10 @@ class IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * Obtains a reference to a TCP v4 driver object.
-     * @remarks
-     * This function can be called only from kernel mode. The caller must decrement the reference count by calling the **ObDereferenceObject** function when it has finished with the object.
      * 
-     * This function is implemented in Drvref.lib, which is available for download. See [Windows Network Driver Reference API Library](https://www.microsoft.com/downloads/details.aspx?FamilyID=85037e05-f8f8-46b4-a013-3aa6248396c0).
      * @param {BSTR} bstrReferToURI 
      * @param {BSTR} bstrReferCookie 
-     * @returns {HRESULT} If the function succeeds, it returns **STATUS\_SUCCESS**. If it fails, it will return the appropriate status code.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/referencetcpdriver
+     * @returns {HRESULT} 
      */
     Refer(bstrReferToURI, bstrReferCookie) {
         bstrReferToURI := bstrReferToURI is String ? BSTR.Alloc(bstrReferToURI).Value : bstrReferToURI
@@ -120,7 +117,7 @@ class IRTCSessionCallControl extends IUnknown {
      * @returns {BSTR} 
      */
     get_ReferredByURI() {
-        pbstrReferredByURI := BSTR()
+        pbstrReferredByURI := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrReferredByURI, "HRESULT")
         return pbstrReferredByURI
     }
@@ -142,7 +139,7 @@ class IRTCSessionCallControl extends IUnknown {
      * @returns {BSTR} 
      */
     get_ReferCookie() {
-        pbstrReferCookie := BSTR()
+        pbstrReferCookie := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbstrReferCookie, "HRESULT")
         return pbstrReferCookie
     }

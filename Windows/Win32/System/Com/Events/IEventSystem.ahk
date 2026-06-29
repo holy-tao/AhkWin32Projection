@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\IDispatch.ahk
 #Include ..\IUnknown.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to the event data store.
@@ -166,7 +167,7 @@ class IEventSystem extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsystem-get_eventobjectchangeeventclassid
      */
     get_EventObjectChangeEventClassID() {
-        pbstrEventClassID := BSTR()
+        pbstrEventClassID := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbstrEventClassID, "HRESULT")
         return pbstrEventClassID
     }

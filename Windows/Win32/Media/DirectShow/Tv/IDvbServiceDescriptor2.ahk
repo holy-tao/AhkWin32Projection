@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDvbServiceDescriptor.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IDvbServiceDescriptor.ahk
+#Include .\DVB_STRCONV_MODE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Implements methods that get the string values from fields in a Digital Video Broadcast (DVB) service descriptor. The service descriptor describes the service type, and provides the names of the service provider and the service in text form.
@@ -37,7 +39,7 @@ class IDvbServiceDescriptor2 extends IDvbServiceDescriptor {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor2-getserviceprovidernamew
      */
     GetServiceProviderNameW(convMode) {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(11, this, "int", convMode, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -49,7 +51,7 @@ class IDvbServiceDescriptor2 extends IDvbServiceDescriptor {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor2-getservicenamew
      */
     GetServiceNameW(convMode) {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(12, this, "int", convMode, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }

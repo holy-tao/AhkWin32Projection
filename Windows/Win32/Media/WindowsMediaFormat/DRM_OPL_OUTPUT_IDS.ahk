@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The DRM_OPL_OUTPUT_IDS structure holds a number of output protection level (OPL) output identifiers.

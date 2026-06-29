@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputFeedbackAxes.ahk
 #Include .\GameInputLocation.ahk
+#Include .\GameInputFeedbackAxes.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

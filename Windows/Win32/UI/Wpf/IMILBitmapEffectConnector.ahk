@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMILBitmapEffectConnectorInfo.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IMILBitmapEffect.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that define an effect output pin.

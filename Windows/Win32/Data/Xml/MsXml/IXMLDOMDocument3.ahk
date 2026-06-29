@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IXMLDOMDocument2.ahk
-#Include .\IXMLDOMParseError.ahk
 #Include .\IXMLDOMNode.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IXMLDOMParseError.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IXMLDOMDocument2.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

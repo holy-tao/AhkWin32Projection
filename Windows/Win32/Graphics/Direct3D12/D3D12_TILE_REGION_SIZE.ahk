@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes the size of a tiled region. (D3D12_TILE_REGION_SIZE)

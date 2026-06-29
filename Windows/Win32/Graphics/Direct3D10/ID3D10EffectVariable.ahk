@@ -1,7 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D10EffectVectorVariable.ahk
+#Include .\ID3D10EffectMatrixVariable.ahk
+#Include .\ID3D10EffectScalarVariable.ahk
+#Include .\ID3D10EffectBlendVariable.ahk
+#Include .\ID3D10EffectRenderTargetViewVariable.ahk
+#Include .\ID3D10EffectShaderResourceVariable.ahk
+#Include .\ID3D10EffectRasterizerVariable.ahk
+#Include .\ID3D10EffectDepthStencilViewVariable.ahk
 #Include .\D3D10_EFFECT_VARIABLE_DESC.ahk
+#Include .\ID3D10EffectShaderVariable.ahk
+#Include .\ID3D10EffectStringVariable.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D10EffectType.ahk
+#Include .\ID3D10EffectSamplerVariable.ahk
+#Include .\ID3D10EffectDepthStencilVariable.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\ID3D10EffectConstantBuffer.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The ID3D10EffectVariable interface is the base class for all effect variables.

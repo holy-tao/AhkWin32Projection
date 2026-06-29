@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include .\IEnumCATEGORYINFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IEnumGUID.ahk
+#Include .\IEnumCATEGORYINFO.ahk
+#Include .\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Obtains information about the categories implemented or required by a certain class, as well as information about the categories registered on the specified computer.

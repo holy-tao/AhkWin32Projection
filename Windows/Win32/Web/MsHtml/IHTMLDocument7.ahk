@@ -1,17 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLWindow2.ahk
-#Include .\IHTMLDOMNode.ahk
-#Include .\IHTMLSelection.ahk
-#Include .\IHTMLElementCollection.ahk
-#Include .\IHTMLElement.ahk
-#Include .\IHTMLDOMAttribute.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IDOMProcessingInstruction.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IHTMLDOMNode.ahk
+#Include .\IHTMLElement.ahk
+#Include .\IHTMLElementCollection.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IHTMLDOMNode3.ahk
+#Include .\IHTMLWindow2.ahk
+#Include .\IDOMProcessingInstruction.ahk
+#Include .\IHTMLSelection.ahk
+#Include .\IHTMLDOMAttribute.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -515,7 +517,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {BSTR} 
      */
     get_characterSet() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", p, "HRESULT")
         return p
     }
@@ -614,7 +616,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {BSTR} 
      */
     get_inputEncoding() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", p, "HRESULT")
         return p
     }
@@ -624,7 +626,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {BSTR} 
      */
     get_xmlEncoding() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(25, this, "ptr", p, "HRESULT")
         return p
     }
@@ -665,7 +667,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {BSTR} 
      */
     get_xmlVersion() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(29, this, "ptr", p, "HRESULT")
         return p
     }

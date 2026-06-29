@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IRQ_DES_64.ahk
 #Include .\IRQD_FLAGS.ahk
 #Include .\IRQ_RANGE.ahk
+#Include .\IRQ_DES_64.ahk
 
 /**
  * The IRQ_RESOURCE structure is used for specifying either a resource list or a resource requirements list that describes IRQ line usage for a device instance. (64 bit)

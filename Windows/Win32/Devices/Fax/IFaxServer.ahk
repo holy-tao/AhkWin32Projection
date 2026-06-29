@@ -1,18 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFaxDeviceProviders.ahk
 #Include .\IFaxDevices.ahk
 #Include .\IFaxInboundRouting.ahk
-#Include .\IFaxFolders.ahk
-#Include .\IFaxLoggingOptions.ahk
 #Include .\IFaxActivity.ahk
-#Include .\IFaxOutboundRouting.ahk
 #Include .\IFaxReceiptOptions.ahk
 #Include .\IFaxSecurity.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IFaxFolders.ahk
+#Include .\FAX_SERVER_EVENTS_TYPE_ENUM.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\FAX_SERVER_APIVERSION_ENUM.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IFaxDeviceProviders.ahk
+#Include .\IFaxOutboundRouting.ahk
+#Include .\IFaxLoggingOptions.ahk
 
 /**
  * The IFaxServer interface describes a messaging collection that is used by a fax client application to manage a connection to the fax service.
@@ -180,7 +184,7 @@ class IFaxServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_servername
      */
     get_ServerName() {
-        pbstrServerName := BSTR()
+        pbstrServerName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrServerName, "HRESULT")
         return pbstrServerName
     }

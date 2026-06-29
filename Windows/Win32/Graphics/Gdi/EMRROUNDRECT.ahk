@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
 #Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include ..\..\Foundation\RECTL.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\RECTL.ahk
 
 /**
  * The EMRROUNDRECT structure contains members for the RoundRect enhanced metafile record.

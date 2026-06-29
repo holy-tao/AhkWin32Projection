@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\TRACKMOUSEEVENT_FLAGS.ahk
 #Include ..\..\..\Foundation\HWND.ahk
+#Include .\TRACKMOUSEEVENT_FLAGS.ahk
 
 /**
  * Used by the TrackMouseEvent function to track when the mouse pointer leaves a window or hovers over a window for a specified amount of time.

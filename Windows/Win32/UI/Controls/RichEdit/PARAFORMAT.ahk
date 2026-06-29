@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\PARAFORMAT_MASK.ahk
 #Include .\PARAFORMAT_NUMBERING.ahk
 #Include .\PARAFORMAT_ALIGNMENT.ahk
+#Include .\PARAFORMAT_MASK.ahk
 
 /**
  * Contains information about paragraph formatting attributes in a rich edit control. (PARAFORMAT)

@@ -1,5 +1,57 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\JET_RSTINFO_A.ahk
+#Include .\JET_INDEXCREATE_A.ahk
+#Include .\JET_RECSIZE.ahk
+#Include ..\StructuredStorage\JET_API_PTR.ahk
+#Include .\JET_TABLECREATE4_W.ahk
+#Include .\JET_RECPOS.ahk
+#Include .\JET_LOGINFO_W.ahk
+#Include .\JET_TABLECREATE_W.ahk
+#Include .\JET_INDEXCREATE2_A.ahk
+#Include .\JET_INDEXCREATE3_W.ahk
+#Include .\JET_INSTANCE_INFO_W.ahk
+#Include .\JET_INDEXCREATE2_W.ahk
+#Include .\JET_OSSNAPID.ahk
+#Include .\JET_OPENTEMPORARYTABLE.ahk
+#Include .\JET_SETSYSPARAM_A.ahk
+#Include .\JET_INDEXCREATE3_A.ahk
+#Include .\JET_SETINFO.ahk
+#Include .\JET_INDEX_COLUMN.ahk
+#Include .\JET_ENUMCOLUMN.ahk
+#Include .\JET_INSTANCE.ahk
+#Include .\JET_CONVERT_A.ahk
+#Include .\JET_COMMIT_ID.ahk
+#Include .\JET_TABLECREATE4_A.ahk
+#Include .\JET_ENUMCOLUMNID.ahk
+#Include .\JET_CONVERT_W.ahk
+#Include .\JET_RECORDLIST.ahk
+#Include .\JET_LS.ahk
+#Include .\JET_RSTINFO_W.ahk
+#Include .\JET_SETCOLUMN.ahk
+#Include .\JET_RSTMAP_A.ahk
+#Include .\JET_OPENTEMPORARYTABLE2.ahk
+#Include .\JET_COLUMNDEF.ahk
+#Include ..\StructuredStorage\JET_TABLEID.ahk
+#Include .\JET_TABLECREATE3_W.ahk
+#Include .\JET_INDEXCREATE_W.ahk
+#Include .\JET_INDEXID.ahk
+#Include .\JET_LOGINFO_A.ahk
+#Include .\JET_RSTMAP_W.ahk
+#Include ..\StructuredStorage\JET_HANDLE.ahk
+#Include .\JET_TABLECREATE_A.ahk
+#Include .\JET_INSTANCE_INFO_A.ahk
+#Include .\JET_INDEXRANGE.ahk
+#Include .\JET_TABLECREATE2_W.ahk
+#Include .\JET_RETINFO.ahk
+#Include .\JET_TABLECREATE2_A.ahk
+#Include .\JET_TABLECREATE3_A.ahk
+#Include .\JET_SESID.ahk
+#Include .\JET_SETSYSPARAM_W.ahk
+#Include .\JET_RECSIZE2.ahk
+#Include .\JET_RETRIEVECOLUMN.ahk
+#Include .\JET_INDEX_RANGE.ahk
+#Include .\JET_UNICODEINDEX.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Jet

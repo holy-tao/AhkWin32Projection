@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IHTMLStorage.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IHTMLStorage.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -163,7 +164,7 @@ class IHTMLWindow6 extends IDispatch {
     toStaticHTML(bstrHTML) {
         bstrHTML := bstrHTML is String ? BSTR.Alloc(bstrHTML).Value : bstrHTML
 
-        pbstrStaticHTML := BSTR()
+        pbstrStaticHTML := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", bstrHTML, "ptr", pbstrStaticHTML, "HRESULT")
         return pbstrStaticHTML
     }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITfComposition.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfCompositionSink interface is implemented by a text service to receive a notification when a composition is terminated.

@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509CertificateRequest.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ISignerCertificate.ahk
+#Include .\X509RequestInheritOptions.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IX509CertificateRequest.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\X509CertificateEnrollmentContext.ahk
 
 /**
  * The IX509CertificateRequestPkcs7 interface represents a PKCS
@@ -365,7 +370,7 @@ class IX509CertificateRequestPkcs7 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-get_requestername
      */
     get_RequesterName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(36, this, "ptr", pValue, "HRESULT")
         return pValue
     }

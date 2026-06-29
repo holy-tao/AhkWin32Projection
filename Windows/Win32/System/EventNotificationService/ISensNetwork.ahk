@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\SENS_QOCINFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SENS_CONNECTION_TYPE.ahk
 
 /**
  * The ISensNetwork interface handles network events fired by the System Event Notification Service (SENS).

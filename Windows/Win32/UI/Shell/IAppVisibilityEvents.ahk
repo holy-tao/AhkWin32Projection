@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MONITOR_APP_VISIBILITY.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables applications to receive notifications of state changes in a display and of changes in Start screen visibility.

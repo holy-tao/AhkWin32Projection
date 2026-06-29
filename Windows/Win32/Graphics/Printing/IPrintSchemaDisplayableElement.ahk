@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPrintSchemaElement.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IPrintSchemaElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -40,7 +41,7 @@ class IPrintSchemaDisplayableElement extends IPrintSchemaElement {
      * @returns {BSTR} 
      */
     get_DisplayName() {
-        pbstrDisplayName := BSTR()
+        pbstrDisplayName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbstrDisplayName, "HRESULT")
         return pbstrDisplayName
     }

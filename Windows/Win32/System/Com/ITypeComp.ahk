@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DESCKIND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IUnknown.ahk
+#Include .\ITypeInfo.ahk
+#Include .\BINDPTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITypeComp interface provides a fast way to access information that compilers need when binding to and instantiating structures and interfaces.

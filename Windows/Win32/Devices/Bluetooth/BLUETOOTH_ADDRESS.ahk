@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The BLUETOOTH_ADDRESS structure provides the address of a Bluetooth device.
- * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_address_struct
  * @namespace Windows.Win32.Devices.Bluetooth
  */
 class BLUETOOTH_ADDRESS extends Win32Struct {

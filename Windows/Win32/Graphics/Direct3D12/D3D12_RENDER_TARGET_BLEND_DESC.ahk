@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_BLEND.ahk
-#Include .\D3D12_BLEND_OP.ahk
 #Include .\D3D12_LOGIC_OP.ahk
+#Include .\D3D12_BLEND_OP.ahk
+#Include .\D3D12_BLEND.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes the blend state for a render target. (D3D12_RENDER_TARGET_BLEND_DESC)

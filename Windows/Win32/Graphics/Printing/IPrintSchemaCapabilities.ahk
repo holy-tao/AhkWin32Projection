@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IPrintSchemaElement.ahk
-#Include .\IPrintSchemaFeature.ahk
-#Include .\IPrintSchemaPageImageableSize.ahk
-#Include .\IPrintSchemaOption.ahk
 #Include .\IPrintSchemaOptionCollection.ahk
+#Include .\IPrintSchemaFeature.ahk
+#Include .\IPrintSchemaOption.ahk
+#Include .\IPrintSchemaPageImageableSize.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -65,11 +67,10 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement {
     }
 
     /**
-     * This function is intended for infrastructure use only. (GetFeatureEnabledState)
+     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaFeature} 
-     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-getfeatureenabledstate
      */
     GetFeature(bstrName, bstrNamespaceUri) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName

@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IWinMLModel.ahk
 #Include .\IWinMLEvaluationContext.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12Device.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IWinMLModel.ahk
 
 /**
  * Represents the runtime to load and evaluate a WinML model.

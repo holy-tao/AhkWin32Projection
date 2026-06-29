@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SORTDIRECTION.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
 
 /**
  * Stores information about how to sort a column that is displayed in the folder view.
@@ -13,7 +14,7 @@
 class SORTCOLUMN extends Win32Struct {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a></b>
@@ -34,7 +35,7 @@ class SORTCOLUMN extends Win32Struct {
      * @type {SORTDIRECTION}
      */
     direction {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 }

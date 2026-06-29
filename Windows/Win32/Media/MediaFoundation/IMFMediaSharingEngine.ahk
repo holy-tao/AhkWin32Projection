@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaEngine.ahk
 #Include .\DEVICE_INFO.ahk
+#Include .\IMFMediaEngine.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables media sharing.

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
- * Describes the stub for a managed object.
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-imanagedobjectinfo
  * @namespace Windows.Win32.System.ClrHosting
  */
 class IManagedObject extends IUnknown {
@@ -35,7 +34,7 @@ class IManagedObject extends IUnknown {
      * @returns {BSTR} 
      */
     GetSerializedBuffer() {
-        pBSTR := BSTR()
+        pBSTR := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pBSTR, "HRESULT")
         return pBSTR
     }

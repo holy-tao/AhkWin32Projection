@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_PROGRAM_TYPE.ahk
-#Include .\D3D12_SET_GENERIC_PIPELINE_DESC.ahk
-#Include .\D3D12_PROGRAM_IDENTIFIER.ahk
-#Include .\D3D12_SET_RAYTRACING_PIPELINE_DESC.ahk
-#Include .\D3D12_SET_WORK_GRAPH_DESC.ahk
-#Include .\D3D12_SET_WORK_GRAPH_FLAGS.ahk
 #Include .\D3D12_GPU_VIRTUAL_ADDRESS_RANGE.ahk
+#Include .\D3D12_SET_WORK_GRAPH_DESC.ahk
+#Include .\D3D12_PROGRAM_IDENTIFIER.ahk
+#Include .\D3D12_SET_GENERIC_PIPELINE_DESC.ahk
 #Include .\D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE.ahk
+#Include .\D3D12_SET_RAYTRACING_PIPELINE_DESC.ahk
+#Include .\D3D12_SET_WORK_GRAPH_FLAGS.ahk
+#Include .\D3D12_PROGRAM_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

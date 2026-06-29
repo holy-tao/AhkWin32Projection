@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents the information for a synchronization provider configuration UI.
@@ -7,9 +9,9 @@
  * @namespace Windows.Win32.System.WindowsSync
  */
 class SyncProviderConfigUIConfiguration extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The version of the configuration UI.
@@ -22,29 +24,38 @@ class SyncProviderConfigUIConfiguration extends Win32Struct {
 
     /**
      * The unique instance ID of the configuration UI.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidInstanceId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidInstanceId"))
+                this.__guidInstanceId := Guid(4, this)
+            return this.__guidInstanceId
+        }
     }
 
     /**
      * The COM CLSID of the configuration UI.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidConfigUI {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__clsidConfigUI"))
+                this.__clsidConfigUI := Guid(20, this)
+            return this.__clsidConfigUI
+        }
     }
 
     /**
      * The GUID that identifies the content type supported by the synchronization provider that is created by the configuration UI.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidContentType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__guidContentType"))
+                this.__guidContentType := Guid(36, this)
+            return this.__guidContentType
+        }
     }
 
     /**
@@ -70,8 +81,8 @@ class SyncProviderConfigUIConfiguration extends Win32Struct {
      * @type {Integer}
      */
     dwCapabilities {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -84,8 +95,8 @@ class SyncProviderConfigUIConfiguration extends Win32Struct {
      * @type {Integer}
      */
     dwSupportedArchitecture {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -93,7 +104,7 @@ class SyncProviderConfigUIConfiguration extends Win32Struct {
      * @type {BOOL}
      */
     fIsGlobal {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 60, "int")
+        set => NumPut("int", value, this, 60)
     }
 }

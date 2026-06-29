@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk
 #Include .\IWizardExtension.ahk
+#Include ..\..\System\Com\IDataObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods for working with the Online Print Wizard, the Web Publishing Wizard, and the Add Network Place Wizard. In Windows Vista, IPublishingWizard no longer supports the Web Publishing Wizard or Online Print Wizard.

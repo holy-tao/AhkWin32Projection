@@ -1,11 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\_HMAPPER.ahk
 
 /**
- * Client only.
-  * 
-  * This flag is the opposite of SCH_CRED_MANUAL_CRED_VALIDATION and is part of the default behavior of Schannel.
- * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-sch_credentials
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
 class SCH_CRED extends Win32Struct {

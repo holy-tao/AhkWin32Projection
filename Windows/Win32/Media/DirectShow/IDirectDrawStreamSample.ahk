@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IStreamSample.ahk
 #Include ..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Note  This interface is deprecated.

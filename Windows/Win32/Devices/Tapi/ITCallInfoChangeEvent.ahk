@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITCallInfo.ahk
+#Include .\CALLINFOCHANGE_CAUSE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITCallInfoChangeEvent interface contains methods that retrieve the description of call information change events.

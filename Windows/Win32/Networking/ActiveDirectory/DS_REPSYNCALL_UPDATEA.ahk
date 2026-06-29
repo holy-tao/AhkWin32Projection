@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DS_REPSYNCALL_EVENT.ahk
-#Include .\DS_REPSYNCALL_ERRINFOA.ahk
 #Include .\DS_REPSYNCALL_SYNCA.ahk
+#Include .\DS_REPSYNCALL_ERRINFOA.ahk
 
 /**
  * The DS_REPSYNCALL_UPDATE structure contains status data about the replication performed by the DsReplicaSyncAll function. (ANSI)

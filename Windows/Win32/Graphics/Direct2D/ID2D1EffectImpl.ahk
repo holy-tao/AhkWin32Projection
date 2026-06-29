@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1EffectContext.ahk
+#Include .\ID2D1TransformGraph.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\D2D1_CHANGE_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Allows a custom effect's interface and behavior to be specified by the effect author.

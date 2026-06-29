@@ -1,8 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\RTC_SECURITY_LEVEL.ahk
+#Include .\IRTCProfile.ahk
 #Include .\IRTCClient.ahk
+#Include .\RTC_SECURITY_TYPE.ahk
+#Include .\RTC_SESSION_TYPE.ahk
+#Include .\RTC_LISTEN_MODE.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IRTCSession2.ahk
+#Include .\RTC_ANSWER_MODE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IRTCSessionDescriptionManager.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

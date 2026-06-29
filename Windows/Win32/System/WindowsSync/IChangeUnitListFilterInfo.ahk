@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ISyncFilterInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a filter that can be used to control which change units are included for items in an ISyncChangeBatch object.

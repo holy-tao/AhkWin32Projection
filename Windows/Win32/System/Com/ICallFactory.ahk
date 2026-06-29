@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ICallFactory (objidlbase.h) interface creates a call object for processing calls to the methods of an asynchronous interface.

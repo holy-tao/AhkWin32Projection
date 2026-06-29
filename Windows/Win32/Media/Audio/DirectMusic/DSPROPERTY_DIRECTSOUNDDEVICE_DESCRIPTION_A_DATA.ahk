@@ -1,13 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\DIRECTSOUNDDEVICE_TYPE.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\DIRECTSOUNDDEVICE_DATAFLOW.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
 class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -28,25 +30,20 @@ class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     DeviceId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__DeviceId"))
+                this.__DeviceId := Guid(8, this)
+            return this.__DeviceId
+        }
     }
 
     /**
      * @type {PSTR}
      */
     Description {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    Module {
         get => NumGet(this, 24, "ptr")
         set => NumPut("ptr", value, this, 24)
     }
@@ -54,16 +51,24 @@ class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA extends Win32Struct {
     /**
      * @type {PSTR}
      */
-    Interface {
+    Module {
         get => NumGet(this, 32, "ptr")
         set => NumPut("ptr", value, this, 32)
+    }
+
+    /**
+     * @type {PSTR}
+     */
+    Interface {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     WaveDeviceId {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

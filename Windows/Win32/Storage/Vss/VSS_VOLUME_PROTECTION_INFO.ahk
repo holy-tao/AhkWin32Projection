@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VSS_PROTECTION_LEVEL.ahk
 #Include .\VSS_PROTECTION_FAULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\VSS_PROTECTION_LEVEL.ahk
 
 /**
  * Contains information about a volume's shadow copy protection level.

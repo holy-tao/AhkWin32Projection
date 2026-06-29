@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\NETCON_MEDIATYPE.ahk
+#Include .\NETCON_STATUS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use the INetConnectionProps interface to retrieve the properties for a connection.
@@ -79,7 +82,7 @@ class INetConnectionProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_guid
      */
     get_Guid() {
-        pbstrGuid := BSTR()
+        pbstrGuid := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrGuid, "HRESULT")
         return pbstrGuid
     }
@@ -91,7 +94,7 @@ class INetConnectionProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_name
      */
     get_Name() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -103,7 +106,7 @@ class INetConnectionProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_devicename
      */
     get_DeviceName() {
-        pbstrDeviceName := BSTR()
+        pbstrDeviceName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrDeviceName, "HRESULT")
         return pbstrDeviceName
     }

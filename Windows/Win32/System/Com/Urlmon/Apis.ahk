@@ -1,14 +1,37 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include ..\IMoniker.ahk
-#Include ..\IBindCtx.ahk
 #Include ..\IBindStatusCallback.ahk
+#Include .\PSUACTION.ahk
+#Include .\QUERYOPTION.ahk
+#Include ..\IBindCtx.ahk
+#Include .\SOFTDISTINFO.ahk
+#Include .\INTERNETFEATURELIST.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\CLSCTX.ahk
+#Include .\IInternetZoneManager.ahk
+#Include .\IInternetSecurityManager.ahk
+#Include .\IInternetSession.ahk
+#Include ..\STGMEDIUM.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\PARSEACTION.ahk
+#Include ..\FORMATETC.ahk
+#Include ..\uCLSSPEC.ahk
+#Include ..\BINDINFO.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\HIT_LOGGING_INFO.ahk
+#Include ..\IServiceProvider.ahk
+#Include .\IInternetSecurityManagerEx2.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\IEnumFORMATETC.ahk
 #Include ..\IStream.ahk
+#Include ..\IUnknown.ahk
+#Include .\IEObjectType.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\QUERYCONTEXT.ahk
 #Include ..\IUri.ahk
-#Include .\IInternetSession.ahk
-#Include .\IInternetSecurityManager.ahk
-#Include .\IInternetZoneManager.ahk
+#Include ..\IMoniker.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon

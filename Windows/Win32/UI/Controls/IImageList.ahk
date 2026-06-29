@@ -1,10 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMAGE_LIST_ITEM_FLAGS.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
 #Include .\IMAGEINFO.ahk
+#Include .\IMAGELISTDRAWPARAMS.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * Exposes methods that manipulate and interact with image lists.
@@ -222,7 +231,7 @@ class IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-geticon
      */
     GetIcon(i, flags) {
-        picon := HICON()
+        picon := HICON({Value: 0}, True)
         result := ComCall(10, this, "int", i, "uint", flags, "ptr", picon, "HRESULT")
         return picon
     }

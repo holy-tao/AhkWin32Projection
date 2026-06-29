@@ -2,8 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\IWindowsDriverUpdateEntry.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWindowsDriverUpdateEntry.ahk
 
 /**
  * Contains a collection of driver update entries associated with a driver update. All of the properties have the standard collection semantics.

@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
  * @architecture X64, Arm64
  */
 class ERRORINFO extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {HRESULT}
@@ -27,26 +29,32 @@ class ERRORINFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(8, this)
+            return this.__clsid
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     iid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__iid"))
+                this.__iid := Guid(24, this)
+            return this.__iid
+        }
     }
 
     /**
      * @type {Integer}
      */
     dispid {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 }

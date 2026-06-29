@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IFileSinkFilter.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFileSinkFilter2 interface extends the IFileSinkFilter interface.

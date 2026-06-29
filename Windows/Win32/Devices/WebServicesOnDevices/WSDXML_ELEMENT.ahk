@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSDXML_NODE.ahk
+#Include .\WSDXML_ATTRIBUTE.ahk
 #Include .\WSDXML_ELEMENT.ahk
 #Include .\WSDXML_NAME.ahk
-#Include .\WSDXML_ATTRIBUTE.ahk
+#Include .\WSDXML_NODE.ahk
 #Include .\WSDXML_PREFIX_MAPPING.ahk
 
 /**

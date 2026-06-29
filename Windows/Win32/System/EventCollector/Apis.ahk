@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\EC_VARIANT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID.ahk
+#Include .\EC_SUBSCRIPTION_PROPERTY_ID.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.EventCollector

@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFont2.ahk
-#Include .\IDWriteFontFace3.ahk
 #Include .\IDWriteFontFaceReference.ahk
+#Include .\DWRITE_LOCALITY.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IDWriteFont.ahk
+#Include .\IDWriteFontFace3.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDWriteFont2.ahk
 
 /**
  * Represents a font in a font collection.

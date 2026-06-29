@@ -1,11 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ISignerCertificate.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\X509SCEPDisposition.ahk
 #Include .\IX509CertificateRequestPkcs10.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\X509SCEPFailInfo.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IX509EnrollmentStatus.ahk
+#Include .\ISignerCertificate.ahk
+#Include .\EncodingType.ahk
+#Include .\X509CertificateEnrollmentContext.ahk
 
 /**
  * X.509 Simple Computer Enrollment Protocol Interface
@@ -135,7 +141,7 @@ class IX509SCEPEnrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-createrequestmessage
      */
     CreateRequestMessage(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(9, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -149,7 +155,7 @@ class IX509SCEPEnrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-createretrievependingmessage
      */
     CreateRetrievePendingMessage(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(10, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -171,7 +177,7 @@ class IX509SCEPEnrollment extends IDispatch {
         strIssuer := strIssuer is String ? BSTR.Alloc(strIssuer).Value : strIssuer
         strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
 
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(11, this, "int", _Context, "ptr", strIssuer, "int", IssuerEncoding, "ptr", strSerialNumber, "int", SerialNumberEncoding, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -284,7 +290,7 @@ class IX509SCEPEnrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-get_transactionid
      */
     get_TransactionId(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(19, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -329,7 +335,7 @@ class IX509SCEPEnrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-get_certificatefriendlyname
      */
     get_CertificateFriendlyName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -364,7 +370,7 @@ class IX509SCEPEnrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-get_certificate
      */
     get_Certificate(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(25, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }

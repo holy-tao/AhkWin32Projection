@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\DISCONNECT_CODE.ahk
+#Include .\FINISH_MODE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\QOS_SERVICE_LEVEL.ahk
 
 /**
  * The ITBasicCallControl interface is used by the application to connect, answer, and perform basic telephony operations on a call object.
@@ -916,7 +921,7 @@ class ITBasicCallControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol-parkindirect
      */
     ParkIndirect() {
-        ppNonDirAddress := BSTR()
+        ppNonDirAddress := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", ppNonDirAddress, "HRESULT")
         return ppNonDirAddress
     }

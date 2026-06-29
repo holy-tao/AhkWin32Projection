@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CM_NOTIFY_FILTER_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\CM_NOTIFY_FILTER_TYPE.ahk
 
 /**
  * Device notification filter structure.
@@ -15,20 +16,23 @@ class CM_NOTIFY_FILTER extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 400
         static packingSize => 8
 
         class _DeviceInterface extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 8
+            static sizeof => 16
+            static packingSize => 4
 
             /**
-             * @type {Pointer}
+             * @type {Guid}
              */
             ClassGuid {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
+                get {
+                    if(!this.HasProp("__ClassGuid"))
+                        this.__ClassGuid := Guid(0, this)
+                    return this.__ClassGuid
+                }
             }
         }
 
@@ -67,7 +71,7 @@ class CM_NOTIFY_FILTER extends Win32Struct {
         DeviceInterface {
             get {
                 if(!this.HasProp("__DeviceInterface"))
-                    this.__DeviceInterface := CM_NOTIFY_FILTER._u_e__Union._DeviceInterface(0, this)
+                    this.__DeviceInterface := CM_NOTIFY_FILTER._u._DeviceInterface(0, this)
                 return this.__DeviceInterface
             }
         }
@@ -78,7 +82,7 @@ class CM_NOTIFY_FILTER extends Win32Struct {
         DeviceHandle {
             get {
                 if(!this.HasProp("__DeviceHandle"))
-                    this.__DeviceHandle := CM_NOTIFY_FILTER._u_e__Union._DeviceHandle(0, this)
+                    this.__DeviceHandle := CM_NOTIFY_FILTER._u._DeviceHandle(0, this)
                 return this.__DeviceHandle
             }
         }
@@ -89,7 +93,7 @@ class CM_NOTIFY_FILTER extends Win32Struct {
         DeviceInstance {
             get {
                 if(!this.HasProp("__DeviceInstance"))
-                    this.__DeviceInstance := CM_NOTIFY_FILTER._u_e__Union._DeviceInstance(0, this)
+                    this.__DeviceInstance := CM_NOTIFY_FILTER._u._DeviceInstance(0, this)
                 return this.__DeviceInstance
             }
         }
@@ -132,12 +136,12 @@ class CM_NOTIFY_FILTER extends Win32Struct {
 
     /**
      * A union that contains information about the device to receive notifications for.
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := CM_NOTIFY_FILTER._u_e__Union(16, this)
+                this.__u := CM_NOTIFY_FILTER._u(16, this)
             return this.__u
         }
     }

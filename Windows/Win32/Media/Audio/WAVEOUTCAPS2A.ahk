@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
  * @charset ANSI
  */
 class WAVEOUTCAPS2A extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 100
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -75,26 +76,35 @@ class WAVEOUTCAPS2A extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ManufacturerGuid {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get {
+            if(!this.HasProp("__ManufacturerGuid"))
+                this.__ManufacturerGuid := Guid(52, this)
+            return this.__ManufacturerGuid
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ProductGuid {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get {
+            if(!this.HasProp("__ProductGuid"))
+                this.__ProductGuid := Guid(68, this)
+            return this.__ProductGuid
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     NameGuid {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get {
+            if(!this.HasProp("__NameGuid"))
+                this.__NameGuid := Guid(84, this)
+            return this.__NameGuid
+        }
     }
 }

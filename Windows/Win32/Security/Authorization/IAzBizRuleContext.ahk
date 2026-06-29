@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains information about a Business Rule (BizRule) operation.
@@ -92,7 +94,7 @@ class IAzBizRuleContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizrulecontext-get_businessrulestring
      */
     get_BusinessRuleString() {
-        pbstrBusinessRuleString := BSTR()
+        pbstrBusinessRuleString := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrBusinessRuleString, "HRESULT")
         return pbstrBusinessRuleString
     }

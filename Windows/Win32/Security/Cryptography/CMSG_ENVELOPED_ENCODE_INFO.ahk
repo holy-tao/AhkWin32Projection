@@ -2,8 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HCRYPTPROV_LEGACY.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CERT_INFO.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Contains information needed to encode an enveloped message. It is passed to CryptMsgOpenToEncode if the dwMsgType parameter is CMSG_ENVELOPED.

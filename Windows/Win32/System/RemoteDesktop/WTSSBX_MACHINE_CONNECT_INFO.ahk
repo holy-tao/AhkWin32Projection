@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTSSBX_IP_ADDRESS.ahk
 #Include .\WTSSBX_ADDRESS_FAMILY.ahk
+#Include .\WTSSBX_IP_ADDRESS.ahk
 
 /**
  * Contains information about a computer that is accepting remote connections.

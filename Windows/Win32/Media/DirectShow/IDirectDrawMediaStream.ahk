@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMediaStream.ahk
-#Include ..\..\Graphics\DirectDraw\IDirectDraw.ahk
 #Include .\IDirectDrawStreamSample.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDrawPalette.ahk
+#Include .\IMediaStream.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk
+#Include ..\..\Graphics\DirectDraw\DDSURFACEDESC.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDraw.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Note  This interface is deprecated.

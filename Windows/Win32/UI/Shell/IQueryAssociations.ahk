@@ -1,8 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Registry\HKEY.ahk
+#Include .\ASSOCF.ahk
+#Include .\ASSOCSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\ASSOCDATA.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ASSOCENUM.ahk
+#Include .\ASSOCKEY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that simplify the process of retrieving information stored in the registry in association with defining a file type or protocol and associating it with an application.
@@ -185,7 +194,7 @@ class IQueryAssociations extends IUnknown {
     GetKey(flags, key, pszExtra) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
-        phkeyOut := HKEY()
+        phkeyOut := HKEY({Value: 0}, True)
         result := ComCall(5, this, "uint", flags, "int", key, "ptr", pszExtra, "ptr", phkeyOut, "HRESULT")
         return phkeyOut
     }

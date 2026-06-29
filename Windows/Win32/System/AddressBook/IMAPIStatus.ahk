@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMAPIProp.ahk
+#Include .\ENTRYID.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides status information about the MAPI subsystem, the integrated address book, and the MAPI spooler.

@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMDMDevice2.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\WMDM_FORMAT_CAPABILITY.ahk
 #Include .\IWMDMStorage.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IWMDMDevice2.ahk
+#Include .\WMDM_FORMAT_CAPABILITY.ahk
+#Include .\WMDM_FIND_SCOPE.ahk
+#Include .\WMDM_FORMATCODE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMDMDevice3 interface extends IWMDMDevice2 by providing methods to query a device for properties, send device I/O control codes, and also providing upgraded methods to search for storages and retrieve device format capabilities.

@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MPRAPI_OBJECT_HEADER.ahk
-#Include .\ROUTER_INTERFACE_TYPE.ahk
-#Include .\RAS_FLAGS.ahk
-#Include .\RAS_QUARANTINE_STATE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\PROJECTION_INFO.ahk
-#Include .\PPP_PROJECTION_INFO.ahk
-#Include .\PPP_LCP.ahk
-#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
 #Include .\IKEV2_PROJECTION_INFO.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\PROJECTION_INFO.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\RAS_QUARANTINE_STATE.ahk
+#Include .\RAS_FLAGS.ahk
+#Include .\ROUTER_INTERFACE_TYPE.ahk
+#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
+#Include .\PPP_LCP.ahk
+#Include .\MPRAPI_OBJECT_HEADER.ahk
+#Include .\PPP_PROJECTION_INFO.ahk
 
 /**
  * Contains specific information for the connection that includes:\_the user name, domain, and Globally Unique Identifier (GUID) associated with the connection, its Network Access Protection (NAP) quarantine state, its packet statistics, as well as its Point-to-Point(PPP) and Internet Key Exchange version 2 (IKEv2) related information.
@@ -18,7 +19,7 @@
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
 class RAS_CONNECTION_EX extends Win32Struct {
-    static sizeof => 1664
+    static sizeof => 1672
 
     static packingSize => 8
 
@@ -101,11 +102,14 @@ class RAS_CONNECTION_EX extends Win32Struct {
 
     /**
      * A GUID  that identifies the connection. For incoming connections, this GUID is valid only as long as the connection is active.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 1112, "ptr")
-        set => NumPut("ptr", value, this, 1112)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(1112, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -113,8 +117,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {RAS_QUARANTINE_STATE}
      */
     rasQuarState {
-        get => NumGet(this, 1120, "int")
-        set => NumPut("int", value, this, 1120)
+        get => NumGet(this, 1128, "int")
+        set => NumPut("int", value, this, 1128)
     }
 
     /**
@@ -124,7 +128,7 @@ class RAS_CONNECTION_EX extends Win32Struct {
     probationTime {
         get {
             if(!this.HasProp("__probationTime"))
-                this.__probationTime := FILETIME(1124, this)
+                this.__probationTime := FILETIME(1132, this)
             return this.__probationTime
         }
     }
@@ -134,8 +138,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {Integer}
      */
     dwBytesXmited {
-        get => NumGet(this, 1132, "uint")
-        set => NumPut("uint", value, this, 1132)
+        get => NumGet(this, 1140, "uint")
+        set => NumPut("uint", value, this, 1140)
     }
 
     /**
@@ -143,8 +147,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {Integer}
      */
     dwBytesRcved {
-        get => NumGet(this, 1136, "uint")
-        set => NumPut("uint", value, this, 1136)
+        get => NumGet(this, 1144, "uint")
+        set => NumPut("uint", value, this, 1144)
     }
 
     /**
@@ -152,8 +156,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {Integer}
      */
     dwFramesXmited {
-        get => NumGet(this, 1140, "uint")
-        set => NumPut("uint", value, this, 1140)
+        get => NumGet(this, 1148, "uint")
+        set => NumPut("uint", value, this, 1148)
     }
 
     /**
@@ -161,8 +165,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {Integer}
      */
     dwFramesRcved {
-        get => NumGet(this, 1144, "uint")
-        set => NumPut("uint", value, this, 1144)
+        get => NumGet(this, 1152, "uint")
+        set => NumPut("uint", value, this, 1152)
     }
 
     /**
@@ -170,8 +174,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {Integer}
      */
     dwCrcErr {
-        get => NumGet(this, 1148, "uint")
-        set => NumPut("uint", value, this, 1148)
+        get => NumGet(this, 1156, "uint")
+        set => NumPut("uint", value, this, 1156)
     }
 
     /**
@@ -179,8 +183,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {Integer}
      */
     dwTimeoutErr {
-        get => NumGet(this, 1152, "uint")
-        set => NumPut("uint", value, this, 1152)
+        get => NumGet(this, 1160, "uint")
+        set => NumPut("uint", value, this, 1160)
     }
 
     /**
@@ -188,8 +192,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {Integer}
      */
     dwAlignmentErr {
-        get => NumGet(this, 1156, "uint")
-        set => NumPut("uint", value, this, 1156)
+        get => NumGet(this, 1164, "uint")
+        set => NumPut("uint", value, this, 1164)
     }
 
     /**
@@ -197,8 +201,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {Integer}
      */
     dwHardwareOverrunErr {
-        get => NumGet(this, 1160, "uint")
-        set => NumPut("uint", value, this, 1160)
+        get => NumGet(this, 1168, "uint")
+        set => NumPut("uint", value, this, 1168)
     }
 
     /**
@@ -206,8 +210,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {Integer}
      */
     dwFramingErr {
-        get => NumGet(this, 1164, "uint")
-        set => NumPut("uint", value, this, 1164)
+        get => NumGet(this, 1172, "uint")
+        set => NumPut("uint", value, this, 1172)
     }
 
     /**
@@ -215,8 +219,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {Integer}
      */
     dwBufferOverrunErr {
-        get => NumGet(this, 1168, "uint")
-        set => NumPut("uint", value, this, 1168)
+        get => NumGet(this, 1176, "uint")
+        set => NumPut("uint", value, this, 1176)
     }
 
     /**
@@ -224,8 +228,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {Integer}
      */
     dwCompressionRatioIn {
-        get => NumGet(this, 1172, "uint")
-        set => NumPut("uint", value, this, 1172)
+        get => NumGet(this, 1180, "uint")
+        set => NumPut("uint", value, this, 1180)
     }
 
     /**
@@ -233,8 +237,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {Integer}
      */
     dwCompressionRatioOut {
-        get => NumGet(this, 1176, "uint")
-        set => NumPut("uint", value, this, 1176)
+        get => NumGet(this, 1184, "uint")
+        set => NumPut("uint", value, this, 1184)
     }
 
     /**
@@ -242,8 +246,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {Integer}
      */
     dwNumSwitchOvers {
-        get => NumGet(this, 1180, "uint")
-        set => NumPut("uint", value, this, 1180)
+        get => NumGet(this, 1188, "uint")
+        set => NumPut("uint", value, this, 1188)
     }
 
     /**
@@ -251,8 +255,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {String}
      */
     wszRemoteEndpointAddress {
-        get => StrGet(this.ptr + 1184, 64, "UTF-16")
-        set => StrPut(value, this.ptr + 1184, 64, "UTF-16")
+        get => StrGet(this.ptr + 1192, 64, "UTF-16")
+        set => StrPut(value, this.ptr + 1192, 64, "UTF-16")
     }
 
     /**
@@ -260,8 +264,8 @@ class RAS_CONNECTION_EX extends Win32Struct {
      * @type {String}
      */
     wszLocalEndpointAddress {
-        get => StrGet(this.ptr + 1314, 64, "UTF-16")
-        set => StrPut(value, this.ptr + 1314, 64, "UTF-16")
+        get => StrGet(this.ptr + 1322, 64, "UTF-16")
+        set => StrPut(value, this.ptr + 1322, 64, "UTF-16")
     }
 
     /**
@@ -271,7 +275,7 @@ class RAS_CONNECTION_EX extends Win32Struct {
     ProjectionInfo {
         get {
             if(!this.HasProp("__ProjectionInfo"))
-                this.__ProjectionInfo := PROJECTION_INFO(1448, this)
+                this.__ProjectionInfo := PROJECTION_INFO(1456, this)
             return this.__ProjectionInfo
         }
     }
@@ -283,7 +287,7 @@ class RAS_CONNECTION_EX extends Win32Struct {
     hConnection {
         get {
             if(!this.HasProp("__hConnection"))
-                this.__hConnection := HANDLE(1648, this)
+                this.__hConnection := HANDLE(1656, this)
             return this.__hConnection
         }
     }
@@ -295,7 +299,7 @@ class RAS_CONNECTION_EX extends Win32Struct {
     hInterface {
         get {
             if(!this.HasProp("__hInterface"))
-                this.__hInterface := HANDLE(1656, this)
+                this.__hInterface := HANDLE(1664, this)
             return this.__hInterface
         }
     }

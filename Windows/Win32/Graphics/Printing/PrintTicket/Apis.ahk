@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include .\HPTPROVIDER.ahk
+#Include .\EDefaultDevmodeType.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\HPTPROVIDER.ahk
+#Include .\EPrintTicketScope.ahk
+#Include ..\..\..\System\Com\IStream.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\Gdi\DEVMODEA.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing.PrintTicket
@@ -86,7 +92,7 @@ class PrintTicket {
     static PTOpenProvider(pszPrinterName, dwVersion) {
         pszPrinterName := pszPrinterName is String ? StrPtr(pszPrinterName) : pszPrinterName
 
-        phProvider := HPTPROVIDER()
+        phProvider := HPTPROVIDER({Value: 0}, True)
         result := DllCall("prntvpt.dll\PTOpenProvider", "ptr", pszPrinterName, "uint", dwVersion, "ptr", phProvider, "HRESULT")
         return phProvider
     }
@@ -189,7 +195,7 @@ class PrintTicket {
     static PTGetPrintCapabilities(_hProvider, pPrintTicket, pCapabilities) {
         _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
-        pbstrErrorMessage := BSTR()
+        pbstrErrorMessage := BSTR({Value: 0}, True)
         result := DllCall("prntvpt.dll\PTGetPrintCapabilities", "ptr", _hProvider, "ptr", pPrintTicket, "ptr", pCapabilities, "ptr", pbstrErrorMessage, "HRESULT")
         return pbstrErrorMessage
     }
@@ -206,7 +212,7 @@ class PrintTicket {
     static PTGetPrintDeviceCapabilities(_hProvider, pPrintTicket, pDeviceCapabilities) {
         _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
-        pbstrErrorMessage := BSTR()
+        pbstrErrorMessage := BSTR({Value: 0}, True)
         result := DllCall("prntvpt.dll\PTGetPrintDeviceCapabilities", "ptr", _hProvider, "ptr", pPrintTicket, "ptr", pDeviceCapabilities, "ptr", pbstrErrorMessage, "HRESULT")
         return pbstrErrorMessage
     }
@@ -225,7 +231,7 @@ class PrintTicket {
         _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
-        pbstrErrorMessage := BSTR()
+        pbstrErrorMessage := BSTR({Value: 0}, True)
         result := DllCall("prntvpt.dll\PTGetPrintDeviceResources", "ptr", _hProvider, "ptr", pszLocaleName, "ptr", pPrintTicket, "ptr", pDeviceResources, "ptr", pbstrErrorMessage, "HRESULT")
         return pbstrErrorMessage
     }
@@ -269,7 +275,7 @@ class PrintTicket {
     static PTMergeAndValidatePrintTicket(_hProvider, pBaseTicket, pDeltaTicket, scope, pResultTicket) {
         _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
-        pbstrErrorMessage := BSTR()
+        pbstrErrorMessage := BSTR({Value: 0}, True)
         result := DllCall("prntvpt.dll\PTMergeAndValidatePrintTicket", "ptr", _hProvider, "ptr", pBaseTicket, "ptr", pDeltaTicket, "int", scope, "ptr", pResultTicket, "ptr", pbstrErrorMessage, "HRESULT")
         return pbstrErrorMessage
     }

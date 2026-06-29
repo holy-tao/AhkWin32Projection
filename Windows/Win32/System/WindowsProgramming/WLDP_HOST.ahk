@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Identifies the host type of the WLDP caller.
- * @see https://learn.microsoft.com/windows/win32/api/wldp/ne-wldp-wldp_host_id
  * @namespace Windows.Win32.System.WindowsProgramming
  */
 class WLDP_HOST extends Win32Enum {

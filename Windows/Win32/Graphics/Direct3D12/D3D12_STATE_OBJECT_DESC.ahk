@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_STATE_OBJECT_TYPE.ahk
 #Include .\D3D12_STATE_SUBOBJECT.ahk
+#Include .\D3D12_STATE_OBJECT_TYPE.ahk
 
 /**
  * Description of a state object. Pass this structure into ID3D12Device::CreateStateObject.

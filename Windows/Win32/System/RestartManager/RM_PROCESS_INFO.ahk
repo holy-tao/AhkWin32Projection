@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RM_UNIQUE_PROCESS.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\RM_APP_TYPE.ahk
+#Include .\RM_UNIQUE_PROCESS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes an application that is to be registered with the Restart Manager.

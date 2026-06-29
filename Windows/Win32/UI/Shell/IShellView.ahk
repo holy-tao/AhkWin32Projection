@@ -1,9 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Ole\IOleWindow.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Ole\IOleWindow.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\FOLDERSETTINGS.ahk
+#Include .\IShellBrowser.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\WindowsAndMessaging\MSG.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Exposes methods that present a view in the Windows Explorer or folder windows.

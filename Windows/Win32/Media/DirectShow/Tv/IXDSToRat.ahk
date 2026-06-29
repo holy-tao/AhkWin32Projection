@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\EnTvRat_System.ahk
+#Include .\EnTvRat_GenericLevel.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IXDSToRat interface parses rating information from extended data services (XDS) information in line 21.

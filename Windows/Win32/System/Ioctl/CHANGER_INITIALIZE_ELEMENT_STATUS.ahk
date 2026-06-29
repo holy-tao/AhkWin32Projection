@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CHANGER_ELEMENT_LIST.ahk
 #Include .\CHANGER_ELEMENT.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\ELEMENT_TYPE.ahk
+#Include .\CHANGER_ELEMENT_LIST.ahk
 
 /**
  * Represents the status of all media changer elements or the specified elements of a particular type.

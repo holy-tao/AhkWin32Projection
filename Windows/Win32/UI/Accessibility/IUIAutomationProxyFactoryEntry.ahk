@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\UIA_PROPERTY_ID.ahk
+#Include .\UIA_EVENT_ID.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAutomationProxyFactory.ahk
-#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Represents a proxy factory in the table maintained by Microsoft UI Automation, and exposes properties and methods that can be used by client applications to interact with IUIAutomationProxyFactory objects.
@@ -94,7 +100,7 @@ class IUIAutomationProxyFactoryEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_classname
      */
     get_ClassName() {
-        className := BSTR()
+        className := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", className, "HRESULT")
         return className
     }
@@ -105,7 +111,7 @@ class IUIAutomationProxyFactoryEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_imagename
      */
     get_ImageName() {
-        imageName := BSTR()
+        imageName := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", imageName, "HRESULT")
         return imageName
     }

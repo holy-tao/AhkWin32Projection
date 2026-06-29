@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SERVICE_STATUS.ahk
-#Include .\ENUM_SERVICE_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\SERVICE_STATUS_CURRENT_STATE.ahk
+#Include .\ENUM_SERVICE_TYPE.ahk
 
 /**
  * Contains the name of a service in a service control manager database and information about that service. It is used by the EnumDependentServices and EnumServicesStatus functions. (Unicode)

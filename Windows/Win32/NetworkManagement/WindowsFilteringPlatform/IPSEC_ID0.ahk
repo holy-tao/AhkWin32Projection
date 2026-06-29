@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IPSEC_TOKEN0.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information corresponding to identities that are authenticated by IPsec.

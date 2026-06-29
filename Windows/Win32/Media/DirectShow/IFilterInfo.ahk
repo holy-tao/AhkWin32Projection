@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -89,7 +90,7 @@ class IFilterInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        strName := BSTR()
+        strName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", strName, "HRESULT")
         return strName
     }
@@ -99,7 +100,7 @@ class IFilterInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_VendorInfo() {
-        strVendorInfo := BSTR()
+        strVendorInfo := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", strVendorInfo, "HRESULT")
         return strVendorInfo
     }
@@ -136,7 +137,7 @@ class IFilterInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_Filename() {
-        pstrFilename := BSTR()
+        pstrFilename := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pstrFilename, "HRESULT")
         return pstrFilename
     }

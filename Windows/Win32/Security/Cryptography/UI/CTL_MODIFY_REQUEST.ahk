@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\CERT_CONTEXT.ahk
 #Include .\CTL_MODIFY_REQUEST_OPERATION.ahk
+#Include ..\CERT_CONTEXT.ahk
 
 /**
  * Contains a request to modify a certificate trust list (CTL). This structure is used in the CertModifyCertificatesToTrust function.

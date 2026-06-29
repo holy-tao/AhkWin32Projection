@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_ENDPOINT_IDENTITY.ahk
+#Include .\WS_POLICY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WS_XML_BUFFER.ahk
 #Include .\WS_ENDPOINT_ADDRESS.ahk
 #Include .\WS_STRING.ahk
-#Include .\WS_ENDPOINT_IDENTITY.ahk
 #Include .\WS_XML_STRING.ahk
 
 /**

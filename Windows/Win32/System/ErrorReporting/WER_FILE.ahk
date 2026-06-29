@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The file does not contain personal information that could be used to identify or contact the user.
- * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werregisterfile
  * @namespace Windows.Win32.System.ErrorReporting
  */
 class WER_FILE extends Win32BitflagEnum {

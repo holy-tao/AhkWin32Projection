@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Graphics\Gdi\XFORM.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * . (IInkTransform)

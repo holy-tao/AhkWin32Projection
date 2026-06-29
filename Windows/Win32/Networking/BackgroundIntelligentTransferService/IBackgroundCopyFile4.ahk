@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IBackgroundCopyFile3.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to retrieve download statistics for peers and origin servers.

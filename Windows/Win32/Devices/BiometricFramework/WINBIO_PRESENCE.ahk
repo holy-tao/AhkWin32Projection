@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINBIO_IDENTITY.ahk
 #Include .\WINBIO_PRESENCE_PROPERTIES.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include .\WINBIO_IDENTITY.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Contains information about the presence of an individual whose presence is being monitored.

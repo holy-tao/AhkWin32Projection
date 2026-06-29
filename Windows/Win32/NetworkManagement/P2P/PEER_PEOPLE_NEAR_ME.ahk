@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_ENDPOINT.ahk
-#Include .\PEER_ADDRESS.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Include .\PEER_ENDPOINT.ahk
 #Include ..\..\Networking\WinSock\SCOPE_ID.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\PEER_ADDRESS.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
 
 /**
  * Contains information about a peer in the same logical or virtual subnet.
@@ -13,7 +15,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
 class PEER_PEOPLE_NEAR_ME extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -41,10 +43,13 @@ class PEER_PEOPLE_NEAR_ME extends Win32Struct {
 
     /**
      * GUID value that contains the unique ID value for this peer.  Since this value uniquely identifies a peer endpoint, the display name and even the associated IPv6 address can be changed with deleting the rest of the peer information.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(48, this)
+            return this.__id
+        }
     }
 }

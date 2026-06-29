@@ -1,7 +1,37 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\ENUMTYPEA.ahk
+#Include ..\..\Graphics\Gdi\RGBTRIPLE.ahk
+#Include ..\..\Foundation\LUID.ahk
+#Include .\PROFILE.ahk
+#Include .\LOGCOLORSPACEW.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\COLORPROFILETYPE.ahk
 #Include .\HCOLORSPACE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\COLOR_MATCH_TO_TARGET_ACTION.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\COLOR.ahk
+#Include .\COLORMATCHSETUPA.ahk
+#Include .\ICM_COMMAND.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include .\WCS_PROFILE_MANAGEMENT_SCOPE.ahk
+#Include .\COLORTYPE.ahk
+#Include .\ICM_MODE.ahk
+#Include .\COLORDATATYPE.ahk
+#Include .\ENUMTYPEW.ahk
+#Include .\COLORPROFILESUBTYPE.ahk
+#Include .\NAMED_PROFILE_INFO.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\BMFORMAT.ahk
+#Include .\PROFILEHEADER.ahk
+#Include .\WCS_DEVICE_CAPABILITIES_TYPE.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include .\LOGCOLORSPACEA.ahk
+#Include .\COLORMATCHSETUPW.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
 /**
  * @namespace Windows.Win32.UI.ColorSystem

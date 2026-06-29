@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\OperationResultCode.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IUpdateDownloadResult.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the result of a download operation.

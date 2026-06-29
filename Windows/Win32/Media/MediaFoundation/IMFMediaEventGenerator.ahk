@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IMFAsyncResult.ahk
+#Include .\MEDIA_EVENT_GENERATOR_GET_EVENT_FLAGS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFMediaEvent.ahk
+#Include .\IMFAsyncCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Retrieves events from any Media Foundation object that generates events.

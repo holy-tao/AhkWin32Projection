@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Enumerates the event objects that are registered in the COM+ events store.

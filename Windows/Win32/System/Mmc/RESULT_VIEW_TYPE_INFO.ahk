@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MMC_VIEW_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\MMC_VIEW_TYPE.ahk
 
 /**
  * The RESULT_VIEW_TYPE_INFO structure is introduced in MMC 2.0.

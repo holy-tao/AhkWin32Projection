@@ -1,8 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Device4.ahk
+#Include .\D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS.ahk
+#Include .\ID3D12LifetimeOwner.ahk
+#Include .\D3D12_SERIALIZED_DATA_TYPE.ahk
+#Include .\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\D3D12_META_COMMAND_DESC.ahk
+#Include .\ID3D12Device4.ahk
+#Include .\D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER.ahk
+#Include .\D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS.ahk
+#Include .\D3D12_META_COMMAND_PARAMETER_STAGE.ahk
+#Include .\D3D12_META_COMMAND_PARAMETER_DESC.ahk
+#Include .\D3D12_STATE_OBJECT_DESC.ahk
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device4](../d3d12/nn-d3d12-id3d12device4.md).

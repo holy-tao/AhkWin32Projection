@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHeaderFooter.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHeaderFooter.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -53,7 +54,7 @@ class IHeaderFooter2 extends IHeaderFooter {
      * @returns {BSTR} 
      */
     get_font() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", p, "HRESULT")
         return p
     }

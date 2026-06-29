@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DATE_TIME.ahk
 #Include .\SCOPE_MIB_INFO_VQ.ahk
+#Include .\DATE_TIME.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp

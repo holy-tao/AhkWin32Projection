@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ISCSI_UNIQUE_SESSION_ID.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * ISCSI_CONNECTION_INFO structure contains information about a connection. (Unicode)

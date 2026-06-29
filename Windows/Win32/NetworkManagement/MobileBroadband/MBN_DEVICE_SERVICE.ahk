@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 
 /**
  * The MBN_DEVICE_SERVICE structure provides information about a Mobile Broadband device service.

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include Common\ITEMIDLIST.ahk
 #Include ..\..\System\Com\IPersist.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that are used to persist item identifier lists.

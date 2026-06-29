@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PREPARE_TAPE_OPERATION.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes how to prepare the tape.

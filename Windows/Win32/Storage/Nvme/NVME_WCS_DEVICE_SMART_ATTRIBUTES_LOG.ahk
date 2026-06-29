@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
 class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG extends Win32Struct {
-    static sizeof => 504
+    static sizeof => 512
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Array<Integer>}
@@ -29,10 +30,13 @@ class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     LogPageGUID {
-        get => NumGet(this, 496, "ptr")
-        set => NumPut("ptr", value, this, 496)
+        get {
+            if(!this.HasProp("__LogPageGUID"))
+                this.__LogPageGUID := Guid(496, this)
+            return this.__LogPageGUID
+        }
     }
 }

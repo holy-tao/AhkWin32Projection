@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * Describes a keyboard input event in a console INPUT\_RECORD structure.
@@ -15,7 +17,7 @@ class KEY_EVENT_RECORD extends Win32Struct {
 
     static packingSize => 4
 
-    class _uChar_e__Union extends Win32Struct {
+    class _uChar extends Win32Struct {
         static sizeof => 2
         static packingSize => 2
 
@@ -74,12 +76,12 @@ class KEY_EVENT_RECORD extends Win32Struct {
 
     /**
      * A union of the following members.
-     * @type {_uChar_e__Union}
+     * @type {_uChar}
      */
     uChar {
         get {
             if(!this.HasProp("__uChar"))
-                this.__uChar := KEY_EVENT_RECORD._uChar_e__Union(10, this)
+                this.__uChar := KEY_EVENT_RECORD._uChar(10, this)
             return this.__uChar
         }
     }

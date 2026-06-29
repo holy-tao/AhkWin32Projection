@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\CATEGORYINFO.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods for registering and unregistering component category information in the registry. This includes both the human-readable names of categories and the categories implemented/required by a given component or class.

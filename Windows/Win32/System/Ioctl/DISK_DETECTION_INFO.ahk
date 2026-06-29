@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DETECTION_TYPE.ahk
-#Include .\DISK_INT13_INFO.ahk
 #Include .\DISK_EX_INT13_INFO.ahk
+#Include .\DISK_INT13_INFO.ahk
 
 /**
  * Contains detected drive parameters.

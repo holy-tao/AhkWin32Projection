@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\UpdateAssessment.ahk
-#Include .\UpdateAssessmentStatus.ahk
-#Include .\UpdateImpactLevel.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\UpdateAssessmentStatus.ahk
+#Include .\UpdateAssessment.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\UpdateImpactLevel.ahk
 
 /**
  * The OSUpdateAssessment structure defines how up-to-date the OS on a targeted device is.

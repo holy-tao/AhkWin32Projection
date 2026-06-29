@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFActivate.ahk
+#Include .\IMFAsyncResult.ahk
+#Include .\IMFTopology.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFAsyncCallback.ahk
 
 /**
  * Enables playback of protected content by providing the application with a pointer to a content enabler object.

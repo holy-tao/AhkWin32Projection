@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\GLYPHDEF.ahk
 #Include ..\..\Foundation\POINTL.ahk
+#Include .\GLYPHDEF.ahk
 
 /**
  * The GLYPHPOS structure is used by GDI to provide a graphics driver with a glyph's description and position.

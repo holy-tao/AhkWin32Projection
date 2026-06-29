@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\_Application.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Mmc
@@ -34,12 +36,9 @@ class _EventConnector extends IDispatch {
     static VTableNames => ["ConnectTo", "Disconnect"]
 
     /**
-     * Establishes or terminates a connection between a client's sink and a connection point container.
-     * @param {_Application} _Application 
-     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-connecttoconnectionpoint
+     * @param {_Application} _Application 
+     * @returns {HRESULT} 
      */
     ConnectTo(_Application) {
         result := ComCall(7, this, "ptr", _Application, "HRESULT")

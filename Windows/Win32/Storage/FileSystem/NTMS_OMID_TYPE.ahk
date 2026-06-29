@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The <i>lpBuffer</i> parameter contains an NTMS_FILESYSTEM_INFO structure. This flag is used for media that contain file systems.
- * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/nf-ntmsapi-updatentmsomidinfo
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class NTMS_OMID_TYPE extends Win32Enum {

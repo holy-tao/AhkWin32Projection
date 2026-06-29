@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFExtendedCameraIntrinsicModel.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -40,9 +41,8 @@ class IMFExtendedCameraIntrinsics extends IUnknown {
     }
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetBufferSizeBits
+     * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecleakybucket-getbuffersizebits
      */
     GetBufferSize() {
         result := ComCall(4, this, "uint*", &pdwBufferSize := 0, "HRESULT")

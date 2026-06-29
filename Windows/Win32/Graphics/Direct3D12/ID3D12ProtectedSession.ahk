@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D12DeviceChild.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_PROTECTED_SESSION_STATUS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Offers base functionality that allows for a consistent way to monitor the validity of a session across the different types of sessions.

@@ -1,9 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IBindCtx.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SHGDNF.ahk
+#Include Common\STRRET.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumIDList.ahk
-#Include Common\STRRET.ahk
 
 /**
  * Exposed by all Shell namespace folder objects, its methods are used to manage folders.

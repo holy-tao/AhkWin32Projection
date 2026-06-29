@@ -9,7 +9,7 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct {
 
     static packingSize => 4
 
-    class _VconnPower_e__Union extends Win32Struct {
+    class _VconnPower extends Win32Struct {
         static sizeof => 2
         static packingSize => 1
 
@@ -99,12 +99,12 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {_VconnPower_e__Union}
+     * @type {_VconnPower}
      */
     VconnPower {
         get {
             if(!this.HasProp("__VconnPower"))
-                this.__VconnPower := USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR._VconnPower_e__Union(6, this)
+                this.__VconnPower := USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR._VconnPower(6, this)
             return this.__VconnPower
         }
     }

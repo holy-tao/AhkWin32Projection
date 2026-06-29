@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WINML_FEATURE_TYPE.ahk
 #Include .\WINML_TENSOR_VARIABLE_DESC.ahk
-#Include .\WINML_TENSOR_DATA_TYPE.ahk
-#Include .\WINML_SEQUENCE_VARIABLE_DESC.ahk
-#Include .\WINML_MAP_VARIABLE_DESC.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\WINML_IMAGE_VARIABLE_DESC.ahk
+#Include .\WINML_TENSOR_DATA_TYPE.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\WINML_SEQUENCE_VARIABLE_DESC.ahk
+#Include .\WINML_FEATURE_TYPE.ahk
+#Include .\WINML_MAP_VARIABLE_DESC.ahk
 
 /**
  * Contains description properties of the variable.

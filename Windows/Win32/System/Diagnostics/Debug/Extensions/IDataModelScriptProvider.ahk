@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include .\IDataModelScript.ahk
-#Include .\IDataModelScriptTemplate.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include .\IDataModelScriptTemplateEnumerator.ahk
+#Include .\IDataModelScriptTemplate.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -37,7 +38,7 @@ class IDataModelScriptProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", name, "HRESULT")
         return name
     }
@@ -47,7 +48,7 @@ class IDataModelScriptProvider extends IUnknown {
      * @returns {BSTR} 
      */
     GetExtension() {
-        _extension := BSTR()
+        _extension := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", _extension, "HRESULT")
         return _extension
     }

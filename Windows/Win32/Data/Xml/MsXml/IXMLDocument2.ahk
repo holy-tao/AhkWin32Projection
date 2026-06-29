@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IXMLElement2.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IXMLElement2.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -130,7 +133,7 @@ class IXMLDocument2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_fileSize() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -140,7 +143,7 @@ class IXMLDocument2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_fileModifiedDate() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", p, "HRESULT")
         return p
     }
@@ -150,7 +153,7 @@ class IXMLDocument2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_fileUpdatedDate() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -160,7 +163,7 @@ class IXMLDocument2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_URL() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", p, "HRESULT")
         return p
     }
@@ -182,7 +185,7 @@ class IXMLDocument2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_mimeType() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", p, "HRESULT")
         return p
     }
@@ -201,7 +204,7 @@ class IXMLDocument2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_charset() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", p, "HRESULT")
         return p
     }
@@ -223,7 +226,7 @@ class IXMLDocument2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_version() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", p, "HRESULT")
         return p
     }
@@ -233,7 +236,7 @@ class IXMLDocument2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_doctype() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", p, "HRESULT")
         return p
     }
@@ -243,7 +246,7 @@ class IXMLDocument2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_dtdURL() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", p, "HRESULT")
         return p
     }

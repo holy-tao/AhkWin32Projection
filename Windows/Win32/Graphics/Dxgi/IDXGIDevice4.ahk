@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_RECLAIM_RESOURCE_RESULTS.ahk
+#Include .\IDXGIResource.ahk
+#Include .\DXGI_OFFER_RESOURCE_PRIORITY.ahk
 #Include .\IDXGIDevice3.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface provides updated methods to offer and reclaim resources.

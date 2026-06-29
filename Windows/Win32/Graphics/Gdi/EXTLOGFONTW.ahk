@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LOGFONTW.ahk
-#Include .\FONT_CHARSET.ahk
-#Include .\FONT_OUTPUT_PRECISION.ahk
-#Include .\FONT_CLIP_PRECISION.ahk
-#Include .\FONT_QUALITY.ahk
-#Include .\PANOSE.ahk
-#Include .\PAN_FAMILY_TYPE.ahk
-#Include .\PAN_SERIF_STYLE.ahk
-#Include .\PAN_WEIGHT.ahk
-#Include .\PAN_PROPORTION.ahk
-#Include .\PAN_CONTRAST.ahk
-#Include .\PAN_STROKE_VARIATION.ahk
-#Include .\PAN_ARM_STYLE.ahk
-#Include .\PAN_LETT_FORM.ahk
 #Include .\PAN_MIDLINE.ahk
+#Include .\PANOSE.ahk
+#Include .\PAN_PROPORTION.ahk
+#Include .\PAN_WEIGHT.ahk
+#Include .\PAN_STROKE_VARIATION.ahk
+#Include .\PAN_CONTRAST.ahk
+#Include .\PAN_LETT_FORM.ahk
+#Include .\PAN_FAMILY_TYPE.ahk
+#Include .\LOGFONTW.ahk
+#Include .\FONT_QUALITY.ahk
+#Include .\PAN_ARM_STYLE.ahk
+#Include .\FONT_CLIP_PRECISION.ahk
+#Include .\FONT_CHARSET.ahk
 #Include .\PAN_XHEIGHT.ahk
+#Include .\PAN_SERIF_STYLE.ahk
+#Include .\FONT_OUTPUT_PRECISION.ahk
 
 /**
  * The EXTLOGFONT structure defines the attributes of a font. (Unicode)

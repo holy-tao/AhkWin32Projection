@@ -1,10 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MARKUP_CONTEXT_TYPE.ahk
 #Include .\IHTMLDocument2.ahk
-#Include .\IMarkupContainer.ahk
 #Include .\IHTMLElement.ahk
+#Include .\ELEMENT_ADJACENCY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IMarkupContainer.ahk
+#Include .\MOVEUNIT_ACTION.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\POINTER_GRAVITY.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -137,14 +144,13 @@ class IMarkupPointer extends IUnknown {
     }
 
     /**
-     * If the LeftUnit property is set, the unit is placed to the left of the number instead of the typical right side.
+     * 
      * @param {BOOL} fMove 
      * @param {Pointer<MARKUP_CONTEXT_TYPE>} pContext 
      * @param {Pointer<IHTMLElement>} ppElement 
      * @param {Pointer<Integer>} pcch 
      * @param {PWSTR} pchText 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Msi/leftunit
      */
     Left(fMove, pContext, ppElement, pcch, pchText) {
         pchText := pchText is String ? StrPtr(pchText) : pchText

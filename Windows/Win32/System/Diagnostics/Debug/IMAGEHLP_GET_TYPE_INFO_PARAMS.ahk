@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGEHLP_GET_TYPE_INFO_FLAGS.ahk
 #Include .\IMAGEHLP_SYMBOL_TYPE_INFO.ahk
+#Include .\IMAGEHLP_GET_TYPE_INFO_FLAGS.ahk
 
 /**
  * Contains type information for a module.

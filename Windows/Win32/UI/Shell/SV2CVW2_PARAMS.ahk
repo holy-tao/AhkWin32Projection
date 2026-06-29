@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IShellView.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\FOLDERSETTINGS.ahk
 #Include .\IShellBrowser.ahk
+#Include .\IShellView.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Holds the parameters for the IShellView2::CreateViewWindow2 method.

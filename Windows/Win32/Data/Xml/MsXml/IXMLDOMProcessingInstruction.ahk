@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IXMLDOMNode.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IXMLDOMNode.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -48,7 +49,7 @@ class IXMLDOMProcessingInstruction extends IXMLDOMNode {
      * @returns {BSTR} 
      */
     get_target() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(43, this, "ptr", name, "HRESULT")
         return name
     }
@@ -58,7 +59,7 @@ class IXMLDOMProcessingInstruction extends IXMLDOMNode {
      * @returns {BSTR} 
      */
     get_data() {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(44, this, "ptr", value, "HRESULT")
         return value
     }

@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\RepairInfo.ahk
-#Include .\REPAIR_SCOPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\REPAIR_RISK.ahk
-#Include .\UiInfo.ahk
-#Include .\UI_INFO_TYPE.ahk
+#Include .\REPAIR_SCOPE.ahk
 #Include .\ShellCommandInfo.ahk
+#Include .\UI_INFO_TYPE.ahk
+#Include .\UiInfo.ahk
 
 /**
  * Contains detailed repair information that can be used to help resolve the root cause of an incident.
@@ -13,7 +15,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  */
 class RepairInfoEx extends Win32Struct {
-    static sizeof => 112
+    static sizeof => 120
 
     static packingSize => 8
 
@@ -38,7 +40,7 @@ class RepairInfoEx extends Win32Struct {
      * @type {Integer}
      */
     repairRank {
-        get => NumGet(this, 104, "ushort")
-        set => NumPut("ushort", value, this, 104)
+        get => NumGet(this, 112, "ushort")
+        set => NumPut("ushort", value, this, 112)
     }
 }

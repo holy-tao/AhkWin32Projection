@@ -1,11 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\Gdi\HDC.ahk
-#Include .\DWRITE_MATRIX.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include .\DWRITE_MEASURING_MODE.ahk
+#Include .\IDWriteRenderingParams.ahk
+#Include .\DWRITE_GLYPH_RUN.ahk
+#Include ..\Gdi\HDC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DWRITE_MATRIX.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Encapsulates a 32-bit device independent bitmap and device context, which can be used for rendering glyphs.

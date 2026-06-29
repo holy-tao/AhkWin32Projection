@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DVD_SUBPICTURE_TYPE.ahk
 #Include .\DVD_SUBPICTURE_CODING.ahk
+#Include .\DVD_SUBPICTURE_TYPE.ahk
 #Include .\DVD_SUBPICTURE_LANG_EXT.ahk
 
 /**

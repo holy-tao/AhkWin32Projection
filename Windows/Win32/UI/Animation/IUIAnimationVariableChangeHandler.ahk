@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAnimationStoryboard.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAnimationVariable.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines a method for handling events related to animation variable updates.

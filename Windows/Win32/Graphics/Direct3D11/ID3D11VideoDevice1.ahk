@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
 #Include .\ID3D11VideoDevice.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_VIDEO_DECODER_DESC.ahk
 #Include .\D3D11_VIDEO_SAMPLE_DESC.ahk
+#Include .\D3D11_VIDEO_DECODER_CONFIG.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\Dxgi\Common\DXGI_RATIONAL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the video decoding and video processing capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoDevice1)

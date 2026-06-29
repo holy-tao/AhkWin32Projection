@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaSource.ahk
 #Include .\IMFAttributes.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFMediaSource.ahk
 
 /**
  * Extends the IMFMediaSource interface to provide additional capabilities for a media source.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\DDRAWI_DDRAWSURFACE_INT.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
 #Include .\DDHAL_CALLBACKS.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

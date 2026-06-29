@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_OPTION_DATA.ahk
 #Include .\DHCP_OPTION_DATA_ELEMENT.ahk
+#Include .\DHCP_OPTION_DATA.ahk
 
 /**
  * The DHCP_OPTION_VALUE structure defines a DHCP option value (just the option data with an associated ID tag).

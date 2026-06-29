@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Geometry.ahk
 #Include .\ID2D1GeometrySink.ahk
+#Include .\ID2D1Geometry.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a complex shape that may be composed of arcs, curves, and lines.

@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAnimationStoryboard.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAnimationVariableIntegerChangeHandler.ahk
+#Include .\UI_ANIMATION_ROUNDING_MODE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUIAnimationVariableChangeHandler.ahk
 
 /**
  * Defines an animation variable, which represents a visual element that can be animated.

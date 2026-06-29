@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_GLOBAL.ahk
-#Include .\DD_PALETTE_GLOBAL.ahk
 #Include ..\Gdi\PALETTEENTRY.ahk
+#Include .\DD_PALETTE_GLOBAL.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The DD_CREATEPALETTEDATA structure contains information necessary to create a DirectDrawPalette object for this Microsoft DirectDraw object.

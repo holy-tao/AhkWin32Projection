@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\DirectDraw\DDSCAPS2.ahk
 #Include ..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk
+#Include ..\..\Graphics\DirectDraw\DDSCAPS2.ahk
 
 /**
  * The AMVACompBufferInfo structure describes the allocated surfaces and compressed buffer information.

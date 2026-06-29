@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\IMMDevice.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Represents an audio microphone boost APO notification.
@@ -10,7 +12,7 @@
  * @namespace Windows.Win32.Media.Audio.Apo
  */
 class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -25,11 +27,14 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct {
 
     /**
      * A GUID representing the context associated with the originator of the event. A client can use this method to keep track of control changes made by other processes and by the hardware. The functions [IAudioVolumeLevel::SetLevel](../devicetopology/nf-devicetopology-iperchanneldblevel-setlevel.md) and [IAudioMute::SetMute](../devicetopology/nf-devicetopology-iaudiomute-setmute) use the context. When this notification is recieved, a client can inspect the context GUID to discover whether it or another client is the source of the notification.
-     * @type {Pointer}
+     * @type {Guid}
      */
     eventContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__eventContext"))
+                this.__eventContext := Guid(8, this)
+            return this.__eventContext
+        }
     }
 
     /**
@@ -37,8 +42,8 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct {
      * @type {BOOL}
      */
     microphoneBoostEnabled {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -46,8 +51,8 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct {
      * @type {Float}
      */
     levelInDb {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
+        get => NumGet(this, 28, "float")
+        set => NumPut("float", value, this, 28)
     }
 
     /**
@@ -55,8 +60,8 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct {
      * @type {Float}
      */
     levelMinInDb {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
+        get => NumGet(this, 32, "float")
+        set => NumPut("float", value, this, 32)
     }
 
     /**
@@ -64,8 +69,8 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct {
      * @type {Float}
      */
     levelMaxInDb {
-        get => NumGet(this, 28, "float")
-        set => NumPut("float", value, this, 28)
+        get => NumGet(this, 36, "float")
+        set => NumPut("float", value, this, 36)
     }
 
     /**
@@ -73,8 +78,8 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct {
      * @type {Float}
      */
     levelStepInDb {
-        get => NumGet(this, 32, "float")
-        set => NumPut("float", value, this, 32)
+        get => NumGet(this, 40, "float")
+        set => NumPut("float", value, this, 40)
     }
 
     /**
@@ -82,8 +87,8 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct {
      * @type {BOOL}
      */
     muteSupported {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
@@ -91,7 +96,7 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct {
      * @type {BOOL}
      */
     mute {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 }

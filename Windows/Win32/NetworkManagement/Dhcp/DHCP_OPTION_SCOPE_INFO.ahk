@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_OPTION_SCOPE_TYPE.ahk
 #Include .\DHCP_RESERVED_SCOPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DHCP_OPTION_SCOPE_TYPE.ahk
 
 /**
  * The DHCP_OPTION_SCOPE_INFO structure defines information about the options provided for a certain DHCP scope.

@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include .\HDI_MASK.ahk
+#Include .\NMHDR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information used in handling HDN_GETDISPINFO notification codes. (ANSI)

@@ -1,18 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\Controls\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Ole\IRecordInfo.ahk
+#Include ..\..\System\Variant\VARENUM.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IInkCursor.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\IInkStrokes.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Variant\VARENUM.ahk
-#Include ..\..\System\Com\CY.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\CY.ahk
 #Include ..\..\System\Com\SAFEARRAY.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\..\System\Ole\IRecordInfo.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * Contains information about a specific gesture.

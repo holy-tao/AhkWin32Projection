@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_CONTEXT.ahk
 #Include .\SIGNER_CERT_POLICY.ahk
 #Include .\HCERTSTORE.ahk
+#Include .\CERT_CONTEXT.ahk
 
 /**
  * Specifies the certificate store used to sign a document.

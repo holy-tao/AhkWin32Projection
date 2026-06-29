@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\GLOBALOPT_PROPERTIES.ahk
 #Include .\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IGlobalOptions (objidlbase.h) interface sets and queries global properties of the Component Object Model (COM) runtime.

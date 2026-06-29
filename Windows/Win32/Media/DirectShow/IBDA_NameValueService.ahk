@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Retrieves name/value pairs from a media transform device (MTD) through the device's General Purpose Name Value Service (GPNVS). Name/value pairs are used to get the capabilities of the device.
@@ -39,7 +40,7 @@ class IBDA_NameValueService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_namevalueservice-getvaluenamebyindex
      */
     GetValueNameByIndex(ulIndex) {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(3, this, "uint", ulIndex, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -55,7 +56,7 @@ class IBDA_NameValueService extends IUnknown {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        pbstrValue := BSTR()
+        pbstrValue := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", bstrName, "ptr", bstrLanguage, "ptr", pbstrValue, "HRESULT")
         return pbstrValue
     }

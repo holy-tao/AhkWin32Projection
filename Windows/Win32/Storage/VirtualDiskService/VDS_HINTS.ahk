@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The VDS_HINTS structure (vdshwprv.h) defines the automagic hints for a LUN or LUN plex.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_CONTACT.ahk
 #Include .\PEER_ENDPOINT.ahk
+#Include .\PEER_CONTACT.ahk
 #Include .\PEER_INVITATION.ahk
 
 /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains the name and value for a header in an HTTP request or response whose name does not appear in the enumeration.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_PROTOCOL_SPECIFIC_DATA_EXT.ahk
 #Include .\STORAGE_PROTOCOL_TYPE.ahk
+#Include .\STORAGE_PROTOCOL_SPECIFIC_DATA_EXT.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl

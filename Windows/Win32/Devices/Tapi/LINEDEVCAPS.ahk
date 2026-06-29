@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\LINEDIALPARAMS.ahk
 
 /**
@@ -29,9 +30,9 @@
  * @namespace Windows.Win32.Devices.Tapi
  */
 class LINEDEVCAPS extends Win32Struct {
-    static sizeof => 264
+    static sizeof => 268
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Total size allocated to this data structure, in bytes.
@@ -569,10 +570,13 @@ class LINEDEVCAPS extends Win32Struct {
 
     /**
      * GUID permanently associated with the line device.
-     * @type {Pointer}
+     * @type {Guid}
      */
     PermanentLineGuid {
-        get => NumGet(this, 256, "ptr")
-        set => NumPut("ptr", value, this, 256)
+        get {
+            if(!this.HasProp("__PermanentLineGuid"))
+                this.__PermanentLineGuid := Guid(252, this)
+            return this.__PermanentLineGuid
+        }
     }
 }

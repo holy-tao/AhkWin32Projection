@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\VMR9VideoStreamInfo.ahk
 
 /**
  * The IVMRImageCompositor9 interface is implemented by the default compositor for the Video Mixing Renderer Filter 9 (VMR-9).

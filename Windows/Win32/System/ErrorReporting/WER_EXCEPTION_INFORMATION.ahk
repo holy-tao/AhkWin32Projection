@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Diagnostics\Debug\EXCEPTION_POINTERS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains exception information for the WerReportAddDump function.

@@ -1,14 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IDirectMusicBuffer.ahk
+#Include ..\DirectSound\IDirectSound.ahk
 #Include .\IDirectMusicPort.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include .\IDirectMusicBuffer.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\DMUS_BUFFERDESC.ahk
+#Include .\DMUS_PORTCAPS.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\IReferenceClock.ahk
+#Include .\DMUS_CLOCKINFO8.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\DMUS_PORTPARAMS8.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
- * The IDirectMusicSynth interface is used by DirectMusic to communicate with user-mode synthesizers.
- * @see https://learn.microsoft.com/windows/win32/api/dmusics/nn-dmusics-idirectmusicsynth
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
 class IDirectMusic extends IUnknown {
@@ -33,20 +40,10 @@ class IDirectMusic extends IUnknown {
     static VTableNames => ["EnumPort", "CreateMusicBuffer", "CreatePort", "EnumMasterClock", "GetMasterClock", "SetMasterClock", "Activate", "GetDefaultPort", "SetDirectSound"]
 
     /**
-     * The EnumPorts function enumerates the ports that are available for printing on a specified server.
-     * @remarks
-     * > [!Note]  
-     * > This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.
      * 
-     *  
-     * 
-     * The **EnumPorts** function can succeed even if the server specified by *pName* does not have a printer defined.
      * @param {Integer} dwIndex 
      * @param {Pointer<DMUS_PORTCAPS>} pPortCaps 
-     * @returns {HRESULT} If the function succeeds, the return value is a nonzero value.
-     * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumports
+     * @returns {HRESULT} 
      */
     EnumPort(dwIndex, pPortCaps) {
         result := ComCall(3, this, "uint", dwIndex, "ptr", pPortCaps, "HRESULT")
@@ -108,24 +105,9 @@ class IDirectMusic extends IUnknown {
     }
 
     /**
-     * The ActivateActCtx function activates the specified activation context.
-     * @remarks
-     * The <i>lpCookie</i> parameter is later passed to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-deactivateactctx">DeactivateActCtx</a>, which verifies the pairing of calls to 
-     * <b>ActivateActCtx</b> and 
-     * <b>DeactivateActCtx</b> and ensures that the appropriate activation context is being deactivated. This is done because the deactivation of activation contexts must occur in the reverse order of activation.
      * 
-     * The activation of activation contexts can be understood as pushing an activation context onto a stack of activation contexts. The activation context you activate through this function  redirects any binding to DLLs, window classes, COM servers, type libraries, and mutexes for any side-by-side APIs you call.
-     * 
-     * The top item of an activation context stack is the active, default-activation context of the current thread. If a null activation context handle is pushed onto the stack, thereby activating it, the default settings in the original manifest override all activation contexts that are lower on the stack.
      * @param {BOOL} fEnable 
-     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
-     * 
-     * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-activateactctx
+     * @returns {HRESULT} 
      */
     Activate(fEnable) {
         result := ComCall(9, this, "int", fEnable, "HRESULT")

@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDirect3DDevice9.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IDirect3DPixelShader9 (d3d9.h) interface applications use the methods of the IDirect3DPixelShader9 interface to encapsulate the functionality of a pixel shader.

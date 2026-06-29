@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IToc.ahk
 
 /**
@@ -64,16 +65,12 @@ class IClusterDetector extends IUnknown {
     }
 
     /**
-     * The DetectAutoProxyUrl function (wininet.h) attempts to determine the location of a WPAD autoproxy script.
-     * @remarks
-     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
-     * <div> </div>
+     * 
      * @param {Integer} dwMaxNumClusters 
      * @param {Float} fMinClusterDuration 
      * @param {Float} fMaxClusterDuration 
      * @param {IToc} pSrcToc 
      * @returns {IToc} 
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-detectautoproxyurl
      */
     Detect(dwMaxNumClusters, fMinClusterDuration, fMaxClusterDuration, pSrcToc) {
         result := ComCall(4, this, "uint", dwMaxNumClusters, "float", fMinClusterDuration, "float", fMaxClusterDuration, "ptr", pSrcToc, "ptr*", &ppDstToc := 0, "HRESULT")

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IXMLDOMNode.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IXMLDOMNamedNodeMap.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IXMLDOMNode.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -55,7 +56,7 @@ class IXMLDOMDocumentType extends IXMLDOMNode {
      * @returns {BSTR} 
      */
     get_name() {
-        rootName := BSTR()
+        rootName := BSTR({Value: 0}, True)
         result := ComCall(43, this, "ptr", rootName, "HRESULT")
         return rootName
     }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_IP_RESERVATION_V6.ahk
 #Include .\DHCP_SUBNET_ELEMENT_TYPE_V6.ahk
 #Include .\DHCP_IP_RANGE_V6.ahk
-#Include .\DHCP_IP_RESERVATION_V6.ahk
 
 /**
  * Contains definitions for the elements of the IPv6 prefix, such as IPv6 reservation, IPv6 exclusion range, and IPv6 range.

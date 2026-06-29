@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SOCKET_SECURITY_PROTOCOL.ahk
 
 /**
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.Networking.WinSock
  */
 class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -109,33 +110,42 @@ class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * The GUID for the Windows Filtering Platform key of the AuthIP main mode provider context.  If an application wishes to use a custom main mode policy, it should first use the <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextadd0">FwpmProviderContextAdd0</a> function to add the corresponding provider context and specify the returned key in this member.  This field is ignored for a GUID of zero.
-     * @type {Pointer}
+     * @type {Guid}
      */
     AuthipMMPolicyKey {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__AuthipMMPolicyKey"))
+                this.__AuthipMMPolicyKey := Guid(12, this)
+            return this.__AuthipMMPolicyKey
+        }
     }
 
     /**
      * Type: <b>GUID</b>
      * 
      * The Windows Filtering Platform key of the AuthIp quick mode provider context.  If an application wishes to use a custom quick mode policy, it should first use the <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextadd0">FwpmProviderContextAdd0</a> function to add the corresponding provider context and specify the returned key in this field.  This field is ignored for a GUID of zero.
-     * @type {Pointer}
+     * @type {Guid}
      */
     AuthipQMPolicyKey {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__AuthipQMPolicyKey"))
+                this.__AuthipQMPolicyKey := Guid(28, this)
+            return this.__AuthipQMPolicyKey
+        }
     }
 
     /**
      * Type: <b>GUID</b>
      * 
      * Reserved for future use.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Reserved {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__Reserved"))
+                this.__Reserved := Guid(44, this)
+            return this.__Reserved
+        }
     }
 
     /**
@@ -145,8 +155,8 @@ class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct {
      * @type {Integer}
      */
     Reserved2 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -156,8 +166,8 @@ class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct {
      * @type {Integer}
      */
     UserNameStringLen {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -167,8 +177,8 @@ class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct {
      * @type {Integer}
      */
     DomainNameStringLen {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     /**
@@ -178,8 +188,8 @@ class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct {
      * @type {Integer}
      */
     PasswordStringLen {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -189,7 +199,7 @@ class SOCKET_SECURITY_SETTINGS_IPSEC extends Win32Struct {
      * @type {String}
      */
     AllStrings {
-        get => StrGet(this.ptr + 60, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 60, 0, "UTF-16")
+        get => StrGet(this.ptr + 84, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 84, 0, "UTF-16")
     }
 }

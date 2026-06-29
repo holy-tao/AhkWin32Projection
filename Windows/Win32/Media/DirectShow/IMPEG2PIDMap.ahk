@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MEDIA_SAMPLE_CONTENT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumPIDMap.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface is implemented on each output pin of the MPEG-2 Demultiplexer filter (Demux) and is used in transport stream mode only.

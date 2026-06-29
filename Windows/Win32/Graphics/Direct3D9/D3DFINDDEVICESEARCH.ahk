@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3DPRIMCAPS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
 class D3DFINDDEVICESEARCH extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 92
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -43,19 +45,22 @@ class D3DFINDDEVICESEARCH extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(16, this)
+            return this.__guid
+        }
     }
 
     /**
      * @type {Integer}
      */
     dwCaps {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -64,7 +69,7 @@ class D3DFINDDEVICESEARCH extends Win32Struct {
     dpcPrimCaps {
         get {
             if(!this.HasProp("__dpcPrimCaps"))
-                this.__dpcPrimCaps := D3DPRIMCAPS(28, this)
+                this.__dpcPrimCaps := D3DPRIMCAPS(36, this)
             return this.__dpcPrimCaps
         }
     }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides a method to handle the completion of calls to the DeviceIoControlAsyncmethod.
@@ -32,17 +33,10 @@ class IDeviceRequestCompletionCallback extends IUnknown {
     static VTableNames => ["Invoke"]
 
     /**
-     * Invokes helper functionality for the IDispatch interface.
+     * 
      * @param {HRESULT} requestResult 
      * @param {Integer} bytesReturned 
-     * @returns {HRESULT} If the method succeeds, it returns S\_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
-     * 
-     * 
-     * 
-     * | Return code                                                                                  | Description                                      |
-     * |----------------------------------------------------------------------------------------------|--------------------------------------------------|
-     * | <dl> <dt>**E\_INVALIDARG**</dt> </dl> | The value for *pDispatch* is invalid.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/tablet/invokeidispatch
+     * @returns {HRESULT} 
      */
     Invoke(requestResult, bytesReturned) {
         result := ComCall(3, this, "int", requestResult, "uint", bytesReturned, "HRESULT")

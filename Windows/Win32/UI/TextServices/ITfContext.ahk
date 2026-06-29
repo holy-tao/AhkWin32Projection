@@ -1,16 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITfProperty.ahk
+#Include .\ITfDocumentMgr.ahk
+#Include .\ITfEditSession.ahk
 #Include .\ITfRange.ahk
+#Include .\IEnumTfProperties.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITfRangeBackup.ahk
+#Include .\TS_STATUS.ahk
+#Include .\TF_CONTEXT_EDIT_CONTEXT_FLAGS.ahk
 #Include .\ITfContextView.ahk
 #Include .\IEnumTfContextViews.ahk
-#Include .\TS_STATUS.ahk
-#Include .\ITfProperty.ahk
+#Include .\TF_SELECTION.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\ITfReadOnlyProperty.ahk
-#Include .\IEnumTfProperties.ahk
-#Include .\ITfDocumentMgr.ahk
-#Include .\ITfRangeBackup.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfContext interface is implemented by the TSF manager and used by applications and text services to access an edit context.

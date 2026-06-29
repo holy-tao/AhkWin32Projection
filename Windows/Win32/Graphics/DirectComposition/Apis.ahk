@@ -1,6 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\COMPOSITION_FRAME_STATS.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IDCompositionVisual.ahk
+#Include .\COMPOSITION_TARGET_ID.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include ..\Dxgi\IDXGIDevice.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\COMPOSITION_TARGET_STATS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\COMPOSITION_FRAME_ID_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition
@@ -126,7 +138,7 @@ class DirectComposition {
      * @since windows8.0
      */
     static DCompositionCreateSurfaceHandle(desiredAccess, securityAttributes) {
-        surfaceHandle := HANDLE()
+        surfaceHandle := HANDLE({Value: 0}, True)
         result := DllCall("dcomp.dll\DCompositionCreateSurfaceHandle", "uint", desiredAccess, "ptr", securityAttributes, "ptr", surfaceHandle, "HRESULT")
         return surfaceHandle
     }

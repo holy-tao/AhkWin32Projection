@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\SYNCMGR_HANDLER_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that allow a handler to provide property and state information to Sync Center.

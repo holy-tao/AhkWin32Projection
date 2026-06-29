@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\Variant\VARENUM.ahk
-#Include ..\Com\CY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include .\IRecordInfo.ahk
+#Include ..\Variant\VARENUM.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\CY.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * Contains information about the default value of a parameter.

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_WORK_GRAPHS_TIER.ahk
 #Include .\D3D12_EXECUTE_INDIRECT_TIER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

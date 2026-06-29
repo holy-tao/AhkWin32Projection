@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The AUDIO_VOLUME_NOTIFICATION_DATA structure describes a change in the volume level or muting state of an audio endpoint device.
@@ -40,17 +42,20 @@
  * @namespace Windows.Win32.Media.Audio
  */
 class AUDIO_VOLUME_NOTIFICATION_DATA extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Context value for the <a href="https://docs.microsoft.com/windows/desktop/api/endpointvolume/nf-endpointvolume-iaudioendpointvolumecallback-onnotify">IAudioEndpointVolumeCallback::OnNotify</a> method. This member is the value of the event-context GUID that was provided as an input parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/endpointvolume/nn-endpointvolume-iaudioendpointvolume">IAudioEndpointVolume</a> method call that changed the endpoint volume level or muting state. For more information, see Remarks.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidEventContext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guidEventContext"))
+                this.__guidEventContext := Guid(0, this)
+            return this.__guidEventContext
+        }
     }
 
     /**
@@ -58,8 +63,8 @@ class AUDIO_VOLUME_NOTIFICATION_DATA extends Win32Struct {
      * @type {BOOL}
      */
     bMuted {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -67,8 +72,8 @@ class AUDIO_VOLUME_NOTIFICATION_DATA extends Win32Struct {
      * @type {Float}
      */
     fMasterVolume {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
+        get => NumGet(this, 20, "float")
+        set => NumPut("float", value, this, 20)
     }
 
     /**
@@ -76,8 +81,8 @@ class AUDIO_VOLUME_NOTIFICATION_DATA extends Win32Struct {
      * @type {Integer}
      */
     nChannels {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -87,7 +92,7 @@ class AUDIO_VOLUME_NOTIFICATION_DATA extends Win32Struct {
     afChannelVolumes {
         get {
             if(!this.HasProp("__afChannelVolumesProxyArray"))
-                this.__afChannelVolumesProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "float")
+                this.__afChannelVolumesProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "float")
             return this.__afChannelVolumesProxyArray
         }
     }

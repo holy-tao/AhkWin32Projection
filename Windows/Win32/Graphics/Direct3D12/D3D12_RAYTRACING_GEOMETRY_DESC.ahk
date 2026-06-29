@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_RAYTRACING_GEOMETRY_TYPE.ahk
-#Include .\D3D12_RAYTRACING_GEOMETRY_FLAGS.ahk
-#Include .\D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC.ahk
+#Include .\D3D12_RAYTRACING_GEOMETRY_OMM_TRIANGLES_DESC.ahk
 #Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE.ahk
-#Include .\D3D12_RAYTRACING_GEOMETRY_AABBS_DESC.ahk
-#Include .\D3D12_RAYTRACING_GEOMETRY_OMM_TRIANGLES_DESC.ahk
 #Include .\D3D12_RAYTRACING_GEOMETRY_OMM_LINKAGE_DESC.ahk
+#Include .\D3D12_RAYTRACING_GEOMETRY_AABBS_DESC.ahk
+#Include .\D3D12_RAYTRACING_GEOMETRY_FLAGS.ahk
+#Include .\D3D12_RAYTRACING_GEOMETRY_TYPE.ahk
+#Include .\D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC.ahk
 
 /**
  * Describes a set of geometry that is used in the D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS structure to provide input data to a raytracing acceleration structure build operation.

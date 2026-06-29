@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IMSVidInputDeviceEvent.ahk
+#Include .\IMSVidTuner.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * This topic applies to Windows XP or later.

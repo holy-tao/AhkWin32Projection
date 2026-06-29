@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaKeySession.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IMFCdmSuspendNotify.ahk
+#Include .\IMFMediaKeySession.ahk
+#Include .\IMFMediaKeySessionNotify.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a media keys used for decrypting media data using a Digital Rights Management (DRM) key system.
@@ -63,7 +65,7 @@ class IMFMediaKeys extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeys-get_keysystem
      */
     get_KeySystem() {
-        keySystem := BSTR()
+        keySystem := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", keySystem, "HRESULT")
         return keySystem
     }

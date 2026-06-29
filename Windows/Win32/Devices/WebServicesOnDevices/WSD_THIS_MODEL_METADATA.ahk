@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_LOCALIZED_STRING_LIST.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSDXML_ELEMENT.ahk
+#Include .\WSD_LOCALIZED_STRING_LIST.ahk
 
 /**
  * Provides model-specific information relating to the device.

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SHARE_ROLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\DEF_SHARE_ID.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that set and retrieve information about a computer's default sharing settings for the Users (C:\Users) or Public (C:\Users\Public) folder. Also exposes a set of methods that allow control of printer sharing.

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WTS_CERT_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about the licensing capabilities of the client.

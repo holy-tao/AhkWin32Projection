@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\WAVEFORMATEX.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\UNCOMPRESSEDAUDIOFORMAT.ahk
 
 /**

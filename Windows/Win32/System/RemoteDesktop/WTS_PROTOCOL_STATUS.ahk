@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTS_PROTOCOL_COUNTERS.ahk
-#Include .\WTS_CACHE_STATS.ahk
-#Include .\WTS_CACHE_STATS_UN.ahk
 #Include .\WTS_PROTOCOL_CACHE.ahk
+#Include .\WTS_CACHE_STATS_UN.ahk
+#Include .\WTS_CACHE_STATS.ahk
+#Include .\WTS_PROTOCOL_COUNTERS.ahk
 
 /**
  * Contains information about the status of the protocol.

@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ITaskSettings.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IMaintenanceSettings.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the extended settings that the Task Scheduler uses to run the task. (ITaskSettings3)

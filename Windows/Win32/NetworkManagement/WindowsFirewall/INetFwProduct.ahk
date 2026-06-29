@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * To access the properties of a third-party firewall registration.
@@ -88,7 +89,7 @@ class INetFwProduct extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproduct-get_displayname
      */
     get_DisplayName() {
-        displayName := BSTR()
+        displayName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", displayName, "HRESULT")
         return displayName
     }
@@ -114,7 +115,7 @@ class INetFwProduct extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproduct-get_pathtosignedproductexe
      */
     get_PathToSignedProductExe() {
-        _path := BSTR()
+        _path := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", _path, "HRESULT")
         return _path
     }

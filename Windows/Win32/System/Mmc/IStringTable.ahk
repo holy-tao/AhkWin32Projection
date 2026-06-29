@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\IUnknown.ahk
 #Include ..\Com\IEnumString.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IStringTable interface is introduced in MMC 1.1.

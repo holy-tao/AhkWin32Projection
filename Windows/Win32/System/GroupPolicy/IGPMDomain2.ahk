@@ -1,11 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IGPMDomain.ahk
 #Include .\IGPMStarterGPO.ahk
-#Include .\IGPMGPO.ahk
-#Include .\IGPMStarterGPOCollection.ahk
 #Include .\IGPMResult.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IGPMStarterGPOBackup.ahk
+#Include .\IGPMGPO.ahk
+#Include .\IGPMSearchCriteria.ahk
+#Include .\IGPMStarterGPOCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a given domain and supports methods that allow you to query scope of management (SOM) objects, create, restore and query Starter GPOs, and create and query WMI filters when you are using the Group Policy Management Console (GPMC) interfaces.

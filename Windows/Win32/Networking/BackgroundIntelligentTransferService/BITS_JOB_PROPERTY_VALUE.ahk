@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\BG_AUTH_TARGET.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Provides the property value of the BITS job based on the value of the BITS_JOB_PROPERTY_ID enumeration.
@@ -29,11 +31,14 @@ class BITS_JOB_PROPERTY_VALUE extends Win32Struct {
      * This value is returned when using the enum property ID 
      *      <b>BITS_JOB_PROPERTY_NOTIFICATION_CLSID</b> and represents the CLSID of the callback object 
      *      to register with the BITS job.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ClsID {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__ClsID"))
+                this.__ClsID := Guid(0, this)
+            return this.__ClsID
+        }
     }
 
     /**

@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITfContext.ahk
+#Include .\ITfContextView.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\TfLayoutCode.ahk
 
 /**
  * The ITfTextLayoutSink interface supports the context layout change by an application. Install this advise sink by calling ITfSource::AdviseSink with IID_ITfTextLayoutSink. A text service can optionally implement this interface.

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -82,7 +83,7 @@ class IDOMDocumentType extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", p, "HRESULT")
         return p
     }

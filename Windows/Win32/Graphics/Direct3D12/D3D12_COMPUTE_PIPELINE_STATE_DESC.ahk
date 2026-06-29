@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ID3D12RootSignature.ahk
 #Include .\D3D12_SHADER_BYTECODE.ahk
 #Include .\D3D12_CACHED_PIPELINE_STATE.ahk
+#Include .\ID3D12RootSignature.ahk
 #Include .\D3D12_PIPELINE_STATE_FLAGS.ahk
 
 /**

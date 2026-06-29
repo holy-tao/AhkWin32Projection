@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NETRESOURCEA.ahk
-#Include .\NET_RESOURCE_SCOPE.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NET_RESOURCE_TYPE.ahk
 #Include .\NET_CONNECT_FLAGS.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\NET_RESOURCE_SCOPE.ahk
 
 /**
  * The NOTIFYADD structure contains the details of a network connect operation. It is used by the AddConnectNotify function.

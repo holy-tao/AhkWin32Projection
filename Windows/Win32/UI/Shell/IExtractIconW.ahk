@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that allow a client to retrieve the icon that is associated with one of the objects in a folder. (Unicode)

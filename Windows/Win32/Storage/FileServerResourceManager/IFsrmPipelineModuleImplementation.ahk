@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IFsrmPipelineModuleDefinition.ahk
 #Include .\IFsrmPipelineModuleConnector.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Abstract interface for IFsrmClassifierModuleImplementation and IFsrmStorageModuleImplementation.

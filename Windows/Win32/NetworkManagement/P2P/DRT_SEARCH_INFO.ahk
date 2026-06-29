@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DRT_DATA.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * DRT_SEARCH_INFO structure represents a search query issued with DrtStartSearch.

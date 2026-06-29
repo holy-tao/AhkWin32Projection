@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\INET_PORT_RANGE.ahk
 #Include .\INET_PORT_RESERVATION_TOKEN.ahk
+#Include .\INET_PORT_RANGE.ahk
 
 /**
  * Contains a port reservation and a token for a block of TCP or UDP ports.

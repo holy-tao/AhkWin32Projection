@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\IContextMenuCB.ahk
-#Include Common\ITEMIDLIST.ahk
-#Include .\IShellFolder.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Registry\HKEY.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IShellFolder.ahk
+#Include .\IContextMenuCB.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include Common\ITEMIDLIST.ahk
 
 /**
  * Contains context menu information used by SHCreateDefaultContextMenu.

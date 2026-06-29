@@ -1,8 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\WindowsAndMessaging\HMENU.ahk
+#Include ..\..\System\Registry\HKEY.ahk
+#Include .\IShellMenuCallback.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include .\IShellFolder.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\SMDATA.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that interact with Shell menus such as the Start menu, and the Favorites menu.

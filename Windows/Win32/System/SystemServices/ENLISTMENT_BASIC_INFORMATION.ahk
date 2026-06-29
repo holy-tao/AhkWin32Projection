@@ -1,35 +1,45 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
 class ENLISTMENT_BASIC_INFORMATION extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     EnlistmentId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__EnlistmentId"))
+                this.__EnlistmentId := Guid(0, this)
+            return this.__EnlistmentId
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     TransactionId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__TransactionId"))
+                this.__TransactionId := Guid(16, this)
+            return this.__TransactionId
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ResourceManagerId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__ResourceManagerId"))
+                this.__ResourceManagerId := Guid(32, this)
+            return this.__ResourceManagerId
+        }
     }
 }

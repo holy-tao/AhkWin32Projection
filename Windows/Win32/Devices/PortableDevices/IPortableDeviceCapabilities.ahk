@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IPortableDeviceKeyCollection.ahk
-#Include .\IPortableDeviceValues.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IPortableDevicePropVariantCollection.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include .\IPortableDeviceValues.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IPortableDeviceCapabilities interface a variety of device capabilities, including supported formats, commands, and functional objects. You can retrieve this interface from a device by calling IPortableDevice::Capabilities.

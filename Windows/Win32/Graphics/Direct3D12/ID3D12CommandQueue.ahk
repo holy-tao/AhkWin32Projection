@@ -1,7 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D12Fence.ahk
+#Include .\ID3D12Heap.ahk
+#Include .\D3D12_TILE_MAPPING_FLAGS.ahk
+#Include .\D3D12_TILED_RESOURCE_COORDINATE.ahk
 #Include .\ID3D12Pageable.ahk
+#Include .\D3D12_TILE_RANGE_FLAGS.ahk
+#Include .\D3D12_TILE_REGION_SIZE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D12Resource.ahk
+#Include .\D3D12_COMMAND_QUEUE_DESC.ahk
+#Include .\ID3D12CommandList.ahk
 
 /**
  * Provides methods for submitting command lists, synchronizing command list execution, instrumenting the command queue, and updating resource tile mappings.

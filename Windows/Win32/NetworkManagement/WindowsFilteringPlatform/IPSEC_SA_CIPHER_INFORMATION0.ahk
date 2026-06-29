@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_CIPHER_TRANSFORM0.ahk
 #Include .\IPSEC_CIPHER_TRANSFORM_ID0.ahk
-#Include .\IPSEC_CIPHER_TYPE.ahk
 #Include .\FWP_BYTE_BLOB.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IPSEC_CIPHER_TYPE.ahk
+#Include .\IPSEC_CIPHER_TRANSFORM0.ahk
 
 /**
  * Stores information about the encryption algorithm of an IPsec security association (SA).

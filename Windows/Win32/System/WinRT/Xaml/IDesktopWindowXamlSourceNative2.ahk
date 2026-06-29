@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 #Include .\IDesktopWindowXamlSourceNative.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\UI\WindowsAndMessaging\MSG.ahk
 
 /**
  * Provides a method that enables the WinRT XAML framework to process Windows messages for a **DesktopWindowXamlSource** object that hosts a WinRT XAML control.

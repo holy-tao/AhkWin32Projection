@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_LOCAL.ahk
-#Include .\DD_VIDEOPORT_LOCAL.ahk
 #Include .\DDPIXELFORMAT.ahk
+#Include .\DD_VIDEOPORT_LOCAL.ahk
 #Include .\DDVIDEOPORTBANDWIDTH.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The DD_GETVPORTBANDWIDTHDATA structure contains the bandwidth information for any specified format.

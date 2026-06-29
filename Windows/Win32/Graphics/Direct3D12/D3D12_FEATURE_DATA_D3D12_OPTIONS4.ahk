@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Indicates the level of support for 64KB-aligned MSAA textures, cross-API sharing, and native 16-bit shader operations.

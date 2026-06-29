@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WINBIO_ADAPTER_INTERFACE_VERSION.ahk
 
 /**
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
 class WINBIO_ENGINE_INTERFACE extends Win32Struct {
-    static sizeof => 352
+    static sizeof => 360
 
     static packingSize => 8
 
@@ -50,11 +51,14 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
 
     /**
      * A GUID that uniquely identifies the engine adapter. You must generate this value.
-     * @type {Pointer}
+     * @type {Guid}
      */
     AdapterId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__AdapterId"))
+                this.__AdapterId := Guid(16, this)
+            return this.__AdapterId
+        }
     }
 
     /**
@@ -62,8 +66,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_ATTACH_FN>}
      */
     Attach {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -71,8 +75,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_DETACH_FN>}
      */
     Detach {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -80,8 +84,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_CLEAR_CONTEXT_FN>}
      */
     ClearContext {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -89,8 +93,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_QUERY_PREFERRED_FORMAT_FN>}
      */
     QueryPreferredFormat {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -98,8 +102,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_QUERY_INDEX_VECTOR_SIZE_FN>}
      */
     QueryIndexVectorSize {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -107,8 +111,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_QUERY_HASH_ALGORITHMS_FN>}
      */
     QueryHashAlgorithms {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -116,8 +120,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_SET_HASH_ALGORITHM_FN>}
      */
     SetHashAlgorithm {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -125,8 +129,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_QUERY_SAMPLE_HINT_FN>}
      */
     QuerySampleHint {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -134,8 +138,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_ACCEPT_SAMPLE_DATA_FN>}
      */
     AcceptSampleData {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -143,8 +147,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_EXPORT_ENGINE_DATA_FN>}
      */
     ExportEngineData {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -152,8 +156,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_VERIFY_FEATURE_SET_FN>}
      */
     VerifyFeatureSet {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -161,8 +165,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_IDENTIFY_FEATURE_SET_FN>}
      */
     IdentifyFeatureSet {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
@@ -170,8 +174,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_CREATE_ENROLLMENT_FN>}
      */
     CreateEnrollment {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
@@ -179,8 +183,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_UPDATE_ENROLLMENT_FN>}
      */
     UpdateEnrollment {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
@@ -188,8 +192,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_GET_ENROLLMENT_STATUS_FN>}
      */
     GetEnrollmentStatus {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
@@ -197,8 +201,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_GET_ENROLLMENT_HASH_FN>}
      */
     GetEnrollmentHash {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
@@ -206,8 +210,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_CHECK_FOR_DUPLICATE_FN>}
      */
     CheckForDuplicate {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
+        get => NumGet(this, 160, "ptr")
+        set => NumPut("ptr", value, this, 160)
     }
 
     /**
@@ -215,8 +219,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_COMMIT_ENROLLMENT_FN>}
      */
     CommitEnrollment {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
+        get => NumGet(this, 168, "ptr")
+        set => NumPut("ptr", value, this, 168)
     }
 
     /**
@@ -224,8 +228,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_DISCARD_ENROLLMENT_FN>}
      */
     DiscardEnrollment {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
+        get => NumGet(this, 176, "ptr")
+        set => NumPut("ptr", value, this, 176)
     }
 
     /**
@@ -233,8 +237,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_CONTROL_UNIT_FN>}
      */
     ControlUnit {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 
     /**
@@ -242,8 +246,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_CONTROL_UNIT_PRIVILEGED_FN>}
      */
     ControlUnitPrivileged {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 
     /**
@@ -251,8 +255,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_NOTIFY_POWER_CHANGE_FN>}
      */
     NotifyPowerChange {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+        get => NumGet(this, 200, "ptr")
+        set => NumPut("ptr", value, this, 200)
     }
 
     /**
@@ -260,8 +264,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_RESERVED_1_FN>}
      */
     Reserved_1 {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
+        get => NumGet(this, 208, "ptr")
+        set => NumPut("ptr", value, this, 208)
     }
 
     /**
@@ -269,8 +273,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_PIPELINE_INIT_FN>}
      */
     PipelineInit {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
+        get => NumGet(this, 216, "ptr")
+        set => NumPut("ptr", value, this, 216)
     }
 
     /**
@@ -278,8 +282,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_PIPELINE_CLEANUP_FN>}
      */
     PipelineCleanup {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
+        get => NumGet(this, 224, "ptr")
+        set => NumPut("ptr", value, this, 224)
     }
 
     /**
@@ -287,8 +291,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_ACTIVATE_FN>}
      */
     Activate {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
+        get => NumGet(this, 232, "ptr")
+        set => NumPut("ptr", value, this, 232)
     }
 
     /**
@@ -296,8 +300,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_DEACTIVATE_FN>}
      */
     Deactivate {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
+        get => NumGet(this, 240, "ptr")
+        set => NumPut("ptr", value, this, 240)
     }
 
     /**
@@ -305,8 +309,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_QUERY_EXTENDED_INFO_FN>}
      */
     QueryExtendedInfo {
-        get => NumGet(this, 240, "ptr")
-        set => NumPut("ptr", value, this, 240)
+        get => NumGet(this, 248, "ptr")
+        set => NumPut("ptr", value, this, 248)
     }
 
     /**
@@ -314,8 +318,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_IDENTIFY_ALL_FN>}
      */
     IdentifyAll {
-        get => NumGet(this, 248, "ptr")
-        set => NumPut("ptr", value, this, 248)
+        get => NumGet(this, 256, "ptr")
+        set => NumPut("ptr", value, this, 256)
     }
 
     /**
@@ -323,8 +327,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_SET_ENROLLMENT_SELECTOR_FN>}
      */
     SetEnrollmentSelector {
-        get => NumGet(this, 256, "ptr")
-        set => NumPut("ptr", value, this, 256)
+        get => NumGet(this, 264, "ptr")
+        set => NumPut("ptr", value, this, 264)
     }
 
     /**
@@ -332,8 +336,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_SET_ENROLLMENT_PARAMETERS_FN>}
      */
     SetEnrollmentParameters {
-        get => NumGet(this, 264, "ptr")
-        set => NumPut("ptr", value, this, 264)
+        get => NumGet(this, 272, "ptr")
+        set => NumPut("ptr", value, this, 272)
     }
 
     /**
@@ -341,8 +345,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_QUERY_EXTENDED_ENROLLMENT_STATUS_FN>}
      */
     QueryExtendedEnrollmentStatus {
-        get => NumGet(this, 272, "ptr")
-        set => NumPut("ptr", value, this, 272)
+        get => NumGet(this, 280, "ptr")
+        set => NumPut("ptr", value, this, 280)
     }
 
     /**
@@ -350,8 +354,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_REFRESH_CACHE_FN>}
      */
     RefreshCache {
-        get => NumGet(this, 280, "ptr")
-        set => NumPut("ptr", value, this, 280)
+        get => NumGet(this, 288, "ptr")
+        set => NumPut("ptr", value, this, 288)
     }
 
     /**
@@ -359,8 +363,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_SELECT_CALIBRATION_FORMAT_FN>}
      */
     SelectCalibrationFormat {
-        get => NumGet(this, 288, "ptr")
-        set => NumPut("ptr", value, this, 288)
+        get => NumGet(this, 296, "ptr")
+        set => NumPut("ptr", value, this, 296)
     }
 
     /**
@@ -368,8 +372,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_QUERY_CALIBRATION_DATA_FN>}
      */
     QueryCalibrationData {
-        get => NumGet(this, 296, "ptr")
-        set => NumPut("ptr", value, this, 296)
+        get => NumGet(this, 304, "ptr")
+        set => NumPut("ptr", value, this, 304)
     }
 
     /**
@@ -377,8 +381,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_SET_ACCOUNT_POLICY_FN>}
      */
     SetAccountPolicy {
-        get => NumGet(this, 304, "ptr")
-        set => NumPut("ptr", value, this, 304)
+        get => NumGet(this, 312, "ptr")
+        set => NumPut("ptr", value, this, 312)
     }
 
     /**
@@ -386,8 +390,8 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_CREATE_KEY_FN>}
      */
     CreateKey {
-        get => NumGet(this, 312, "ptr")
-        set => NumPut("ptr", value, this, 312)
+        get => NumGet(this, 320, "ptr")
+        set => NumPut("ptr", value, this, 320)
     }
 
     /**
@@ -395,31 +399,31 @@ class WINBIO_ENGINE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_ENGINE_IDENTIFY_FEATURE_SET_SECURE_FN>}
      */
     IdentifyFeatureSetSecure {
-        get => NumGet(this, 320, "ptr")
-        set => NumPut("ptr", value, this, 320)
+        get => NumGet(this, 328, "ptr")
+        set => NumPut("ptr", value, this, 328)
     }
 
     /**
      * @type {Pointer<PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN>}
      */
     AcceptPrivateSensorTypeInfo {
-        get => NumGet(this, 328, "ptr")
-        set => NumPut("ptr", value, this, 328)
+        get => NumGet(this, 336, "ptr")
+        set => NumPut("ptr", value, this, 336)
     }
 
     /**
      * @type {Pointer<PIBIO_ENGINE_CREATE_ENROLLMENT_AUTHENTICATED_FN>}
      */
     CreateEnrollmentAuthenticated {
-        get => NumGet(this, 336, "ptr")
-        set => NumPut("ptr", value, this, 336)
+        get => NumGet(this, 344, "ptr")
+        set => NumPut("ptr", value, this, 344)
     }
 
     /**
      * @type {Pointer<PIBIO_ENGINE_IDENTIFY_FEATURE_SET_AUTHENTICATED_FN>}
      */
     IdentifyFeatureSetAuthenticated {
-        get => NumGet(this, 344, "ptr")
-        set => NumPut("ptr", value, this, 344)
+        get => NumGet(this, 352, "ptr")
+        set => NumPut("ptr", value, this, 352)
     }
 }

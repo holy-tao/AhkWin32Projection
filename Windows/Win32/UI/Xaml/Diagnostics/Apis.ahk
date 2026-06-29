@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
@@ -16,14 +19,13 @@ class Diagnostics {
 
 ;@region Methods
     /**
-     * Initializes a Xaml Diagnostics session. This is the entry point for any debugging tool using the XAML Diagnostic APIs.
-     * @param {PWSTR} endPointName The end point name for Visual Diagnostics.
-     * @param {Integer} pid The pid of the process to connect to.
-     * @param {PWSTR} wszDllXamlDiagnostics The path to XamlDiagnostics.dll.
-     * @param {PWSTR} wszTAPDllName The name of the DLL to be injected in the process.
-     * @param {Guid} tapClsid The COM CLSID of the DLL to be injected in the process.
+     * 
+     * @param {PWSTR} endPointName 
+     * @param {Integer} pid 
+     * @param {PWSTR} wszDllXamlDiagnostics 
+     * @param {PWSTR} wszTAPDllName 
+     * @param {Guid} tapClsid 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-initializexamldiagnosticsex
      */
     static InitializeXamlDiagnostic(endPointName, pid, wszDllXamlDiagnostics, wszTAPDllName, tapClsid) {
         endPointName := endPointName is String ? StrPtr(endPointName) : endPointName

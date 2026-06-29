@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Ole\IOleContainer.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -85,9 +87,8 @@ class ITargetFrame extends IUnknown {
     }
 
     /**
-     * The GetFrameSrcAddressOffset function returns the offset of the frames source address.
+     * 
      * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/getframesrcaddressoffset
      */
     GetFrameSrc() {
         result := ComCall(8, this, "ptr*", &ppszFrameSrc := 0, "HRESULT")

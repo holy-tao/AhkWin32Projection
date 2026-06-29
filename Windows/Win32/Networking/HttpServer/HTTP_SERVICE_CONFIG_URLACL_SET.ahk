@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SERVICE_CONFIG_URLACL_KEY.ahk
 #Include .\HTTP_SERVICE_CONFIG_URLACL_PARAM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\HTTP_SERVICE_CONFIG_URLACL_KEY.ahk
 
 /**
  * Used to add a new record to the URL reservation store or retrieve an existing record from it.

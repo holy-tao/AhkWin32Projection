@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINTL.ahk
+#Include .\CIECHROMA.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include .\COLORINFO.ahk
-#Include .\CIECHROMA.ahk
 
 /**
  * The GDIINFO structure describes the graphics capabilities of a given device.

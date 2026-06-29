@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The WM_STREAM_TYPE_INFO structure is used as the data item for the WM/StreamTypeInfo complex metadata attribute. It stores the major type and the size of the associated format data.
@@ -9,17 +10,20 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
 class WM_STREAM_TYPE_INFO extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The major type of the stream.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidMajorType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guidMajorType"))
+                this.__guidMajorType := Guid(0, this)
+            return this.__guidMajorType
+        }
     }
 
     /**
@@ -27,7 +31,7 @@ class WM_STREAM_TYPE_INFO extends Win32Struct {
      * @type {Integer}
      */
     cbFormat {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * The SYMSRV_INDEX_INFO structure (dbghelp.h) contains symbol server index information.
@@ -8,9 +10,9 @@
  * @charset ANSI
  */
 class SYMSRV_INDEX_INFO extends Win32Struct {
-    static sizeof => 824
+    static sizeof => 828
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size of the structure, in bytes. This member must be set to <c>sizeof(SYMSRV_INDEX_INFO)</code> or <code>sizeof(SYMSRV_INDEX_INFOW)</c>.
@@ -77,11 +79,14 @@ class SYMSRV_INDEX_INFO extends Win32Struct {
 
     /**
      * The GUID of the .pdb file. If there is no GUID available, the signature of the .pdb file is copied into first <b>DWORD</b> of the GUID.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 808, "ptr")
-        set => NumPut("ptr", value, this, 808)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(804, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -89,8 +94,8 @@ class SYMSRV_INDEX_INFO extends Win32Struct {
      * @type {Integer}
      */
     sig {
-        get => NumGet(this, 816, "uint")
-        set => NumPut("uint", value, this, 816)
+        get => NumGet(this, 820, "uint")
+        set => NumPut("uint", value, this, 820)
     }
 
     /**
@@ -98,7 +103,7 @@ class SYMSRV_INDEX_INFO extends Win32Struct {
      * @type {Integer}
      */
     age {
-        get => NumGet(this, 820, "uint")
-        set => NumPut("uint", value, this, 820)
+        get => NumGet(this, 824, "uint")
+        set => NumPut("uint", value, this, 824)
     }
 }

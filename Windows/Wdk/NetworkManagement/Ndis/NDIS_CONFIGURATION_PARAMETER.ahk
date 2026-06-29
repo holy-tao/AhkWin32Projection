@@ -10,7 +10,7 @@ class NDIS_CONFIGURATION_PARAMETER extends Win32Struct {
 
     static packingSize => 8
 
-    class _ParameterData_e__Union extends Win32Struct {
+    class _ParameterData extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -48,12 +48,12 @@ class NDIS_CONFIGURATION_PARAMETER extends Win32Struct {
     }
 
     /**
-     * @type {_ParameterData_e__Union}
+     * @type {_ParameterData}
      */
     ParameterData {
         get {
             if(!this.HasProp("__ParameterData"))
-                this.__ParameterData := NDIS_CONFIGURATION_PARAMETER._ParameterData_e__Union(8, this)
+                this.__ParameterData := NDIS_CONFIGURATION_PARAMETER._ParameterData(8, this)
             return this.__ParameterData
         }
     }

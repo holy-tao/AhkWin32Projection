@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MF_MEDIA_ENGINE_CANPLAY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods for querying whether a specified content type is supported for a specified key system.

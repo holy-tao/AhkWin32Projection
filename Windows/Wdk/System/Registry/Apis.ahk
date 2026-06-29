@@ -1,6 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
+#Include .\KEY_VALUE_INFORMATION_CLASS.ahk
+#Include .\KEY_VALUE_ENTRY.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\OBJECT_ATTRIBUTES.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk
+#Include .\KEY_INFORMATION_CLASS.ahk
+#Include .\KEY_SET_INFORMATION_CLASS.ahk
 
 /**
  * @namespace Windows.Wdk.System.Registry

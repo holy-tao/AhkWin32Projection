@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\KSIDENTIFIER.ahk
 #Include .\VBICODECFILTERING_SCANLINES.ahk
 
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSPROPERTY_VBICODECFILTERING_SCANLINES_S extends Win32Struct {
-    static sizeof => 144
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -28,7 +29,7 @@ class KSPROPERTY_VBICODECFILTERING_SCANLINES_S extends Win32Struct {
     Scanlines {
         get {
             if(!this.HasProp("__Scanlines"))
-                this.__Scanlines := VBICODECFILTERING_SCANLINES(16, this)
+                this.__Scanlines := VBICODECFILTERING_SCANLINES(24, this)
             return this.__Scanlines
         }
     }

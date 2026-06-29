@@ -3,6 +3,9 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITCallInfo.ahk
+#Include .\CALL_STATE.ahk
+#Include .\CALL_STATE_EVENT_CAUSE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITCallStateEvent interface contains methods that retrieve the description of call state events.

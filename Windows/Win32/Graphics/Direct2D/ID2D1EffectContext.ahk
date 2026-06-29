@@ -1,16 +1,32 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ID2D1Effect.ahk
 #Include .\ID2D1TransformNode.ahk
-#Include .\ID2D1BlendTransform.ahk
+#Include .\D2D1_RESOURCE_TEXTURE_PROPERTIES.ahk
 #Include .\ID2D1BorderTransform.ahk
-#Include .\ID2D1OffsetTransform.ahk
-#Include .\ID2D1BoundsAdjustmentTransform.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ID2D1Effect.ahk
 #Include .\ID2D1ResourceTexture.ahk
+#Include .\D2D1_BLEND_DESCRIPTION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID2D1BoundsAdjustmentTransform.ahk
+#Include .\D2D1_COLOR_SPACE.ahk
+#Include .\ID2D1OffsetTransform.ahk
+#Include .\D2D1_FEATURE.ahk
 #Include .\ID2D1VertexBuffer.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\ID2D1ColorContext.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1BlendTransform.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\D2D1_VERTEX_BUFFER_PROPERTIES.ahk
+#Include ..\Direct3D\D3D_FEATURE_LEVEL.ahk
+#Include .\D2D1_BUFFER_PRECISION.ahk
+#Include .\D2D1_EXTEND_MODE.ahk
+#Include .\D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\Imaging\IWICColorContext.ahk
+#Include ..\..\Foundation\POINT.ahk
 
 /**
  * Provides factory methods and other state management for effect and transform authors. (ID2D1EffectContext)

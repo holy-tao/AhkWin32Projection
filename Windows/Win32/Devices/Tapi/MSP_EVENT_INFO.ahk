@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MSP_EVENT.ahk
-#Include .\MSP_ADDRESS_EVENT.ahk
-#Include .\ITTerminal.ahk
-#Include .\MSP_CALL_EVENT.ahk
-#Include .\MSP_CALL_EVENT_CAUSE.ahk
 #Include .\ITStream.ahk
+#Include .\MSP_ADDRESS_EVENT.ahk
+#Include .\MSP_EVENT.ahk
+#Include .\MSP_CALL_EVENT.ahk
+#Include .\ITTerminal.ahk
+#Include .\FT_STATE_EVENT_CAUSE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITFileTrack.ahk
 #Include .\TERMINAL_MEDIA_STATE.ahk
-#Include .\FT_STATE_EVENT_CAUSE.ahk
+#Include .\MSP_CALL_EVENT_CAUSE.ahk
 
 /**
  * The MSP_EVENT_INFO (msp.h) structure defines the type of event returned by the GetEvent method.

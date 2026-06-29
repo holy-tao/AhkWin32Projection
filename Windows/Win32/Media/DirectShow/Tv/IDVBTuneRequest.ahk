@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\ITuneRequest.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IDVBTuneRequest interface is implemented on the DVBTuneRequest object.

@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ISyncMgrSynchronizeCallback.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\ISyncMgrEnumItems.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SYNCMGRHANDLERINFO.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that enable the registered application or service to receive notifications from the synchronization manager.

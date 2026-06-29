@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -180,7 +182,7 @@ class IHTMLAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_shape() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -202,7 +204,7 @@ class IHTMLAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_coords() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -224,7 +226,7 @@ class IHTMLAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_href() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -246,7 +248,7 @@ class IHTMLAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_target() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", p, "HRESULT")
         return p
     }
@@ -268,7 +270,7 @@ class IHTMLAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_alt() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", p, "HRESULT")
         return p
     }
@@ -309,7 +311,7 @@ class IHTMLAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_host() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", p, "HRESULT")
         return p
     }
@@ -331,7 +333,7 @@ class IHTMLAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_hostname() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", p, "HRESULT")
         return p
     }
@@ -353,7 +355,7 @@ class IHTMLAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_pathname() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", p, "HRESULT")
         return p
     }
@@ -375,7 +377,7 @@ class IHTMLAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_port() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", p, "HRESULT")
         return p
     }
@@ -397,7 +399,7 @@ class IHTMLAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_protocol() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", p, "HRESULT")
         return p
     }
@@ -419,7 +421,7 @@ class IHTMLAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_search() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", p, "HRESULT")
         return p
     }
@@ -441,7 +443,7 @@ class IHTMLAreaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_hash() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(32, this, "ptr", p, "HRESULT")
         return p
     }

@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include .\IValueMapItem.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Variant\VARIANT.ahk
+#Include .\ValueMapType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Manages a collection of name/value pairs.To get this interface, access one of the following properties or methods:IDataCollector::SetXmlIDataCollectorSet::CommitIDataCollectorSet::SetXmlITraceDataProvider::KeywordsAllITraceDataProvider::KeywordsAnyITraceDataProvider::LevelITraceDataProvider::Properties
@@ -116,7 +118,7 @@ class IValueMap extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-get_description
      */
     get_Description() {
-        description := BSTR()
+        description := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", description, "HRESULT")
         return description
     }

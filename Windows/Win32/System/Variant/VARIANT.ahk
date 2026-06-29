@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VARENUM.ahk
-#Include ..\Com\CY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\SAFEARRAY.ahk
-#Include .\VARIANT.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\Ole\IRecordInfo.ahk
+#Include .\VARENUM.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\CY.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * VARIANTARG describes arguments passed within DISPPARAMS, and VARIANT to specify variant data that cannot be passed by reference.

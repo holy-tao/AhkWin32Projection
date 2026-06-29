@@ -3,9 +3,12 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDWriteFactory4.ahk
 #Include .\IDWriteFontSetBuilder1.ahk
-#Include .\IDWriteInMemoryFontFileLoader.ahk
-#Include .\IDWriteRemoteFontFileLoader.ahk
 #Include .\IDWriteFontFileStream.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IDWriteRemoteFontFileLoader.ahk
+#Include .\DWRITE_CONTAINER_TYPE.ahk
+#Include .\IDWriteInMemoryFontFileLoader.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The root factory interface for all DirectWrite objects. (IDWriteFactory5)

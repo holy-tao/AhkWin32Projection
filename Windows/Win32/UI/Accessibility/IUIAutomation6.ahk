@@ -3,6 +3,13 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUIAutomation5.ahk
 #Include .\IUIAutomationEventHandlerGroup.ahk
+#Include .\IUIAutomationElement.ahk
+#Include .\CoalesceEventsOptions.ahk
+#Include .\TreeScope.ahk
+#Include .\IUIAutomationActiveTextPositionChangedEventHandler.ahk
+#Include .\IUIAutomationCacheRequest.ahk
+#Include .\ConnectionRecoveryBehaviorOptions.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IUIAutomation5 interface to expose additional methods for controlling Microsoft UI Automation functionality.

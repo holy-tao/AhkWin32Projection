@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IOleContainer.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IBindCtx.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used by item monikers when they are bound to the objects they identify.

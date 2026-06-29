@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\D3D12_DRED_ENABLEMENT.ahk
 
 /**
  * This interface controls Device Removed Extended Data (DRED) settings.

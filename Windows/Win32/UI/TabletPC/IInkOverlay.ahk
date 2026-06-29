@@ -1,15 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkDrawingAttributes.ahk
-#Include .\IInkRenderer.ahk
-#Include .\IInkDisp.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Ole\IPictureDisp.ahk
-#Include .\IInkStrokes.ahk
+#Include .\InkCollectorEventInterest.ahk
 #Include .\IInkCursors.ahk
+#Include ..\..\System\Ole\IPictureDisp.ahk
+#Include .\IInkDisp.ahk
+#Include .\InkOverlayAttachMode.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IInkStrokes.ahk
+#Include .\IInkRenderer.ahk
+#Include .\InkApplicationGesture.ahk
+#Include .\InkOverlayEraserMode.ahk
+#Include .\IInkRectangle.ahk
+#Include .\InkCollectionMode.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\SelectionHitResult.ahk
 #Include .\IInkTablet.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IInkDrawingAttributes.ahk
+#Include .\InkMousePointer.ahk
+#Include .\InkOverlayEditingMode.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 
 /**
  * . (IInkOverlay)

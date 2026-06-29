@@ -1,10 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Ole\IDropTarget.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Ole\IOleCommandTarget.ahk
+#Include ..\..\UI\WindowsAndMessaging\MSG.ahk
+#Include ..\..\System\Ole\IOleInPlaceFrame.ahk
 #Include ..\..\System\Com\IDataObject.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Ole\IOleInPlaceActiveObject.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DOCHOSTUIINFO.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Ole\IOleInPlaceUIWindow.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -191,11 +203,8 @@ class IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * Returns the name of the file that contains the external key.
-     * @remarks
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * 
      * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/SecProv/getexternalkeyfilename-win32-encryptablevolume
      */
     GetExternal() {
         result := ComCall(15, this, "ptr*", &ppDispatch := 0, "HRESULT")

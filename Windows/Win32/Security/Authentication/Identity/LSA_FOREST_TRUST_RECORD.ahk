@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\PSID.ahk
 #Include .\LSA_FOREST_TRUST_RECORD_TYPE.ahk
+#Include .\LSA_FOREST_TRUST_BINARY_DATA.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include .\LSA_FOREST_TRUST_DOMAIN_INFO.ahk
-#Include .\LSA_FOREST_TRUST_BINARY_DATA.ahk
 
 /**
  * Represents a Local Security Authority forest trust record.
@@ -15,7 +17,7 @@ class LSA_FOREST_TRUST_RECORD extends Win32Struct {
 
     static packingSize => 8
 
-    class _ForestTrustData_e__Union extends Win32Struct {
+    class _ForestTrustData extends Win32Struct {
         static sizeof => 40
         static packingSize => 8
 
@@ -128,12 +130,12 @@ class LSA_FOREST_TRUST_RECORD extends Win32Struct {
     }
 
     /**
-     * @type {_ForestTrustData_e__Union}
+     * @type {_ForestTrustData}
      */
     ForestTrustData {
         get {
             if(!this.HasProp("__ForestTrustData"))
-                this.__ForestTrustData := LSA_FOREST_TRUST_RECORD._ForestTrustData_e__Union(16, this)
+                this.__ForestTrustData := LSA_FOREST_TRUST_RECORD._ForestTrustData(16, this)
             return this.__ForestTrustData
         }
     }

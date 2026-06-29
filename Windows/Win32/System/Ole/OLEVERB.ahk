@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\OLEIVERB.ahk
 #Include ..\..\UI\WindowsAndMessaging\MENU_ITEM_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\OLEIVERB.ahk
 
 /**
  * Defines a verb that an object supports. The IOleObject::EnumVerbs method creates an enumerator that can enumerate these structures for an object, and supplies a pointer to the enumerator's IEnumOLEVERB.

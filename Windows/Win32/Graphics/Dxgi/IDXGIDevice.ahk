@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_RESIDENCY.ahk
 #Include .\IDXGIObject.ahk
-#Include .\IDXGIAdapter.ahk
+#Include .\DXGI_SHARED_RESOURCE.ahk
+#Include .\DXGI_SURFACE_DESC.ahk
 #Include .\IDXGISurface.ahk
+#Include .\DXGI_USAGE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDXGIAdapter.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * An IDXGIDevice interface implements a derived class for DXGI objects that produce image data.

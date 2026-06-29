@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputLabel.ahk
 #Include .\GameInputSwitchKind.ahk
+#Include .\GameInputLabel.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

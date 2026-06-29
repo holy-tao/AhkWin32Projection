@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Graphics\Dxgi\IDXGISwapChain.ahk
 
 /**
  * The ISwapChainPanelNative interface (windows.ui.xaml.media.dxinterop.h) provides interoperation between XAML and a DirectX swap chain.

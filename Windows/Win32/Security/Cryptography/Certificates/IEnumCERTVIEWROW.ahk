@@ -3,8 +3,9 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IEnumCERTVIEWCOLUMN.ahk
-#Include .\IEnumCERTVIEWATTRIBUTE.ahk
 #Include .\IEnumCERTVIEWEXTENSION.ahk
+#Include .\IEnumCERTVIEWATTRIBUTE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a row-enumeration sequence that contains the data in the rows of the Certificate Services view, allowing further access to the columns, attributes, and extensions associated with each row.

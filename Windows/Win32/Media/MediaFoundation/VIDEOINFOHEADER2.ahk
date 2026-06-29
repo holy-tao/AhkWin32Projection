@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * The VIDEOINFOHEADER2 structure describes the bitmap and color information for a video image, including interlace, copy protection, and pixel aspect ratio information.

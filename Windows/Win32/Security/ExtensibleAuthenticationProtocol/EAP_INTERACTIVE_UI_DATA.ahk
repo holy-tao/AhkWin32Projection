@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\EAP_INTERACTIVE_UI_DATA_TYPE.ahk
-#Include .\EAP_UI_DATA_FORMAT.ahk
-#Include .\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk
 #Include .\EAP_CRED_EXPIRY_REQ.ahk
+#Include .\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk
+#Include .\EAP_UI_DATA_FORMAT.ahk
+#Include .\EAP_INTERACTIVE_UI_DATA_TYPE.ahk
 
 /**
  * Contains configuration information for interactive UI components raised on an EAP supplicant.

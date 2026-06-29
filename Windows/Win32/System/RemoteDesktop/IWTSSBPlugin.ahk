@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WTSSBX_SESSION_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WTSSBX_IP_ADDRESS.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\WTSSBX_NOTIFICATION_TYPE.ahk
+#Include .\WTSSBX_MACHINE_INFO.ahk
+#Include .\WTSSBX_MACHINE_CONNECT_INFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to extend the capabilities of Terminal Services Session Broker (TS�Session Broker). Implement this interface when you want to provide a plug-in that overrides the redirection logic of TS�Session Broker.

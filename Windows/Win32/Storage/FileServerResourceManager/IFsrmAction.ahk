@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\FsrmActionType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The base class for all FSRM action interfaces.

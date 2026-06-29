@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSDATAFORMAT.ahk
 #Include .\KS_H264VIDEOINFO.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\KSDATAFORMAT.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KS_DATAFORMAT_H264VIDEOINFO extends Win32Struct {
-    static sizeof => 136
+    static sizeof => 160
 
     static packingSize => 8
 
@@ -28,7 +29,7 @@ class KS_DATAFORMAT_H264VIDEOINFO extends Win32Struct {
     H264VideoInfoHeader {
         get {
             if(!this.HasProp("__H264VideoInfoHeader"))
-                this.__H264VideoInfoHeader := KS_H264VIDEOINFO(48, this)
+                this.__H264VideoInfoHeader := KS_H264VIDEOINFO(72, this)
             return this.__H264VideoInfoHeader
         }
     }

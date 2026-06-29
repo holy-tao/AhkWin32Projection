@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITTAPI.ahk
+#Include .\TAPIOBJECT_EVENT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ITAddress.ahk
 
 /**

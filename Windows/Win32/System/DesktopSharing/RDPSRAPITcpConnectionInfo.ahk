@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Retrieves the local IP address that is being used by the sharer or by the viewer for communication.
- * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_localip
  * @namespace Windows.Win32.System.DesktopSharing
  */
 class RDPSRAPITcpConnectionInfo extends Win32Struct {

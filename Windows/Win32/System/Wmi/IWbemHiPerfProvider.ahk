@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWbemContext.ahk
+#Include .\IWbemObjectAccess.ahk
+#Include .\IWbemHiPerfEnum.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWbemObjectSink.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IWbemRefresher.ahk
-#Include .\IWbemObjectAccess.ahk
+#Include .\IWbemServices.ahk
 
 /**
  * Enables providers to supply refreshable objects and enumerators.

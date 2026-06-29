@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EVENT_DESCRIPTOR.ahk
-#Include .\DECODING_SOURCE.ahk
+#Include .\PROPERTY_FLAGS.ahk
 #Include .\TEMPLATE_FLAGS.ahk
 #Include .\EVENT_PROPERTY_INFO.ahk
-#Include .\PROPERTY_FLAGS.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\EVENT_DESCRIPTOR.ahk
+#Include .\DECODING_SOURCE.ahk
 
 /**
  * Defines the information about the event.
@@ -14,26 +15,32 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
 class TRACE_EVENT_INFO extends Win32Struct {
-    static sizeof => 120
+    static sizeof => 136
 
     static packingSize => 8
 
     /**
      * A GUID that identifies the provider.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ProviderGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__ProviderGuid"))
+                this.__ProviderGuid := Guid(0, this)
+            return this.__ProviderGuid
+        }
     }
 
     /**
      * A GUID that identifies the MOF class that contains the event. If the provider uses a manifest to define its events, this member is GUID_NULL.
-     * @type {Pointer}
+     * @type {Guid}
      */
     EventGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__EventGuid"))
+                this.__EventGuid := Guid(16, this)
+            return this.__EventGuid
+        }
     }
 
     /**
@@ -43,7 +50,7 @@ class TRACE_EVENT_INFO extends Win32Struct {
     EventDescriptor {
         get {
             if(!this.HasProp("__EventDescriptor"))
-                this.__EventDescriptor := EVENT_DESCRIPTOR(16, this)
+                this.__EventDescriptor := EVENT_DESCRIPTOR(32, this)
             return this.__EventDescriptor
         }
     }
@@ -53,8 +60,8 @@ class TRACE_EVENT_INFO extends Win32Struct {
      * @type {DECODING_SOURCE}
      */
     DecodingSource {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -62,8 +69,8 @@ class TRACE_EVENT_INFO extends Win32Struct {
      * @type {Integer}
      */
     ProviderNameOffset {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -71,8 +78,8 @@ class TRACE_EVENT_INFO extends Win32Struct {
      * @type {Integer}
      */
     LevelNameOffset {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -80,8 +87,8 @@ class TRACE_EVENT_INFO extends Win32Struct {
      * @type {Integer}
      */
     ChannelNameOffset {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -89,8 +96,8 @@ class TRACE_EVENT_INFO extends Win32Struct {
      * @type {Integer}
      */
     KeywordsNameOffset {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -98,8 +105,8 @@ class TRACE_EVENT_INFO extends Win32Struct {
      * @type {Integer}
      */
     TaskNameOffset {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
@@ -107,8 +114,8 @@ class TRACE_EVENT_INFO extends Win32Struct {
      * @type {Integer}
      */
     OpcodeNameOffset {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -118,8 +125,8 @@ class TRACE_EVENT_INFO extends Win32Struct {
      * @type {Integer}
      */
     EventMessageOffset {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     /**
@@ -127,8 +134,8 @@ class TRACE_EVENT_INFO extends Win32Struct {
      * @type {Integer}
      */
     ProviderMessageOffset {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -136,8 +143,8 @@ class TRACE_EVENT_INFO extends Win32Struct {
      * @type {Integer}
      */
     BinaryXMLOffset {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
@@ -145,40 +152,40 @@ class TRACE_EVENT_INFO extends Win32Struct {
      * @type {Integer}
      */
     BinaryXMLSize {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
      * @type {Integer}
      */
     EventNameOffset {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
      * @type {Integer}
      */
     ActivityIDNameOffset {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
      * @type {Integer}
      */
     EventAttributesOffset {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
      * @type {Integer}
      */
     RelatedActivityIDNameOffset {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
@@ -186,8 +193,8 @@ class TRACE_EVENT_INFO extends Win32Struct {
      * @type {Integer}
      */
     PropertyCount {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 100, "uint")
+        set => NumPut("uint", value, this, 100)
     }
 
     /**
@@ -195,16 +202,16 @@ class TRACE_EVENT_INFO extends Win32Struct {
      * @type {Integer}
      */
     TopLevelPropertyCount {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
      * @type {TEMPLATE_FLAGS}
      */
     Flags {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
+        get => NumGet(this, 108, "int")
+        set => NumPut("int", value, this, 108)
     }
 
     /**
@@ -214,8 +221,8 @@ class TRACE_EVENT_INFO extends Win32Struct {
      * @type {Integer}
      */
     _bitfield {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 
     /**
@@ -233,7 +240,7 @@ class TRACE_EVENT_INFO extends Win32Struct {
     EventPropertyInfoArray {
         get {
             if(!this.HasProp("__EventPropertyInfoArrayProxyArray"))
-                this.__EventPropertyInfoArrayProxyArray := Win32FixedArray(this.ptr + 96, 1, EVENT_PROPERTY_INFO, "")
+                this.__EventPropertyInfoArrayProxyArray := Win32FixedArray(this.ptr + 112, 1, EVENT_PROPERTY_INFO, "")
             return this.__EventPropertyInfoArrayProxyArray
         }
     }

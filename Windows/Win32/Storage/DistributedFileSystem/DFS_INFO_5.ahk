@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains information about a Distributed File System (DFS) root or link. This structure contains the name, status, GUID, time-out, namespace/root/link properties, metadata size, and number of targets for the root or link.
@@ -12,7 +14,7 @@
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  */
 class DFS_INFO_5 extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -85,11 +87,14 @@ class DFS_INFO_5 extends Win32Struct {
 
     /**
      * Specifies the GUID of the DFS root or link.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Guid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__Guid"))
+                this.__Guid := Guid(24, this)
+            return this.__Guid
+        }
     }
 
     /**
@@ -97,8 +102,8 @@ class DFS_INFO_5 extends Win32Struct {
      * @type {Integer}
      */
     PropertyFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -110,8 +115,8 @@ class DFS_INFO_5 extends Win32Struct {
      * @type {Integer}
      */
     MetadataSize {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -119,7 +124,7 @@ class DFS_INFO_5 extends Win32Struct {
      * @type {Integer}
      */
     NumberOfStorages {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

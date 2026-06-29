@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\PSC_STATE.ahk
 #Include .\IPropertyStore.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\PROPERTYKEY.ahk
 
 /**
  * Exposes methods that allow a handler to manage various states for each property.

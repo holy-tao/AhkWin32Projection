@@ -2,8 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IObjectId.ahk
 #Include .\IX509Attributes.ahk
+#Include .\IObjectId.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ICryptAttribute interface represents a cryptographic attribute in a certificate request. A collection of these attributes is contained in the CertificateRequestInfo structure of a PKCS

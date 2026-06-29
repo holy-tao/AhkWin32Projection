@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D12DeviceChild.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\ID3D12Fence.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * TBD
@@ -37,7 +40,7 @@ class ID3D12VirtualizationGuestDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12virtualizationguestdevice-sharewithhost
      */
     ShareWithHost(pObject) {
-        pHandle := HANDLE()
+        pHandle := HANDLE({Value: 0}, True)
         result := ComCall(3, this, "ptr", pObject, "ptr", pHandle, "HRESULT")
         return pHandle
     }

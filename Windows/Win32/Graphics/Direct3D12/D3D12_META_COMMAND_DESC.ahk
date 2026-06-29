@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\D3D12_GRAPHICS_STATES.ahk
 
 /**
@@ -8,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
 class D3D12_META_COMMAND_DESC extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -16,11 +18,14 @@ class D3D12_META_COMMAND_DESC extends Win32Struct {
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> uniquely identifying the meta command.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__Id"))
+                this.__Id := Guid(0, this)
+            return this.__Id
+        }
     }
 
     /**
@@ -30,8 +35,8 @@ class D3D12_META_COMMAND_DESC extends Win32Struct {
      * @type {PWSTR}
      */
     Name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -41,8 +46,8 @@ class D3D12_META_COMMAND_DESC extends Win32Struct {
      * @type {D3D12_GRAPHICS_STATES}
      */
     InitializationDirtyState {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -52,7 +57,7 @@ class D3D12_META_COMMAND_DESC extends Win32Struct {
      * @type {D3D12_GRAPHICS_STATES}
      */
     ExecutionDirtyState {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 }

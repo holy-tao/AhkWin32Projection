@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to combine several data streams into a single stream.

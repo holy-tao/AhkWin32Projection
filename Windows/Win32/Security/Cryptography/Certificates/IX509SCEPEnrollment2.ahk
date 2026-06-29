@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509SCEPEnrollment.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\X509SCEPDisposition.ahk
+#Include .\IX509SCEPEnrollment.ahk
+#Include .\X509SCEPProcessMessageFlags.ahk
+#Include .\DelayRetryAction.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -56,7 +61,7 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
      * @returns {BSTR} 
      */
     CreateChallengeAnswerMessage(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(29, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -80,7 +85,7 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
      * @returns {BSTR} 
      */
     get_ResultMessageText() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(31, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -99,7 +104,7 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
      * @returns {BSTR} 
      */
     get_ActivityId() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(33, this, "ptr", pValue, "HRESULT")
         return pValue
     }

@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WM_PORT_NUMBER_RANGE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\WMT_PROXY_SETTINGS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMReaderNetworkConfig interface is used to set and test network configuration settings.

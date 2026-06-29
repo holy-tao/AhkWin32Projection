@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to examine and configure Remote Desktop Services user properties.
@@ -170,7 +171,7 @@ class IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_terminalservicesprofilepath
      */
     get_TerminalServicesProfilePath() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -204,7 +205,7 @@ class IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_terminalserviceshomedirectory
      */
     get_TerminalServicesHomeDirectory() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -232,7 +233,7 @@ class IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_terminalserviceshomedrive
      */
     get_TerminalServicesHomeDrive() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -470,7 +471,7 @@ class IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_terminalservicesworkdirectory
      */
     get_TerminalServicesWorkDirectory() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(33, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -498,7 +499,7 @@ class IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_terminalservicesinitialprogram
      */
     get_TerminalServicesInitialProgram() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(35, this, "ptr", pVal, "HRESULT")
         return pVal
     }

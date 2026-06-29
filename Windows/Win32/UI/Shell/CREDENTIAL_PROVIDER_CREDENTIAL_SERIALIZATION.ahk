@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains details about a credential.
@@ -36,11 +37,14 @@ class CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * The CLSID of the credential provider. Credential providers assign their own CLSID to this member during serialization. Credential UI ignores this member.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidCredentialProvider {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__clsidCredentialProvider"))
+                this.__clsidCredentialProvider := Guid(4, this)
+            return this.__clsidCredentialProvider
+        }
     }
 
     /**
@@ -50,8 +54,8 @@ class CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION extends Win32Struct {
      * @type {Integer}
      */
     cbSerialization {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**

@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFPresentationDescriptor.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFMetadata.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Gets metadata from a media source or other object.

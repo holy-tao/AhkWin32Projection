@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Applications use the WIA_DEV_CAP structure to enumerate device capabilities. A device capability is defined by an event or command that the device supports. For more information, see IEnumWIA_DEV_CAPS.
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
 class WIA_DEV_CAP extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -16,11 +17,14 @@ class WIA_DEV_CAP extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * Specifies a GUID that identifies the device capability. This member can be set to any of the values specified in <a href="https://docs.microsoft.com/windows/desktop/wia/-wia-wia-device-commands">WIA Device Commands</a> or <a href="https://docs.microsoft.com/windows/desktop/wia/-wia-wia-event-identifiers">WIA Event Identifiers</a>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(0, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -50,8 +54,8 @@ class WIA_DEV_CAP extends Win32Struct {
      * @type {Integer}
      */
     ulFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -63,7 +67,7 @@ class WIA_DEV_CAP extends Win32Struct {
     bstrName {
         get {
             if(!this.HasProp("__bstrName"))
-                this.__bstrName := BSTR(16, this)
+                this.__bstrName := BSTR(24, this)
             return this.__bstrName
         }
     }
@@ -77,7 +81,7 @@ class WIA_DEV_CAP extends Win32Struct {
     bstrDescription {
         get {
             if(!this.HasProp("__bstrDescription"))
-                this.__bstrDescription := BSTR(24, this)
+                this.__bstrDescription := BSTR(32, this)
             return this.__bstrDescription
         }
     }
@@ -91,7 +95,7 @@ class WIA_DEV_CAP extends Win32Struct {
     bstrIcon {
         get {
             if(!this.HasProp("__bstrIcon"))
-                this.__bstrIcon := BSTR(32, this)
+                this.__bstrIcon := BSTR(40, this)
             return this.__bstrIcon
         }
     }
@@ -105,7 +109,7 @@ class WIA_DEV_CAP extends Win32Struct {
     bstrCommandline {
         get {
             if(!this.HasProp("__bstrCommandline"))
-                this.__bstrCommandline := BSTR(40, this)
+                this.__bstrCommandline := BSTR(48, this)
             return this.__bstrCommandline
         }
     }

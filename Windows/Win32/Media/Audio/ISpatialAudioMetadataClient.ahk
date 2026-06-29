@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpatialAudioMetadataItemsBuffer.ahk
+#Include .\ISpatialAudioMetadataItems.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISpatialAudioMetadataWriter.ahk
 #Include .\ISpatialAudioMetadataCopier.ahk
 #Include .\ISpatialAudioMetadataReader.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISpatialAudioMetadataWriter.ahk
+#Include .\SpatialAudioMetadataWriterOverflowMode.ahk
 
 /**
  * Provides a class factory for creating ISpatialAudioMetadataItems, ISpatialAudioMetadataWriter, ISpatialAudioMetadataReader, and ISpatialAudioMetadataCopier objects.

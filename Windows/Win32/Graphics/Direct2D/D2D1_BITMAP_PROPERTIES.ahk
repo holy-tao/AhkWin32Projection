@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include Common\D2D1_PIXEL_FORMAT.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include Common\D2D1_ALPHA_MODE.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include Common\D2D1_PIXEL_FORMAT.ahk
 
 /**
  * Describes the pixel format and dpi of a bitmap.

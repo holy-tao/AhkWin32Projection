@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IEnumDebugPropertyInfo.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\Variant\VARIANT.ahk
 #Include ..\..\Com\IUnknown.ahk
 #Include .\DebugPropertyInfo.ahk
-#Include ..\..\Variant\VARIANT.ahk
-#Include .\IEnumDebugPropertyInfo.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

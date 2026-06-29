@@ -1,7 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D12VideoExtensionCommand.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\ID3D12VideoDevice1.ahk
+#Include .\D3D12_VIDEO_DECODER_DESC.ahk
+#Include .\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk
+#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk
+#Include .\D3D12_VIDEO_DECODER_HEAP_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_VIDEO_EXTENSION_COMMAND_DESC.ahk
 
 /**
  * Adds support for protected resources.

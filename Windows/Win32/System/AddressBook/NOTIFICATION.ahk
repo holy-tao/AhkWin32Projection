@@ -1,32 +1,36 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ERROR_NOTIFICATION.ahk
-#Include .\ENTRYID.ahk
-#Include .\MAPIERROR.ahk
-#Include .\NEWMAIL_NOTIFICATION.ahk
-#Include .\OBJECT_NOTIFICATION.ahk
-#Include .\SPropTagArray.ahk
-#Include .\TABLE_NOTIFICATION.ahk
-#Include .\SPropValue.ahk
-#Include .\__UPV.ahk
-#Include ..\Com\CY.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\SBinary.ahk
-#Include .\SShortArray.ahk
-#Include .\SLongArray.ahk
-#Include .\SRealArray.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\SDoubleArray.ahk
-#Include .\SCurrencyArray.ahk
-#Include .\SAppTimeArray.ahk
-#Include .\SDateTimeArray.ahk
 #Include .\SBinaryArray.ahk
 #Include .\SLPSTRArray.ahk
-#Include .\SWStringArray.ahk
-#Include .\SGuidArray.ahk
-#Include .\SLargeIntegerArray.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\CY.ahk
+#Include .\ERROR_NOTIFICATION.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\SCurrencyArray.ahk
+#Include .\MAPIERROR.ahk
+#Include .\OBJECT_NOTIFICATION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\NEWMAIL_NOTIFICATION.ahk
 #Include .\SRow.ahk
-#Include .\EXTENDED_NOTIFICATION.ahk
+#Include .\SLongArray.ahk
+#Include .\TABLE_NOTIFICATION.ahk
+#Include .\SDateTimeArray.ahk
+#Include .\SPropValue.ahk
+#Include .\SBinary.ahk
 #Include .\STATUS_OBJECT_NOTIFICATION.ahk
+#Include .\SWStringArray.ahk
+#Include .\SPropTagArray.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\SGuidArray.ahk
+#Include .\EXTENDED_NOTIFICATION.ahk
+#Include .\ENTRYID.ahk
+#Include .\__UPV.ahk
+#Include .\SRealArray.ahk
+#Include .\SShortArray.ahk
+#Include .\SLargeIntegerArray.ahk
+#Include .\SAppTimeArray.ahk
 
 /**
  * NOTIFICATION contains information about an event that has occurred and the data that has been affected by the event.
@@ -58,7 +62,7 @@ class NOTIFICATION extends Win32Struct {
 
     static packingSize => 8
 
-    class _info_e__Union extends Win32Struct {
+    class _info extends Win32Struct {
         static sizeof => 672
         static packingSize => 8
 
@@ -148,12 +152,12 @@ class NOTIFICATION extends Win32Struct {
 
     /**
      * > Union of notification structures describing the affected data for a particular type of event. The structure included in the **info** member depends on the value of the **ulEventType** member.
-     * @type {_info_e__Union}
+     * @type {_info}
      */
     info {
         get {
             if(!this.HasProp("__info"))
-                this.__info := NOTIFICATION._info_e__Union(8, this)
+                this.__info := NOTIFICATION._info(8, this)
             return this.__info
         }
     }

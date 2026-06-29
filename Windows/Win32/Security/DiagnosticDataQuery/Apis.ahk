@@ -1,11 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\HDIAGNOSTIC_DATA_QUERY_SESSION.ahk
-#Include .\HDIAGNOSTIC_EVENT_TAG_DESCRIPTION.ahk
 #Include .\HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION.ahk
-#Include .\HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION.ahk
+#Include .\DIAGNOSTIC_DATA_RECORD.ahk
+#Include .\DIAGNOSTIC_REPORT_DATA.ahk
+#Include .\DdqAccessLevel.ahk
+#Include .\DIAGNOSTIC_DATA_EVENT_TRANSCRIPT_CONFIGURATION.ahk
+#Include .\DIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION.ahk
+#Include .\DIAGNOSTIC_DATA_SEARCH_CRITERIA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DIAGNOSTIC_DATA_EVENT_PRODUCER_DESCRIPTION.ahk
 #Include .\HDIAGNOSTIC_RECORD.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\HDIAGNOSTIC_REPORT.ahk
+#Include .\DIAGNOSTIC_DATA_EVENT_CATEGORY_DESCRIPTION.ahk
+#Include .\DIAGNOSTIC_DATA_EVENT_BINARY_STATS.ahk
+#Include .\HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION.ahk
+#Include .\HDIAGNOSTIC_EVENT_TAG_DESCRIPTION.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DIAGNOSTIC_DATA_GENERAL_STATS.ahk
+#Include .\HDIAGNOSTIC_DATA_QUERY_SESSION.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\DIAGNOSTIC_DATA_EVENT_TAG_STATS.ahk
 
 /**
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
@@ -26,7 +41,7 @@ class DiagnosticDataQuery {
      * @since windows10.0.19041
      */
     static DdqCreateSession(accessLevel) {
-        hSession := HDIAGNOSTIC_DATA_QUERY_SESSION()
+        hSession := HDIAGNOSTIC_DATA_QUERY_SESSION({Value: 0}, True)
         result := DllCall("DiagnosticDataQuery.dll\DdqCreateSession", "int", accessLevel, "ptr", hSession, "HRESULT")
         return hSession
     }
@@ -138,7 +153,7 @@ class DiagnosticDataQuery {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
         locale := locale is String ? StrPtr(locale) : locale
 
-        hTagDescription := HDIAGNOSTIC_EVENT_TAG_DESCRIPTION()
+        hTagDescription := HDIAGNOSTIC_EVENT_TAG_DESCRIPTION({Value: 0}, True)
         result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordLocaleTags", "ptr", hSession, "ptr", locale, "ptr", hTagDescription, "HRESULT")
         return hTagDescription
     }
@@ -214,7 +229,7 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticRecordProducers(hSession) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        hProducerDescription := HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION()
+        hProducerDescription := HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION({Value: 0}, True)
         result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordProducers", "ptr", hSession, "ptr", hProducerDescription, "HRESULT")
         return hProducerDescription
     }
@@ -294,7 +309,7 @@ class DiagnosticDataQuery {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
         producerName := producerName is String ? StrPtr(producerName) : producerName
 
-        hCategoryDescription := HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION()
+        hCategoryDescription := HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION({Value: 0}, True)
         result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordProducerCategories", "ptr", hSession, "ptr", producerName, "ptr", hCategoryDescription, "HRESULT")
         return hCategoryDescription
     }
@@ -415,7 +430,7 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticRecordPage(hSession, searchCriteria, offset, pageRecordCount, baseRowId) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        hRecord := HDIAGNOSTIC_RECORD()
+        hRecord := HDIAGNOSTIC_RECORD({Value: 0}, True)
         result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordPage", "ptr", hSession, "ptr", searchCriteria, "uint", offset, "uint", pageRecordCount, "int64", baseRowId, "ptr", hRecord, "HRESULT")
         return hRecord
     }
@@ -526,7 +541,7 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticReport(hSession, reportStoreType) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        _hReport := HDIAGNOSTIC_REPORT()
+        _hReport := HDIAGNOSTIC_REPORT({Value: 0}, True)
         result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReport", "ptr", hSession, "uint", reportStoreType, "ptr", _hReport, "HRESULT")
         return _hReport
     }

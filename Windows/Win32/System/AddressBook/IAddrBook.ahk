@@ -2,7 +2,17 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMAPIProp.ahk
+#Include .\ADRENTRY.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ENTRYID.ahk
+#Include .\ADRPARM.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IMAPIAdviseSink.ahk
+#Include .\ADRLIST.ahk
+#Include .\SPropTagArray.ahk
+#Include .\SPropValue.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SRowSet.ahk
 
 /**
  * Do not use. (IAddrBook)

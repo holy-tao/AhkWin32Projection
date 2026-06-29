@@ -1,22 +1,109 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRecordInfo.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\ITypeLib.ahk
-#Include .\ICreateTypeLib.ahk
-#Include .\ICreateTypeLib2.ahk
-#Include ..\Com\ITypeInfo.ahk
+#Include .\VARCMP.ahk
+#Include .\EMBDHLP_FLAGS.ahk
+#Include .\OLEUICHANGESOURCEA.ahk
+#Include ..\Com\STGMEDIUM.ahk
+#Include .\IOleClientSite.ahk
 #Include ..\Com\IUnknown.ahk
-#Include .\ICreateErrorInfo.ahk
-#Include ..\Com\IDataObject.ahk
+#Include .\OLEUIEDITLINKSA.ahk
+#Include ..\Com\IMoniker.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include ..\Com\IStream.ahk
+#Include .\VARFORMAT_GROUP.ahk
+#Include .\OLEUIEDITLINKSW.ahk
+#Include ..\..\Foundation\DECIMAL.ahk
+#Include .\VARFORMAT_FIRST_WEEK.ahk
+#Include .\LOAD_PICTURE_FLAGS.ahk
+#Include .\OLEUICONVERTW.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\IOleAdviseHolder.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
-#Include ..\Com\IEnumFORMATETC.ahk
-#Include .\IEnumOLEVERB.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\REGKIND.ahk
+#Include .\FONTDESC.ahk
+#Include .\OLECREATE.ahk
+#Include .\VARFORMAT_NAMED_FORMAT.ahk
+#Include .\ICreateTypeLib2.ahk
+#Include .\OLEUICHANGEICONW.ahk
+#Include ..\Com\CY.ahk
+#Include ..\Com\SYSKIND.ahk
+#Include .\NUMPARSE.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\UI\WindowsAndMessaging\HCURSOR.ahk
+#Include .\OLEUIOBJECTPROPSW.ahk
+#Include .\INTERFACEDATA.ahk
+#Include ..\..\UI\WindowsAndMessaging\HACCEL.ahk
+#Include ..\Com\StructuredStorage\IPersistStorage.ahk
+#Include .\ACTIVEOBJECT_FLAGS.ahk
+#Include .\IDropSource.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\OLEUICHANGEICONA.ahk
+#Include .\PICTDESC.ahk
+#Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
+#Include .\OLEUIBUSYA.ahk
+#Include .\OLEINPLACEFRAMEINFO.ahk
+#Include ..\Com\CALLCONV.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include .\VARFORMAT_FIRST_DAY.ahk
+#Include .\ICreateTypeLib.ahk
+#Include ..\Com\SAFEARRAYBOUND.ahk
+#Include ..\Com\DVTARGETDEVICE.ahk
+#Include .\VARFORMAT_PARENTHESES.ahk
+#Include ..\Variant\VARENUM.ahk
+#Include ..\Com\IDataObject.ahk
+#Include ..\Com\FORMATETC.ahk
+#Include .\IRecordInfo.ahk
+#Include ..\Com\DISPPARAMS.ahk
+#Include .\OLEUIINSERTOBJECTW.ahk
+#Include ..\Com\StructuredStorage\IStorage.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\Com\IPersistStream.ahk
+#Include ..\Com\CUSTDATA.ahk
+#Include ..\Com\EXCEPINFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Graphics\Gdi\HRGN.ahk
+#Include .\IOleInPlaceActiveObject.ahk
+#Include ..\Com\ITypeInfo.ahk
+#Include ..\Com\IEnumFORMATETC.ahk
+#Include .\OLEUICHANGESOURCEW.ahk
+#Include .\OCPFIPARAMS.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
+#Include .\OLEMENUGROUPWIDTHS.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IOleUILinkContainerA.ahk
+#Include .\IOleObject.ahk
+#Include ..\..\Foundation\CHAR.ahk
+#Include .\OLEUICONVERTA.ahk
+#Include .\OLEUIINSERTOBJECTA.ahk
+#Include .\OLEUIPASTESPECIALA.ahk
+#Include ..\..\UI\WindowsAndMessaging\MSG.ahk
+#Include .\CLIPBOARD_FORMAT.ahk
+#Include .\IOleAdviseHolder.ahk
+#Include .\IDropTarget.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include ..\Com\ITypeLib.ahk
+#Include ..\Memory\GLOBAL_ALLOC_FLAGS.ahk
+#Include .\IEnumOLEVERB.ahk
+#Include ..\Com\IAdviseSink.ahk
+#Include .\OLEUIBUSYW.ahk
+#Include ..\Com\IClassFactory.ahk
+#Include ..\Com\StructuredStorage\OLESTREAM.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include .\ICreateErrorInfo.ahk
+#Include .\IOleUILinkContainerW.ahk
+#Include .\DROPEFFECT.ahk
+#Include .\OLEUIOBJECTPROPSA.ahk
+#Include .\IOleInPlaceFrame.ahk
+#Include .\OLEUIPASTESPECIALW.ahk
+#Include .\VARFORMAT_LEADING_DIGIT.ahk
+#Include .\UDATE.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Ole
@@ -3364,7 +3451,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-bstrfromvector
      */
     static BstrFromVector(psa) {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\BstrFromVector", "ptr", psa, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -6463,7 +6550,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrfromui1
      */
     static VarBstrFromUI1(bVal, lcid, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrFromUI1", "char", bVal, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -6477,7 +6564,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrfromi2
      */
     static VarBstrFromI2(iVal, lcid, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrFromI2", "short", iVal, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -6491,7 +6578,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrfromi4
      */
     static VarBstrFromI4(lIn, lcid, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrFromI4", "int", lIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -6505,7 +6592,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrfromi8
      */
     static VarBstrFromI8(i64In, lcid, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrFromI8", "int64", i64In, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -6536,7 +6623,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrfromr4
      */
     static VarBstrFromR4(fltIn, lcid, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrFromR4", "float", fltIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -6567,7 +6654,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrfromr8
      */
     static VarBstrFromR8(dblIn, lcid, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrFromR8", "double", dblIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -6608,7 +6695,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrfromcy
      */
     static VarBstrFromCy(cyIn, lcid, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrFromCy", "ptr", cyIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -6702,7 +6789,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrfromdate
      */
     static VarBstrFromDate(dateIn, lcid, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrFromDate", "double", dateIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -6716,7 +6803,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrfromdisp
      */
     static VarBstrFromDisp(pdispIn, lcid, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrFromDisp", "ptr", pdispIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -6757,7 +6844,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrfrombool
      */
     static VarBstrFromBool(boolIn, lcid, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrFromBool", "short", boolIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -6771,7 +6858,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrfromi1
      */
     static VarBstrFromI1(cIn, lcid, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrFromI1", "char", cIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -6802,7 +6889,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrfromui2
      */
     static VarBstrFromUI2(uiIn, lcid, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrFromUI2", "ushort", uiIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -6816,7 +6903,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrfromui4
      */
     static VarBstrFromUI4(ulIn, lcid, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrFromUI4", "uint", ulIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -6830,7 +6917,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrfromui8
      */
     static VarBstrFromUI8(ui64In, lcid, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrFromUI8", "uint", ui64In, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -6883,7 +6970,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrfromdec
      */
     static VarBstrFromDec(pdecIn, lcid, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrFromDec", "ptr", pdecIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -11907,7 +11994,7 @@ class Ole {
         bstrLeft := bstrLeft is Win32Handle ? NumGet(bstrLeft, "ptr") : bstrLeft
         bstrRight := bstrRight is Win32Handle ? NumGet(bstrRight, "ptr") : bstrRight
 
-        pbstrResult := BSTR()
+        pbstrResult := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarBstrCat", "ptr", bstrLeft, "ptr", bstrRight, "ptr", pbstrResult, "HRESULT")
         return pbstrResult
     }
@@ -12432,7 +12519,7 @@ class Ole {
     static VarFormat(pvarIn, pstrFormat, iFirstDay, iFirstWeek, dwFlags) {
         pstrFormat := pstrFormat is String ? StrPtr(pstrFormat) : pstrFormat
 
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarFormat", "ptr", pvarIn, "ptr", pstrFormat, "int", iFirstDay, "int", iFirstWeek, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -12510,7 +12597,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varformatdatetime
      */
     static VarFormatDateTime(pvarIn, iNamedFormat, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarFormatDateTime", "ptr", pvarIn, "int", iNamedFormat, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -12651,7 +12738,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varformatnumber
      */
     static VarFormatNumber(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarFormatNumber", "ptr", pvarIn, "int", iNumDig, "int", iIncLead, "int", iUseParens, "int", iGroup, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -12792,7 +12879,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varformatpercent
      */
     static VarFormatPercent(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarFormatPercent", "ptr", pvarIn, "int", iNumDig, "int", iIncLead, "int", iUseParens, "int", iGroup, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -12933,7 +13020,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varformatcurrency
      */
     static VarFormatCurrency(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarFormatCurrency", "ptr", pvarIn, "int", iNumDig, "int", iIncLead, "int", iUseParens, "int", iGroup, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -13139,7 +13226,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varweekdayname
      */
     static VarWeekdayName(iWeekday, fAbbrev, iFirstDay, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarWeekdayName", "int", iWeekday, "int", fAbbrev, "int", iFirstDay, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -13153,7 +13240,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varmonthname
      */
     static VarMonthName(iMonth, fAbbrev, dwFlags) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarMonthName", "int", iMonth, "int", fAbbrev, "uint", dwFlags, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }
@@ -13175,7 +13262,7 @@ class Ole {
 
         pbTokCurMarshal := pbTokCur is VarRef ? "char*" : "ptr"
 
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\VarFormatFromTokens", "ptr", pvarIn, "ptr", pstrFormat, pbTokCurMarshal, pbTokCur, "uint", dwFlags, "ptr", pbstrOut, "uint", lcid, "HRESULT")
         return pbstrOut
     }
@@ -13543,7 +13630,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-querypathofregtypelib
      */
     static QueryPathOfRegTypeLib(guid, wMaj, wMin, lcid) {
-        lpbstrPathName := BSTR()
+        lpbstrPathName := BSTR({Value: 0}, True)
         result := DllCall("OLEAUT32.dll\QueryPathOfRegTypeLib", "ptr", guid, "ushort", wMaj, "ushort", wMin, "uint", lcid, "ptr", lpbstrPathName, "HRESULT")
         return lpbstrPathName
     }

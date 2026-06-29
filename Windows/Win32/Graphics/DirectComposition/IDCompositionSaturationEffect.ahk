@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDCompositionFilterEffect.ahk
+#Include .\IDCompositionAnimation.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This effect is used to alter the saturation of an image. The saturation effect is a specialization of the color matrix effect.

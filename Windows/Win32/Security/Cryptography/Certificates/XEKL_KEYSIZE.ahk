@@ -2,7 +2,6 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-getkeylenex">CEnroll.GetKeyLenEx</see>, <see href="https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-getkeylenex">ICEnroll4.GetKeyLenEx</see>, <see href="https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-getkeylenex">IEnroll4.GetKeyLenEx</see>.
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
 class XEKL_KEYSIZE extends Win32Enum {

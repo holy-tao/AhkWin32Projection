@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_INTERACTIVE_PROFILE.ahk
-#Include .\KERB_PROFILE_BUFFER_TYPE.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
+#Include .\KERB_PROFILE_BUFFER_TYPE.ahk
+#Include .\KERB_INTERACTIVE_PROFILE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

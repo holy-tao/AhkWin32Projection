@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputRawDeviceItemCollectionKind.ahk
 #Include .\GameInputUsage.ahk
 #Include .\GameInputRawDeviceItemCollectionInfo.ahk
+#Include .\GameInputRawDeviceItemCollectionKind.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

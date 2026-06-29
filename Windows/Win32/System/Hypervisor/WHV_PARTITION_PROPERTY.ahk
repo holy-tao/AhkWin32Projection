@@ -1,21 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_EXTENDED_VM_EXITS.ahk
-#Include .\WHV_PROCESSOR_FEATURES.ahk
-#Include .\WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS.ahk
-#Include .\WHV_SYNTHETIC_PROCESSOR_FEATURES.ahk
-#Include .\WHV_PROCESSOR_XSAVE_FEATURES.ahk
-#Include .\WHV_X64_CPUID_RESULT.ahk
-#Include .\WHV_X64_CPUID_RESULT2.ahk
-#Include .\WHV_X64_CPUID_RESULT2_FLAGS.ahk
-#Include .\WHV_CPUID_OUTPUT.ahk
 #Include .\WHV_MSR_ACTION_ENTRY.ahk
-#Include .\WHV_MSR_ACTION.ahk
-#Include .\WHV_X64_LOCAL_APIC_EMULATION_MODE.ahk
-#Include .\WHV_X64_MSR_EXIT_BITMAP.ahk
-#Include .\WHV_PROCESSOR_FEATURES_BANKS.ahk
 #Include .\WHV_PROCESSOR_FEATURES1.ahk
+#Include .\WHV_X64_MSR_EXIT_BITMAP.ahk
+#Include .\WHV_X64_CPUID_RESULT2.ahk
+#Include .\WHV_PROCESSOR_XSAVE_FEATURES.ahk
+#Include .\WHV_CPUID_OUTPUT.ahk
+#Include .\WHV_SYNTHETIC_PROCESSOR_FEATURES.ahk
+#Include .\WHV_PROCESSOR_FEATURES_BANKS.ahk
+#Include .\WHV_EXTENDED_VM_EXITS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\WHV_X64_CPUID_RESULT.ahk
+#Include .\WHV_MSR_ACTION.ahk
+#Include .\WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS.ahk
+#Include .\WHV_X64_CPUID_RESULT2_FLAGS.ahk
+#Include .\WHV_PROCESSOR_FEATURES.ahk
 #Include .\WHV_PROCESSOR_PERFMON_FEATURES.ahk
+#Include .\WHV_X64_LOCAL_APIC_EMULATION_MODE.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor

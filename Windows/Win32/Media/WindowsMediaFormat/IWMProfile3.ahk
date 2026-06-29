@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMProfile2.ahk
-#Include .\IWMBandwidthSharing.ahk
 #Include .\IWMStreamPrioritization.ahk
+#Include .\WMT_STORAGE_FORMAT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMBandwidthSharing.ahk
+#Include .\IWMProfile2.ahk
 
 /**
  * The IWMProfile3 interface provides enhanced features for profiles.

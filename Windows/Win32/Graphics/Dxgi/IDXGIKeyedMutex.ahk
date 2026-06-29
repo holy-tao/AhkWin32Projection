@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDXGIDeviceSubObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a keyed mutex, which allows exclusive access to a shared resource that is used by multiple devices.

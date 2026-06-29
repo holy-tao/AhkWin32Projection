@@ -4,6 +4,7 @@
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISVGAnimatedLength.ahk
 #Include .\ISVGAnimatedEnumeration.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

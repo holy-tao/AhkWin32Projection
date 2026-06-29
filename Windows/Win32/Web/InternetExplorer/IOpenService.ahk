@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -39,17 +42,10 @@ class IOpenService extends IUnknown {
     }
 
     /**
-     * Sets the default configuration for a communications device. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winbase.h header defines SetDefaultCommConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {BOOL} fDefault 
      * @param {HWND} _hwnd 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setdefaultcommconfigw
+     * @returns {HRESULT} 
      */
     SetDefault(fDefault, _hwnd) {
         _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
@@ -63,7 +59,7 @@ class IOpenService extends IUnknown {
      * @returns {BSTR} 
      */
     GetID() {
-        pbstrID := BSTR()
+        pbstrID := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", pbstrID, "HRESULT")
         return pbstrID
     }

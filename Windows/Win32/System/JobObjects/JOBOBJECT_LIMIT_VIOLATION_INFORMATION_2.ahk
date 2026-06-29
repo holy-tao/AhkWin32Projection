@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOB_OBJECT_LIMIT.ahk
 #Include .\JOBOBJECT_RATE_CONTROL_TOLERANCE.ahk
+#Include .\JOB_OBJECT_LIMIT.ahk
 
 /**
  * Contains extended information about resource notification limits that have been exceeded for a job object. This structure is used with the QueryInformationJobObject function with the JobObjectLimitViolationInformation2 information class.

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IGPMTrustee interface contains methods to retrieve information about a given trustee when using the Group Policy Management Console (GPMC).
@@ -76,7 +77,7 @@ class IGPMTrustee extends IDispatch {
      * @returns {BSTR} 
      */
     get_TrusteeSid() {
-        bstrVal := BSTR()
+        bstrVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", bstrVal, "HRESULT")
         return bstrVal
     }
@@ -86,7 +87,7 @@ class IGPMTrustee extends IDispatch {
      * @returns {BSTR} 
      */
     get_TrusteeName() {
-        bstrVal := BSTR()
+        bstrVal := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", bstrVal, "HRESULT")
         return bstrVal
     }
@@ -96,7 +97,7 @@ class IGPMTrustee extends IDispatch {
      * @returns {BSTR} 
      */
     get_TrusteeDomain() {
-        bstrVal := BSTR()
+        bstrVal := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", bstrVal, "HRESULT")
         return bstrVal
     }
@@ -106,7 +107,7 @@ class IGPMTrustee extends IDispatch {
      * @returns {BSTR} 
      */
     get_TrusteeDSPath() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
         return pVal
     }

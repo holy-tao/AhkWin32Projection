@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\DML_TENSOR_DESC.ahk
-#Include .\DML_REDUCE_FUNCTION.ahk
 #Include .\DML_INTERPOLATION_MODE.ahk
+#Include .\DML_REDUCE_FUNCTION.ahk
 
 /**
  * Performs an ROI align operation, as described in the [Mask R-CNN](https://arxiv.org/abs/1703.06870) paper. In summary, the operation extracts crops from the input image tensor and resizes them to a common output size specified by the last 2 dimensions of *OutputTensor* using the specified *InterpolationMode*.

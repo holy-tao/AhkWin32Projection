@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_SHADER_RESOURCE_VIEW_DESC1.ahk
 #Include .\ID3D11ShaderResourceView.ahk
 
 /**

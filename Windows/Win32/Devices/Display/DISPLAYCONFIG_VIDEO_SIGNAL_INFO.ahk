@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISPLAYCONFIG_RATIONAL.ahk
-#Include .\DISPLAYCONFIG_2DREGION.ahk
 #Include .\DISPLAYCONFIG_SCANLINE_ORDERING.ahk
+#Include .\DISPLAYCONFIG_2DREGION.ahk
+#Include .\DISPLAYCONFIG_RATIONAL.ahk
 
 /**
  * The DISPLAYCONFIG_VIDEO_SIGNAL_INFO structure contains information about the video signal for a display.

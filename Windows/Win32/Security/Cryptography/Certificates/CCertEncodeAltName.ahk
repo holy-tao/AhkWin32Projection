@@ -2,8 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Decodes an Abstract Syntax Notation One (ASN.1)-encoded alternate name extension and stores the resulting array of strings in the CertEncodeAltName object.
- * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodealtname-decode
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
 class CCertEncodeAltName extends Win32Struct {

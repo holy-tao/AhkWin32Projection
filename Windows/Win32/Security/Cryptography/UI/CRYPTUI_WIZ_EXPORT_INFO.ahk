@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\CRYPTUI_WIZ_EXPORT_SUBJECT.ahk
-#Include ..\CERT_CONTEXT.ahk
-#Include ..\CTL_CONTEXT.ahk
 #Include ..\CRL_CONTEXT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\CTL_CONTEXT.ahk
 #Include ..\HCERTSTORE.ahk
+#Include ..\CERT_CONTEXT.ahk
 
 /**
  * Contains information that controls the operation of the CryptUIWizExport function.

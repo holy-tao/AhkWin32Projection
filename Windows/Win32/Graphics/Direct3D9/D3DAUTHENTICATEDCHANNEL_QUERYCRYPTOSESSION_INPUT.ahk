@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\D3DAUTHENTICATEDCHANNEL_QUERY_INPUT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
 class D3DAUTHENTICATEDCHANNEL_QUERYCRYPTOSESSION_INPUT extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -32,7 +33,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYCRYPTOSESSION_INPUT extends Win32Struct {
     DXVA2DecodeHandle {
         get {
             if(!this.HasProp("__DXVA2DecodeHandle"))
-                this.__DXVA2DecodeHandle := HANDLE(24, this)
+                this.__DXVA2DecodeHandle := HANDLE(32, this)
             return this.__DXVA2DecodeHandle
         }
     }

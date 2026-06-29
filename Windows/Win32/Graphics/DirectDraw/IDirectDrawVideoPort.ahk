@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DDVIDEOPORTINFO.ahk
+#Include .\IDirectDrawSurface.ahk
 #Include .\DDPIXELFORMAT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DDVIDEOPORTBANDWIDTH.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DDCOLORCONTROL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

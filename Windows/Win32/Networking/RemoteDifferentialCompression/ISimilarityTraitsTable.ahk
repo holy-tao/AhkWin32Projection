@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISimilarityTraitsMapping.ahk
 #Include .\ISimilarityTableDumpState.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\SimilarityData.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\RdcCreatedTables.ahk
+#Include .\FindSimilarFileIndexResults.ahk
 
 /**
  * Defines methods for storing per-file similarity data and performing similarity lookups.

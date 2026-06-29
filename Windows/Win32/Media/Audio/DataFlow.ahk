@@ -22,7 +22,7 @@ class DataFlow extends Win32Enum {
      * Input stream. The audio stream flows into the device through the connector.
      * @type {Integer (Int32)}
      */
-    static In => 0
+    static Win32In => 0
 
     /**
      * Output stream. The audio stream flows out of the device through the connector.

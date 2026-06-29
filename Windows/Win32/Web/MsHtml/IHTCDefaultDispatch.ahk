@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IHTMLEventObj.ahk
 
 /**

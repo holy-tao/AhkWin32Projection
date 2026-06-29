@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Vhd\MERGE_VIRTUAL_DISK_FLAG.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Vhd\EXPAND_VIRTUAL_DISK_FLAG.ahk
+#Include ..\Vhd\COMPACT_VIRTUAL_DISK_FLAG.ahk
+#Include ..\Vhd\ATTACH_VIRTUAL_DISK_FLAG.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IVdsAsync.ahk
+#Include ..\Vhd\DETACH_VIRTUAL_DISK_FLAG.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines methods for managing a virtual disk. (IVdsOpenVDisk)

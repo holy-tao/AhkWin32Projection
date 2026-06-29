@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\REG_VALUE_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a registry value. The RegQueryMultipleValues function uses this structure. (Unicode)

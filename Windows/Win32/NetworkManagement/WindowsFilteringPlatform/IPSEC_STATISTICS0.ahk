@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_AGGREGATE_SA_STATISTICS0.ahk
-#Include .\IPSEC_ESP_DROP_PACKET_STATISTICS0.ahk
 #Include .\IPSEC_AH_DROP_PACKET_STATISTICS0.ahk
 #Include .\IPSEC_AGGREGATE_DROP_PACKET_STATISTICS0.ahk
+#Include .\IPSEC_ESP_DROP_PACKET_STATISTICS0.ahk
 #Include .\IPSEC_TRAFFIC_STATISTICS0.ahk
+#Include .\IPSEC_AGGREGATE_SA_STATISTICS0.ahk
 
 /**
  * Is the top-level of the IPsec statistics structures. (IPSEC_STATISTICS0)

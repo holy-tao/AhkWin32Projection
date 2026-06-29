@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICorProfilerInfo3.ahk
-#Include .\ICorProfilerThreadEnum.ahk
 #Include .\ICorProfilerFunctionEnum.ahk
+#Include .\COR_PRF_CODE_INFO.ahk
+#Include .\ICorProfilerThreadEnum.ahk
+#Include .\ICorProfilerInfo3.ahk
+#Include .\COR_DEBUG_IL_TO_NATIVE_MAP.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

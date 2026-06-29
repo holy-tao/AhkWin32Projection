@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfUIElement.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITfUIElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfToolTipUIElement interface is implemented by a text service that wants to show a tooltip on its UI.
@@ -36,7 +37,7 @@ class ITfToolTipUIElement extends ITfUIElement {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftooltipuielement-getstring
      */
     GetString() {
-        _pstr := BSTR()
+        _pstr := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", _pstr, "HRESULT")
         return _pstr
     }

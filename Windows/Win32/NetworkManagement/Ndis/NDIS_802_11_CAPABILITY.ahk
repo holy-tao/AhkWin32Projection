@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_802_11_AUTHENTICATION_ENCRYPTION.ahk
 #Include .\NDIS_802_11_AUTHENTICATION_MODE.ahk
 #Include .\NDIS_802_11_WEP_STATUS.ahk
+#Include .\NDIS_802_11_AUTHENTICATION_ENCRYPTION.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis

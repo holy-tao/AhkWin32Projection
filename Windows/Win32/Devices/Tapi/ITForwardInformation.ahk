@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITForwardInformation interface provides methods for setup and implementation of call forwarding.
@@ -169,7 +170,7 @@ class ITForwardInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation-get_forwardtypedestination
      */
     get_ForwardTypeDestination(ForwardType) {
-        ppDestAddress := BSTR()
+        ppDestAddress := BSTR({Value: 0}, True)
         result := ComCall(10, this, "int", ForwardType, "ptr", ppDestAddress, "HRESULT")
         return ppDestAddress
     }
@@ -184,7 +185,7 @@ class ITForwardInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation-get_forwardtypecaller
      */
     get_ForwardTypeCaller(Forwardtype) {
-        ppCallerAddress := BSTR()
+        ppCallerAddress := BSTR({Value: 0}, True)
         result := ComCall(11, this, "int", Forwardtype, "ptr", ppCallerAddress, "HRESULT")
         return ppCallerAddress
     }

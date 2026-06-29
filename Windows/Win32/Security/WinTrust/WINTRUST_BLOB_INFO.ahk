@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Used when calling WinVerifyTrust to verify a memory BLOB.
@@ -7,7 +9,7 @@
  * @namespace Windows.Win32.Security.WinTrust
  */
 class WINTRUST_BLOB_INFO extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -22,11 +24,14 @@ class WINTRUST_BLOB_INFO extends Win32Struct {
 
     /**
      * The <b>GUID</b> of the SIP to load.
-     * @type {Pointer}
+     * @type {Guid}
      */
     gSubject {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__gSubject"))
+                this.__gSubject := Guid(4, this)
+            return this.__gSubject
+        }
     }
 
     /**
@@ -34,8 +39,8 @@ class WINTRUST_BLOB_INFO extends Win32Struct {
      * @type {PWSTR}
      */
     pcwszDisplayName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -43,8 +48,8 @@ class WINTRUST_BLOB_INFO extends Win32Struct {
      * @type {Integer}
      */
     cbMemObject {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -52,8 +57,8 @@ class WINTRUST_BLOB_INFO extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     pbMemObject {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -61,8 +66,8 @@ class WINTRUST_BLOB_INFO extends Win32Struct {
      * @type {Integer}
      */
     cbMemSignedMsg {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -70,7 +75,7 @@ class WINTRUST_BLOB_INFO extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     pbMemSignedMsg {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

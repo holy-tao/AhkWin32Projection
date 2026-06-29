@@ -2,8 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\ISchemaParticle.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\ISchemaType.ahk
+#Include .\SCHEMADERIVATIONMETHOD.ahk
 #Include .\ISchemaComplexType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ISchemaItemCollection.ahk
 
@@ -131,7 +134,7 @@ class ISchemaElement extends ISchemaParticle {
      * @returns {BSTR} 
      */
     get_defaultValue() {
-        defaultValue := BSTR()
+        defaultValue := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", defaultValue, "HRESULT")
         return defaultValue
     }
@@ -141,7 +144,7 @@ class ISchemaElement extends ISchemaParticle {
      * @returns {BSTR} 
      */
     get_fixedValue() {
-        fixedValue := BSTR()
+        fixedValue := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", fixedValue, "HRESULT")
         return fixedValue
     }

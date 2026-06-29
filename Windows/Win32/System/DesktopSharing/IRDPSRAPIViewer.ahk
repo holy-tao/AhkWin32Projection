@@ -1,13 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IRDPSRAPIAttendeeManager.ahk
-#Include .\IRDPSRAPIInvitationManager.ahk
-#Include .\IRDPSRAPIApplicationFilter.ahk
-#Include .\IRDPSRAPIVirtualChannelManager.ahk
+#Include .\CTRL_LEVEL.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IRDPSRAPIInvitationManager.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IRDPSRAPIVirtualChannelManager.ahk
+#Include .\IRDPSRAPIAttendeeManager.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IRDPSRAPISessionProperties.ahk
+#Include .\IRDPSRAPIApplicationFilter.ahk
 
 /**
  * The ActiveX interface that is used on the viewer side.
@@ -236,7 +239,7 @@ class IRDPSRAPIViewer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiviewer-get_disconnectedtext
      */
     get_DisconnectedText() {
-        pbstrDisconnectedText := BSTR()
+        pbstrDisconnectedText := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pbstrDisconnectedText, "HRESULT")
         return pbstrDisconnectedText
     }
@@ -303,7 +306,7 @@ class IRDPSRAPIViewer extends IDispatch {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
 
-        pbstrReverseConnectString := BSTR()
+        pbstrReverseConnectString := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", bstrConnectionString, "ptr", bstrUserName, "ptr", bstrPassword, "ptr", pbstrReverseConnectString, "HRESULT")
         return pbstrReverseConnectString
     }

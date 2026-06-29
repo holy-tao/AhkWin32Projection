@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The NTMS_IEDOORINFORMATION structure defines properties specific to an insert/eject door object.
@@ -13,9 +14,9 @@
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class NTMS_IEDOORINFORMATION extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Number of the door in the library. Typically, libraries have one door.
@@ -45,10 +46,13 @@ class NTMS_IEDOORINFORMATION extends Win32Struct {
 
     /**
      * Library that contains this door.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Library {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__Library"))
+                this.__Library := Guid(12, this)
+            return this.__Library
+        }
     }
 }

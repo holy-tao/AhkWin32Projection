@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -42,7 +44,7 @@ class Iwfolders extends IDispatch {
     navigate(bstrUrl) {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        pbstrRetVal := BSTR()
+        pbstrRetVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", bstrUrl, "ptr", pbstrRetVal, "HRESULT")
         return pbstrRetVal
     }
@@ -57,7 +59,7 @@ class Iwfolders extends IDispatch {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
         bstrTargetFrame := bstrTargetFrame is String ? BSTR.Alloc(bstrTargetFrame).Value : bstrTargetFrame
 
-        pbstrRetVal := BSTR()
+        pbstrRetVal := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", bstrUrl, "ptr", bstrTargetFrame, "ptr", pbstrRetVal, "HRESULT")
         return pbstrRetVal
     }

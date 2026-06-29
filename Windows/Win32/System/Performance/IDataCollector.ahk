@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IDataCollectorSet.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IValueMap.ahk
+#Include .\IDataCollectorSet.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\AutoPathFormat.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DataCollectorType.ahk
 
 /**
  * Sets and retrieves collector properties using XML, specifies the log file name, and retrieves the location of the log file.This interface is an abstract class from which the following data collectors derive:IAlertDataCollectorIApiTracingDataCollectorIConfigurationDataCollectorIPerformanceCounterDataCollectorITraceDataCollector
@@ -247,7 +251,7 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_filename
      */
     get_FileName() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", name, "HRESULT")
         return name
     }
@@ -443,7 +447,7 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_filenameformatpattern
      */
     get_FileNameFormatPattern() {
-        pattern := BSTR()
+        pattern := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pattern, "HRESULT")
         return pattern
     }
@@ -592,7 +596,7 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_latestoutputlocation
      */
     get_LatestOutputLocation() {
-        _path := BSTR()
+        _path := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", _path, "HRESULT")
         return _path
     }
@@ -689,7 +693,7 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_name
      */
     get_Name() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", name, "HRESULT")
         return name
     }
@@ -715,7 +719,7 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_outputlocation
      */
     get_OutputLocation() {
-        _path := BSTR()
+        _path := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", _path, "HRESULT")
         return _path
     }
@@ -750,7 +754,7 @@ class IDataCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_xml
      */
     get_Xml() {
-        Xml := BSTR()
+        Xml := BSTR({Value: 0}, True)
         result := ComCall(29, this, "ptr", Xml, "HRESULT")
         return Xml
     }
@@ -799,7 +803,7 @@ class IDataCollector extends IDispatch {
      * @returns {BSTR} 
      */
     CreateOutputLocation(Latest) {
-        _Location := BSTR()
+        _Location := BSTR({Value: 0}, True)
         result := ComCall(31, this, "short", Latest, "ptr", _Location, "HRESULT")
         return _Location
     }

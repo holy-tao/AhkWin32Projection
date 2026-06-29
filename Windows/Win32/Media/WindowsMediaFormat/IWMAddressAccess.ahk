@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\WM_AETYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\WM_ADDRESS_ACCESSENTRY.ahk
 
 /**

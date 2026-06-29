@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IWindowsMediaLibrarySharingDevices.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWindowsMediaLibrarySharingServices interface defines methods that configure the sharing of media libraries among users on the local computer, users on the home network, and users on the Internet.
@@ -193,7 +195,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_userhomemediasharinglibraryname
      */
     get_userHomeMediaSharingLibraryName() {
-        libraryName := BSTR()
+        libraryName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", libraryName, "HRESULT")
         return libraryName
     }
@@ -396,7 +398,7 @@ class IWindowsMediaLibrarySharingServices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingservices-get_internetmediasharingsecuritygroup
      */
     get_internetMediaSharingSecurityGroup() {
-        securityGroup := BSTR()
+        securityGroup := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", securityGroup, "HRESULT")
         return securityGroup
     }

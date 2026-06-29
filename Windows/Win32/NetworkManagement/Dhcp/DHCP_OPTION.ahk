@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_OPTION_DATA.ahk
-#Include .\DHCP_OPTION_DATA_ELEMENT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DHCP_OPTION_TYPE.ahk
+#Include .\DHCP_OPTION_DATA_ELEMENT.ahk
+#Include .\DHCP_OPTION_DATA.ahk
 
 /**
  * The DHCP_OPTION structure defines a single DHCP option and any data elements associated with it.

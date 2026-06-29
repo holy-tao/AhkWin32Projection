@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMSMQTransaction3.ahk
 
 /**
@@ -36,9 +37,8 @@ class IMSMQTransactionDispenser3 extends IDispatch {
     }
 
     /**
-     * Learn more about: BeginTransactionGrbit enumeration
+     * 
      * @returns {IMSMQTransaction3} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/begintransactiongrbit-enumeration
      */
     BeginTransaction() {
         result := ComCall(7, this, "ptr*", &ptransaction := 0, "HRESULT")

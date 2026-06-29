@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDSURFACEDATA.ahk
 #Include .\DDMDL.ahk
+#Include .\DDSURFACEDATA.ahk
 
 /**
  * The DDTRANSFERININFO structure contains the transfer information for the surface

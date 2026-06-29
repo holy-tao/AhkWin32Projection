@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\PACKAGE_ID.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\PACKAGE_VERSION.ahk
+#Include .\PACKAGE_ID.ahk
 
 /**
  * Represents package identification information that includes the package identifier, full name, and install location.

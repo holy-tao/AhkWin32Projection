@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\SOMITEMTYPE.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\ISchema.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IVBSAXAttributes.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -77,7 +81,7 @@ class ISchemaItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", name, "HRESULT")
         return name
     }
@@ -87,7 +91,7 @@ class ISchemaItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_namespaceURI() {
-        namespaceURI := BSTR()
+        namespaceURI := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", namespaceURI, "HRESULT")
         return namespaceURI
     }
@@ -106,7 +110,7 @@ class ISchemaItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_id() {
-        id := BSTR()
+        id := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", id, "HRESULT")
         return id
     }

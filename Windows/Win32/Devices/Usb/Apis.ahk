@@ -1,6 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\USBD_ISO_PACKET_DESCRIPTOR.ahk
+#Include ..\..\System\IO\OVERLAPPED.ahk
+#Include .\USB_INTERFACE_DESCRIPTOR.ahk
+#Include .\WINUSB_SETUP_PACKET.ahk
+#Include .\WINUSB_PIPE_POLICY.ahk
+#Include .\WINUSB_PIPE_INFORMATION_EX.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\WINUSB_PIPE_INFORMATION.ahk
+#Include .\WINUSB_POWER_POLICY.ahk
+#Include .\WINUSB_INTERFACE_HANDLE.ahk
+#Include .\USB_COMMON_DESCRIPTOR.ahk
+#Include .\USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION.ahk
+#Include .\USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION.ahk
+#Include .\USB_CONFIGURATION_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IDirectSoundBuffer.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\DSEFFECTDESC.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound

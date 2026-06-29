@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 #Include .\SYM_TYPE.ahk
 
 /**
@@ -14,7 +16,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
 class IMAGEHLP_MODULEW64 extends Win32Struct {
-    static sizeof => 3256
+    static sizeof => 3264
 
     static packingSize => 8
 
@@ -145,11 +147,14 @@ class IMAGEHLP_MODULEW64 extends Win32Struct {
 
     /**
      * The PDB signature (Visual C/C++ 7.0 and later)
-     * @type {Pointer}
+     * @type {Guid}
      */
     PdbSig70 {
-        get => NumGet(this, 3208, "ptr")
-        set => NumPut("ptr", value, this, 3208)
+        get {
+            if(!this.HasProp("__PdbSig70"))
+                this.__PdbSig70 := Guid(3204, this)
+            return this.__PdbSig70
+        }
     }
 
     /**
@@ -157,8 +162,8 @@ class IMAGEHLP_MODULEW64 extends Win32Struct {
      * @type {Integer}
      */
     PdbAge {
-        get => NumGet(this, 3216, "uint")
-        set => NumPut("uint", value, this, 3216)
+        get => NumGet(this, 3220, "uint")
+        set => NumPut("uint", value, this, 3220)
     }
 
     /**
@@ -166,8 +171,8 @@ class IMAGEHLP_MODULEW64 extends Win32Struct {
      * @type {BOOL}
      */
     PdbUnmatched {
-        get => NumGet(this, 3220, "int")
-        set => NumPut("int", value, this, 3220)
+        get => NumGet(this, 3224, "int")
+        set => NumPut("int", value, this, 3224)
     }
 
     /**
@@ -175,8 +180,8 @@ class IMAGEHLP_MODULEW64 extends Win32Struct {
      * @type {BOOL}
      */
     DbgUnmatched {
-        get => NumGet(this, 3224, "int")
-        set => NumPut("int", value, this, 3224)
+        get => NumGet(this, 3228, "int")
+        set => NumPut("int", value, this, 3228)
     }
 
     /**
@@ -184,8 +189,8 @@ class IMAGEHLP_MODULEW64 extends Win32Struct {
      * @type {BOOL}
      */
     LineNumbers {
-        get => NumGet(this, 3228, "int")
-        set => NumPut("int", value, this, 3228)
+        get => NumGet(this, 3232, "int")
+        set => NumPut("int", value, this, 3232)
     }
 
     /**
@@ -193,8 +198,8 @@ class IMAGEHLP_MODULEW64 extends Win32Struct {
      * @type {BOOL}
      */
     GlobalSymbols {
-        get => NumGet(this, 3232, "int")
-        set => NumPut("int", value, this, 3232)
+        get => NumGet(this, 3236, "int")
+        set => NumPut("int", value, this, 3236)
     }
 
     /**
@@ -202,8 +207,8 @@ class IMAGEHLP_MODULEW64 extends Win32Struct {
      * @type {BOOL}
      */
     TypeInfo {
-        get => NumGet(this, 3236, "int")
-        set => NumPut("int", value, this, 3236)
+        get => NumGet(this, 3240, "int")
+        set => NumPut("int", value, this, 3240)
     }
 
     /**
@@ -213,8 +218,8 @@ class IMAGEHLP_MODULEW64 extends Win32Struct {
      * @type {BOOL}
      */
     SourceIndexed {
-        get => NumGet(this, 3240, "int")
-        set => NumPut("int", value, this, 3240)
+        get => NumGet(this, 3244, "int")
+        set => NumPut("int", value, this, 3244)
     }
 
     /**
@@ -224,8 +229,8 @@ class IMAGEHLP_MODULEW64 extends Win32Struct {
      * @type {BOOL}
      */
     Publics {
-        get => NumGet(this, 3244, "int")
-        set => NumPut("int", value, this, 3244)
+        get => NumGet(this, 3248, "int")
+        set => NumPut("int", value, this, 3248)
     }
 
     /**
@@ -233,8 +238,8 @@ class IMAGEHLP_MODULEW64 extends Win32Struct {
      * @type {Integer}
      */
     MachineType {
-        get => NumGet(this, 3248, "uint")
-        set => NumPut("uint", value, this, 3248)
+        get => NumGet(this, 3252, "uint")
+        set => NumPut("uint", value, this, 3252)
     }
 
     /**
@@ -242,7 +247,7 @@ class IMAGEHLP_MODULEW64 extends Win32Struct {
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 3252, "uint")
-        set => NumPut("uint", value, this, 3252)
+        get => NumGet(this, 3256, "uint")
+        set => NumPut("uint", value, this, 3256)
     }
 }

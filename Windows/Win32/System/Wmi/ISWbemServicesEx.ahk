@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISWbemServices.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\ISWbemObjectPath.ahk
+#Include .\ISWbemServices.ahk
+#Include .\ISWbemObjectEx.ahk
+#Include .\ISWbemSink.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi

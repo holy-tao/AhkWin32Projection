@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CMC_TAGGED_ATTRIBUTE.ahk
-#Include .\CMC_TAGGED_REQUEST.ahk
 #Include .\CMC_TAGGED_CONTENT_INFO.ahk
 #Include .\CMC_TAGGED_OTHER_MSG.ahk
+#Include .\CMC_TAGGED_REQUEST.ahk
+#Include .\CMC_TAGGED_ATTRIBUTE.ahk
 
 /**
  * Provides a means of communicating different pieces of tagged information. (CMC_DATA_INFO)

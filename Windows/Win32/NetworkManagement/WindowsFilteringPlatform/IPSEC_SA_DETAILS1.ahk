@@ -1,19 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_IP_VERSION.ahk
-#Include .\FWP_DIRECTION.ahk
 #Include .\IPSEC_TRAFFIC1.ahk
-#Include .\IPSEC_TRAFFIC_TYPE.ahk
-#Include .\IPSEC_SA_BUNDLE1.ahk
-#Include .\IPSEC_SA_BUNDLE_FLAGS.ahk
-#Include .\IPSEC_SA_LIFETIME0.ahk
-#Include .\IPSEC_ID0.ahk
-#Include .\IPSEC_SA0.ahk
-#Include .\IPSEC_KEYMODULE_STATE0.ahk
 #Include .\IPSEC_PFS_GROUP.ahk
-#Include .\IPSEC_V4_UDP_ENCAPSULATION0.ahk
-#Include .\FWPM_FILTER0.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IPSEC_ID0.ahk
+#Include .\IPSEC_SA_BUNDLE_FLAGS.ahk
+#Include .\FWP_DIRECTION.ahk
+#Include .\IPSEC_SA_BUNDLE1.ahk
 #Include .\IPSEC_VIRTUAL_IF_TUNNEL_INFO0.ahk
+#Include .\IPSEC_KEYMODULE_STATE0.ahk
+#Include .\FWPM_FILTER0.ahk
+#Include .\IPSEC_SA_LIFETIME0.ahk
+#Include .\IPSEC_TRAFFIC_TYPE.ahk
+#Include .\IPSEC_V4_UDP_ENCAPSULATION0.ahk
+#Include .\IPSEC_SA0.ahk
 
 /**
  * Is used to store information returned when enumerating IPsec security associations (SAs). (IPSEC_SA_DETAILS1)
@@ -21,7 +22,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class IPSEC_SA_DETAILS1 extends Win32Struct {
-    static sizeof => 216
+    static sizeof => 224
 
     static packingSize => 8
 
@@ -71,8 +72,8 @@ class IPSEC_SA_DETAILS1 extends Win32Struct {
      * @type {Pointer<IPSEC_V4_UDP_ENCAPSULATION0>}
      */
     udpEncapsulation {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 
     /**
@@ -80,8 +81,8 @@ class IPSEC_SA_DETAILS1 extends Win32Struct {
      * @type {Pointer<FWPM_FILTER0>}
      */
     transportFilter {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+        get => NumGet(this, 200, "ptr")
+        set => NumPut("ptr", value, this, 200)
     }
 
     /**
@@ -91,7 +92,7 @@ class IPSEC_SA_DETAILS1 extends Win32Struct {
     virtualIfTunnelInfo {
         get {
             if(!this.HasProp("__virtualIfTunnelInfo"))
-                this.__virtualIfTunnelInfo := IPSEC_VIRTUAL_IF_TUNNEL_INFO0(200, this)
+                this.__virtualIfTunnelInfo := IPSEC_VIRTUAL_IF_TUNNEL_INFO0(208, this)
             return this.__virtualIfTunnelInfo
         }
     }

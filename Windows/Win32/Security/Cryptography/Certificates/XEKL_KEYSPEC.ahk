@@ -2,8 +2,6 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
- * Exchange key
- * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-getkeylenex
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
 class XEKL_KEYSPEC extends Win32Enum {

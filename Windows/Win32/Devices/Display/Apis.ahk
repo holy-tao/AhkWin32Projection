@@ -1,12 +1,67 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\DEVPROPKEY.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include .\HSURF.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 #Include .\HSEMAPHORE.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include .\POINTFIX.ahk
+#Include .\LINEATTRS.ahk
+#Include .\MC_DISPLAY_TECHNOLOGY_TYPE.ahk
+#Include .\FONTOBJ.ahk
+#Include ..\..\Graphics\Gdi\PALETTEENTRY.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\PATHDATA.ahk
+#Include .\IFIMETRICS.ahk
+#Include ..\..\Graphics\Gdi\COLORADJUSTMENT.ahk
+#Include .\FONTINFO.ahk
+#Include .\BRUSHOBJ.ahk
+#Include .\XFORML.ahk
+#Include .\QUERY_DISPLAY_CONFIG_FLAGS.ahk
+#Include .\MC_SIZE_TYPE.ahk
+#Include .\FD_GLYPHATTR.ahk
+#Include .\ORIENTATION_PREFERENCE.ahk
+#Include .\MC_GAIN_TYPE.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include .\MC_POSITION_TYPE.ahk
+#Include .\HDEV.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include .\DHSURF.ahk
+#Include .\DISPLAYCONFIG_MODE_INFO.ahk
+#Include .\MC_DRIVE_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ENG_TIME_FIELDS.ahk
+#Include ..\..\Graphics\Gdi\TRIVERTEX.ahk
+#Include .\HSURF.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\MC_VCP_CODE_TYPE.ahk
+#Include .\DISPLAYCONFIG_TOPOLOGY_ID.ahk
+#Include .\PHYSICAL_MONITOR.ahk
+#Include .\FD_GLYPHSET.ahk
+#Include .\SURFOBJ.ahk
+#Include .\STROBJ.ahk
+#Include ..\..\Foundation\POINTL.ahk
+#Include .\XFORMOBJ.ahk
+#Include ..\..\Foundation\RECTL.ahk
+#Include .\CLIPOBJ.ahk
+#Include .\MC_TIMING_REPORT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\RECTFX.ahk
+#Include .\XLATEOBJ.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
+#Include .\DISPLAYCONFIG_PATH_INFO.ahk
+#Include .\PATHOBJ.ahk
+#Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
+#Include .\GLYPHPOS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\CLIPLINE.ahk
+#Include ..\..\Foundation\WIN32_ERROR.ahk
+#Include .\SET_DISPLAY_CONFIG_FLAGS.ahk
+#Include .\AR_STATE.ahk
+#Include .\POINTQF.ahk
+#Include .\MC_COLOR_TEMPERATURE.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk
+#Include .\EMFINFO.ahk
+#Include .\BLENDOBJ.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -46,8 +101,7 @@ class Display {
     static DEVPKEY_IndirectDisplay {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}").CopyTo(value.fmtid.ptr)
             value.pid := 1
             return value
         }
@@ -59,8 +113,7 @@ class Display {
     static DEVPKEY_Device_TerminalLuid {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -72,8 +125,7 @@ class Display {
     static DEVPKEY_Device_AdapterLuid {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -85,8 +137,7 @@ class Display {
     static DEVPKEY_Device_ActivityId {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -108,8 +159,7 @@ class Display {
     static DEVPKEY_DisplayMux_InitStatus {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{fefa7434-e0fd-4b2a-905a-7d0127a9f01c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fefa7434-e0fd-4b2a-905a-7d0127a9f01c}").CopyTo(value.fmtid.ptr)
             value.pid := 1
             return value
         }
@@ -121,8 +171,7 @@ class Display {
     static DEVPKEY_DisplayMux_SupportLevel {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{fefa7434-e0fd-4b2a-905a-7d0127a9f01c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fefa7434-e0fd-4b2a-905a-7d0127a9f01c}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -134,8 +183,7 @@ class Display {
     static DEVPKEY_DisplayMux_MuxTarget1 {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{fefa7434-e0fd-4b2a-905a-7d0127a9f01c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fefa7434-e0fd-4b2a-905a-7d0127a9f01c}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -147,8 +195,7 @@ class Display {
     static DEVPKEY_DisplayMux_MuxTarget2 {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{fefa7434-e0fd-4b2a-905a-7d0127a9f01c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fefa7434-e0fd-4b2a-905a-7d0127a9f01c}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -160,8 +207,7 @@ class Display {
     static DEVPKEY_DisplayMux_CurrentTarget {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{fefa7434-e0fd-4b2a-905a-7d0127a9f01c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fefa7434-e0fd-4b2a-905a-7d0127a9f01c}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }

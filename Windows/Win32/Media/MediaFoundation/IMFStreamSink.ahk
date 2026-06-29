@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFSample.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include .\IMFMediaEventGenerator.ahk
+#Include .\MFSTREAMSINK_MARKER_TYPE.ahk
 #Include .\IMFMediaSink.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMFMediaTypeHandler.ahk
 
 /**

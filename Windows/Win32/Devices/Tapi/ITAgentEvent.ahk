@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITAgent.ahk
+#Include .\AGENT_EVENT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITAgentEvent interface (tapi3cc.h) contains methods that retrieve the description of agent events.

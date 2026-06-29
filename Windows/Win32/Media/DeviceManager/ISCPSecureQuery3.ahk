@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISCPSecureExchange.ahk
 #Include .\ISCPSecureQuery2.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IMDSPStorageGlobals.ahk
+#Include .\WMDMRIGHTS.ahk
+#Include .\IWMDMProgress3.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ISCPSecureQuery3 interface extends ISCPSecureQuery2 by providing a set of new methods for retrieving the rights and making decision on a clear channel.

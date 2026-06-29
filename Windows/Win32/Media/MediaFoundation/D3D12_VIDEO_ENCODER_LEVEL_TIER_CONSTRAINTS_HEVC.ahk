@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_LEVELS_HEVC.ahk
 #Include .\D3D12_VIDEO_ENCODER_TIER_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_LEVELS_HEVC.ahk
 
 /**
  * Associates a level and a tier for High Efficiency Video Coding (HEVC) level-setting configuration.

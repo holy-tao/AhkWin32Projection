@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
-#Include .\PROPSHEETPAGEW.ahk
 #Include .\HPROPSHEETPAGE.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\PROPSHEETPAGEW.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls

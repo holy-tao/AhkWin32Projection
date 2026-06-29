@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DATA_OBJECT_TYPES.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\MMC_NOTIFY_TYPE.ahk
+#Include .\SCOPEDATAITEM.ahk
 #Include .\IComponent.ahk
 #Include ..\Com\IDataObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IComponentData interface enables MMC to communicate with snap-ins. Similar to the IComponent interface, IComponentData is typically implemented at the document level and is closely associated with items (folders) being displayed in the scope pane.

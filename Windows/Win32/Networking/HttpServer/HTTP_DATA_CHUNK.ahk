@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_DATA_CHUNK_TYPE.ahk
-#Include .\HTTP_BYTE_RANGE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\HTTP_UNKNOWN_HEADER.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\HTTP_WINHTTP_FAST_FORWARDING_DATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\HTTP_BYTE_RANGE.ahk
+#Include .\HTTP_DATA_CHUNK_TYPE.ahk
 
 /**
  * Represents an individual block of data either in memory, in a file, or in the HTTP Server API response-fragment cache.

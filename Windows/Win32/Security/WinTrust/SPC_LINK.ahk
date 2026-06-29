@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPC_SERIALIZED_OBJECT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Include .\SPC_SERIALIZED_OBJECT.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust

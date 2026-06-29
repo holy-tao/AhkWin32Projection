@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\IPin.ahk
 
 /**
  * The IBDA_TIF_REGISTRATION interface is exposed by the BDA Network Provider.

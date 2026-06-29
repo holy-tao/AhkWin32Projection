@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -50,10 +51,9 @@ class IHTMLTimeRanges extends IDispatch {
     }
 
     /**
-     * Specifies the length of time, in seconds, to wait before an EAPOL-Start is sent.
+     * 
      * @param {Integer} index 
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/NativeWiFi/onexschema-startperiod-onex-element
      */
     start(index) {
         result := ComCall(8, this, "int", index, "float*", &startTime := 0, "HRESULT")
@@ -61,30 +61,9 @@ class IHTMLTimeRanges extends IDispatch {
     }
 
     /**
-     * Ends an if statement.
-     * @remarks
-     * The following example shows how to use the endif instruction.
      * 
-     * ``` syntax
-     *                 if     // any of the various forms of if* statements
-     *                    ...
-     *                 else   // (optional)
-     *                    ...
-     *                 endif
-     * ```
-     * 
-     * The token format contains the offset of the corresponding **if** instruction in the Shader as a convenience.
-     * 
-     * This instruction applies to the following shader stages:
-     * 
-     * 
-     * 
-     * | Vertex Shader | Geometry Shader | Pixel Shader |
-     * |---------------|-----------------|--------------|
-     * | x             | x               | x            |
      * @param {Integer} index 
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/endif--sm4---asm-
      */
     end(index) {
         result := ComCall(9, this, "int", index, "float*", &endTime := 0, "HRESULT")

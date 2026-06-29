@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IADsNameTranslateinterface translates distinguished names (DNs) among various formats as defined in the ADS_NAME_TYPE_ENUM enumeration. The feature is available to objects in Active Directory.
@@ -115,7 +116,7 @@ class IADsNameTranslate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsnametranslate-get
      */
     Get(lnFormatType) {
-        pbstrADsPath := BSTR()
+        pbstrADsPath := BSTR({Value: 0}, True)
         result := ComCall(11, this, "int", lnFormatType, "ptr", pbstrADsPath, "HRESULT")
         return pbstrADsPath
     }

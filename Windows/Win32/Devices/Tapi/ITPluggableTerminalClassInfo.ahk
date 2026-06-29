@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\TERMINAL_DIRECTION.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITPluggableTerminalClassInfo interface exposes methods that allow the application to retrieve information concerning a pluggable terminal.
@@ -86,7 +88,7 @@ class ITPluggableTerminalClassInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_name
      */
     get_Name() {
-        pName := BSTR()
+        pName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pName, "HRESULT")
         return pName
     }
@@ -98,7 +100,7 @@ class ITPluggableTerminalClassInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_company
      */
     get_Company() {
-        pCompany := BSTR()
+        pCompany := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pCompany, "HRESULT")
         return pCompany
     }
@@ -110,7 +112,7 @@ class ITPluggableTerminalClassInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_version
      */
     get_Version() {
-        pVersion := BSTR()
+        pVersion := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pVersion, "HRESULT")
         return pVersion
     }
@@ -123,7 +125,7 @@ class ITPluggableTerminalClassInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_terminalclass
      */
     get_TerminalClass() {
-        pTerminalClass := BSTR()
+        pTerminalClass := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pTerminalClass, "HRESULT")
         return pTerminalClass
     }
@@ -135,7 +137,7 @@ class ITPluggableTerminalClassInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_clsid
      */
     get_CLSID() {
-        pCLSID := BSTR()
+        pCLSID := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pCLSID, "HRESULT")
         return pCLSID
     }

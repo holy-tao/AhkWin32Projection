@@ -1,10 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509Enrollment.ahk
-#Include .\IX509EnrollmentPolicyServer.ahk
-#Include .\IX509CertificateTemplate.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\PolicyServerUrlFlags.ahk
+#Include .\X509EnrollmentAuthFlags.ahk
+#Include .\IX509EnrollmentPolicyServer.ahk
+#Include .\InstallResponseRestrictionFlags.ahk
+#Include .\IX509CertificateTemplate.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\X509CertificateEnrollmentContext.ahk
+#Include .\IX509Enrollment.ahk
 
 /**
  * The IX509Enrollment2 interface enables you to enroll in a certificate hierarchy and install a certificate response.
@@ -290,7 +296,7 @@ class IX509Enrollment2 extends IX509Enrollment {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment2-get_requestidstring
      */
     get_RequestIdString() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(34, this, "ptr", pValue, "HRESULT")
         return pValue
     }

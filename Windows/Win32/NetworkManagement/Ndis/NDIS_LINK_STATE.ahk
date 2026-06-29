@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_OBJECT_HEADER.ahk
-#Include .\NET_IF_MEDIA_CONNECT_STATE.ahk
-#Include .\NET_IF_MEDIA_DUPLEX_STATE.ahk
 #Include .\NDIS_SUPPORTED_PAUSE_FUNCTIONS.ahk
+#Include .\NET_IF_MEDIA_DUPLEX_STATE.ahk
+#Include .\NET_IF_MEDIA_CONNECT_STATE.ahk
+#Include .\NDIS_OBJECT_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis

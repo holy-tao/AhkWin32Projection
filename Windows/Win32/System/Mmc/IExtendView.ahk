@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IViewExtensionCallback.ahk
+#Include ..\Com\IDataObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IExtendView interface provides information about the extended view.

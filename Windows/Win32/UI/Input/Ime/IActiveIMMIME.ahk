@@ -1,19 +1,34 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include .\IMEMENUITEMINFOW.ahk
 #Include .\HIMC.ahk
-#Include .\IEnumRegisterWordA.ahk
-#Include .\IEnumRegisterWordW.ahk
-#Include .\CANDIDATEFORM.ahk
-#Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
 #Include ..\..\..\Graphics\Gdi\LOGFONTW.ahk
 #Include .\COMPOSITIONFORM.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\POINT.ahk
-#Include ..\KeyboardAndMouse\HKL.ahk
 #Include .\HIMCC.ahk
+#Include .\STYLEBUFW.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\IMEMENUITEMINFOA.ahk
+#Include .\IEnumRegisterWordW.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\REGISTERWORDW.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\KeyboardAndMouse\HKL.ahk
+#Include .\INPUTCONTEXT.ahk
+#Include ..\..\..\Foundation\WPARAM.ahk
+#Include .\IEnumRegisterWordA.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\LRESULT.ahk
+#Include .\REGISTERWORDA.ahk
+#Include .\CANDIDATEFORM.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
+#Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
+#Include ..\..\..\Foundation\POINT.ahk
+#Include .\CANDIDATELIST.ahk
 #Include .\IEnumInputContext.ahk
+#Include .\STYLEBUFA.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -40,19 +55,16 @@ class IActiveIMMIME extends IUnknown {
     static VTableNames => ["AssociateContext", "ConfigureIMEA", "ConfigureIMEW", "CreateContext", "DestroyContext", "EnumRegisterWordA", "EnumRegisterWordW", "EscapeA", "EscapeW", "GetCandidateListA", "GetCandidateListW", "GetCandidateListCountA", "GetCandidateListCountW", "GetCandidateWindow", "GetCompositionFontA", "GetCompositionFontW", "GetCompositionStringA", "GetCompositionStringW", "GetCompositionWindow", "GetContext", "GetConversionListA", "GetConversionListW", "GetConversionStatus", "GetDefaultIMEWnd", "GetDescriptionA", "GetDescriptionW", "GetGuideLineA", "GetGuideLineW", "GetIMEFileNameA", "GetIMEFileNameW", "GetOpenStatus", "GetProperty", "GetRegisterWordStyleA", "GetRegisterWordStyleW", "GetStatusWindowPos", "GetVirtualKey", "InstallIMEA", "InstallIMEW", "IsIME", "IsUIMessageA", "IsUIMessageW", "NotifyIME", "RegisterWordA", "RegisterWordW", "ReleaseContext", "SetCandidateWindow", "SetCompositionFontA", "SetCompositionFontW", "SetCompositionStringA", "SetCompositionStringW", "SetCompositionWindow", "SetConversionStatus", "SetOpenStatus", "SetStatusWindowPos", "SimulateHotKey", "UnregisterWordA", "UnregisterWordW", "GenerateMessage", "LockIMC", "UnlockIMC", "GetIMCLockCount", "CreateIMCC", "DestroyIMCC", "LockIMCC", "UnlockIMCC", "ReSizeIMCC", "GetIMCCSize", "GetIMCCLockCount", "GetHotKey", "SetHotKey", "CreateSoftKeyboard", "DestroySoftKeyboard", "ShowSoftKeyboard", "GetCodePageA", "GetLangId", "KeybdEvent", "LockModal", "UnlockModal", "AssociateContextEx", "DisableIME", "GetImeMenuItemsA", "GetImeMenuItemsW", "EnumInputContext", "RequestMessageA", "RequestMessageW", "SendIMCA", "SendIMCW", "IsSleeping"]
 
     /**
-     * Inserts a name into the name cache to find a specified FIO_CONTEXT structure.
-     * @remarks
-     * If the name is already present in the cache, this call fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_DUP_NAME.
+     * 
      * @param {HWND} _hWnd 
      * @param {HIMC} hIME 
      * @returns {HIMC} 
-     * @see https://learn.microsoft.com/windows/win32/api/filehc/nf-filehc-associatecontextwithname
      */
     AssociateContext(_hWnd, hIME) {
         _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hIME := hIME is Win32Handle ? NumGet(hIME, "ptr") : hIME
 
-        phPrev := HIMC()
+        phPrev := HIMC({Value: 0}, True)
         result := ComCall(3, this, "ptr", _hWnd, "ptr", hIME, "ptr", phPrev, "HRESULT")
         return phPrev
     }
@@ -95,7 +107,7 @@ class IActiveIMMIME extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-createcontext
      */
     CreateContext() {
-        phIMC := HIMC()
+        phIMC := HIMC({Value: 0}, True)
         result := ComCall(6, this, "ptr", phIMC, "HRESULT")
         return phIMC
     }
@@ -402,15 +414,14 @@ class IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * Gets the context preference flags.
+     * 
      * @param {HWND} _hWnd 
      * @returns {HIMC} 
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpreferenceflags
      */
     GetContext(_hWnd) {
         _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        phIMC := HIMC()
+        phIMC := HIMC({Value: 0}, True)
         result := ComCall(22, this, "ptr", _hWnd, "ptr", phIMC, "HRESULT")
         return phIMC
     }
@@ -692,7 +703,7 @@ class IActiveIMMIME extends IUnknown {
         szIMEFileName := szIMEFileName is String ? StrPtr(szIMEFileName) : szIMEFileName
         szLayoutText := szLayoutText is String ? StrPtr(szLayoutText) : szLayoutText
 
-        phKL := HKL()
+        phKL := HKL({Value: 0}, True)
         result := ComCall(39, this, "ptr", szIMEFileName, "ptr", szLayoutText, "ptr", phKL, "HRESULT")
         return phKL
     }
@@ -707,7 +718,7 @@ class IActiveIMMIME extends IUnknown {
         szIMEFileName := szIMEFileName is String ? StrPtr(szIMEFileName) : szIMEFileName
         szLayoutText := szLayoutText is String ? StrPtr(szLayoutText) : szLayoutText
 
-        phKL := HKL()
+        phKL := HKL({Value: 0}, True)
         result := ComCall(40, this, "ptr", szIMEFileName, "ptr", szLayoutText, "ptr", phKL, "HRESULT")
         return phKL
     }

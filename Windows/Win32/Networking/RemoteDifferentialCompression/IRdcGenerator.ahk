@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\RdcBufferPointer.ahk
 #Include .\IRdcGeneratorParameters.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\RDC_ErrorCode.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to process the input data and read the parameters used by the generator.

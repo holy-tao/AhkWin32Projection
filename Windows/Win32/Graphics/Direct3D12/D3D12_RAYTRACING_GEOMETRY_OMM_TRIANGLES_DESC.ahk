@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC.ahk
 #Include .\D3D12_RAYTRACING_GEOMETRY_OMM_LINKAGE_DESC.ahk
+#Include .\D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECTL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\GLYPHPOS.ahk
+#Include ..\..\Foundation\RECTL.ahk
 
 /**
  * The STROBJ class, or text string object, contains an enumeration of glyph handles and positions for the device driver.

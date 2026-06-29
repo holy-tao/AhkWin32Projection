@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DIEFFECT.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\DIEFFESCAPE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
- * These three methods allow additional interfaces to be added to the DirectInputEffectDriver object without affecting the functionality of the original interface.
- * @see https://learn.microsoft.com/windows/win32/api/dinputd/nn-dinputd-idirectinputeffectdriver
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
 class IDirectInputEffect extends IUnknown {
@@ -100,17 +103,10 @@ class IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * Specifies the date and time when the trigger is activated.
-     * @remarks
-     * The **&lt;StartBoundary&gt;** element is a required element for time and calendar triggers ([**&lt;TimeTrigger&gt;**](taskschedulerschema-timetrigger-triggergroup-element.md) and [**&lt;CalendarTrigger&gt;**](taskschedulerschema-calendartrigger-triggergroup-element.md)).
      * 
-     * For scripting development, the end boundary is specified using the [**Trigger.StartBoundary**](trigger-startboundary.md) property that is inherited by the all trigger objects.
-     * 
-     * For C++ development, the end boundary is specified using the [**ITrigger::StartBoundary**](/windows/desktop/api/taskschd/nf-taskschd-itrigger-get_startboundary) property that is inherited by the all trigger interfaces.
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-startboundary-triggerbasetype-element
      */
     Start(param0, param1) {
         result := ComCall(7, this, "uint", param0, "uint", param1, "HRESULT")
@@ -118,13 +114,8 @@ class IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * Specifies that a running instances of the task is stopped at the end of the repetition pattern duration.
-     * @remarks
-     * For scripting development, this setting is specified using the [**RepetitionPattern.StopAtDurationEnd**](repetitionpattern-stopatdurationend.md) property.
      * 
-     * For C++ development, this setting is specified using the [**IRepetitionPattern::StopAtDurationEnd**](/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend) property.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element
      */
     Stop() {
         result := ComCall(8, this, "HRESULT")
@@ -144,12 +135,8 @@ class IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Clear method removes all items from a download collection.
-     * @returns {HRESULT} This method has no parameters.
      * 
-     * 
-     * This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/WMP/downloadcollection-clear
+     * @returns {HRESULT} 
      */
     Download() {
         result := ComCall(10, this, "HRESULT")
@@ -157,24 +144,8 @@ class IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * Unloads an input locale identifier (formerly called a keyboard layout).
-     * @remarks
-     * The input locale identifier is a broader concept than a keyboard layout, since it can also encompass a speech-to-text converter, an Input Method Editor (IME), or any other form of input. 
      * 
-     * <b>UnloadKeyboardLayout</b> cannot unload the system default input locale identifier if it is the only keyboard layout loaded. You must first load another input locale identifier before unloading the default input locale identifier.
-     * @returns {HRESULT} Type: <b>BOOL</b>
-     * 
-     * If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. The function can fail for the following reasons: 
-     * 
-     * <ul>
-     * <li>An invalid input locale identifier was passed.</li>
-     * <li>The input locale identifier was preloaded.</li>
-     * <li>The input locale identifier is in use.</li>
-     * </ul>
-     * To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unloadkeyboardlayout
+     * @returns {HRESULT} 
      */
     Unload() {
         result := ComCall(11, this, "HRESULT")

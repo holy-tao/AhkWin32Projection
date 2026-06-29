@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface is available for use in the Microsoft Windows 2000, Windows XP, and Windows Server 2003 operating systems.
@@ -69,7 +70,7 @@ class IBDA_IPSinkInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_adapteripaddress
      */
     get_AdapterIPAddress() {
-        pbstrBuffer := BSTR()
+        pbstrBuffer := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", pbstrBuffer, "HRESULT")
         return pbstrBuffer
     }
@@ -82,7 +83,7 @@ class IBDA_IPSinkInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_adapterdescription
      */
     get_AdapterDescription() {
-        pbstrBuffer := BSTR()
+        pbstrBuffer := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", pbstrBuffer, "HRESULT")
         return pbstrBuffer
     }

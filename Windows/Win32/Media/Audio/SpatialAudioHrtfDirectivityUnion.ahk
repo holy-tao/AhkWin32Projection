@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SpatialAudioHrtfDirectivityCone.ahk
+#Include .\SpatialAudioHrtfDirectivityCardioid.ahk
 #Include .\SpatialAudioHrtfDirectivity.ahk
 #Include .\SpatialAudioHrtfDirectivityType.ahk
-#Include .\SpatialAudioHrtfDirectivityCardioid.ahk
 
 /**
  * Defines a spatial audio directivity model for an ISpatialAudioObjectForHrtf.

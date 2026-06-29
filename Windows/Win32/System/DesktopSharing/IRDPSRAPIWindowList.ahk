@@ -4,6 +4,7 @@
 #Include ..\Com\IDispatch.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IRDPSRAPIWindow.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Manages the window list.

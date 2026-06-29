@@ -1,20 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IAzScopes.ahk
-#Include .\IAzScope.ahk
-#Include .\IAzOperations.ahk
-#Include .\IAzOperation.ahk
 #Include .\IAzTasks.ahk
-#Include .\IAzTask.ahk
-#Include .\IAzApplicationGroups.ahk
+#Include .\IAzOperation.ahk
 #Include .\IAzApplicationGroup.ahk
-#Include .\IAzRoles.ahk
 #Include .\IAzRole.ahk
+#Include .\IAzRoles.ahk
 #Include .\IAzClientContext.ahk
+#Include .\IAzScope.ahk
+#Include .\IAzApplicationGroups.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IAzOperations.ahk
+#Include .\IAzTask.ahk
 
 /**
  * Defines an installed instance of an application. An IAzApplication object is created when an application is installed.
@@ -192,7 +194,7 @@ class IAzApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_name
      */
     get_Name() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -220,7 +222,7 @@ class IAzApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_description
      */
     get_Description() {
-        pbstrDescription := BSTR()
+        pbstrDescription := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrDescription, "HRESULT")
         return pbstrDescription
     }
@@ -249,7 +251,7 @@ class IAzApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_applicationdata
      */
     get_ApplicationData() {
-        pbstrApplicationData := BSTR()
+        pbstrApplicationData := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrApplicationData, "HRESULT")
         return pbstrApplicationData
     }
@@ -278,7 +280,7 @@ class IAzApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_authzinterfaceclsid
      */
     get_AuthzInterfaceClsid() {
-        pbstrProp := BSTR()
+        pbstrProp := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstrProp, "HRESULT")
         return pbstrProp
     }
@@ -304,7 +306,7 @@ class IAzApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_version
      */
     get_Version() {
-        pbstrProp := BSTR()
+        pbstrProp := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstrProp, "HRESULT")
         return pbstrProp
     }

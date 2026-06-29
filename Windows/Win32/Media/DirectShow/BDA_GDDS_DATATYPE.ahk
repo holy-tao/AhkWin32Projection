@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
 class BDA_GDDS_DATATYPE extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -18,10 +19,13 @@ class BDA_GDDS_DATATYPE extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidDataType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__uuidDataType"))
+                this.__uuidDataType := Guid(4, this)
+            return this.__uuidDataType
+        }
     }
 }

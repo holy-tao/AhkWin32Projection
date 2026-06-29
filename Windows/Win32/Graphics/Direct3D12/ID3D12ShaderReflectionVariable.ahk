@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\D3D12_SHADER_VARIABLE_DESC.ahk
+#Include .\ID3D12ShaderReflectionConstantBuffer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D12ShaderReflectionType.ahk
 
 /**
  * This shader-reflection interface provides access to a variable. (ID3D12ShaderReflectionVariable)

@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @charset Unicode
  */
 class DIDEVICEINSTANCEW extends Win32Struct {
-    static sizeof => 1088
+    static sizeof => 1100
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -19,66 +20,75 @@ class DIDEVICEINSTANCEW extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidInstance {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidInstance"))
+                this.__guidInstance := Guid(4, this)
+            return this.__guidInstance
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidProduct {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__guidProduct"))
+                this.__guidProduct := Guid(20, this)
+            return this.__guidProduct
+        }
     }
 
     /**
      * @type {Integer}
      */
     dwDevType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
      * @type {String}
      */
     tszInstanceName {
-        get => StrGet(this.ptr + 28, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 259, "UTF-16")
+        get => StrGet(this.ptr + 40, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 40, 259, "UTF-16")
     }
 
     /**
      * @type {String}
      */
     tszProductName {
-        get => StrGet(this.ptr + 548, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 548, 259, "UTF-16")
+        get => StrGet(this.ptr + 560, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 560, 259, "UTF-16")
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidFFDriver {
-        get => NumGet(this, 1072, "ptr")
-        set => NumPut("ptr", value, this, 1072)
+        get {
+            if(!this.HasProp("__guidFFDriver"))
+                this.__guidFFDriver := Guid(1080, this)
+            return this.__guidFFDriver
+        }
     }
 
     /**
      * @type {Integer}
      */
     wUsagePage {
-        get => NumGet(this, 1080, "ushort")
-        set => NumPut("ushort", value, this, 1080)
+        get => NumGet(this, 1096, "ushort")
+        set => NumPut("ushort", value, this, 1096)
     }
 
     /**
      * @type {Integer}
      */
     wUsage {
-        get => NumGet(this, 1082, "ushort")
-        set => NumPut("ushort", value, this, 1082)
+        get => NumGet(this, 1098, "ushort")
+        set => NumPut("ushort", value, this, 1098)
     }
 }

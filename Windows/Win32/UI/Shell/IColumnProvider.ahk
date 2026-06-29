@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\SHCOLUMNINFO.ahk
+#Include .\SHCOLUMNINIT.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\SHCOLUMNDATA.ahk
 
 /**
  * Exposes methods that enable the addition of custom columns in the Windows Explorer Details view.

@@ -2,8 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IPolicyQualifier.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IPolicyQualifier.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines methods and properties that enable you to manage a collection of IPolicyQualifier objects.

@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_SUB_SYSTEM_PROP2.ahk
-#Include .\IVdsDrive.ahk
 #Include .\IVdsAsync.ahk
+#Include .\IVdsDrive.ahk
+#Include .\VDS_SUB_SYSTEM_PROP2.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\VDS_HINTS2.ahk
+#Include .\VDS_LUN_TYPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVdsSubSystem2 interface provides methods for performing query and configuration operations on a subsystem using the VDS_HINTS2 and VDS_SUB_SYSTEM_PROP2 structures.

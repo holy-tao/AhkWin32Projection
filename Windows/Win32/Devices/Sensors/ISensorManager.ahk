@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISensorCollection.ahk
 #Include .\ISensor.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ISensorCollection.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISensorManagerEvents.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods for discovering and retrieving available sensors and a method to request sensor manager events.

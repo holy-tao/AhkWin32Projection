@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -287,7 +289,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_useMap() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -297,7 +299,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_mimeType() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", p, "HRESULT")
         return p
     }
@@ -307,7 +309,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_fileSize() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -317,7 +319,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_fileCreatedDate() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", p, "HRESULT")
         return p
     }
@@ -327,7 +329,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_fileModifiedDate() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", p, "HRESULT")
         return p
     }
@@ -337,7 +339,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_fileUpdatedDate() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", p, "HRESULT")
         return p
     }
@@ -347,7 +349,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_protocol() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", p, "HRESULT")
         return p
     }
@@ -357,7 +359,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_href() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", p, "HRESULT")
         return p
     }
@@ -367,7 +369,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_nameProp() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", p, "HRESULT")
         return p
     }
@@ -447,7 +449,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_alt() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", p, "HRESULT")
         return p
     }
@@ -469,7 +471,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_src() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", p, "HRESULT")
         return p
     }
@@ -491,7 +493,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_lowsrc() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", p, "HRESULT")
         return p
     }
@@ -513,7 +515,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_vrml() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(32, this, "ptr", p, "HRESULT")
         return p
     }
@@ -535,7 +537,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_dynsrc() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(34, this, "ptr", p, "HRESULT")
         return p
     }
@@ -545,7 +547,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_readyState() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(35, this, "ptr", p, "HRESULT")
         return p
     }
@@ -596,7 +598,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_align() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(40, this, "ptr", p, "HRESULT")
         return p
     }
@@ -678,7 +680,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(48, this, "ptr", p, "HRESULT")
         return p
     }
@@ -738,7 +740,7 @@ class IHTMLImgElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_start() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(54, this, "ptr", p, "HRESULT")
         return p
     }

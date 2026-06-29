@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\IDataObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The INodeProperties interface retrieves text-only properties for a node.
@@ -50,7 +52,7 @@ class INodeProperties extends IUnknown {
     GetProperty(pDataObject, szPropertyName) {
         szPropertyName := szPropertyName is String ? BSTR.Alloc(szPropertyName).Value : szPropertyName
 
-        pbstrProperty := BSTR()
+        pbstrProperty := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pDataObject, "ptr", szPropertyName, "ptr", pbstrProperty, "HRESULT")
         return pbstrProperty
     }

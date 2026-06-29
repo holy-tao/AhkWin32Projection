@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWSMan.ahk
 #Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the methods and properties of the IWSMan interface to include creating IWSManResourceLocator objects, methods that return enumeration and session flag values, and a method to get extended error information.
@@ -195,7 +196,7 @@ class IWSManEx extends IWSMan {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-geterrormessage
      */
     GetErrorMessage(errorNumber) {
-        errorMessage := BSTR()
+        errorMessage := BSTR({Value: 0}, True)
         result := ComCall(26, this, "uint", errorNumber, "ptr", errorMessage, "HRESULT")
         return errorMessage
     }

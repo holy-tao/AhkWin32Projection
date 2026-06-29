@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 #Include .\IDebugDocument.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 #Include .\IEnumDebugCodeContexts.ahk
 
 /**

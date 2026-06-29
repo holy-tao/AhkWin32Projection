@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1Resource.ahk
 #Include .\D2D1_GRADIENT_MESH_PATCH.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a device-dependent representation of a gradient mesh composed of patches. Use the ID2D1DeviceContext2::CreateGradientMesh method to create an instance of ID2D1GradientMesh.

@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LIST_VIEW_ITEM_FLAGS.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\LIST_VIEW_ITEM_STATE_FLAGS.ahk
 #Include .\LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS.ahk
+#Include .\LIST_VIEW_ITEM_FLAGS.ahk
 
 /**
  * Specifies or receives the attributes of a list-view item. This structure has been updated to support a new mask value (LVIF_INDENT) that enables item indenting. This structure supersedes the LV_ITEM structure. (Unicode)

@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include .\INetSharingPortMappingCollection.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\SHARINGCONNECTIONTYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ICS_TARGETTYPE.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\SHARINGCONNECTION_ENUM_FLAGS.ahk
 #Include .\INetSharingPortMapping.ahk
 
 /**

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SIGNER_SUBJECT_CHOICE.ahk
-#Include .\SIGNER_FILE_INFO.ahk
 #Include .\SIGNER_BLOB_INFO.ahk
+#Include .\SIGNER_FILE_INFO.ahk
+#Include .\SIGNER_SUBJECT_CHOICE.ahk
 
 /**
  * Specifies a subject to sign.

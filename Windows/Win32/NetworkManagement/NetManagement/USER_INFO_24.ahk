@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\PSID.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains user account information on an account which is connected to an Internet identity. This information includes the Internet provider name for the user, the user's Internet name, and the user's security identifier (SID).

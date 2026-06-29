@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\D3D11_AUTHENTICATED_QUERY_INPUT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
 class D3D11_AUTHENTICATED_QUERY_RESTRICTED_SHARED_RESOURCE_PROCESS_INPUT extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -30,7 +31,7 @@ class D3D11_AUTHENTICATED_QUERY_RESTRICTED_SHARED_RESOURCE_PROCESS_INPUT extends
      * @type {Integer}
      */
     ProcessIndex {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

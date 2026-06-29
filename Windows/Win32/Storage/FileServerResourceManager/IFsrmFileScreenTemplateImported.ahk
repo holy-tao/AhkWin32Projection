@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IFsrmFileScreenTemplate.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to save imported file screen templates.

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WLAN_QOS_CAPABILITIES.ahk
 #Include .\WLAN_CONNECTION_QOS_INFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

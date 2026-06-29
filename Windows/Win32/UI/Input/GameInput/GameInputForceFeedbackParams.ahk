@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputForceFeedbackEffectKind.ahk
-#Include .\GameInputForceFeedbackConstantParams.ahk
-#Include .\GameInputForceFeedbackEnvelope.ahk
 #Include .\GameInputForceFeedbackMagnitude.ahk
-#Include .\GameInputForceFeedbackRampParams.ahk
 #Include .\GameInputForceFeedbackPeriodicParams.ahk
 #Include .\GameInputForceFeedbackConditionParams.ahk
+#Include .\GameInputForceFeedbackEffectKind.ahk
+#Include .\GameInputForceFeedbackRampParams.ahk
+#Include .\GameInputForceFeedbackEnvelope.ahk
+#Include .\GameInputForceFeedbackConstantParams.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
@@ -16,7 +16,7 @@ class GameInputForceFeedbackParams extends Win32Struct {
 
     static packingSize => 8
 
-    class _data_e__Union extends Win32Struct {
+    class _data extends Win32Struct {
         static sizeof => 104
         static packingSize => 8
 
@@ -151,12 +151,12 @@ class GameInputForceFeedbackParams extends Win32Struct {
     }
 
     /**
-     * @type {_data_e__Union}
+     * @type {_data}
      */
     data {
         get {
             if(!this.HasProp("__data"))
-                this.__data := GameInputForceFeedbackParams._data_e__Union(8, this)
+                this.__data := GameInputForceFeedbackParams._data(8, this)
             return this.__data
         }
     }

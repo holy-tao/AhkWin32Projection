@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The NTMS_CHANGERINFORMATION structure defines properties specific to a robotic changer object. (ANSI)
@@ -19,9 +20,9 @@
  * @charset ANSI
  */
 class NTMS_CHANGERINFORMATIONA extends Win32Struct {
-    static sizeof => 160
+    static sizeof => 172
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Number of the changer within the library.
@@ -34,11 +35,14 @@ class NTMS_CHANGERINFORMATIONA extends Win32Struct {
 
     /**
      * Identifier of the changer type of this changer.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ChangerType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ChangerType"))
+                this.__ChangerType := Guid(4, this)
+            return this.__ChangerType
+        }
     }
 
     /**
@@ -46,8 +50,8 @@ class NTMS_CHANGERINFORMATIONA extends Win32Struct {
      * @type {String}
      */
     szSerialNumber {
-        get => StrGet(this.ptr + 16, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 16, 31, "UTF-8")
+        get => StrGet(this.ptr + 20, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 20, 31, "UTF-8")
     }
 
     /**
@@ -55,8 +59,8 @@ class NTMS_CHANGERINFORMATIONA extends Win32Struct {
      * @type {String}
      */
     szRevision {
-        get => StrGet(this.ptr + 48, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 48, 31, "UTF-8")
+        get => StrGet(this.ptr + 52, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 52, 31, "UTF-8")
     }
 
     /**
@@ -64,8 +68,8 @@ class NTMS_CHANGERINFORMATIONA extends Win32Struct {
      * @type {String}
      */
     szDeviceName {
-        get => StrGet(this.ptr + 80, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 80, 63, "UTF-8")
+        get => StrGet(this.ptr + 84, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 84, 63, "UTF-8")
     }
 
     /**
@@ -73,8 +77,8 @@ class NTMS_CHANGERINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     ScsiPort {
-        get => NumGet(this, 144, "ushort")
-        set => NumPut("ushort", value, this, 144)
+        get => NumGet(this, 148, "ushort")
+        set => NumPut("ushort", value, this, 148)
     }
 
     /**
@@ -82,8 +86,8 @@ class NTMS_CHANGERINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     ScsiBus {
-        get => NumGet(this, 146, "ushort")
-        set => NumPut("ushort", value, this, 146)
+        get => NumGet(this, 150, "ushort")
+        set => NumPut("ushort", value, this, 150)
     }
 
     /**
@@ -91,8 +95,8 @@ class NTMS_CHANGERINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     ScsiTarget {
-        get => NumGet(this, 148, "ushort")
-        set => NumPut("ushort", value, this, 148)
+        get => NumGet(this, 152, "ushort")
+        set => NumPut("ushort", value, this, 152)
     }
 
     /**
@@ -100,16 +104,19 @@ class NTMS_CHANGERINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     ScsiLun {
-        get => NumGet(this, 150, "ushort")
-        set => NumPut("ushort", value, this, 150)
+        get => NumGet(this, 154, "ushort")
+        set => NumPut("ushort", value, this, 154)
     }
 
     /**
      * Unique identifier of the library that contains the changer.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Library {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
+        get {
+            if(!this.HasProp("__Library"))
+                this.__Library := Guid(156, this)
+            return this.__Library
+        }
     }
 }

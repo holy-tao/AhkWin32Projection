@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\CRYPTNET_URL_CACHE_PRE_FETCH_INFO.ahk
-#Include .\CRYPTNET_URL_CACHE_FLUSH_INFO.ahk
 #Include .\CRYPTNET_URL_CACHE_RESPONSE_INFO.ahk
+#Include .\CRYPTNET_URL_CACHE_FLUSH_INFO.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\CRYPTNET_URL_CACHE_PRE_FETCH_INFO.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains optional information to pass to the CryptRetrieveObjectByUrl function.

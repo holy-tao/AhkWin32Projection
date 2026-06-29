@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\Ndis\TUNNEL_TYPE.ahk
-#Include ..\Ndis\NDIS_MEDIUM.ahk
-#Include ..\Ndis\NDIS_PHYSICAL_MEDIUM.ahk
-#Include ..\Ndis\NET_IF_ACCESS_TYPE.ahk
-#Include ..\Ndis\NET_IF_DIRECTION_TYPE.ahk
-#Include ..\Ndis\IF_OPER_STATUS.ahk
-#Include ..\Ndis\NET_IF_ADMIN_STATUS.ahk
 #Include ..\Ndis\NET_IF_MEDIA_CONNECT_STATE.ahk
+#Include ..\Ndis\NET_IF_ADMIN_STATUS.ahk
 #Include ..\Ndis\NET_IF_CONNECTION_TYPE.ahk
+#Include ..\Ndis\IF_OPER_STATUS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\Ndis\NDIS_PHYSICAL_MEDIUM.ahk
+#Include ..\Ndis\NDIS_MEDIUM.ahk
+#Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\Ndis\NET_IF_ACCESS_TYPE.ahk
+#Include ..\Ndis\TUNNEL_TYPE.ahk
+#Include ..\Ndis\NET_IF_DIRECTION_TYPE.ahk
 
 /**
  * Stores information about a particular interface. (MIB_IF_ROW2)
@@ -23,7 +24,7 @@
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
 class MIB_IF_ROW2 extends Win32Struct {
-    static sizeof => 1352
+    static sizeof => 1360
 
     static packingSize => 8
 
@@ -142,11 +143,14 @@ class MIB_IF_ROW2 extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * The GUID for the network interface.
-     * @type {Pointer}
+     * @type {Guid}
      */
     InterfaceGuid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__InterfaceGuid"))
+                this.__InterfaceGuid := Guid(20, this)
+            return this.__InterfaceGuid
+        }
     }
 
     /**
@@ -156,8 +160,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {String}
      */
     Alias {
-        get => StrGet(this.ptr + 32, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 32, 256, "UTF-16")
+        get => StrGet(this.ptr + 36, 256, "UTF-16")
+        set => StrPut(value, this.ptr + 36, 256, "UTF-16")
     }
 
     /**
@@ -167,8 +171,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {String}
      */
     Description {
-        get => StrGet(this.ptr + 546, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 546, 256, "UTF-16")
+        get => StrGet(this.ptr + 550, 256, "UTF-16")
+        set => StrPut(value, this.ptr + 550, 256, "UTF-16")
     }
 
     /**
@@ -178,8 +182,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     PhysicalAddressLength {
-        get => NumGet(this, 1060, "uint")
-        set => NumPut("uint", value, this, 1060)
+        get => NumGet(this, 1064, "uint")
+        set => NumPut("uint", value, this, 1064)
     }
 
     /**
@@ -191,7 +195,7 @@ class MIB_IF_ROW2 extends Win32Struct {
     PhysicalAddress {
         get {
             if(!this.HasProp("__PhysicalAddressProxyArray"))
-                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 1064, 32, Primitive, "char")
+                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 1068, 32, Primitive, "char")
             return this.__PhysicalAddressProxyArray
         }
     }
@@ -205,7 +209,7 @@ class MIB_IF_ROW2 extends Win32Struct {
     PermanentPhysicalAddress {
         get {
             if(!this.HasProp("__PermanentPhysicalAddressProxyArray"))
-                this.__PermanentPhysicalAddressProxyArray := Win32FixedArray(this.ptr + 1096, 32, Primitive, "char")
+                this.__PermanentPhysicalAddressProxyArray := Win32FixedArray(this.ptr + 1100, 32, Primitive, "char")
             return this.__PermanentPhysicalAddressProxyArray
         }
     }
@@ -217,8 +221,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     Mtu {
-        get => NumGet(this, 1128, "uint")
-        set => NumPut("uint", value, this, 1128)
+        get => NumGet(this, 1132, "uint")
+        set => NumPut("uint", value, this, 1132)
     }
 
     /**
@@ -386,8 +390,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     Type {
-        get => NumGet(this, 1132, "uint")
-        set => NumPut("uint", value, this, 1132)
+        get => NumGet(this, 1136, "uint")
+        set => NumPut("uint", value, this, 1136)
     }
 
     /**
@@ -478,8 +482,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {TUNNEL_TYPE}
      */
     TunnelType {
-        get => NumGet(this, 1136, "int")
-        set => NumPut("int", value, this, 1136)
+        get => NumGet(this, 1140, "int")
+        set => NumPut("int", value, this, 1140)
     }
 
     /**
@@ -715,8 +719,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {NDIS_MEDIUM}
      */
     MediaType {
-        get => NumGet(this, 1140, "int")
-        set => NumPut("int", value, this, 1140)
+        get => NumGet(this, 1144, "int")
+        set => NumPut("int", value, this, 1144)
     }
 
     /**
@@ -955,8 +959,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {NDIS_PHYSICAL_MEDIUM}
      */
     PhysicalMediumType {
-        get => NumGet(this, 1144, "int")
-        set => NumPut("int", value, this, 1144)
+        get => NumGet(this, 1148, "int")
+        set => NumPut("int", value, this, 1148)
     }
 
     /**
@@ -1032,8 +1036,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {NET_IF_ACCESS_TYPE}
      */
     AccessType {
-        get => NumGet(this, 1148, "int")
-        set => NumPut("int", value, this, 1148)
+        get => NumGet(this, 1152, "int")
+        set => NumPut("int", value, this, 1152)
     }
 
     /**
@@ -1095,8 +1099,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {NET_IF_DIRECTION_TYPE}
      */
     DirectionType {
-        get => NumGet(this, 1152, "int")
-        set => NumPut("int", value, this, 1152)
+        get => NumGet(this, 1156, "int")
+        set => NumPut("int", value, this, 1156)
     }
 
     /**
@@ -1106,7 +1110,7 @@ class MIB_IF_ROW2 extends Win32Struct {
     InterfaceAndOperStatusFlags {
         get {
             if(!this.HasProp("__InterfaceAndOperStatusFlags"))
-                this.__InterfaceAndOperStatusFlags := MIB_IF_ROW2._InterfaceAndOperStatusFlags(1156, this)
+                this.__InterfaceAndOperStatusFlags := MIB_IF_ROW2._InterfaceAndOperStatusFlags(1160, this)
             return this.__InterfaceAndOperStatusFlags
         }
     }
@@ -1221,8 +1225,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {IF_OPER_STATUS}
      */
     OperStatus {
-        get => NumGet(this, 1160, "int")
-        set => NumPut("int", value, this, 1160)
+        get => NumGet(this, 1164, "int")
+        set => NumPut("int", value, this, 1164)
     }
 
     /**
@@ -1272,8 +1276,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {NET_IF_ADMIN_STATUS}
      */
     AdminStatus {
-        get => NumGet(this, 1164, "int")
-        set => NumPut("int", value, this, 1164)
+        get => NumGet(this, 1168, "int")
+        set => NumPut("int", value, this, 1168)
     }
 
     /**
@@ -1323,19 +1327,22 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {NET_IF_MEDIA_CONNECT_STATE}
      */
     MediaConnectState {
-        get => NumGet(this, 1168, "int")
-        set => NumPut("int", value, this, 1168)
+        get => NumGet(this, 1172, "int")
+        set => NumPut("int", value, this, 1172)
     }
 
     /**
      * Type: <b>NET_IF_NETWORK_GUID</b>
      * 
      * The GUID that is associated with the network that the interface belongs to.
-     * @type {Pointer}
+     * @type {Guid}
      */
     NetworkGuid {
-        get => NumGet(this, 1176, "ptr")
-        set => NumPut("ptr", value, this, 1176)
+        get {
+            if(!this.HasProp("__NetworkGuid"))
+                this.__NetworkGuid := Guid(1176, this)
+            return this.__NetworkGuid
+        }
     }
 
     /**
@@ -1398,8 +1405,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {NET_IF_CONNECTION_TYPE}
      */
     ConnectionType {
-        get => NumGet(this, 1184, "int")
-        set => NumPut("int", value, this, 1184)
+        get => NumGet(this, 1192, "int")
+        set => NumPut("int", value, this, 1192)
     }
 
     /**
@@ -1409,8 +1416,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     TransmitLinkSpeed {
-        get => NumGet(this, 1192, "uint")
-        set => NumPut("uint", value, this, 1192)
+        get => NumGet(this, 1200, "uint")
+        set => NumPut("uint", value, this, 1200)
     }
 
     /**
@@ -1420,8 +1427,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     ReceiveLinkSpeed {
-        get => NumGet(this, 1200, "uint")
-        set => NumPut("uint", value, this, 1200)
+        get => NumGet(this, 1208, "uint")
+        set => NumPut("uint", value, this, 1208)
     }
 
     /**
@@ -1431,8 +1438,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     InOctets {
-        get => NumGet(this, 1208, "uint")
-        set => NumPut("uint", value, this, 1208)
+        get => NumGet(this, 1216, "uint")
+        set => NumPut("uint", value, this, 1216)
     }
 
     /**
@@ -1442,8 +1449,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     InUcastPkts {
-        get => NumGet(this, 1216, "uint")
-        set => NumPut("uint", value, this, 1216)
+        get => NumGet(this, 1224, "uint")
+        set => NumPut("uint", value, this, 1224)
     }
 
     /**
@@ -1453,8 +1460,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     InNUcastPkts {
-        get => NumGet(this, 1224, "uint")
-        set => NumPut("uint", value, this, 1224)
+        get => NumGet(this, 1232, "uint")
+        set => NumPut("uint", value, this, 1232)
     }
 
     /**
@@ -1464,8 +1471,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     InDiscards {
-        get => NumGet(this, 1232, "uint")
-        set => NumPut("uint", value, this, 1232)
+        get => NumGet(this, 1240, "uint")
+        set => NumPut("uint", value, this, 1240)
     }
 
     /**
@@ -1475,8 +1482,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     InErrors {
-        get => NumGet(this, 1240, "uint")
-        set => NumPut("uint", value, this, 1240)
+        get => NumGet(this, 1248, "uint")
+        set => NumPut("uint", value, this, 1248)
     }
 
     /**
@@ -1486,8 +1493,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     InUnknownProtos {
-        get => NumGet(this, 1248, "uint")
-        set => NumPut("uint", value, this, 1248)
+        get => NumGet(this, 1256, "uint")
+        set => NumPut("uint", value, this, 1256)
     }
 
     /**
@@ -1497,8 +1504,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     InUcastOctets {
-        get => NumGet(this, 1256, "uint")
-        set => NumPut("uint", value, this, 1256)
+        get => NumGet(this, 1264, "uint")
+        set => NumPut("uint", value, this, 1264)
     }
 
     /**
@@ -1508,8 +1515,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     InMulticastOctets {
-        get => NumGet(this, 1264, "uint")
-        set => NumPut("uint", value, this, 1264)
+        get => NumGet(this, 1272, "uint")
+        set => NumPut("uint", value, this, 1272)
     }
 
     /**
@@ -1519,8 +1526,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     InBroadcastOctets {
-        get => NumGet(this, 1272, "uint")
-        set => NumPut("uint", value, this, 1272)
+        get => NumGet(this, 1280, "uint")
+        set => NumPut("uint", value, this, 1280)
     }
 
     /**
@@ -1530,8 +1537,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     OutOctets {
-        get => NumGet(this, 1280, "uint")
-        set => NumPut("uint", value, this, 1280)
+        get => NumGet(this, 1288, "uint")
+        set => NumPut("uint", value, this, 1288)
     }
 
     /**
@@ -1541,8 +1548,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     OutUcastPkts {
-        get => NumGet(this, 1288, "uint")
-        set => NumPut("uint", value, this, 1288)
+        get => NumGet(this, 1296, "uint")
+        set => NumPut("uint", value, this, 1296)
     }
 
     /**
@@ -1552,8 +1559,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     OutNUcastPkts {
-        get => NumGet(this, 1296, "uint")
-        set => NumPut("uint", value, this, 1296)
+        get => NumGet(this, 1304, "uint")
+        set => NumPut("uint", value, this, 1304)
     }
 
     /**
@@ -1563,8 +1570,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     OutDiscards {
-        get => NumGet(this, 1304, "uint")
-        set => NumPut("uint", value, this, 1304)
+        get => NumGet(this, 1312, "uint")
+        set => NumPut("uint", value, this, 1312)
     }
 
     /**
@@ -1574,8 +1581,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     OutErrors {
-        get => NumGet(this, 1312, "uint")
-        set => NumPut("uint", value, this, 1312)
+        get => NumGet(this, 1320, "uint")
+        set => NumPut("uint", value, this, 1320)
     }
 
     /**
@@ -1585,8 +1592,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     OutUcastOctets {
-        get => NumGet(this, 1320, "uint")
-        set => NumPut("uint", value, this, 1320)
+        get => NumGet(this, 1328, "uint")
+        set => NumPut("uint", value, this, 1328)
     }
 
     /**
@@ -1596,8 +1603,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     OutMulticastOctets {
-        get => NumGet(this, 1328, "uint")
-        set => NumPut("uint", value, this, 1328)
+        get => NumGet(this, 1336, "uint")
+        set => NumPut("uint", value, this, 1336)
     }
 
     /**
@@ -1607,8 +1614,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     OutBroadcastOctets {
-        get => NumGet(this, 1336, "uint")
-        set => NumPut("uint", value, this, 1336)
+        get => NumGet(this, 1344, "uint")
+        set => NumPut("uint", value, this, 1344)
     }
 
     /**
@@ -1618,7 +1625,7 @@ class MIB_IF_ROW2 extends Win32Struct {
      * @type {Integer}
      */
     OutQLen {
-        get => NumGet(this, 1344, "uint")
-        set => NumPut("uint", value, this, 1344)
+        get => NumGet(this, 1352, "uint")
+        set => NumPut("uint", value, this, 1352)
     }
 }

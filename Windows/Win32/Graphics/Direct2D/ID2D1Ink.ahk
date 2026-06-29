@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Resource.ahk
+#Include Common\ID2D1SimplifiedGeometrySink.ahk
 #Include .\D2D1_INK_BEZIER_SEGMENT.ahk
 #Include Common\D2D_RECT_F.ahk
+#Include .\ID2D1InkStyle.ahk
+#Include Common\D2D_MATRIX_3X2_F.ahk
+#Include .\ID2D1Resource.ahk
+#Include .\D2D1_INK_POINT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a single continuous stroke of variable-width ink, as defined by a series of Bezier segments and widths.

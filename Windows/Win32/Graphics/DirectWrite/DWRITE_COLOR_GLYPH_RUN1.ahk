@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DWRITE_COLOR_GLYPH_RUN.ahk
-#Include .\DWRITE_GLYPH_RUN.ahk
-#Include .\IDWriteFontFace.ahk
 #Include .\DWRITE_GLYPH_OFFSET.ahk
-#Include .\DWRITE_GLYPH_RUN_DESCRIPTION.ahk
+#Include .\IDWriteFontFace.ahk
+#Include .\DWRITE_COLOR_GLYPH_RUN.ahk
 #Include .\DWRITE_COLOR_F.ahk
-#Include .\DWRITE_GLYPH_IMAGE_FORMATS.ahk
+#Include .\DWRITE_GLYPH_RUN_DESCRIPTION.ahk
 #Include .\DWRITE_MEASURING_MODE.ahk
+#Include .\DWRITE_GLYPH_RUN.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DWRITE_GLYPH_IMAGE_FORMATS.ahk
 
 /**
  * Represents a color glyph run. The IDWriteFactory4::TranslateColorGlyphRun method returns an ordered collection of color glyph runs of varying types depending on what the font supports.

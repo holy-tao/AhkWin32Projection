@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
@@ -7,7 +8,7 @@
 class STORAGE_DEVICE_NUMBER_EX extends Win32Struct {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -50,18 +51,21 @@ class STORAGE_DEVICE_NUMBER_EX extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     DeviceGuid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__DeviceGuid"))
+                this.__DeviceGuid := Guid(20, this)
+            return this.__DeviceGuid
+        }
     }
 
     /**
      * @type {Integer}
      */
     PartitionNumber {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

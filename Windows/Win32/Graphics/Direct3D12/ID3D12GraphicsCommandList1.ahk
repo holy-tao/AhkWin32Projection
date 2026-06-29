@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D12Resource.ahk
+#Include .\D3D12_RESOLVE_MODE.ahk
+#Include .\D3D12_SAMPLE_POSITION.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_SUBRESOURCE_RANGE_UINT64.ahk
 #Include .\ID3D12GraphicsCommandList.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Encapsulates a list of graphics commands for rendering, extending the interface to support programmable sample positions, atomic copies for implementing late-latch techniques, and optional depth-bounds testing.

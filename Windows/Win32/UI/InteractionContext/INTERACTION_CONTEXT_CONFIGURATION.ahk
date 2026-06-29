@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERACTION_ID.ahk
 #Include .\INTERACTION_CONFIGURATION_FLAGS.ahk
+#Include .\INTERACTION_ID.ahk
 
 /**
  * Defines the configuration of an Interaction Context object that enables, disables, or modifies the behavior of an interaction.

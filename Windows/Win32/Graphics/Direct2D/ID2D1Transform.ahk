@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1TransformNode.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**

@@ -1,7 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFilterGraph.ahk
+#Include .\FILTER_STATE.ahk
 #Include .\IMediaStream.ahk
+#Include .\IAMMultiMediaStream.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMediaStreamFilter.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\STREAM_TYPE.ahk
 
 /**
  * Note  This interface is deprecated.

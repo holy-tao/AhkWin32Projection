@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFPresentationDescriptor.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFASFProfile.ahk
-#Include .\IMFPresentationDescriptor.ahk
 #Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include .\IMFMediaBuffer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods to work with the header section of files conforming to the Advanced Systems Format (ASF) specification.

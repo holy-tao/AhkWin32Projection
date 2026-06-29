@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\Graphics\Gdi\Apis.ahk
 #Include .\POINT.ahk
+#Include ..\Graphics\Gdi\Apis.ahk
 
 /**
  * The RECT structure defines a rectangle by the coordinates of its upper-left and lower-right corners.
@@ -73,7 +73,7 @@ class RECT extends Win32Struct {
     }
     
     /**
-     * Creates the union of two rectangles. The union is the smallest rectangle that 
+     * Creates the union of two rectangles. The union is the smallest rectangle that
      * contains both source rectangles.
      *
      * @param {RECT | RECTL} other rectangle to union this one with
@@ -86,7 +86,7 @@ class RECT extends Win32Struct {
     }
     
     /**
-     * Determines the coordinates of a rectangle formed by subtracting 
+     * Determines the coordinates of a rectangle formed by subtracting
      * one rectangle from this one
      *
      * @param {RECT | RECTL} other rectangle to subtract from this one
@@ -100,7 +100,7 @@ class RECT extends Win32Struct {
     
     /**
      * Determines whether the this rectangle is equal to another
-     * 
+     *
      * @param {RECT | RECTL} other rectangle to compare this one to
      * @returns {Boolean} a nonzero value of the rectangles are equal, 0 if they aren't
      */
@@ -156,4 +156,5 @@ class RECT extends Win32Struct {
             this.left, this.top, this.right, this.bottom
         )
     }
+    
 }

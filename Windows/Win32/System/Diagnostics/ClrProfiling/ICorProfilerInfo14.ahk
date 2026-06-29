@@ -2,7 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\ICorProfilerInfo13.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\COR_PRF_NONGC_HEAP_RANGE.ahk
 #Include .\ICorProfilerObjectEnum.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

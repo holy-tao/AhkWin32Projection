@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CTL_USAGE.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Provides criteria for identifying issuer certificates to be used to build a certificate chain.

@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IFilterGraph.ahk
+#Include .\IESEventService.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\IESEvents.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains methods that configure an event service that implements the IESEventService interface.

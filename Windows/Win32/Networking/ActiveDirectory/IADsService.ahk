@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IADs.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IADsService interface is a dual interface that inherits from IADs.
@@ -136,7 +137,7 @@ class IADsService extends IADs {
      * @returns {BSTR} 
      */
     get_HostComputer() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -158,7 +159,7 @@ class IADsService extends IADs {
      * @returns {BSTR} 
      */
     get_DisplayName() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -180,7 +181,7 @@ class IADsService extends IADs {
      * @returns {BSTR} 
      */
     get_Version() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -240,7 +241,7 @@ class IADsService extends IADs {
      * @returns {BSTR} 
      */
     get_Path() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -262,7 +263,7 @@ class IADsService extends IADs {
      * @returns {BSTR} 
      */
     get_StartupParameters() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(32, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -303,7 +304,7 @@ class IADsService extends IADs {
      * @returns {BSTR} 
      */
     get_LoadOrderGroup() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(36, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -325,7 +326,7 @@ class IADsService extends IADs {
      * @returns {BSTR} 
      */
     get_ServiceAccountName() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(38, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -347,7 +348,7 @@ class IADsService extends IADs {
      * @returns {BSTR} 
      */
     get_ServiceAccountPath() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(40, this, "ptr", retval, "HRESULT")
         return retval
     }

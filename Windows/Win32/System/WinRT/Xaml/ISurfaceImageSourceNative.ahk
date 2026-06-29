@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Graphics\Dxgi\IDXGIDevice.ahk
 #Include ..\..\Com\IUnknown.ahk
 #Include ..\..\..\Graphics\Dxgi\IDXGISurface.ahk
+#Include ..\..\..\Foundation\POINT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\RECT.ahk
 
 /**
  * Provides the implementation of a shared fixed-size surface for Direct2D drawing.

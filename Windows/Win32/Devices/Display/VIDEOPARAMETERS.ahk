@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The video miniport driver receives a pointer to a VIDEOPARAMETERS structure in the InputBuffer member of a VIDEO_REQUEST_PACKET when the IOCTL request is IOCTL_VIDEO_HANDLE_VIDEOPARAMETERS.
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.Devices.Display
  */
 class VIDEOPARAMETERS extends Win32Struct {
-    static sizeof => 352
+    static sizeof => 356
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the globally unique identifier (GUID) for this structure {02C62061-1097-11d1-920F-00A024DF156E}. A video miniport driver must verify the GUID at the start of the structure before processing the structure.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__Guid"))
+                this.__Guid := Guid(0, this)
+            return this.__Guid
+        }
     }
 
     /**
@@ -25,16 +29,16 @@ class VIDEOPARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     dwOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     dwCommand {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -216,22 +220,6 @@ class VIDEOPARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwMode {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwTVStandard {
         get => NumGet(this, 24, "uint")
         set => NumPut("uint", value, this, 24)
     }
@@ -239,7 +227,7 @@ class VIDEOPARAMETERS extends Win32Struct {
     /**
      * @type {Integer}
      */
-    dwAvailableModes {
+    dwMode {
         get => NumGet(this, 28, "uint")
         set => NumPut("uint", value, this, 28)
     }
@@ -247,9 +235,25 @@ class VIDEOPARAMETERS extends Win32Struct {
     /**
      * @type {Integer}
      */
-    dwAvailableTVStandard {
+    dwTVStandard {
         get => NumGet(this, 32, "uint")
         set => NumPut("uint", value, this, 32)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwAvailableModes {
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwAvailableTVStandard {
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -257,8 +261,8 @@ class VIDEOPARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     dwFlickerFilter {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -266,8 +270,8 @@ class VIDEOPARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     dwOverScanX {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -275,8 +279,8 @@ class VIDEOPARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     dwOverScanY {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -284,8 +288,8 @@ class VIDEOPARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     dwMaxUnscaledX {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -293,8 +297,8 @@ class VIDEOPARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     dwMaxUnscaledY {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -302,8 +306,8 @@ class VIDEOPARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     dwPositionX {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -311,8 +315,8 @@ class VIDEOPARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     dwPositionY {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
@@ -320,8 +324,8 @@ class VIDEOPARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     dwBrightness {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -329,8 +333,8 @@ class VIDEOPARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     dwContrast {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     /**
@@ -338,24 +342,24 @@ class VIDEOPARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     dwCPType {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
      * @type {Integer}
      */
     dwCPCommand {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
      * @type {Integer}
      */
     dwCPStandard {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
@@ -363,8 +367,8 @@ class VIDEOPARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     dwCPKey {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
@@ -372,8 +376,8 @@ class VIDEOPARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     bCP_APSTriggerBits {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
@@ -383,7 +387,7 @@ class VIDEOPARAMETERS extends Win32Struct {
     bOEMCopyProtection {
         get {
             if(!this.HasProp("__bOEMCopyProtectionProxyArray"))
-                this.__bOEMCopyProtectionProxyArray := Win32FixedArray(this.ptr + 92, 256, Primitive, "char")
+                this.__bOEMCopyProtectionProxyArray := Win32FixedArray(this.ptr + 100, 256, Primitive, "char")
             return this.__bOEMCopyProtectionProxyArray
         }
     }

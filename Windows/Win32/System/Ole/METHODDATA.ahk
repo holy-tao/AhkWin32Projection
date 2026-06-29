@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PARAMDATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\CALLCONV.ahk
 #Include ..\Variant\VARENUM.ahk
+#Include .\PARAMDATA.ahk
 
 /**
  * Describes a method or property.

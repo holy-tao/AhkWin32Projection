@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains the flag that indicates whether transactions were active or not when a snapshot was taken.

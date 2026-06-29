@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3DOVERLAYCAPS.ahk
+#Include ..\..\Graphics\Direct3D9\D3DDISPLAYMODEEX.ahk
+#Include ..\..\Graphics\Direct3D9\D3DDEVTYPE.ahk
+#Include ..\..\Graphics\Direct3D9\D3DDISPLAYROTATION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
 
 /**
  * Queries the overlay hardware capabilities of a Direct3D device. (IDirect3D9ExOverlayExtension)

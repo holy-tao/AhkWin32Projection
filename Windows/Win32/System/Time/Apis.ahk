@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\TIME_ZONE_INFORMATION.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\DYNAMIC_TIME_ZONE_INFORMATION.ahk
 
 /**
  * @namespace Windows.Win32.System.Time

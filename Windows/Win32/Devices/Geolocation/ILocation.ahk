@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\LOCATION_REPORT_STATUS.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\ILocationReport.ahk
+#Include .\ILocationEvents.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\Sensors\LOCATION_DESIRED_ACCURACY.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods used to manage location reports, event registration, and sensor permissions.

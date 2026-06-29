@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_BINDING_CONSTRAINT.ahk
 #Include .\WS_SECURITY_BINDING_CONSTRAINT_TYPE.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTY_CONSTRAINT.ahk
+#Include .\WS_SECURITY_BINDING_CONSTRAINT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * A security binding constraint that corresponds to the WS_SSL_TRANSPORT_SECURITY_BINDING.

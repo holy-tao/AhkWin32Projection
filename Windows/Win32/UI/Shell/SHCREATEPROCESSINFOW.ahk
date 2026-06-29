@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
-#Include ..\..\System\Threading\STARTUPINFOW.ahk
 #Include ..\..\System\Threading\PROCESS_INFORMATION.ahk
+#Include ..\..\System\Threading\STARTUPINFOW.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the information needed by SHCreateProcessAsUserW to create a process.

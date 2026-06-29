@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDirect3DDevice9.ahk
+#Include .\D3DRESOURCETYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IDirect3DResource9 (d3d9.h) interface is used by applications to query and prepare resources.

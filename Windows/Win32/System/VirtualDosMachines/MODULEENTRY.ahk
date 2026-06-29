@@ -3,10 +3,6 @@
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
- * The MODULEENTRY32 (tlhelp32.h) structure describes an entry from a list of the modules belonging to the specified process.
- * @remarks
- * The <b>modBaseAddr</b> and <b>hModule</b> members are valid only in the context of the process specified by <i>th32ProcessID</i>.
- * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/ns-tlhelp32-moduleentry32
  * @namespace Windows.Win32.System.VirtualDosMachines
  */
 class MODULEENTRY extends Win32Struct {
@@ -15,9 +11,6 @@ class MODULEENTRY extends Win32Struct {
     static packingSize => 8
 
     /**
-     * The size of the structure, in bytes. Before calling the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-module32first">Module32First</a> function, set this member to <c>sizeof(MODULEENTRY32)</c>. If you do not initialize <b>dwSize</b>, 
-     * <b>Module32First</b> fails.
      * @type {Integer}
      */
     dwSize {
@@ -26,7 +19,6 @@ class MODULEENTRY extends Win32Struct {
     }
 
     /**
-     * The module name.
      * @type {String}
      */
     szModule {
@@ -35,7 +27,6 @@ class MODULEENTRY extends Win32Struct {
     }
 
     /**
-     * A handle to the module in the context of the owning process.
      * @type {HANDLE}
      */
     hModule {
@@ -55,7 +46,6 @@ class MODULEENTRY extends Win32Struct {
     }
 
     /**
-     * The module path.
      * @type {String}
      */
     szExePath {

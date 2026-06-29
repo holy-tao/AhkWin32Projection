@@ -4,6 +4,7 @@
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISVGRect.ahk
 #Include .\ISVGPoint.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

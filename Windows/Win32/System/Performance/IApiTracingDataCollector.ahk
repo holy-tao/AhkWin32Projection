@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDataCollector.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IDataCollector.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Logs Win32 calls to Kernel32.dll, Advapi32.dll, Gdi32.dll, and User32.dll.
@@ -160,7 +163,7 @@ class IApiTracingDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_exepath
      */
     get_ExePath() {
-        exepath := BSTR()
+        exepath := BSTR({Value: 0}, True)
         result := ComCall(36, this, "ptr", exepath, "HRESULT")
         return exepath
     }
@@ -186,7 +189,7 @@ class IApiTracingDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_logfilepath
      */
     get_LogFilePath() {
-        logfilepath := BSTR()
+        logfilepath := BSTR({Value: 0}, True)
         result := ComCall(38, this, "ptr", logfilepath, "HRESULT")
         return logfilepath
     }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FS_BPIO_OPERATIONS.ahk
+#Include .\FS_BPIO_INFO.ahk
 #Include .\FS_BPIO_OUTFLAGS.ahk
 #Include .\FS_BPIO_RESULTS.ahk
-#Include .\FS_BPIO_INFO.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl

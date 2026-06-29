@@ -1,5 +1,57 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\OBJECTS_AND_SID.ahk
+#Include .\TRUSTEE_TYPE.ahk
+#Include ..\TOKEN_GROUPS.ahk
+#Include .\OBJECTS_AND_NAME_A.ahk
+#Include ..\OBJECT_SECURITY_INFORMATION.ahk
+#Include .\AUTHZ_INITIALIZE_OBJECT_ACCESS_AUDIT_EVENT_FLAGS.ahk
+#Include .\AUTHZ_SECURITY_ATTRIBUTE_OPERATION.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\AUTHZ_AUDIT_EVENT_HANDLE.ahk
+#Include .\AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE.ahk
+#Include .\OBJECTS_AND_NAME_W.ahk
+#Include .\AUTHZ_INIT_INFO.ahk
+#Include .\ACCESS_MODE.ahk
+#Include ..\ACL.ahk
+#Include .\AUTHZ_RPC_INIT_INFO_CLIENT.ahk
+#Include .\SE_OBJECT_TYPE.ahk
+#Include ..\SID_AND_ATTRIBUTES.ahk
+#Include .\TRUSTEE_FORM.ahk
+#Include .\AUTHZ_ACCESS_CHECK_RESULTS_HANDLE.ahk
+#Include ..\..\Foundation\LUID.ahk
+#Include .\MULTIPLE_TRUSTEE_OPERATION.ahk
+#Include .\AUTHZ_CONTEXT_INFORMATION_CLASS.ahk
+#Include ..\PSECURITY_DESCRIPTOR.ahk
+#Include .\AUTHZ_AUDIT_EVENT_TYPE_HANDLE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\ACE_FLAGS.ahk
+#Include .\AUTHZ_SECURITY_EVENT_PROVIDER_HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\TREE_SEC_INFO.ahk
+#Include .\AUTHZ_ACCESS_REQUEST.ahk
+#Include .\AUTHZ_CLIENT_CONTEXT_HANDLE.ahk
+#Include .\AUTHZ_ACCESS_CHECK_FLAGS.ahk
+#Include .\PROG_INVOKE_SETTING.ahk
+#Include .\AUDIT_PARAMS.ahk
+#Include .\AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.ahk
+#Include .\INHERITED_FROMW.ahk
+#Include .\AUTHZ_RESOURCE_MANAGER_HANDLE.ahk
+#Include .\TRUSTEE_W.ahk
+#Include .\FN_OBJECT_MGR_FUNCTS.ahk
+#Include .\EXPLICIT_ACCESS_A.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\GENERIC_MAPPING.ahk
+#Include .\AUTHZ_RESOURCE_MANAGER_FLAGS.ahk
+#Include .\EXPLICIT_ACCESS_W.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\WIN32_ERROR.ahk
+#Include .\AUTHZ_SID_OPERATION.ahk
+#Include .\AUTHZ_ACCESS_REPLY.ahk
+#Include .\AUTHZ_SOURCE_SCHEMA_REGISTRATION.ahk
+#Include ..\PSID.ahk
+#Include .\INHERITED_FROMA.ahk
+#Include .\TRUSTEE_A.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authorization

@@ -2,8 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITfUIElement.ahk
 #Include .\IEnumTfUIElements.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\ITfUIElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfUIElementMgr interface is implemented by TSF manager and used by an application or a text service. An application and a text service can obtain this interface by ITfThreadMgr::QueryInterface with IID_ITfUIElementMgr.

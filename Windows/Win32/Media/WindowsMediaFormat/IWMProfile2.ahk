@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWMProfile.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMProfile2 interface exposes the globally unique identifier for a system profile.

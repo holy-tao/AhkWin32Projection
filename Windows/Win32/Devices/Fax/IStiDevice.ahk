@@ -1,9 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include .\STINOTIFY.ahk
+#Include .\STI_DEV_CAPS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\_ERROR_INFOW.ahk
+#Include ..\..\System\IO\OVERLAPPED.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\STISUBSCRIBE.ahk
+#Include .\STI_DIAG.ahk
+#Include .\STI_DEVICE_STATUS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -70,12 +78,9 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * Retrieves the length of a monitor's capabilities string.
-     * @remarks
-     * This function usually returns quickly, but sometimes it can take several seconds to complete.
+     * 
      * @param {Pointer<STI_DEV_CAPS>} pDevCaps 
-     * @returns {HRESULT} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength
+     * @returns {HRESULT} 
      */
     GetCapabilities(pDevCaps) {
         result := ComCall(4, this, "ptr", pDevCaps, "HRESULT")
@@ -102,10 +107,9 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * Windows has APIs and services that support diagnostics in and of your desktop apps.
+     * 
      * @param {Pointer<STI_DIAG>} pBuffer 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/diagnostics
      */
     Diagnostic(pBuffer) {
         result := ComCall(7, this, "ptr", pBuffer, "HRESULT")
@@ -263,16 +267,9 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * Creates a subscription that receives notifications for the policy's opening and closing.
-     * @remarks
-     * >**Note** Do not perform your activity in this callback, since it will block delivery of future policy notifications for this subscription. This callback should be used to coordinate the starting and stopping of your activity in response to RUN/STOP notifications from the API.
      * 
-     * >**Note** Do not block this callback for extended periods of time, since it will block [UnsubscribeActivityCoordinatorPolicy](nf-activitycoordinator-unsubscribeactivitycoordinatorpolicy.md) and may contribute to thread pool exhaustion.
-     * 
-     * >**Note** Calls to [UnsubscribeActivityCoordinatorPolicy](nf-activitycoordinator-unsubscribeactivitycoordinatorpolicy.md) from this callback will fail. Unsubscribing must occur outside the callback.
      * @param {Pointer<STISUBSCRIBE>} lpSubsribe 
-     * @returns {HRESULT} Returns an **HRESULT**.
-     * @see https://learn.microsoft.com/windows/win32/api/activitycoordinator/nf-activitycoordinator-subscribeactivitycoordinatorpolicy
+     * @returns {HRESULT} 
      */
     Subscribe(lpSubsribe) {
         result := ComCall(16, this, "ptr", lpSubsribe, "HRESULT")

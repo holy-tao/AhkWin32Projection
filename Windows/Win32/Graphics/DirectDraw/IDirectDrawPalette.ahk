@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Gdi\PALETTEENTRY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDirectDraw.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Applications use the methods of the IDirectDrawPalette interface to create DirectDrawPalette objects and work with system-level variables. This section is a reference to the methods of this interface.

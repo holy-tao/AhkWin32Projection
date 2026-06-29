@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWiaItem.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IEnumWiaItem interface is used by applications to enumerate IWiaItem objects in the tree's current folder.

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DOMAINDESC.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains data about an element in a domain tree obtained with the IDsBrowseDomainTree::GetDomains method.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\PEER_DATA.ahk
 
 /**
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
 class PEER_EVENT_INCOMING_DATA extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -32,11 +33,14 @@ class PEER_EVENT_INCOMING_DATA extends Win32Struct {
 
     /**
      * Specifies the application-defined data type of  incoming data.
-     * @type {Pointer}
+     * @type {Guid}
      */
     type {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__type"))
+                this.__type := Guid(16, this)
+            return this.__type
+        }
     }
 
     /**
@@ -47,7 +51,7 @@ class PEER_EVENT_INCOMING_DATA extends Win32Struct {
     data {
         get {
             if(!this.HasProp("__data"))
-                this.__data := PEER_DATA(24, this)
+                this.__data := PEER_DATA(32, this)
             return this.__data
         }
     }

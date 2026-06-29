@@ -1,8 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\D3DDISPLAYMODEFILTER.ahk
+#Include .\D3DDISPLAYMODEEX.ahk
+#Include .\D3DDEVTYPE.ahk
+#Include .\D3DDISPLAYROTATION.ahk
 #Include .\IDirect3D9.ahk
 #Include .\IDirect3DDevice9Ex.ahk
+#Include ..\..\Foundation\LUID.ahk
+#Include .\D3DPRESENT_PARAMETERS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Applications use the methods of the IDirect3D9Ex interface (which inherits from IDirect3D9) to create Microsoft Direct3D 9Ex objects and set up the environment.

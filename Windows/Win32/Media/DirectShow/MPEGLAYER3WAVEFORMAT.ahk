@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
 #Include .\MPEGLAYER3WAVEFORMAT_FLAGS.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
 
 /**
  * The MPEGLAYER3WAVEFORMAT structure describes an MPEG Audio Layer-3 (MP3) audio format.

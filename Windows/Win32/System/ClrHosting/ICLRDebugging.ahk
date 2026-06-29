@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\CLR_DEBUGGING_VERSION.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\CLR_DEBUGGING_PROCESS_FLAGS.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HMODULE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ICLRDebuggingLibraryProvider.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting

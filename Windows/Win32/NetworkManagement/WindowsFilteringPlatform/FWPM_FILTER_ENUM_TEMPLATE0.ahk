@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_FILTER_ENUM_TYPE.ahk
-#Include .\FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0.ahk
 #Include .\FWPM_FILTER_CONDITION0.ahk
+#Include .\FWP_FILTER_ENUM_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0.ahk
 
 /**
  * Is used for enumerating filters.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -27,11 +28,14 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct {
 
     /**
      * Layer whose fields are to be enumerated.
-     * @type {Pointer}
+     * @type {Guid}
      */
     layerKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__layerKey"))
+                this.__layerKey := Guid(8, this)
+            return this.__layerKey
+        }
     }
 
     /**
@@ -39,8 +43,8 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct {
      * @type {FWP_FILTER_ENUM_TYPE}
      */
     enumType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -103,8 +107,8 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct {
      * @type {Integer}
      */
     flags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -112,8 +116,8 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct {
      * @type {Pointer<FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0>}
      */
     providerContextTemplate {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -121,8 +125,8 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct {
      * @type {Integer}
      */
     numFilterConditions {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -130,8 +134,8 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct {
      * @type {Pointer<FWPM_FILTER_CONDITION0>}
      */
     filterCondition {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -192,8 +196,8 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct {
      * @type {Integer}
      */
     actionMask {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -201,7 +205,7 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct {
      * @type {Pointer<Guid>}
      */
     calloutKey {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include .\IDebugHostField.ahk
 #Include .\IDebugHostType3.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

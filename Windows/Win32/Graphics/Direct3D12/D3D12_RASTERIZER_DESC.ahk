@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_FILL_MODE.ahk
-#Include .\D3D12_CULL_MODE.ahk
 #Include .\D3D12_CONSERVATIVE_RASTERIZATION_MODE.ahk
+#Include .\D3D12_CULL_MODE.ahk
+#Include .\D3D12_FILL_MODE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes rasterizer state. (D3D12_RASTERIZER_DESC)

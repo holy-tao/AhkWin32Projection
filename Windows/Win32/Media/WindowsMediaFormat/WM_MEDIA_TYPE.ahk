@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The WM_MEDIA_TYPE structure is the primary structure used to describe media formats for the objects of the Windows Media Format SDK. For more information about media formats and what they are used for, see Formats.
@@ -10,26 +12,32 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
 class WM_MEDIA_TYPE extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 88
 
     static packingSize => 8
 
     /**
      * Major type of the media sample. For example, WMMEDIATYPE_Video specifies a video stream. For a list of possible major media types, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/media-types">Media Types</a>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     majortype {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__majortype"))
+                this.__majortype := Guid(0, this)
+            return this.__majortype
+        }
     }
 
     /**
      * Subtype of the media sample. The subtype defines a specific format (usually an encoding scheme) within a major media type. For example, WMMEDIASUBTYPE_WMV3 specifies a video stream encoded with the Windows Media Video 9 codec. Subtypes can be uncompressed or compressed. For lists of possible media subtypes, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/uncompressed-media-subtypes">Uncompressed Media Subtypes</a> and <a href="https://docs.microsoft.com/windows/desktop/wmformat/compressed-media-subtypes">Compressed Media Subtypes</a>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     subtype {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__subtype"))
+                this.__subtype := Guid(16, this)
+            return this.__subtype
+        }
     }
 
     /**
@@ -37,8 +45,8 @@ class WM_MEDIA_TYPE extends Win32Struct {
      * @type {BOOL}
      */
     bFixedSizeSamples {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -46,8 +54,8 @@ class WM_MEDIA_TYPE extends Win32Struct {
      * @type {BOOL}
      */
     bTemporalCompression {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -55,17 +63,20 @@ class WM_MEDIA_TYPE extends Win32Struct {
      * @type {Integer}
      */
     lSampleSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * GUID of the format type. The format type specifies the additional structure used to identify the media format. This structure is pointed to by <b>pbFormat</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     formattype {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__formattype"))
+                this.__formattype := Guid(44, this)
+            return this.__formattype
+        }
     }
 
     /**
@@ -73,8 +84,8 @@ class WM_MEDIA_TYPE extends Win32Struct {
      * @type {IUnknown}
      */
     pUnk {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -82,8 +93,8 @@ class WM_MEDIA_TYPE extends Win32Struct {
      * @type {Integer}
      */
     cbFormat {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -126,7 +137,7 @@ class WM_MEDIA_TYPE extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     pbFormat {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 }

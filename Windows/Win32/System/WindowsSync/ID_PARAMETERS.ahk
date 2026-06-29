@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ID_PARAMETER_PAIR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents the format schema for the group of IDs that are used to identify entities in a synchronization session.

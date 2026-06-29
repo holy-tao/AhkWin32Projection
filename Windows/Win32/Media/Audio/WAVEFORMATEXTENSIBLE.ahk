@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WAVEFORMATEX.ahk
 
 /**
@@ -155,11 +156,11 @@
  * @namespace Windows.Win32.Media.Audio
  */
 class WAVEFORMATEXTENSIBLE extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
-    class _Samples_e__Union extends Win32Struct {
+    class _Samples extends Win32Struct {
         static sizeof => 2
         static packingSize => 1
 
@@ -202,12 +203,12 @@ class WAVEFORMATEXTENSIBLE extends Win32Struct {
 
     /**
      * A union describing the sample format.
-     * @type {_Samples_e__Union}
+     * @type {_Samples}
      */
     Samples {
         get {
             if(!this.HasProp("__Samples"))
-                this.__Samples := WAVEFORMATEXTENSIBLE._Samples_e__Union(20, this)
+                this.__Samples := WAVEFORMATEXTENSIBLE._Samples(20, this)
             return this.__Samples
         }
     }
@@ -223,10 +224,13 @@ class WAVEFORMATEXTENSIBLE extends Win32Struct {
 
     /**
      * Subformat of the data, such as KSDATAFORMAT_SUBTYPE_PCM. The subformat information is similar to that provided by the tag in the <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure's <b>wFormatTag</b> member.
-     * @type {Pointer}
+     * @type {Guid}
      */
     SubFormat {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__SubFormat"))
+                this.__SubFormat := Guid(28, this)
+            return this.__SubFormat
+        }
     }
 }

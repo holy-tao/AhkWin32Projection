@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITACDGroup.ahk
+#Include .\ACDGROUP_EVENT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITACDGroupEvent interface (tapi3cc.h) contains methods that retrieve the description of Automatic Call Distribution (ACD) group events.

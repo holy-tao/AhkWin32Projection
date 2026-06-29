@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to determine the address translation data.
@@ -78,7 +79,7 @@ class ITAddressTranslationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresstranslationinfo-get_dialablestring
      */
     get_DialableString() {
-        ppDialableString := BSTR()
+        ppDialableString := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", ppDialableString, "HRESULT")
         return ppDialableString
     }
@@ -96,7 +97,7 @@ class ITAddressTranslationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresstranslationinfo-get_displayablestring
      */
     get_DisplayableString() {
-        ppDisplayableString := BSTR()
+        ppDisplayableString := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", ppDisplayableString, "HRESULT")
         return ppDisplayableString
     }

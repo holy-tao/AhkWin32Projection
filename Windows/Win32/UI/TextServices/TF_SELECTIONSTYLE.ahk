@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\TfActiveSelEnd.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The TF_SELECTIONSTYLE structure represents the style of a selection.

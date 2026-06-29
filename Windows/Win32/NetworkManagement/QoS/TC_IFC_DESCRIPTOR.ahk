@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ADDRESS_LIST_DESCRIPTOR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Ndis\NETWORK_ADDRESS_LIST.ahk
 #Include ..\Ndis\NETWORK_ADDRESS.ahk
 

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IShellView.ahk
 
 /**
  * Exposed by the common file dialog boxes to be used when they host a Shell browser.

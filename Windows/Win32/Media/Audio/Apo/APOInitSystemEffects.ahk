@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\APOInitBaseStruct.ahk
-#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\IMMDeviceCollection.ahk
+#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include .\APOInitBaseStruct.ahk
 
 /**
  * The APOInitSystemEffects structure gets passed to the system effects APO for initialization.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.Media.Audio.Apo
  */
 class APOInitSystemEffects extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -31,8 +32,8 @@ class APOInitSystemEffects extends Win32Struct {
      * @type {IPropertyStore}
      */
     pAPOEndpointProperties {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -40,8 +41,8 @@ class APOInitSystemEffects extends Win32Struct {
      * @type {IPropertyStore}
      */
     pAPOSystemEffectsProperties {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -49,8 +50,8 @@ class APOInitSystemEffects extends Win32Struct {
      * @type {Pointer<Void>}
      */
     pReserved {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -58,7 +59,7 @@ class APOInitSystemEffects extends Win32Struct {
      * @type {IMMDeviceCollection}
      */
     pDeviceCollection {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

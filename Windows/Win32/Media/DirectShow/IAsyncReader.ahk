@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMemAllocator.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMediaSample.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ALLOCATOR_PROPERTIES.ahk
 
 /**
  * The IAsyncReader interface performs an asynchronous data request on a filter.This interface is exposed by output pins that perform asynchronous read operations.

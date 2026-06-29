@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SIGNER_CERT_CHOICE.ahk
-#Include .\SIGNER_CERT_STORE_INFO.ahk
-#Include .\SIGNER_SPC_CHAIN_INFO.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\SIGNER_SPC_CHAIN_INFO.ahk
+#Include .\SIGNER_CERT_STORE_INFO.ahk
+#Include .\SIGNER_CERT_CHOICE.ahk
 
 /**
  * Specifies a certificate used to sign a document. The certificate can be stored in a Software Publisher Certificate (SPC) file or in a certificate store.

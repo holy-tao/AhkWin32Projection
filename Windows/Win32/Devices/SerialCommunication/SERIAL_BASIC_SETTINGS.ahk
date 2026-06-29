@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERIAL_TIMEOUTS.ahk
 #Include .\SERIAL_HANDFLOW.ahk
+#Include .\SERIAL_TIMEOUTS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication

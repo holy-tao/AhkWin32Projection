@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the Media Engine with a list of media resources.
@@ -57,7 +58,7 @@ class IMFMediaEngineSrcElements extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginesrcelements-geturl
      */
     GetURL(index) {
-        pURL := BSTR()
+        pURL := BSTR({Value: 0}, True)
         result := ComCall(4, this, "uint", index, "ptr", pURL, "HRESULT")
         return pURL
     }
@@ -69,7 +70,7 @@ class IMFMediaEngineSrcElements extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginesrcelements-gettype
      */
     GetType(index) {
-        pType := BSTR()
+        pType := BSTR({Value: 0}, True)
         result := ComCall(5, this, "uint", index, "ptr", pType, "HRESULT")
         return pType
     }
@@ -83,7 +84,7 @@ class IMFMediaEngineSrcElements extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginesrcelements-getmedia
      */
     GetMedia(index) {
-        pMedia := BSTR()
+        pMedia := BSTR({Value: 0}, True)
         result := ComCall(6, this, "uint", index, "ptr", pMedia, "HRESULT")
         return pMedia
     }

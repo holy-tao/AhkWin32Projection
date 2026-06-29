@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IOfflineFilesItem.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a collection of IOfflineFilesItem interface pointers.

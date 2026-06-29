@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPrintTicketProvider.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk
+#Include .\IPrintTicketProvider.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

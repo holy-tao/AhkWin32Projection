@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\NV_MEMORY_RANGE.ahk
 
 /**
  * @namespace Windows.Win32.System.Memory.NonVolatile

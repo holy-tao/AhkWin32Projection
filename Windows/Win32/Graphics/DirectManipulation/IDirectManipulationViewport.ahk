@@ -1,8 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DIRECTMANIPULATION_INPUT_MODE.ahk
+#Include .\DIRECTMANIPULATION_MOTION_TYPES.ahk
+#Include .\DIRECTMANIPULATION_GESTURE_CONFIGURATION.ahk
+#Include .\DIRECTMANIPULATION_CONFIGURATION.ahk
+#Include .\DIRECTMANIPULATION_VIEWPORT_OPTIONS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DIRECTMANIPULATION_STATUS.ahk
+#Include .\IDirectManipulationContent.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDirectManipulationViewportEventHandler.ahk
 
 /**
  * Defines a region within a window (referred to as a viewport) that is able to receive and process input from user interactions.

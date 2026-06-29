@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -94,7 +96,7 @@ class IFileSearchBand extends IDispatch {
      * @returns {BSTR} 
      */
     get_SearchID() {
-        pbstrSearchID := BSTR()
+        pbstrSearchID := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrSearchID, "HRESULT")
         return pbstrSearchID
     }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_PROPERTY_ID.ahk
 #Include .\STORAGE_QUERY_TYPE.ahk
+#Include .\STORAGE_PROPERTY_ID.ahk
 
 /**
  * Indicates the properties of a storage device or adapter to retrieve as the input buffer passed to the IOCTL_STORAGE_QUERY_PROPERTY control code.

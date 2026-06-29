@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DDVIDEOPORTCONNECT.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The DDVIDEOPORTDESC structure describes the video port extensions (VPE) object being created.
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
 class DDVIDEOPORTDESC extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -101,8 +102,8 @@ class DDVIDEOPORTDESC extends Win32Struct {
      * @type {Pointer}
      */
     dwReserved2 {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -110,7 +111,7 @@ class DDVIDEOPORTDESC extends Win32Struct {
      * @type {Pointer}
      */
     dwReserved3 {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 }

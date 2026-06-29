@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IShellItem.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that hold items from a data object.

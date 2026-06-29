@@ -3,9 +3,11 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITAgent.ahk
-#Include .\ITAddress.ahk
-#Include .\ITACDGroup.ahk
+#Include .\AGENT_SESSION_STATE.ahk
 #Include ..\..\System\Com\CY.ahk
+#Include .\ITACDGroup.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITAddress.ahk
 
 /**
  * The ITAgentSession interface (tapi3cc.h) handles agent session, which represent an association between an agent, group, and address.

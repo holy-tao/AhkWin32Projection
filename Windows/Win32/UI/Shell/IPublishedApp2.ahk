@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\IPublishedApp.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
  * Extends the IPublishedApp interface by providing an additional installation method.

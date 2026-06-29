@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Include .\ASSEMBLY_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\QUERYASMINFO_FLAGS.ahk
 #Include .\IAssemblyCacheItem.ahk
+#Include .\FUSION_INSTALL_REFERENCE.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IASSEMBLYCACHE_UNINSTALL_DISPOSITION.ahk
 
 /**
  * The IAssemblyCache interface can be used to install, uninstall, or query a side-by-side assembly. An instance of IAssemblyCache is obtained by calling the CreateAssemblyCache function.

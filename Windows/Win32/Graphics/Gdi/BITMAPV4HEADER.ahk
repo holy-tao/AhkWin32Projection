@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CIEXYZ.ahk
 #Include .\BI_COMPRESSION.ahk
 #Include .\CIEXYZTRIPLE.ahk
-#Include .\CIEXYZ.ahk
 
 /**
  * The BITMAPV4HEADER structure is the bitmap information header file. It is an extended version of the BITMAPINFOHEADER structure.Applications can use the BITMAPV5HEADER structure for added functionality.

@@ -1,14 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IDxcBlob.ahk
-#Include .\IDxcBlobEncoding.ahk
-#Include ..\..\..\System\Com\IStream.ahk
-#Include .\IDxcIncludeHandler.ahk
-#Include .\IDxcBlobUtf8.ahk
-#Include .\IDxcBlobUtf16.ahk
+#Include ..\..\..\System\Com\IMalloc.ahk
 #Include .\IDxcCompilerArgs.ahk
+#Include .\IDxcBlobEncoding.ahk
+#Include .\DXC_CP.ahk
+#Include .\DxcDefine.ahk
+#Include .\IDxcBlobUtf8.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\IDxcIncludeHandler.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IDxcBlobUtf16.ahk
+#Include .\IDxcBlob.ahk
+#Include .\DxcBuffer.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\Com\IStream.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc

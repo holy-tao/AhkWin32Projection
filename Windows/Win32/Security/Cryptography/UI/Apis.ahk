@@ -1,6 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\CRYPTUI_VIEWCERTIFICATE_STRUCTW.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_INFO.ahk
+#Include .\CRYPTUI_CERT_MGR_STRUCT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\CRYPTUI_WIZ_EXPORT_INFO.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT.ahk
+#Include .\CRYPTUI_VIEWCERTIFICATE_STRUCTA.ahk
+#Include .\CRYPTUI_WIZ_FLAGS.ahk
+#Include ..\HCERTSTORE.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\CERT_SELECTUI_INPUT.ahk
+#Include .\CRYPTUI_WIZ_IMPORT_SRC_INFO.ahk
+#Include ..\CERT_CONTEXT.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI

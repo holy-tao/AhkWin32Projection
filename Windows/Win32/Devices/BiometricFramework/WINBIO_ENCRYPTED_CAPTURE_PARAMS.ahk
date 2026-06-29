@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WINBIO_REGISTERED_FORMAT.ahk
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
 class WINBIO_ENCRYPTED_CAPTURE_PARAMS extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -38,26 +39,29 @@ class WINBIO_ENCRYPTED_CAPTURE_PARAMS extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     VendorFormat {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__VendorFormat"))
+                this.__VendorFormat := Guid(12, this)
+            return this.__VendorFormat
+        }
     }
 
     /**
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
+        get => NumGet(this, 28, "char")
+        set => NumPut("char", value, this, 28)
     }
 
     /**
      * @type {Integer}
      */
     NonceSize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

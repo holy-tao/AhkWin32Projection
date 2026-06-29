@@ -12,7 +12,7 @@ class AUTHZ_SECURITY_ATTRIBUTES_INFORMATION extends Win32Struct {
 
     static packingSize => 8
 
-    class _Attribute_e__Union extends Win32Struct {
+    class _Attribute extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -53,12 +53,12 @@ class AUTHZ_SECURITY_ATTRIBUTES_INFORMATION extends Win32Struct {
     }
 
     /**
-     * @type {_Attribute_e__Union}
+     * @type {_Attribute}
      */
     Attribute {
         get {
             if(!this.HasProp("__Attribute"))
-                this.__Attribute := AUTHZ_SECURITY_ATTRIBUTES_INFORMATION._Attribute_e__Union(8, this)
+                this.__Attribute := AUTHZ_SECURITY_ATTRIBUTES_INFORMATION._Attribute(8, this)
             return this.__Attribute
         }
     }

@@ -1,8 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\Properties\DEVPROPTYPE.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\SENSOR_COLLECTION_LIST.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include .\SENSOR_PROPERTY_LIST.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Sensors
@@ -47,8 +56,7 @@ class Sensors {
     static SENSOR_EVENT_PARAMETER_EVENT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{64346e30-8728-4b34-bdf6-4f52442c5c28}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{64346e30-8728-4b34-bdf6-4f52442c5c28}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -60,8 +68,7 @@ class Sensors {
     static SENSOR_EVENT_PARAMETER_STATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{64346e30-8728-4b34-bdf6-4f52442c5c28}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{64346e30-8728-4b34-bdf6-4f52442c5c28}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -83,8 +90,7 @@ class Sensors {
     static SENSOR_PROPERTY_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -96,8 +102,7 @@ class Sensors {
     static SENSOR_PROPERTY_STATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -109,8 +114,7 @@ class Sensors {
     static SENSOR_PROPERTY_PERSISTENT_UNIQUE_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -122,8 +126,7 @@ class Sensors {
     static SENSOR_PROPERTY_MANUFACTURER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -135,8 +138,7 @@ class Sensors {
     static SENSOR_PROPERTY_MODEL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -148,8 +150,7 @@ class Sensors {
     static SENSOR_PROPERTY_SERIAL_NUMBER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -161,8 +162,7 @@ class Sensors {
     static SENSOR_PROPERTY_FRIENDLY_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -174,8 +174,7 @@ class Sensors {
     static SENSOR_PROPERTY_DESCRIPTION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -187,8 +186,7 @@ class Sensors {
     static SENSOR_PROPERTY_CONNECTION_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -200,8 +198,7 @@ class Sensors {
     static SENSOR_PROPERTY_MIN_REPORT_INTERVAL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -213,8 +210,7 @@ class Sensors {
     static SENSOR_PROPERTY_CURRENT_REPORT_INTERVAL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -226,8 +222,7 @@ class Sensors {
     static SENSOR_PROPERTY_CHANGE_SENSITIVITY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 14
             return value
         }
@@ -239,8 +234,7 @@ class Sensors {
     static SENSOR_PROPERTY_DEVICE_PATH {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 15
             return value
         }
@@ -252,8 +246,7 @@ class Sensors {
     static SENSOR_PROPERTY_LIGHT_RESPONSE_CURVE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 16
             return value
         }
@@ -265,8 +258,7 @@ class Sensors {
     static SENSOR_PROPERTY_ACCURACY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 17
             return value
         }
@@ -278,8 +270,7 @@ class Sensors {
     static SENSOR_PROPERTY_RESOLUTION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 18
             return value
         }
@@ -291,8 +282,7 @@ class Sensors {
     static SENSOR_PROPERTY_LOCATION_DESIRED_ACCURACY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 19
             return value
         }
@@ -304,8 +294,7 @@ class Sensors {
     static SENSOR_PROPERTY_RANGE_MINIMUM {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 20
             return value
         }
@@ -317,8 +306,7 @@ class Sensors {
     static SENSOR_PROPERTY_RANGE_MAXIMUM {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 21
             return value
         }
@@ -330,8 +318,7 @@ class Sensors {
     static SENSOR_PROPERTY_HID_USAGE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 22
             return value
         }
@@ -343,8 +330,7 @@ class Sensors {
     static SENSOR_PROPERTY_RADIO_STATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 23
             return value
         }
@@ -356,8 +342,7 @@ class Sensors {
     static SENSOR_PROPERTY_RADIO_STATE_PREVIOUS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f8383ec-d3ec-495c-a8cf-b8bbe85c2920}").CopyTo(value.fmtid.ptr)
             value.pid := 24
             return value
         }
@@ -709,8 +694,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_TIMESTAMP {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{db5e0cf2-cf1f-4c18-b46c-d86011d62150}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{db5e0cf2-cf1f-4c18-b46c-d86011d62150}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -727,8 +711,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_LATITUDE_DEGREES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -740,8 +723,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_LONGITUDE_DEGREES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -753,8 +735,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ALTITUDE_SEALEVEL_METERS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -766,8 +747,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ALTITUDE_ELLIPSOID_METERS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -779,8 +759,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_SPEED_KNOTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -792,8 +771,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_TRUE_HEADING_DEGREES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -805,8 +783,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_MAGNETIC_HEADING_DEGREES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -818,8 +795,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_MAGNETIC_VARIATION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -831,8 +807,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_FIX_QUALITY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -844,8 +819,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_FIX_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -857,8 +831,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_POSITION_DILUTION_OF_PRECISION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -870,8 +843,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_HORIZONAL_DILUTION_OF_PRECISION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -883,8 +855,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_VERTICAL_DILUTION_OF_PRECISION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 14
             return value
         }
@@ -896,8 +867,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_SATELLITES_USED_COUNT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 15
             return value
         }
@@ -909,8 +879,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_SATELLITES_USED_PRNS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 16
             return value
         }
@@ -922,8 +891,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_SATELLITES_IN_VIEW {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 17
             return value
         }
@@ -935,8 +903,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_SATELLITES_IN_VIEW_PRNS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 18
             return value
         }
@@ -948,8 +915,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_SATELLITES_IN_VIEW_ELEVATION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 19
             return value
         }
@@ -961,8 +927,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_SATELLITES_IN_VIEW_AZIMUTH {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 20
             return value
         }
@@ -974,8 +939,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_SATELLITES_IN_VIEW_STN_RATIO {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 21
             return value
         }
@@ -987,8 +951,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ERROR_RADIUS_METERS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 22
             return value
         }
@@ -1000,8 +963,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ADDRESS1 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 23
             return value
         }
@@ -1013,8 +975,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ADDRESS2 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 24
             return value
         }
@@ -1026,8 +987,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CITY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 25
             return value
         }
@@ -1039,8 +999,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_STATE_PROVINCE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 26
             return value
         }
@@ -1052,8 +1011,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_POSTALCODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 27
             return value
         }
@@ -1065,8 +1023,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_COUNTRY_REGION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 28
             return value
         }
@@ -1078,8 +1035,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ALTITUDE_ELLIPSOID_ERROR_METERS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 29
             return value
         }
@@ -1091,8 +1047,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ALTITUDE_SEALEVEL_ERROR_METERS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 30
             return value
         }
@@ -1104,8 +1059,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_GPS_SELECTION_MODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 31
             return value
         }
@@ -1117,8 +1071,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_GPS_OPERATION_MODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 32
             return value
         }
@@ -1130,8 +1083,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_GPS_STATUS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 33
             return value
         }
@@ -1143,8 +1095,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_GEOIDAL_SEPARATION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 34
             return value
         }
@@ -1156,8 +1107,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_DGPS_DATA_AGE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 35
             return value
         }
@@ -1169,8 +1119,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ALTITUDE_ANTENNA_SEALEVEL_METERS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 36
             return value
         }
@@ -1182,8 +1131,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_DIFFERENTIAL_REFERENCE_STATION_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 37
             return value
         }
@@ -1195,8 +1143,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_NMEA_SENTENCE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 38
             return value
         }
@@ -1208,8 +1155,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_SATELLITES_IN_VIEW_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 39
             return value
         }
@@ -1221,8 +1167,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_LOCATION_SOURCE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 40
             return value
         }
@@ -1234,8 +1179,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_SATELLITES_USED_PRNS_AND_CONSTELLATIONS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{055c74d8-ca6f-47d6-95c6-1ed3637a0ff4}").CopyTo(value.fmtid.ptr)
             value.pid := 41
             return value
         }
@@ -1252,8 +1196,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_TEMPERATURE_CELSIUS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1265,8 +1208,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_RELATIVE_HUMIDITY_PERCENT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1278,8 +1220,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ATMOSPHERIC_PRESSURE_BAR {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -1291,8 +1232,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_WIND_DIRECTION_DEGREES_ANTICLOCKWISE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -1304,8 +1244,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_WIND_SPEED_METERS_PER_SECOND {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8b0aa2f1-2d57-42ee-8cc0-4d27622b46c4}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -1322,8 +1261,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ACCELERATION_X_G {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1335,8 +1273,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ACCELERATION_Y_G {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1348,8 +1285,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ACCELERATION_Z_G {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -1361,8 +1297,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ANGULAR_ACCELERATION_X_DEGREES_PER_SECOND_SQUARED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -1374,8 +1309,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ANGULAR_ACCELERATION_Y_DEGREES_PER_SECOND_SQUARED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -1387,8 +1321,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ANGULAR_ACCELERATION_Z_DEGREES_PER_SECOND_SQUARED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -1400,8 +1333,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_SPEED_METERS_PER_SECOND {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -1413,8 +1345,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_MOTION_STATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -1426,8 +1357,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ANGULAR_VELOCITY_X_DEGREES_PER_SECOND {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -1439,8 +1369,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Y_DEGREES_PER_SECOND {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -1452,8 +1381,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Z_DEGREES_PER_SECOND {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{3f8a69a2-07c5-4e48-a965-cd797aab56d5}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -1470,8 +1398,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_TILT_X_DEGREES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1483,8 +1410,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_TILT_Y_DEGREES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1496,8 +1422,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_TILT_Z_DEGREES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -1509,8 +1434,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_MAGNETIC_HEADING_X_DEGREES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -1522,8 +1446,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_MAGNETIC_HEADING_Y_DEGREES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -1535,8 +1458,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_MAGNETIC_HEADING_Z_DEGREES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -1548,8 +1470,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_DISTANCE_X_METERS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -1561,8 +1482,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_DISTANCE_Y_METERS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -1574,8 +1494,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_DISTANCE_Z_METERS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -1587,8 +1506,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_MAGNETIC_HEADING_COMPENSATED_MAGNETIC_NORTH_DEGREES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -1600,8 +1518,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_MAGNETIC_HEADING_COMPENSATED_TRUE_NORTH_DEGREES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -1613,8 +1530,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_MAGNETIC_HEADING_MAGNETIC_NORTH_DEGREES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -1626,8 +1542,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_MAGNETIC_HEADING_TRUE_NORTH_DEGREES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 14
             return value
         }
@@ -1639,8 +1554,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_QUADRANT_ANGLE_DEGREES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 15
             return value
         }
@@ -1652,8 +1566,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ROTATION_MATRIX {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 16
             return value
         }
@@ -1665,8 +1578,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_QUATERNION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 17
             return value
         }
@@ -1678,8 +1590,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_SIMPLE_DEVICE_ORIENTATION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 18
             return value
         }
@@ -1691,8 +1602,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_X_MILLIGAUSS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 19
             return value
         }
@@ -1704,8 +1614,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Y_MILLIGAUSS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 20
             return value
         }
@@ -1717,8 +1626,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Z_MILLIGAUSS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 21
             return value
         }
@@ -1730,8 +1638,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_MAGNETOMETER_ACCURACY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1637d8a2-4248-4275-865d-558de84aedfd}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1637d8a2-4248-4275-865d-558de84aedfd}").CopyTo(value.fmtid.ptr)
             value.pid := 22
             return value
         }
@@ -1748,8 +1655,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_BOOLEAN_SWITCH_STATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1761,8 +1667,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_MULTIVALUE_SWITCH_STATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1774,8 +1679,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_FORCE_NEWTONS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -1787,8 +1691,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ABSOLUTE_PRESSURE_PASCAL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -1800,8 +1703,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_GAUGE_PRESSURE_PASCAL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -1813,8 +1715,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_STRAIN {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -1826,8 +1727,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_WEIGHT_KILOGRAMS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -1839,8 +1739,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_BOOLEAN_SWITCH_ARRAY_STATES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{38564a7c-f2f2-49bb-9b2b-ba60f66a58df}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -1857,8 +1756,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_HUMAN_PRESENCE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2299288a-6d9e-4b0b-b7ec-3528f89e40af}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2299288a-6d9e-4b0b-b7ec-3528f89e40af}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1870,8 +1768,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_HUMAN_PROXIMITY_METERS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2299288a-6d9e-4b0b-b7ec-3528f89e40af}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2299288a-6d9e-4b0b-b7ec-3528f89e40af}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1883,8 +1780,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_TOUCH_STATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2299288a-6d9e-4b0b-b7ec-3528f89e40af}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2299288a-6d9e-4b0b-b7ec-3528f89e40af}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -1901,8 +1797,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_LIGHT_LEVEL_LUX {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e4c77ce2-dcb7-46e9-8439-4fec548833a6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e4c77ce2-dcb7-46e9-8439-4fec548833a6}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1914,8 +1809,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_LIGHT_TEMPERATURE_KELVIN {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e4c77ce2-dcb7-46e9-8439-4fec548833a6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e4c77ce2-dcb7-46e9-8439-4fec548833a6}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1927,8 +1821,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_LIGHT_CHROMACITY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e4c77ce2-dcb7-46e9-8439-4fec548833a6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e4c77ce2-dcb7-46e9-8439-4fec548833a6}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -1945,8 +1838,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_RFID_TAG_40_BIT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{d7a59a3c-3421-44ab-8d3a-9de8ab6c4cae}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{d7a59a3c-3421-44ab-8d3a-9de8ab6c4cae}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1963,8 +1855,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_VOLTAGE_VOLTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1976,8 +1867,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CURRENT_AMPS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1989,8 +1879,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CAPACITANCE_FARAD {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -2002,8 +1891,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_RESISTANCE_OHMS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -2015,8 +1903,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_INDUCTANCE_HENRY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -2028,8 +1915,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ELECTRICAL_POWER_WATTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -2041,8 +1927,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ELECTRICAL_PERCENT_OF_RANGE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -2054,8 +1939,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_ELECTRICAL_FREQUENCY_HERTZ {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{bbb246d1-e242-4780-a2d3-cded84f35842}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -2072,8 +1956,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_USAGE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -2085,8 +1968,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_BOOLEAN_ARRAY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -2098,8 +1980,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE1 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -2111,8 +1992,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE2 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -2124,8 +2004,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE3 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -2137,8 +2016,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE4 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -2150,8 +2028,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE5 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -2163,8 +2040,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE6 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -2176,8 +2052,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE7 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -2189,8 +2064,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE8 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 14
             return value
         }
@@ -2202,8 +2076,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE9 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 15
             return value
         }
@@ -2215,8 +2088,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE10 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 16
             return value
         }
@@ -2228,8 +2100,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE11 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 17
             return value
         }
@@ -2241,8 +2112,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE12 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 18
             return value
         }
@@ -2254,8 +2124,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE13 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 19
             return value
         }
@@ -2267,8 +2136,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE14 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 20
             return value
         }
@@ -2280,8 +2148,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE15 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 21
             return value
         }
@@ -2293,8 +2160,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE16 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 22
             return value
         }
@@ -2306,8 +2172,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE17 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 23
             return value
         }
@@ -2319,8 +2184,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE18 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 24
             return value
         }
@@ -2332,8 +2196,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE19 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 25
             return value
         }
@@ -2345,8 +2208,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE20 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 26
             return value
         }
@@ -2358,8 +2220,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE21 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 27
             return value
         }
@@ -2371,8 +2232,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE22 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 28
             return value
         }
@@ -2384,8 +2244,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE23 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 29
             return value
         }
@@ -2397,8 +2256,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE24 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 30
             return value
         }
@@ -2410,8 +2268,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE25 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 31
             return value
         }
@@ -2423,8 +2280,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE26 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 32
             return value
         }
@@ -2436,8 +2292,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE27 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 33
             return value
         }
@@ -2449,8 +2304,7 @@ class Sensors {
     static SENSOR_DATA_TYPE_CUSTOM_VALUE28 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b14c764f-07cf-41e8-9d82-ebe3d0776a6f}").CopyTo(value.fmtid.ptr)
             value.pid := 34
             return value
         }
@@ -2467,8 +2321,7 @@ class Sensors {
     static SENSOR_PROPERTY_CLEAR_ASSISTANCE_DATA {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e1e962f4-6e65-45f7-9c36-d487b7b1bd34}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e1e962f4-6e65-45f7-9c36-d487b7b1bd34}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -2480,8 +2333,7 @@ class Sensors {
     static SENSOR_PROPERTY_TURN_ON_OFF_NMEA {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e1e962f4-6e65-45f7-9c36-d487b7b1bd34}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e1e962f4-6e65-45f7-9c36-d487b7b1bd34}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }

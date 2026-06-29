@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D10Resource.ahk
+#Include .\D3D10_MAP.ahk
+#Include .\D3D10_BUFFER_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A buffer interface accesses a buffer resource, which is unstructured memory. Buffers typically store vertex or index data. (ID3D10Buffer)

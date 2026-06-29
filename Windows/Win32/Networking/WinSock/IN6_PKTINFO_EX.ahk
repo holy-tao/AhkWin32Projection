@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IN6_PKTINFO.ahk
-#Include .\IN6_ADDR.ahk
 #Include .\SCOPE_ID.ahk
+#Include .\IN6_ADDR.ahk
+#Include .\IN6_PKTINFO.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock

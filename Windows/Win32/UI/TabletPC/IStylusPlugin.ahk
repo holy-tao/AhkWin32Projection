@@ -1,6 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\RealTimeStylusDataInterest.ahk
+#Include .\IRealTimeStylus.ahk
+#Include .\IInkTablet.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SYSTEM_EVENT_DATA.ahk
+#Include .\StylusInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

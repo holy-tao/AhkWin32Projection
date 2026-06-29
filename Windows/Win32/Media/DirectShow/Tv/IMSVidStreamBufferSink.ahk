@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidOutputDevice.ahk
-#Include .\IMSVidStreamBufferRecordingControl.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IMSVidStreamBufferRecordingControl.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IMSVidOutputDevice.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMSVidStreamBufferSink interface represents the Stream Buffer Sink filter within the Video Control.
@@ -93,7 +94,7 @@ class IMSVidStreamBufferSink extends IMSVidOutputDevice {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink-get_sinkname
      */
     get_SinkName() {
-        pName := BSTR()
+        pName := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", pName, "HRESULT")
         return pName
     }

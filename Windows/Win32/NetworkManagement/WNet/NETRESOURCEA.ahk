@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NET_RESOURCE_SCOPE.ahk
 #Include .\NET_RESOURCE_TYPE.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\NET_RESOURCE_SCOPE.ahk
 
 /**
  * The following structure contains information about a network resource. It is used by several of the network provider functions, including NPOpenEnum and NPAddConnection. (ANSI)

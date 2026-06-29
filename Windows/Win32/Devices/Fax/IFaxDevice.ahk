@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FAX_DEVICE_RECEIVE_MODE_ENUM.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFaxDevice interface defines a configuration object used by a fax client application to retrieve and set fax device information, and to add and remove fax routing methods associated with a fax device.
@@ -159,7 +162,7 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_devicename
      */
     get_DeviceName() {
-        pbstrDeviceName := BSTR()
+        pbstrDeviceName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrDeviceName, "HRESULT")
         return pbstrDeviceName
     }
@@ -170,7 +173,7 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_provideruniquename
      */
     get_ProviderUniqueName() {
-        pbstrProviderUniqueName := BSTR()
+        pbstrProviderUniqueName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrProviderUniqueName, "HRESULT")
         return pbstrProviderUniqueName
     }
@@ -241,7 +244,7 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_description
      */
     get_Description() {
-        pbstrDescription := BSTR()
+        pbstrDescription := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pbstrDescription, "HRESULT")
         return pbstrDescription
     }
@@ -347,7 +350,7 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_csid
      */
     get_CSID() {
-        pbstrCSID := BSTR()
+        pbstrCSID := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", pbstrCSID, "HRESULT")
         return pbstrCSID
     }
@@ -377,7 +380,7 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_tsid
      */
     get_TSID() {
-        pbstrTSID := BSTR()
+        pbstrTSID := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", pbstrTSID, "HRESULT")
         return pbstrTSID
     }

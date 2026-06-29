@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_VALUE.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
+#Include .\CLUSPROP_SZ.ahk
 #Include .\CLUSPROP_RESOURCE_CLASS.ahk
 #Include .\CLUSTER_RESOURCE_CLASS.ahk
-#Include .\CLUSPROP_SZ.ahk
+#Include .\CLUSPROP_SYNTAX.ahk
+#Include .\CLUSPROP_VALUE.ahk
 
 /**
  * Describes a resource that is a required dependency of another resource. This union is used as a value in the value list returned from a CLUSCTL_RESOURCE_GET_REQUIRED_DEPENDENCIES or CLUSCTL_RESOURCE_TYPE_GET_REQUIRED_DEPENDENCIES control code operation.

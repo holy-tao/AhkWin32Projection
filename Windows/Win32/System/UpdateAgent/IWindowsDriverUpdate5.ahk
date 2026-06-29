@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\AutoDownloadMode.ahk
+#Include .\AutoSelectionMode.ahk
 #Include .\IWindowsDriverUpdate4.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the properties and methods that are available only from a Windows driver update. (IWindowsDriverUpdate5)

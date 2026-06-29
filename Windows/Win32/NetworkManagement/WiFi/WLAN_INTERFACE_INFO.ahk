@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WLAN_INTERFACE_STATE.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains information about a wireless LAN interface.
@@ -8,17 +9,20 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
 class WLAN_INTERFACE_INFO extends Win32Struct {
-    static sizeof => 528
+    static sizeof => 532
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains the GUID of the interface.
-     * @type {Pointer}
+     * @type {Guid}
      */
     InterfaceGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__InterfaceGuid"))
+                this.__InterfaceGuid := Guid(0, this)
+            return this.__InterfaceGuid
+        }
     }
 
     /**
@@ -26,8 +30,8 @@ class WLAN_INTERFACE_INFO extends Win32Struct {
      * @type {String}
      */
     strInterfaceDescription {
-        get => StrGet(this.ptr + 8, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 255, "UTF-16")
+        get => StrGet(this.ptr + 16, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 16, 255, "UTF-16")
     }
 
     /**
@@ -37,7 +41,7 @@ class WLAN_INTERFACE_INFO extends Win32Struct {
      * @type {WLAN_INTERFACE_STATE}
      */
     isState {
-        get => NumGet(this, 520, "int")
-        set => NumPut("int", value, this, 520)
+        get => NumGet(this, 528, "int")
+        set => NumPut("int", value, this, 528)
     }
 }

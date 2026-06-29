@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\WCT_OBJECT_TYPE.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 #Include .\WCT_OBJECT_STATUS.ahk
 
 /**

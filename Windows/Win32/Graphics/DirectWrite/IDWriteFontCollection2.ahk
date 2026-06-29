@@ -2,9 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDWriteFontCollection1.ahk
-#Include .\IDWriteFontFamily2.ahk
 #Include .\IDWriteFontList2.ahk
 #Include .\IDWriteFontSet1.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DWRITE_FONT_AXIS_VALUE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDWriteFontFamily2.ahk
+#Include .\DWRITE_FONT_FAMILY_MODEL.ahk
 
 /**
  * This interface encapsulates a set of fonts, such as the set of fonts installed on the system, or the set of fonts in a particular directory. The font collection API can be used to discover what font families and fonts are available, and to obtain some metadata about the fonts. (IDWriteFontCollection2)

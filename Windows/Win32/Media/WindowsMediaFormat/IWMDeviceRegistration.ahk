@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWMRegisteredDevice.ahk
+#Include .\DRM_VAL16.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMDeviceRegistration interface registers playback devices for secure data delivery.You can create a device registration object and retrieve a pointer to its IWMDeviceRegistration interface by calling the WMCreateDeviceRegistration function.

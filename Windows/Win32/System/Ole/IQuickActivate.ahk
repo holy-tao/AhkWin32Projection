@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\QACONTROL.ahk
+#Include .\QACONTAINER.ahk
 #Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables controls and containers to avoid performance bottlenecks on loading controls. It combines the load-time or initialization-time handshaking between the control and its container into a single call.

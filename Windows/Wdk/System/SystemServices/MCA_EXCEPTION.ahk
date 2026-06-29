@@ -10,7 +10,7 @@ class MCA_EXCEPTION extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 32
         static packingSize => 8
 
@@ -89,7 +89,7 @@ class MCA_EXCEPTION extends Win32Struct {
         Mca {
             get {
                 if(!this.HasProp("__Mca"))
-                    this.__Mca := MCA_EXCEPTION._u_e__Union._Mca(0, this)
+                    this.__Mca := MCA_EXCEPTION._u._Mca(0, this)
                 return this.__Mca
             }
         }
@@ -100,7 +100,7 @@ class MCA_EXCEPTION extends Win32Struct {
         Mce {
             get {
                 if(!this.HasProp("__Mce"))
-                    this.__Mce := MCA_EXCEPTION._u_e__Union._Mce(0, this)
+                    this.__Mce := MCA_EXCEPTION._u._Mce(0, this)
                 return this.__Mce
             }
         }
@@ -147,12 +147,12 @@ class MCA_EXCEPTION extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := MCA_EXCEPTION._u_e__Union(24, this)
+                this.__u := MCA_EXCEPTION._u(24, this)
             return this.__u
         }
     }

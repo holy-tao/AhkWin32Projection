@@ -1,18 +1,32 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ID2D1RectangleGeometry.ahk
-#Include .\ID2D1RoundedRectangleGeometry.ahk
-#Include .\ID2D1EllipseGeometry.ahk
+#Include Common\D2D_RECT_F.ahk
 #Include .\ID2D1GeometryGroup.ahk
-#Include .\ID2D1TransformedGeometry.ahk
-#Include .\ID2D1PathGeometry.ahk
-#Include .\ID2D1StrokeStyle.ahk
-#Include .\ID2D1DrawingStateBlock.ahk
-#Include .\ID2D1RenderTarget.ahk
-#Include .\ID2D1HwndRenderTarget.ahk
 #Include .\ID2D1DCRenderTarget.ahk
+#Include .\ID2D1DrawingStateBlock.ahk
+#Include .\D2D1_STROKE_STYLE_PROPERTIES.ahk
+#Include .\ID2D1Geometry.ahk
+#Include .\ID2D1EllipseGeometry.ahk
+#Include .\ID2D1RoundedRectangleGeometry.ahk
+#Include .\ID2D1HwndRenderTarget.ahk
+#Include .\D2D1_ROUNDED_RECT.ahk
+#Include .\D2D1_ELLIPSE.ahk
+#Include Common\D2D_MATRIX_3X2_F.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\DirectWrite\IDWriteRenderingParams.ahk
+#Include .\D2D1_RENDER_TARGET_PROPERTIES.ahk
+#Include .\ID2D1RenderTarget.ahk
+#Include .\D2D1_HWND_RENDER_TARGET_PROPERTIES.ahk
+#Include ..\Imaging\IWICBitmap.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\D2D1_DRAWING_STATE_DESCRIPTION.ahk
+#Include .\ID2D1StrokeStyle.ahk
+#Include .\ID2D1PathGeometry.ahk
+#Include .\ID2D1RectangleGeometry.ahk
+#Include Common\D2D1_FILL_MODE.ahk
+#Include ..\Dxgi\IDXGISurface.ahk
+#Include .\ID2D1TransformedGeometry.ahk
 
 /**
  * Creates Direct2D resources. (ID2D1Factory)

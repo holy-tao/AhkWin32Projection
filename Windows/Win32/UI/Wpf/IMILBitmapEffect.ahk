@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMILBitmapEffectRenderContext.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Imaging\IWICBitmapSource.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMILBitmapEffectGroup.ahk
 
 /**

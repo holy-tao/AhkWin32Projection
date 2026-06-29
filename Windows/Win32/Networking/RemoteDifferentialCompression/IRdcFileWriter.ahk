@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IRdcFileReader.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Abstract interface to read from and write to a file.

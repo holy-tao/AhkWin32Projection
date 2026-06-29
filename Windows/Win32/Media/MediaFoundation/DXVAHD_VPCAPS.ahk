@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Specifies the capabilities of the Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor.
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class DXVAHD_VPCAPS extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A GUID that identifies the video processor. This GUID is defined by the device, and is used in various <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nn-dxvahd-idxvahd_device">IDXVAHD_Device</a> methods to specify the video processor.
-     * @type {Pointer}
+     * @type {Guid}
      */
     VPGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__VPGuid"))
+                this.__VPGuid := Guid(0, this)
+            return this.__VPGuid
+        }
     }
 
     /**
@@ -25,8 +29,8 @@ class DXVAHD_VPCAPS extends Win32Struct {
      * @type {Integer}
      */
     PastFrames {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -34,8 +38,8 @@ class DXVAHD_VPCAPS extends Win32Struct {
      * @type {Integer}
      */
     FutureFrames {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -43,8 +47,8 @@ class DXVAHD_VPCAPS extends Win32Struct {
      * @type {Integer}
      */
     ProcessorCaps {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -52,8 +56,8 @@ class DXVAHD_VPCAPS extends Win32Struct {
      * @type {Integer}
      */
     ITelecineCaps {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -61,7 +65,7 @@ class DXVAHD_VPCAPS extends Win32Struct {
      * @type {Integer}
      */
     CustomRateCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

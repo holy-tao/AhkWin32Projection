@@ -1,11 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISearchJob.ahk
-#Include .\ISearchResult.ahk
 #Include .\IUpdateHistoryEntryCollection.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\ServerSelection.ahk
+#Include .\ISearchResult.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ISearchJob.ahk
 
 /**
  * Searches for updates on a server. (IUpdateSearcher)
@@ -118,7 +123,7 @@ class IUpdateSearcher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_clientapplicationid
      */
     get_ClientApplicationID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -234,7 +239,7 @@ class IUpdateSearcher extends IDispatch {
     EscapeString(unescaped) {
         unescaped := unescaped is String ? BSTR.Alloc(unescaped).Value : unescaped
 
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", unescaped, "ptr", retval, "HRESULT")
         return retval
     }
@@ -503,7 +508,7 @@ class IUpdateSearcher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_serviceid
      */
     get_ServiceID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", retval, "HRESULT")
         return retval
     }

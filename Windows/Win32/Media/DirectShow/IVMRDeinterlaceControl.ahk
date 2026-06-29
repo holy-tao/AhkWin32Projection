@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VMRVideoDesc.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\VMRDeinterlaceCaps.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IVMRDeinterlaceControl interface provides support for advanced hardware-accelerated deinterlacing using the Video Mixing Renderer Filter 7 (VMR-7).

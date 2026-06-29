@@ -1,7 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFByteStream.ahk
+#Include .\IMFASFContentInfo.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFMediaBuffer.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ASF_INDEX_IDENTIFIER.ahk
+#Include .\IMFSample.ahk
 
 /**
  * Provides methods to work with indexes in Systems Format (ASF) files.

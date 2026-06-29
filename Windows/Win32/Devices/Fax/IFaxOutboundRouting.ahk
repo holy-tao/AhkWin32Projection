@@ -4,6 +4,7 @@
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFaxOutboundRoutingGroups.ahk
 #Include .\IFaxOutboundRoutingRules.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFaxOutboundRouting interface defines a configuration object that is used by a fax client application to configure the outbound routing groups (IFaxOutboundRoutingGroups interfaces) and outbound routing rules (IFaxOutboundRoutingRules interfaces).

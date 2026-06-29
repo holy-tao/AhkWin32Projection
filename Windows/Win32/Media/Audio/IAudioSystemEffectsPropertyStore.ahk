@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAudioSystemEffectsPropertyChangeNotificationClient.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to manage audio system effects audio stores and to register for notifications when audio system effect properties change.

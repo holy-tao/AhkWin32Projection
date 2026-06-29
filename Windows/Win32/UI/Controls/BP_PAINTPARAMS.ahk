@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\BLENDFUNCTION.ahk
 #Include .\BP_PAINTPARAMS_FLAGS.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Graphics\Gdi\BLENDFUNCTION.ahk
 
 /**
  * Defines paint operation parameters for BeginBufferedPaint.

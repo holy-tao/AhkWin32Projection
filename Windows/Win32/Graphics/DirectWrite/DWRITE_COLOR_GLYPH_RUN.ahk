@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DWRITE_GLYPH_RUN.ahk
-#Include .\IDWriteFontFace.ahk
 #Include .\DWRITE_GLYPH_OFFSET.ahk
-#Include .\DWRITE_GLYPH_RUN_DESCRIPTION.ahk
+#Include .\IDWriteFontFace.ahk
 #Include .\DWRITE_COLOR_F.ahk
+#Include .\DWRITE_GLYPH_RUN_DESCRIPTION.ahk
+#Include .\DWRITE_GLYPH_RUN.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the information needed by renderers to draw glyph runs with glyph color information.

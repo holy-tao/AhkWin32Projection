@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DBCOLUMNACCESS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Storage\IndexServer\DBID.ahk
 #Include .\IRowChange.ahk
+#Include .\DBCOLUMNINFO.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

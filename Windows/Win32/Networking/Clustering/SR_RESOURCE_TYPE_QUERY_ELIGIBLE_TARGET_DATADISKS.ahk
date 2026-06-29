@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes a set of retrieved data disks that can be used as target sites for replication.
@@ -7,26 +9,32 @@
  * @namespace Windows.Win32.Networking.Clustering
  */
 class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_TARGET_DATADISKS extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The cluster resource identifier of the data disk.
-     * @type {Pointer}
+     * @type {Guid}
      */
     SourceDataDiskGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__SourceDataDiskGuid"))
+                this.__SourceDataDiskGuid := Guid(0, this)
+            return this.__SourceDataDiskGuid
+        }
     }
 
     /**
      * The identifier of the replication group that contains the retrieved data disks.
-     * @type {Pointer}
+     * @type {Guid}
      */
     TargetReplicationGroupGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__TargetReplicationGroupGuid"))
+                this.__TargetReplicationGroupGuid := Guid(16, this)
+            return this.__TargetReplicationGroupGuid
+        }
     }
 
     /**
@@ -34,8 +42,8 @@ class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_TARGET_DATADISKS extends Win32Struct {
      * @type {BOOLEAN}
      */
     SkipConnectivityCheck {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+        get => NumGet(this, 32, "char")
+        set => NumPut("char", value, this, 32)
     }
 
     /**
@@ -43,7 +51,7 @@ class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_TARGET_DATADISKS extends Win32Struct {
      * @type {BOOLEAN}
      */
     IncludeOfflineDisks {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
+        get => NumGet(this, 33, "char")
+        set => NumPut("char", value, this, 33)
     }
 }

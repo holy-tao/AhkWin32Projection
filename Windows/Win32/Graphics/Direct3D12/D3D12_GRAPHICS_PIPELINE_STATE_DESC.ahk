@@ -1,31 +1,32 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ID3D12RootSignature.ahk
-#Include .\D3D12_SHADER_BYTECODE.ahk
-#Include .\D3D12_STREAM_OUTPUT_DESC.ahk
-#Include .\D3D12_SO_DECLARATION_ENTRY.ahk
-#Include .\D3D12_BLEND_DESC.ahk
-#Include .\D3D12_RENDER_TARGET_BLEND_DESC.ahk
-#Include .\D3D12_BLEND.ahk
-#Include .\D3D12_BLEND_OP.ahk
 #Include .\D3D12_LOGIC_OP.ahk
-#Include .\D3D12_RASTERIZER_DESC.ahk
-#Include .\D3D12_FILL_MODE.ahk
-#Include .\D3D12_CULL_MODE.ahk
-#Include .\D3D12_CONSERVATIVE_RASTERIZATION_MODE.ahk
-#Include .\D3D12_DEPTH_STENCIL_DESC.ahk
-#Include .\D3D12_DEPTH_WRITE_MASK.ahk
-#Include .\D3D12_COMPARISON_FUNC.ahk
 #Include .\D3D12_DEPTH_STENCILOP_DESC.ahk
+#Include .\D3D12_CULL_MODE.ahk
+#Include .\D3D12_DEPTH_STENCIL_DESC.ahk
+#Include .\D3D12_INPUT_ELEMENT_DESC.ahk
+#Include .\D3D12_STREAM_OUTPUT_DESC.ahk
+#Include .\D3D12_FILL_MODE.ahk
+#Include .\D3D12_PIPELINE_STATE_FLAGS.ahk
 #Include .\D3D12_STENCIL_OP.ahk
 #Include .\D3D12_INPUT_LAYOUT_DESC.ahk
-#Include .\D3D12_INPUT_ELEMENT_DESC.ahk
-#Include .\D3D12_INDEX_BUFFER_STRIP_CUT_VALUE.ahk
-#Include .\D3D12_PRIMITIVE_TOPOLOGY_TYPE.ahk
+#Include .\D3D12_SHADER_BYTECODE.ahk
 #Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include ..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D12_DEPTH_WRITE_MASK.ahk
+#Include .\D3D12_BLEND_OP.ahk
+#Include .\D3D12_BLEND_DESC.ahk
+#Include .\D3D12_COMPARISON_FUNC.ahk
+#Include .\D3D12_CONSERVATIVE_RASTERIZATION_MODE.ahk
+#Include .\D3D12_PRIMITIVE_TOPOLOGY_TYPE.ahk
+#Include .\ID3D12RootSignature.ahk
+#Include .\D3D12_SO_DECLARATION_ENTRY.ahk
 #Include .\D3D12_CACHED_PIPELINE_STATE.ahk
-#Include .\D3D12_PIPELINE_STATE_FLAGS.ahk
+#Include .\D3D12_RASTERIZER_DESC.ahk
+#Include .\D3D12_INDEX_BUFFER_STRIP_CUT_VALUE.ahk
+#Include ..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk
+#Include .\D3D12_BLEND.ahk
+#Include .\D3D12_RENDER_TARGET_BLEND_DESC.ahk
 
 /**
  * Describes a graphics pipeline state object.

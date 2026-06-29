@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IErrorInfo.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IErrorInfo.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ImgErrorInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -35,7 +36,7 @@ class IImgErrorInfo extends IErrorInfo {
      * @returns {BSTR} 
      */
     GetDeveloperDescription() {
-        pbstrDevDescription := BSTR()
+        pbstrDevDescription := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrDevDescription, "HRESULT")
         return pbstrDevDescription
     }
@@ -65,7 +66,7 @@ class IImgErrorInfo extends IErrorInfo {
      * @returns {BSTR} 
      */
     GetUserParameter(cParam) {
-        pbstrParam := BSTR()
+        pbstrParam := BSTR({Value: 0}, True)
         result := ComCall(11, this, "uint", cParam, "ptr", pbstrParam, "HRESULT")
         return pbstrParam
     }
@@ -75,7 +76,7 @@ class IImgErrorInfo extends IErrorInfo {
      * @returns {BSTR} 
      */
     GetUserFallback() {
-        pbstrFallback := BSTR()
+        pbstrFallback := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstrFallback, "HRESULT")
         return pbstrFallback
     }

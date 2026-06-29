@@ -2,8 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Ole\IEnumVARIANT.ahk
 #Include .\INetwork.ahk
+#Include ..\..\System\Ole\IEnumVARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IEnumNetworks interface is a standard enumerator for networks. It enumerates all networks available on the local machine. This interface can be obtained from the INetworkListManager interface.

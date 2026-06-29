@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISearchManager.ahk
 #Include .\ISearchCatalogManager.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ISearchManager.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enabled applications to create and delete custom catalogs in the Windows Search indexer.

@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SIIGBF.ahk
 
 /**
  * Exposes a method to return either icons or thumbnails for Shell items. If no thumbnail or icon is available for the requested item, a per-class icon may be provided from the Shell.
@@ -71,7 +74,7 @@ class IShellItemImageFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemimagefactory-getimage
      */
     GetImage(_size, flags) {
-        phbm := HBITMAP()
+        phbm := HBITMAP({Value: 0}, True)
         result := ComCall(3, this, "ptr", _size, "int", flags, "ptr", phbm, "HRESULT")
         return phbm
     }

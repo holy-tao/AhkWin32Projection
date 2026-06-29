@@ -1,9 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Handle.ahk
+#Include .\NTSTATUS.ahk
 #Include .\HANDLE.ahk
-#Include .\BSTR.ahk
+#Include .\WIN32_ERROR.ahk
 #Include .\HGLOBAL.ahk
+#Include .\PWSTR.ahk
+#Include .\HRESULT.ahk
+#Include .\BSTR.ahk
 #Include .\HLOCAL.ahk
+#Include .\DUPLICATE_HANDLE_OPTIONS.ahk
+#Include .\HMODULE.ahk
+#Include .\BOOL.ahk
+#Include .\PSTR.ahk
+#Include .\HANDLE_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.Foundation
@@ -15,12 +24,12 @@ class Foundation {
     /**
      * @type {Integer (Int32)}
      */
-    static TRUE => 1
+    static Win32TRUE => 1
 
     /**
      * @type {Integer (Int32)}
      */
-    static FALSE => 0
+    static Win32FALSE => 0
 
     /**
      * @type {Integer (Int16)}

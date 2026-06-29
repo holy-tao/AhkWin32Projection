@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include Common\SHELLDETAILS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposed by Shell folders to provide detailed information about the items in a folder.

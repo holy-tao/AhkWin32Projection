@@ -1,13 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\REMSECURITY_ATTRIBUTES.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\IUnknown.ahk
+#Include .\REMSECURITY_ATTRIBUTES.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
  */
 class RemBINDINFO extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -95,31 +98,34 @@ class RemBINDINFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     iid {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get {
+            if(!this.HasProp("__iid"))
+                this.__iid := Guid(60, this)
+            return this.__iid
+        }
     }
 
     /**
      * @type {IUnknown}
      */
     pUnk {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * @type {Integer}
      */
     dwReserved {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 88
+        this.cbSize := 96
     }
 }

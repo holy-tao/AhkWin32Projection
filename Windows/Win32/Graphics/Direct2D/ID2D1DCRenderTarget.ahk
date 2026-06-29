@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Gdi\HDC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ID2D1RenderTarget.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Issues drawing commands to a GDI device context.

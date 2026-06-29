@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IOleClientSite.ahk
-#Include .\IAdviseSinkEx.ahk
 #Include .\IPropertyNotifySink.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IFont.ahk
-#Include .\IOleUndoManager.ahk
+#Include .\IAdviseSinkEx.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include .\IOleUndoManager.ahk
+#Include .\IOleClientSite.ahk
 #Include ..\Com\IBindHost.ahk
-#Include .\IOleControlSite.ahk
 #Include ..\Com\IServiceProvider.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IOleControlSite.ahk
+#Include .\IFont.ahk
 
 /**
  * Specifies container information for IQuickActivate::QuickActivate.

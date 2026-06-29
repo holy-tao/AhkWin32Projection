@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\OB_POST_OPERATION_PARAMETERS.ahk
+#Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
+#Include ..\..\Foundation\POBJECT_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

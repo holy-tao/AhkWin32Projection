@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapFrameDecode.ahk
+#Include .\IWICDevelopRawNotificationCallback.ahk
 #Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
+#Include .\IWICColorContext.ahk
+#Include .\IWICBitmapFrameDecode.ahk
+#Include .\WICRawCapabilitiesInfo.ahk
+#Include .\WICNamedWhitePoint.ahk
+#Include .\WICRawParameterSet.ahk
+#Include .\WICRawRenderMode.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that provide access to the capabilities of a raw codec format.

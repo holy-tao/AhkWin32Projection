@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SPMATCHINGMODE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\PHONETICALPHABET.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SPSTATEHANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

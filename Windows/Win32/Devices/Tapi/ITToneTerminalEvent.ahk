@@ -2,8 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITTerminal.ahk
 #Include .\ITCallInfo.ahk
+#Include .\ITTerminal.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITToneTerminalEvent interface contains methods that retrieve the description of tone terminal events that have occurred.

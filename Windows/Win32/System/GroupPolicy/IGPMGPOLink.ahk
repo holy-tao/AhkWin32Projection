@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IGPMSOM.ahk
 
 /**
@@ -86,7 +88,7 @@ class IGPMGPOLink extends IDispatch {
      * @returns {BSTR} 
      */
     get_GPOID() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -96,7 +98,7 @@ class IGPMGPOLink extends IDispatch {
      * @returns {BSTR} 
      */
     get_GPODomain() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
         return pVal
     }

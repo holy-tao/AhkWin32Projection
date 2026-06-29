@@ -1,12 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\DDE_INITIALIZE_COMMAND.ahk
+#Include .\METAFILEPICT.ahk
+#Include .\DDE_NAME_SERVICE_CMD.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 #Include .\HCONVLIST.ahk
 #Include .\HCONV.ahk
-#Include .\HDDEDATA.ahk
-#Include .\HSZ.ahk
 #Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include .\HSZ.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\DDE_CLIENT_TRANSACTION_TYPE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\CONVCONTEXT.ahk
+#Include .\CONVINFO.ahk
+#Include .\DDE_ENABLE_CALLBACK_CMD.ahk
+#Include .\HDDEDATA.ahk
 
 /**
  * @namespace Windows.Win32.System.DataExchange

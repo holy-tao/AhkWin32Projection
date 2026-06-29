@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Registry\HKEY.ahk
+#Include .\GROUP_POLICY_OBJECT_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\GROUP_POLICY_HINT_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**

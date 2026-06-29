@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVAHD_DEVICE_TYPE.ahk
 #Include ..\..\Graphics\Direct3D9\D3DPOOL.ahk
+#Include .\DXVAHD_DEVICE_TYPE.ahk
 
 /**
  * Specifies the capabilities of a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.

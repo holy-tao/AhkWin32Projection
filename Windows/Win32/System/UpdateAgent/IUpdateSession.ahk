@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWebProxy.ahk
 #Include .\IUpdateSearcher.ahk
-#Include .\IUpdateDownloader.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IUpdateInstaller.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IWebProxy.ahk
+#Include .\IUpdateDownloader.ahk
 
 /**
  * Represents a session in which the caller can perform operations that involve updates. For example, this interface represents sessions in which the caller performs a search, download, installation, or uninstallation operation. (IUpdateSession)
@@ -73,7 +75,7 @@ class IUpdateSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-get_clientapplicationid
      */
     get_ClientApplicationID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", retval, "HRESULT")
         return retval
     }

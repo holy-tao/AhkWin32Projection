@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLDOMNode.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IHTMLDOMRange.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -218,7 +220,7 @@ class IHTMLSelection extends IDispatch {
      * @returns {BSTR} 
      */
     toString() {
-        pSelectionString := BSTR()
+        pSelectionString := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", pSelectionString, "HRESULT")
         return pSelectionString
     }

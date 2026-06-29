@@ -1,19 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D12_SRV_DIMENSION.ahk
-#Include .\D3D12_BUFFER_SRV.ahk
-#Include .\D3D12_BUFFER_SRV_FLAGS.ahk
-#Include .\D3D12_TEX1D_SRV.ahk
-#Include .\D3D12_TEX1D_ARRAY_SRV.ahk
-#Include .\D3D12_TEX2D_SRV.ahk
-#Include .\D3D12_TEX2D_ARRAY_SRV.ahk
-#Include .\D3D12_TEX2DMS_SRV.ahk
-#Include .\D3D12_TEX2DMS_ARRAY_SRV.ahk
-#Include .\D3D12_TEX3D_SRV.ahk
-#Include .\D3D12_TEXCUBE_SRV.ahk
 #Include .\D3D12_TEXCUBE_ARRAY_SRV.ahk
+#Include .\D3D12_TEXCUBE_SRV.ahk
+#Include .\D3D12_SRV_DIMENSION.ahk
+#Include .\D3D12_TEX1D_SRV.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_TEX2D_ARRAY_SRV.ahk
+#Include .\D3D12_TEX2D_SRV.ahk
+#Include .\D3D12_TEX2DMS_SRV.ahk
 #Include .\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV.ahk
+#Include .\D3D12_BUFFER_SRV.ahk
+#Include .\D3D12_TEX3D_SRV.ahk
+#Include .\D3D12_TEX2DMS_ARRAY_SRV.ahk
+#Include .\D3D12_TEX1D_ARRAY_SRV.ahk
+#Include .\D3D12_BUFFER_SRV_BYTE_OFFSET.ahk
+#Include .\D3D12_BUFFER_SRV_FLAGS.ahk
 
 /**
  * Describes a shader-resource view. (D3D12_SHADER_RESOURCE_VIEW_DESC)
@@ -176,6 +177,17 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct {
             if(!this.HasProp("__RaytracingAccelerationStructure"))
                 this.__RaytracingAccelerationStructure := D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV(16, this)
             return this.__RaytracingAccelerationStructure
+        }
+    }
+
+    /**
+     * @type {D3D12_BUFFER_SRV_BYTE_OFFSET}
+     */
+    BufferByteOffset {
+        get {
+            if(!this.HasProp("__BufferByteOffset"))
+                this.__BufferByteOffset := D3D12_BUFFER_SRV_BYTE_OFFSET(16, this)
+            return this.__BufferByteOffset
         }
     }
 }

@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IMFByteStream.ahk
+#Include .\IMFAsyncResult.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include .\MF_OBJECT_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFAsyncCallback.ahk
 
 /**
  * Creates a media source from a byte stream.

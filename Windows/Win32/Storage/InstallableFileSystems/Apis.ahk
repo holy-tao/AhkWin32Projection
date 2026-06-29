@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\HFILTER.ahk
+#Include .\FILTER_VOLUME_INFORMATION_CLASS.ahk
 #Include .\HFILTER_INSTANCE.ahk
+#Include .\FILTER_INFORMATION_CLASS.ahk
+#Include .\INSTANCE_INFORMATION_CLASS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\HFILTER.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include ..\..\System\IO\OVERLAPPED.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Storage.InstallableFileSystems
@@ -571,7 +578,7 @@ class InstallableFileSystems {
     static FilterCreate(lpFilterName) {
         lpFilterName := lpFilterName is String ? StrPtr(lpFilterName) : lpFilterName
 
-        _hFilter := HFILTER()
+        _hFilter := HFILTER({Value: 0}, True)
         result := DllCall("FLTLIB.dll\FilterCreate", "ptr", lpFilterName, "ptr", _hFilter, "HRESULT")
         return _hFilter
     }
@@ -633,7 +640,7 @@ class InstallableFileSystems {
         lpVolumeName := lpVolumeName is String ? StrPtr(lpVolumeName) : lpVolumeName
         lpInstanceName := lpInstanceName is String ? StrPtr(lpInstanceName) : lpInstanceName
 
-        _hInstance := HFILTER_INSTANCE()
+        _hInstance := HFILTER_INSTANCE({Value: 0}, True)
         result := DllCall("FLTLIB.dll\FilterInstanceCreate", "ptr", lpFilterName, "ptr", lpVolumeName, "ptr", lpInstanceName, "ptr", _hInstance, "HRESULT")
         return _hInstance
     }
@@ -1376,7 +1383,7 @@ class InstallableFileSystems {
     static FilterConnectCommunicationPort(lpPortName, dwOptions, lpContext, wSizeOfContext, lpSecurityAttributes) {
         lpPortName := lpPortName is String ? StrPtr(lpPortName) : lpPortName
 
-        hPort := HANDLE()
+        hPort := HANDLE({Value: 0}, True)
         result := DllCall("FLTLIB.dll\FilterConnectCommunicationPort", "ptr", lpPortName, "uint", dwOptions, "ptr", lpContext, "ushort", wSizeOfContext, "ptr", lpSecurityAttributes, "ptr", hPort, "HRESULT")
         return hPort
     }

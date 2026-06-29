@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\WbemPrivilegeEnum.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -87,7 +90,7 @@ class ISWbemPrivilege extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        strDisplayName := BSTR()
+        strDisplayName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", strDisplayName, "HRESULT")
         return strDisplayName
     }
@@ -97,7 +100,7 @@ class ISWbemPrivilege extends IDispatch {
      * @returns {BSTR} 
      */
     get_DisplayName() {
-        strDisplayName := BSTR()
+        strDisplayName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", strDisplayName, "HRESULT")
         return strDisplayName
     }

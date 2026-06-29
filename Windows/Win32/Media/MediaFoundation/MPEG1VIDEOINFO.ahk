@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\VIDEOINFOHEADER.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * The MPEG1VIDEOINFO structure describes an MPEG-1 video stream.

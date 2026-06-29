@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumBstr.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMcastLeaseInfo interface exposes methods that can get or set information concerning a multicast address allocation. The IMcastLease object is created by calling IMcastAddressAllocation::CreateLeaseInfo.
@@ -95,7 +96,7 @@ class IMcastLeaseInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_requestid
      */
     get_RequestID() {
-        ppRequestID := BSTR()
+        ppRequestID := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", ppRequestID, "HRESULT")
         return ppRequestID
     }
@@ -236,7 +237,7 @@ class IMcastLeaseInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_serveraddress
      */
     get_ServerAddress() {
-        ppAddress := BSTR()
+        ppAddress := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", ppAddress, "HRESULT")
         return ppAddress
     }

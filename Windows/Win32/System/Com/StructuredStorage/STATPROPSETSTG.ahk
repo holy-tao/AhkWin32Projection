@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
 
 /**
@@ -8,27 +9,33 @@
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
 class STATPROPSETSTG extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * FMTID of the current property set, specified when the property set was initially created.
-     * @type {Pointer}
+     * @type {Guid}
      */
     fmtid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__fmtid"))
+                this.__fmtid := Guid(0, this)
+            return this.__fmtid
+        }
     }
 
     /**
      * <b>CLSID</b> associated with this property set, specified when the property set was initially created and possibly modified thereafter with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-ipropertystorage-setclass">IPropertyStorage::SetClass</a>. If not set, the value will be <b>CLSID_NULL</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(16, this)
+            return this.__clsid
+        }
     }
 
     /**
@@ -37,8 +44,8 @@ class STATPROPSETSTG extends Win32Struct {
      * @type {Integer}
      */
     grfFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -48,7 +55,7 @@ class STATPROPSETSTG extends Win32Struct {
     mtime {
         get {
             if(!this.HasProp("__mtime"))
-                this.__mtime := FILETIME(20, this)
+                this.__mtime := FILETIME(36, this)
             return this.__mtime
         }
     }
@@ -60,7 +67,7 @@ class STATPROPSETSTG extends Win32Struct {
     ctime {
         get {
             if(!this.HasProp("__ctime"))
-                this.__ctime := FILETIME(28, this)
+                this.__ctime := FILETIME(44, this)
             return this.__ctime
         }
     }
@@ -72,7 +79,7 @@ class STATPROPSETSTG extends Win32Struct {
     atime {
         get {
             if(!this.HasProp("__atime"))
-                this.__atime := FILETIME(36, this)
+                this.__atime := FILETIME(52, this)
             return this.__atime
         }
     }
@@ -81,7 +88,7 @@ class STATPROPSETSTG extends Win32Struct {
      * @type {Integer}
      */
     dwOSVersion {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 }

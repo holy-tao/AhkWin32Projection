@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\CHARFORMATW.ahk
+#Include ..\..\..\Foundation\COLORREF.ahk
 #Include .\CFM_MASK.ahk
-#Include .\CFE_EFFECTS.ahk
 #Include ..\..\..\Graphics\Gdi\FONT_CHARSET.ahk
+#Include .\CFE_EFFECTS.ahk
+#Include .\CHARFORMATW.ahk
 
 /**
  * Contains information about character formatting in a rich edit control. (CHARFORMAT2W)

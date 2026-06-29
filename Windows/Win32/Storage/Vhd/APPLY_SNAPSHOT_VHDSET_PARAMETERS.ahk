@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\APPLY_SNAPSHOT_VHDSET_VERSION.ahk
 
 /**
@@ -8,9 +9,9 @@
  * @namespace Windows.Win32.Storage.Vhd
  */
 class APPLY_SNAPSHOT_VHDSET_PARAMETERS extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-apply_snapshot_vhdset_version">APPLY_SNAPSHOT_VHDSET_VERSION</a> 
@@ -24,23 +25,29 @@ class APPLY_SNAPSHOT_VHDSET_PARAMETERS extends Win32Struct {
     }
 
     class _Version1 extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+        static sizeof => 32
+        static packingSize => 4
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         SnapshotId {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__SnapshotId"))
+                    this.__SnapshotId := Guid(0, this)
+                return this.__SnapshotId
+            }
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         LeafSnapshotId {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+            get {
+                if(!this.HasProp("__LeafSnapshotId"))
+                    this.__LeafSnapshotId := Guid(16, this)
+                return this.__LeafSnapshotId
+            }
         }
     }
 
@@ -50,7 +57,7 @@ class APPLY_SNAPSHOT_VHDSET_PARAMETERS extends Win32Struct {
     Version1 {
         get {
             if(!this.HasProp("__Version1"))
-                this.__Version1 := APPLY_SNAPSHOT_VHDSET_PARAMETERS._Version1(8, this)
+                this.__Version1 := APPLY_SNAPSHOT_VHDSET_PARAMETERS._Version1(4, this)
             return this.__Version1
         }
     }

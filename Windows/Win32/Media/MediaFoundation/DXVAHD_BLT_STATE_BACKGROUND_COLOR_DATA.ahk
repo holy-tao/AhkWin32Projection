@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVAHD_COLOR.ahk
 #Include .\DXVAHD_COLOR_RGBA.ahk
+#Include .\DXVAHD_COLOR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\DXVAHD_COLOR_YCbCrA.ahk
 
 /**

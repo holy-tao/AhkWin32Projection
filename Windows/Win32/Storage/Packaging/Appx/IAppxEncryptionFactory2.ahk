@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\APPX_ENCRYPTED_EXEMPTIONS.ahk
+#Include ..\..\..\System\Com\IStream.ahk
 #Include .\IAppxEncryptedPackageWriter.ahk
+#Include .\APPX_ENCRYPTED_PACKAGE_SETTINGS.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\APPX_KEY_INFO.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Creates objects for encrypting, decrypting, reading, and writing Windows app packages and bundles. (IAppxEncryptionFactory2)

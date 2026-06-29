@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
 #Include .\LUID_AND_ATTRIBUTES.ahk
-#Include ..\Foundation\LUID.ahk
 #Include .\TOKEN_PRIVILEGES_ATTRIBUTES.ahk
+#Include ..\Foundation\LUID.ahk
 
 /**
  * Contains information about a set of privileges for an access token.

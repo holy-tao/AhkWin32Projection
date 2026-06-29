@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\IUnknown.ahk
+#Include .\COMEVENTSYSCHANGEINFO.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Notifies subscribers of changes to the event store while including partition and application ID information.

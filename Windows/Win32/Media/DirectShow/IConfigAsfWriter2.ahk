@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IConfigAsfWriter.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPin.ahk
 
 /**
  * The IConfigAsfWriter2 interface extends the IConfigAsfWriter interface, which configures the WM ASF Writer filter.

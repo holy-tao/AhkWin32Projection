@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Query information about the reliability of a timestamp query. (D3D10_QUERY_DATA_TIMESTAMP_DISJOINT)

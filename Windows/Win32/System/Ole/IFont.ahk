@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\CY.ahk
 #Include ..\..\Graphics\Gdi\HFONT.ahk
 #Include ..\..\Graphics\Gdi\TEXTMETRICW.ahk
+#Include ..\Com\CY.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides a wrapper around a Windows font object.
@@ -236,7 +239,7 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_name
      */
     get_Name() {
-        pName := BSTR()
+        pName := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pName, "HRESULT")
         return pName
     }
@@ -642,7 +645,7 @@ class IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_hfont
      */
     get_hFont() {
-        phFont := HFONT()
+        phFont := HFONT({Value: 0}, True)
         result := ComCall(19, this, "ptr", phFont, "HRESULT")
         return phFont
     }

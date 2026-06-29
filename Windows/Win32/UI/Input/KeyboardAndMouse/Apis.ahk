@@ -1,7 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include .\HKL.ahk
+#Include .\ACTIVATE_KEYBOARD_LAYOUT_FLAGS.ahk
+#Include .\MAP_VIRTUAL_KEY_TYPE.ahk
+#Include .\INPUT.ahk
+#Include .\MOUSEMOVEPOINT.ahk
+#Include ..\..\..\Foundation\POINT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\HWND.ahk
+#Include .\HOT_KEY_MODIFIERS.ahk
+#Include .\MOUSE_EVENT_FLAGS.ahk
+#Include .\GET_MOUSE_MOVE_POINTS_EX_RESOLUTION.ahk
+#Include .\TRACKMOUSEEVENT.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\KEYBD_EVENT_FLAGS.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include .\HKL.ahk
+#Include .\LASTINPUTINFO.ahk
+#Include ..\..\..\Foundation\CHAR.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse

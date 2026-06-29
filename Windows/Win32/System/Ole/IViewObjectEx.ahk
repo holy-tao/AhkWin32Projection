@@ -1,9 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\DVTARGETDEVICE.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include .\IViewObject2.ahk
-#Include ..\..\Foundation\RECTL.ahk
+#Include .\DVEXTENTINFO.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include ..\Com\DVASPECT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECTL.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * An extension derived from IViewObject2 to provide support for Enhanced, flicker-free drawing for non-rectangular objects and transparent objects, hit testing for non-rectangular objects, and Control sizing

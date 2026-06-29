@@ -11,7 +11,7 @@ class D3DKMDT_MONITOR_FREQUENCY_RANGE extends Win32Struct {
 
     static packingSize => 8
 
-    class _Constraint_e__Union extends Win32Struct {
+    class _Constraint extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -57,12 +57,12 @@ class D3DKMDT_MONITOR_FREQUENCY_RANGE extends Win32Struct {
     }
 
     /**
-     * @type {_Constraint_e__Union}
+     * @type {_Constraint}
      */
     Constraint {
         get {
             if(!this.HasProp("__Constraint"))
-                this.__Constraint := D3DKMDT_MONITOR_FREQUENCY_RANGE._Constraint_e__Union(24, this)
+                this.__Constraint := D3DKMDT_MONITOR_FREQUENCY_RANGE._Constraint(24, this)
             return this.__Constraint
         }
     }

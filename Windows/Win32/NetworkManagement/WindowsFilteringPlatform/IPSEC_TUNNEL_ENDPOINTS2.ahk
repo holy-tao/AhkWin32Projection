@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_IP_VERSION.ahk
 #Include .\IPSEC_TUNNEL_ENDPOINT0.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Is used to store end points of a tunnel mode SA. (IPSEC_TUNNEL_ENDPOINTS2)

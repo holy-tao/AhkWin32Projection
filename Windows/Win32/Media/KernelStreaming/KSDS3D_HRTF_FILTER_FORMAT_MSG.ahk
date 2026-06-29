@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSDS3D_HRTF_FILTER_METHOD.ahk
 #Include .\KSDS3D_HRTF_COEFF_FORMAT.ahk
+#Include .\KSDS3D_HRTF_FILTER_METHOD.ahk
 #Include .\KSDS3D_HRTF_FILTER_VERSION.ahk
 
 /**

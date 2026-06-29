@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -8,7 +10,7 @@
  * @namespace Windows.Win32.System.Com.CallObj
  */
 class CALLFRAME_MARSHALCONTEXT extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -50,10 +52,13 @@ class CALLFRAME_MARSHALCONTEXT extends Win32Struct {
 
     /**
      * The transfer syntax for which the marshalling should occur.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidTransferSyntax {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__guidTransferSyntax"))
+                this.__guidTransferSyntax := Guid(24, this)
+            return this.__guidTransferSyntax
+        }
     }
 }

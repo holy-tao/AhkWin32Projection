@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\REFS_SMR_VOLUME_GC_ACTION.ahk
 #Include .\REFS_SMR_VOLUME_GC_METHOD.ahk
+#Include .\REFS_SMR_VOLUME_GC_ACTION.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl

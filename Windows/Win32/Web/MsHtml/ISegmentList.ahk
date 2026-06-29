@@ -3,6 +3,9 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\ISegmentListIterator.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\SELECTION_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -38,12 +41,8 @@ class ISegmentList extends IUnknown {
     }
 
     /**
-     * The GetTypeByName function retrieves a service type GUID for a network service specified by name. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The nspapi.h header defines GetTypeByName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @returns {SELECTION_TYPE} 
-     * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-gettypebynamea
      */
     GetType() {
         result := ComCall(4, this, "int*", &peType := 0, "HRESULT")

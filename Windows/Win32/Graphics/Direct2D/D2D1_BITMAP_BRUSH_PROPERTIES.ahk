@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_EXTEND_MODE.ahk
 #Include .\D2D1_BITMAP_INTERPOLATION_MODE.ahk
+#Include .\D2D1_EXTEND_MODE.ahk
 
 /**
  * Describes the extend modes and the interpolation mode of an ID2D1BitmapBrush. (D2D1_BITMAP_BRUSH_PROPERTIES)

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IAzAuthorizationStore2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IAzAuthorizationStore2 interface with methods that manage business rule (BizRule) support and caching.

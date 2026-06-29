@@ -1,12 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_SUB_SYSTEM_PROP.ahk
-#Include .\IVdsProvider.ahk
+#Include .\IVdsAsync.ahk
 #Include .\IEnumVdsObject.ahk
 #Include .\IVdsDrive.ahk
-#Include .\IVdsAsync.ahk
+#Include .\VDS_HINTS.ahk
+#Include .\VDS_SUB_SYSTEM_PROP.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IVdsProvider.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\VDS_LUN_TYPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\VDS_SUB_SYSTEM_STATUS.ahk
 
 /**
  * The IVdsSubSystem interface (vdshwprv.h) provides methods for performing query and configuration operations on a subsystem.

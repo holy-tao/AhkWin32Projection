@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
 #Include .\IEnumJsStackFrames.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\JsDebugReadMemoryFlags.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -102,7 +104,7 @@ class IJsDebugDataTarget extends IUnknown {
      * @returns {BSTR} 
      */
     ReadBSTR(_address) {
-        pString := BSTR()
+        pString := BSTR({Value: 0}, True)
         result := ComCall(8, this, "uint", _address, "ptr", pString, "HRESULT")
         return pString
     }
@@ -115,7 +117,7 @@ class IJsDebugDataTarget extends IUnknown {
      * @returns {BSTR} 
      */
     ReadNullTerminatedString(_address, characterSize, maxCharacters) {
-        pString := BSTR()
+        pString := BSTR({Value: 0}, True)
         result := ComCall(9, this, "uint", _address, "ushort", characterSize, "uint", maxCharacters, "ptr", pString, "HRESULT")
         return pString
     }

@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_RESOURCE_FLAGS.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\Direct3D11\ID3D11Resource.ahk
+#Include ..\Direct3D12\D3D12_RESOURCE_STATES.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Handles the creation, wrapping, and releasing of D3D11 resources for Direct3D11on12.

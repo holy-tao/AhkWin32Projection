@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellUIHelper7.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IShellUIHelper7.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -33,7 +34,7 @@ class IShellUIHelper8 extends IShellUIHelper7 {
      * @returns {BSTR} 
      */
     GetCVListData() {
-        pbstrResult := BSTR()
+        pbstrResult := BSTR({Value: 0}, True)
         result := ComCall(97, this, "ptr", pbstrResult, "HRESULT")
         return pbstrResult
     }
@@ -43,7 +44,7 @@ class IShellUIHelper8 extends IShellUIHelper7 {
      * @returns {BSTR} 
      */
     GetCVListLocalData() {
-        pbstrResult := BSTR()
+        pbstrResult := BSTR({Value: 0}, True)
         result := ComCall(98, this, "ptr", pbstrResult, "HRESULT")
         return pbstrResult
     }
@@ -53,7 +54,7 @@ class IShellUIHelper8 extends IShellUIHelper7 {
      * @returns {BSTR} 
      */
     GetEMIEListData() {
-        pbstrResult := BSTR()
+        pbstrResult := BSTR({Value: 0}, True)
         result := ComCall(99, this, "ptr", pbstrResult, "HRESULT")
         return pbstrResult
     }
@@ -63,7 +64,7 @@ class IShellUIHelper8 extends IShellUIHelper7 {
      * @returns {BSTR} 
      */
     GetEMIEListLocalData() {
-        pbstrResult := BSTR()
+        pbstrResult := BSTR({Value: 0}, True)
         result := ComCall(100, this, "ptr", pbstrResult, "HRESULT")
         return pbstrResult
     }

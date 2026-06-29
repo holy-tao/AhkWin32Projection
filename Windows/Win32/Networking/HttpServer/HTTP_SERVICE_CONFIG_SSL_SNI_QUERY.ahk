@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SERVICE_CONFIG_QUERY_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTTP_SERVICE_CONFIG_SSL_SNI_KEY.ahk
-#Include ..\WinSock\SOCKADDR_STORAGE.ahk
+#Include .\HTTP_SERVICE_CONFIG_QUERY_TYPE.ahk
 #Include ..\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\WinSock\SOCKADDR_STORAGE.ahk
 
 /**
  * Used to specify a particular Secure Sockets Layer (SSL) Server Name Indication (SNI) certificate record to query in the SSL SNI store.

@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITemplatePrinter2.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\ITemplatePrinter2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -54,7 +57,7 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
      * @returns {BSTR} 
      */
     get_headerFooterFont() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(72, this, "ptr", p, "HRESULT")
         return p
     }

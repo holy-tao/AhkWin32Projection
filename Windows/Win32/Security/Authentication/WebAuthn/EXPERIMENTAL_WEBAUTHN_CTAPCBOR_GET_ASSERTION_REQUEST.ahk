@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WEBAUTHN_CREDENTIAL_LIST.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\WEBAUTHN_CREDENTIAL_EX.ahk
-#Include .\EXPERIMENTAL_WEBAUTHN_CTAPCBOR_AUTHENTICATOR_OPTIONS.ahk
 #Include .\EXPERIMENTAL_WEBAUTHN_CTAPCBOR_HMAC_SALT_EXTENSION.ahk
+#Include .\WEBAUTHN_CREDENTIAL_LIST.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\EXPERIMENTAL_WEBAUTHN_CTAPCBOR_AUTHENTICATOR_OPTIONS.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn

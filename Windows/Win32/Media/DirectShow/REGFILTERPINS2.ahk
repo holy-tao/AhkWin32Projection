@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\REGPINTYPES.ahk
 #Include .\REGPINMEDIUM.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\REGPINTYPES.ahk
 
 /**
  * The REGFILTERPINS2 structure contains information for registering a filter through the IFilterMapper2 interface.

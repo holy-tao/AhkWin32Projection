@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Invitations enable a person or group of persons to connect to a session. When an attendee connects to a session, the client sends a ticket and a password. These two pieces of information are used to authenticate an attendee.
@@ -81,7 +83,7 @@ class IRDPSRAPIInvitation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_connectionstring
      */
     get_ConnectionString() {
-        pbstrVal := BSTR()
+        pbstrVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrVal, "HRESULT")
         return pbstrVal
     }
@@ -94,7 +96,7 @@ class IRDPSRAPIInvitation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_groupname
      */
     get_GroupName() {
-        pbstrVal := BSTR()
+        pbstrVal := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrVal, "HRESULT")
         return pbstrVal
     }
@@ -107,7 +109,7 @@ class IRDPSRAPIInvitation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_password
      */
     get_Password() {
-        pbstrVal := BSTR()
+        pbstrVal := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrVal, "HRESULT")
         return pbstrVal
     }

@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_DISK_PROP.ahk
+#Include .\VDS_PARTITION_STYLE.ahk
 #Include .\IVdsPack.ahk
+#Include .\VDS_DISK_EXTENT.ahk
+#Include .\VDS_DISK_PROP.ahk
 #Include .\VDS_LUN_INFORMATION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods to query and configure basic and dynamic disks.

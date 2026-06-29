@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IMpeg2Data.ahk
+#Include .\ISectionList.ahk
 #Include .\IGenericDescriptor.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ISCTE_EAS interface enables the client to get data from an ATSC emergency alert message (EAS) table.
@@ -200,7 +203,7 @@ class ISCTE_EAS extends IUnknown {
     GetNatureOfActivationText(bstrIS0639code) {
         bstrIS0639code := bstrIS0639code is String ? BSTR.Alloc(bstrIS0639code).Value : bstrIS0639code
 
-        pbstrString := BSTR()
+        pbstrString := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", bstrIS0639code, "ptr", pbstrString, "HRESULT")
         return pbstrString
     }
@@ -299,7 +302,7 @@ class ISCTE_EAS extends IUnknown {
     GetAlertText(bstrIS0639code) {
         bstrIS0639code := bstrIS0639code is String ? BSTR.Alloc(bstrIS0639code).Value : bstrIS0639code
 
-        pbstrString := BSTR()
+        pbstrString := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", bstrIS0639code, "ptr", pbstrString, "HRESULT")
         return pbstrString
     }

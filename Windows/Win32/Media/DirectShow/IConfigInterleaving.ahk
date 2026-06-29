@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\InterleavingMode.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IConfigInterleaving interface controls how the AVI Mux filter interleaves audio and video samples.

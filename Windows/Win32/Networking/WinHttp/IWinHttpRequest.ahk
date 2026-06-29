@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\WinHttpRequestAutoLogonPolicy.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WinHttpRequestOption.ahk
 
 /**
  * The IWinHttpRequest interface provides all of the nonevent methods for Microsoft Windows HTTP Services (WinHTTP).
@@ -210,7 +214,7 @@ class IWinHttpRequest extends IDispatch {
     GetResponseHeader(Header) {
         Header := Header is String ? BSTR.Alloc(Header).Value : Header
 
-        Value := BSTR()
+        Value := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", Header, "ptr", Value, "HRESULT")
         return Value
     }
@@ -226,7 +230,7 @@ class IWinHttpRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-getallresponseheaders
      */
     GetAllResponseHeaders() {
-        Headers := BSTR()
+        Headers := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", Headers, "HRESULT")
         return Headers
     }
@@ -273,7 +277,7 @@ class IWinHttpRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-statustext
      */
     get_StatusText() {
-        _Status := BSTR()
+        _Status := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", _Status, "HRESULT")
         return _Status
     }
@@ -291,7 +295,7 @@ class IWinHttpRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-responsetext
      */
     get_ResponseText() {
-        Body := BSTR()
+        Body := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", Body, "HRESULT")
         return Body
     }

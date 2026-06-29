@@ -1,11 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\WINHTTP_PROXY_NETWORKING_KEY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
- * The WINHTTP_PROXY_SETTINGS_EX structure represents extended proxy settings.
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_settings_ex
  * @namespace Windows.Win32.Networking.WinHttp
  */
 class WINHTTP_PROXY_SETTINGS extends Win32Struct {

@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\POWER_ACTION_POLICY.ahk
-#Include .\POWER_ACTION.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\POWER_ACTION_POLICY_EVENT_CODE.ahk
-#Include .\SYSTEM_POWER_STATE.ahk
 #Include .\SYSTEM_POWER_LEVEL.ahk
+#Include .\POWER_ACTION.ahk
+#Include .\SYSTEM_POWER_STATE.ahk
 
 /**
  * Contains information about the current system power policy.

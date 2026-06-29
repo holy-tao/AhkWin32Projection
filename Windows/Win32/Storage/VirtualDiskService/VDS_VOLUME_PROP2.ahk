@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_VOLUME_TYPE.ahk
-#Include .\VDS_VOLUME_STATUS.ahk
 #Include .\VDS_HEALTH.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\VDS_VOLUME_TYPE.ahk
 #Include .\VDS_TRANSITION_STATE.ahk
 #Include .\VDS_FILE_SYSTEM_TYPE.ahk
+#Include .\VDS_VOLUME_STATUS.ahk
 
 /**
  * Defines the properties of a volume object. This structure is identical to the VDS_VOLUME_PROP structure, except that it also includes the volume GUIDs.
@@ -26,17 +28,20 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_VOLUME_PROP2 extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 72
 
     static packingSize => 8
 
     /**
      * The GUID of the volume.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(0, this)
+            return this.__id
+        }
     }
 
     /**
@@ -44,8 +49,8 @@ class VDS_VOLUME_PROP2 extends Win32Struct {
      * @type {VDS_VOLUME_TYPE}
      */
     type {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -53,8 +58,8 @@ class VDS_VOLUME_PROP2 extends Win32Struct {
      * @type {VDS_VOLUME_STATUS}
      */
     status {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -62,8 +67,8 @@ class VDS_VOLUME_PROP2 extends Win32Struct {
      * @type {VDS_HEALTH}
      */
     health {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -71,8 +76,8 @@ class VDS_VOLUME_PROP2 extends Win32Struct {
      * @type {VDS_TRANSITION_STATE}
      */
     TransitionState {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -80,8 +85,8 @@ class VDS_VOLUME_PROP2 extends Win32Struct {
      * @type {Integer}
      */
     ullSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -89,8 +94,8 @@ class VDS_VOLUME_PROP2 extends Win32Struct {
      * @type {Integer}
      */
     ulFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -98,8 +103,8 @@ class VDS_VOLUME_PROP2 extends Win32Struct {
      * @type {VDS_FILE_SYSTEM_TYPE}
      */
     RecommendedFileSystemType {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
@@ -107,8 +112,8 @@ class VDS_VOLUME_PROP2 extends Win32Struct {
      * @type {Integer}
      */
     cbUniqueId {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -116,8 +121,8 @@ class VDS_VOLUME_PROP2 extends Win32Struct {
      * @type {PWSTR}
      */
     pwszName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -125,7 +130,7 @@ class VDS_VOLUME_PROP2 extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     pUniqueId {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

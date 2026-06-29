@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\EAP_METHOD_PROPERTY_VALUE_BOOL.ahk
-#Include .\EAP_METHOD_PROPERTY_VALUE_DWORD.ahk
 #Include .\EAP_METHOD_PROPERTY_VALUE_STRING.ahk
+#Include .\EAP_METHOD_PROPERTY_VALUE_DWORD.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\EAP_METHOD_PROPERTY_VALUE_BOOL.ahk
 
 /**
  * Contains the value of an EAP method property.

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFCaptureEngineOnSampleCallback.ahk
+#Include .\IMFMediaEvent.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extensions for the IMFCaptureEngineOnSampleCallback callback interface that is used to receive data from the capture engine.

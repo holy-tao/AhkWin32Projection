@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\KERB_CRYPTO_KEY_TYPE.ahk
 #Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
 #Include ..\..\..\Foundation\LUID.ahk
 #Include .\KERB_CRYPTO_KEY.ahk
-#Include .\KERB_CRYPTO_KEY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

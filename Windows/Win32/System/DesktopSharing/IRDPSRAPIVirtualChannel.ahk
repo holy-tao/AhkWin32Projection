@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\CHANNEL_PRIORITY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\CHANNEL_ACCESS_ENUM.ahk
 
 /**
  * Manages the virtual channel.
@@ -98,7 +101,7 @@ class IRDPSRAPIVirtualChannel extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-get_name
      */
     get_Name() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }

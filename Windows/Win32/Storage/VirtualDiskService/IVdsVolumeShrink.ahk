@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IVdsAsync.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods to support volume shrinking.

@@ -1,9 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWSDMetadataExchange.ahk
-#Include .\IWSDAsyncResult.ahk
 #Include .\IWSDEndpointProxy.ahk
+#Include .\IWSDMetadataExchange.ahk
+#Include .\WSD_METADATA_SECTION_LIST.ahk
+#Include .\WSDXML_ELEMENT.ahk
+#Include .\WSD_OPERATION.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWSDEventingStatus.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWSDAsyncResult.ahk
+#Include .\WSD_SERVICE_METADATA.ahk
 
 /**
  * Represents a remote WSD service for client applications and middleware.

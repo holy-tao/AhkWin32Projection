@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IKsAllocator.ahk
+#Include .\ALLOCATOR_PROPERTIES_EX.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\IKsPin.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

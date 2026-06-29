@@ -2,8 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1Device1.ahk
-#Include .\ID2D1DeviceContext2.ahk
+#Include .\D2D1_DEVICE_CONTEXT_OPTIONS.ahk
 #Include ..\Dxgi\IDXGIDevice.ahk
+#Include .\ID2D1Bitmap.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID2D1DeviceContext2.ahk
 
 /**
  * Represents a resource domain whose objects and device contexts can be used together. This interface performs all the same functions as the existing ID2D1Device1 interface. It also enables the creation of ID2D1DeviceContext2 objects.

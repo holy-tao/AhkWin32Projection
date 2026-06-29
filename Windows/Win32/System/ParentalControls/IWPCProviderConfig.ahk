@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes configuration methods that are implemented by third parties.
@@ -41,7 +43,7 @@ class IWPCProviderConfig extends IUnknown {
     GetUserSummary(bstrSID) {
         bstrSID := bstrSID is String ? BSTR.Alloc(bstrSID).Value : bstrSID
 
-        pbstrUserSummary := BSTR()
+        pbstrUserSummary := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", bstrSID, "ptr", pbstrUserSummary, "HRESULT")
         return pbstrUserSummary
     }

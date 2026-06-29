@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include .\JsDebugPropertyInfo.ahk
+#Include .\JS_PROPERTY_MEMBERS.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 #Include .\IJsEnumDebugProperty.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

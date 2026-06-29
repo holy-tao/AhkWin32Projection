@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAppVisibilityEvents.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MONITOR_APP_VISIBILITY.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides functionality to determine whether the display is showing Universal Windows Platform apps.

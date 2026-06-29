@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE.ahk
-#Include .\CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE.ahk
 #Include .\CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.ahk
+#Include ..\Foundation\PWSTR.ahk
+#Include .\CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE.ahk
+#Include .\CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE.ahk
 
 /**
  * Defines a security attribute that can be associated with a token or authorization context.
@@ -16,7 +17,7 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct {
 
     static packingSize => 8
 
-    class _Values_e__Union extends Win32Struct {
+    class _Values extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -180,12 +181,12 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct {
 
     /**
      * An array of security attribute values of the type specified in the <b>ValueType</b> member.
-     * @type {_Values_e__Union}
+     * @type {_Values}
      */
     Values {
         get {
             if(!this.HasProp("__Values"))
-                this.__Values := CLAIM_SECURITY_ATTRIBUTE_V1._Values_e__Union(24, this)
+                this.__Values := CLAIM_SECURITY_ATTRIBUTE_V1._Values(24, this)
             return this.__Values
         }
     }

@@ -1,13 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\CY.ahk
-#Include ..\Com\FLAGGED_WORD_BLOB.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\_wireSAFEARRAY.ahk
-#Include .\_wireBRECORD.ahk
-#Include .\_wireVARIANT.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
+#Include .\_wireBRECORD.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\FLAGGED_WORD_BLOB.ahk
+#Include .\_wireSAFEARRAY.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\CY.ahk
+#Include .\_wireVARIANT.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * @namespace Windows.Win32.System.Ole

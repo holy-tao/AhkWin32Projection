@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\PRINTER_HANDLE.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IPrinterPropertyBag.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\PRINTER_HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -55,7 +56,7 @@ class IPrinterQueue extends IDispatch {
      * @returns {PRINTER_HANDLE} 
      */
     get_Handle() {
-        phPrinter := PRINTER_HANDLE()
+        phPrinter := PRINTER_HANDLE({Value: 0}, True)
         result := ComCall(7, this, "ptr", phPrinter, "HRESULT")
         return phPrinter
     }
@@ -65,7 +66,7 @@ class IPrinterQueue extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }

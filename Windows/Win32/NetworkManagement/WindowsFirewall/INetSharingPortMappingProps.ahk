@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The INetSharingPortMappingProps interface provides methods that retrieve and set the properties of a network connection port mapping.
@@ -93,7 +95,7 @@ class INetSharingPortMappingProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_name
      */
     get_Name() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -145,7 +147,7 @@ class INetSharingPortMappingProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_targetname
      */
     get_TargetName() {
-        pbstrTargetName := BSTR()
+        pbstrTargetName := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstrTargetName, "HRESULT")
         return pbstrTargetName
     }
@@ -157,7 +159,7 @@ class INetSharingPortMappingProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_targetipaddress
      */
     get_TargetIPAddress() {
-        pbstrTargetIPAddress := BSTR()
+        pbstrTargetIPAddress := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstrTargetIPAddress, "HRESULT")
         return pbstrTargetIPAddress
     }

@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IStream.ahk
+#Include .\IEnumOleDocumentViews.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IOleDocumentView.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IOleInPlaceSite.ahk
 
 /**
  * Enables a document object to communicate to containers its ability to create views of its data.

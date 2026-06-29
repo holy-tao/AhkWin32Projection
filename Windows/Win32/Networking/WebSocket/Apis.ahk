@@ -1,5 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\WEB_SOCKET_BUFFER.ahk
+#Include .\WEB_SOCKET_ACTION.ahk
+#Include .\WEB_SOCKET_PROPERTY.ahk
+#Include .\WEB_SOCKET_HTTP_HEADER.ahk
+#Include .\WEB_SOCKET_ACTION_QUEUE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WEB_SOCKET_BUFFER_TYPE.ahk
+#Include .\WEB_SOCKET_PROPERTY_TYPE.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\WEB_SOCKET_HANDLE.ahk
 
 /**
@@ -31,7 +40,7 @@ class WebSocket {
      * @since windows8.0
      */
     static WebSocketCreateClientHandle(pProperties, ulPropertyCount) {
-        phWebSocket := WEB_SOCKET_HANDLE()
+        phWebSocket := WEB_SOCKET_HANDLE({Value: 0}, True)
         result := DllCall("websocket.dll\WebSocketCreateClientHandle", "ptr", pProperties, "uint", ulPropertyCount, "ptr", phWebSocket, "HRESULT")
         return phWebSocket
     }
@@ -183,7 +192,7 @@ class WebSocket {
      * @since windows8.0
      */
     static WebSocketCreateServerHandle(pProperties, ulPropertyCount) {
-        phWebSocket := WEB_SOCKET_HANDLE()
+        phWebSocket := WEB_SOCKET_HANDLE({Value: 0}, True)
         result := DllCall("websocket.dll\WebSocketCreateServerHandle", "ptr", pProperties, "uint", ulPropertyCount, "ptr", phWebSocket, "HRESULT")
         return phWebSocket
     }

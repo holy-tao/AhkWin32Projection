@@ -9,7 +9,7 @@ class KSCAMERA_EXTENDEDPROP_VALUE extends Win32Struct {
 
     static packingSize => 8
 
-    class _Value_e__Union extends Win32Struct {
+    class _Value extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -63,12 +63,12 @@ class KSCAMERA_EXTENDEDPROP_VALUE extends Win32Struct {
     }
 
     /**
-     * @type {_Value_e__Union}
+     * @type {_Value}
      */
     Value {
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := KSCAMERA_EXTENDEDPROP_VALUE._Value_e__Union(0, this)
+                this.__Value := KSCAMERA_EXTENDEDPROP_VALUE._Value(0, this)
             return this.__Value
         }
     }

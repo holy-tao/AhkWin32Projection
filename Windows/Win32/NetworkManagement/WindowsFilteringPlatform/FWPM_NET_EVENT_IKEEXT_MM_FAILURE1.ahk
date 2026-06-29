@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IPSEC_FAILURE_POINT.ahk
+#Include .\IKEEXT_AUTHENTICATION_METHOD_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IKEEXT_KEY_MODULE_TYPE.ahk
 #Include .\IKEEXT_MM_SA_STATE.ahk
 #Include .\IKEEXT_SA_ROLE.ahk
-#Include .\IKEEXT_AUTHENTICATION_METHOD_TYPE.ahk
 
 /**
  * Contains information that describes an IKE/AuthIP Main Mode (MM) failure. (FWPM_NET_EVENT_IKEEXT_MM_FAILURE1)

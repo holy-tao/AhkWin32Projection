@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SEALING_SIGNATURE_ATTRIBUTE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Is used to communicate between policy providers and Wintrust.

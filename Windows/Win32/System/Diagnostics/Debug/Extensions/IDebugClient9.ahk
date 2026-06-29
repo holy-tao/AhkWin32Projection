@@ -1,13 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Include .\IDebugEventCallbacksWide.ahk
 #Include .\IDebugClient.ahk
 #Include .\IDebugInputCallbacks.ahk
+#Include .\IDebugEventContextCallbacks.ahk
+#Include .\IDebugOutputCallbacksWide.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 #Include .\IDebugOutputCallbacks.ahk
 #Include .\IDebugEventCallbacks.ahk
-#Include .\IDebugOutputCallbacksWide.ahk
-#Include .\IDebugEventCallbacksWide.ahk
+#Include ..\..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -387,10 +391,9 @@ class IDebugClient9 extends IUnknown {
     }
 
     /**
-     * Learn more about: EndSessionGrbit enumeration
+     * 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/endsessiongrbit-enumeration
      */
     EndSession(Flags) {
         result := ComCall(26, this, "uint", Flags, "HRESULT")
@@ -398,22 +401,8 @@ class IDebugClient9 extends IUnknown {
     }
 
     /**
-     * Retrieves the termination status of the specified process.
-     * @remarks
-     * This function returns immediately. If the process has not terminated and the function succeeds, the status returned is <b>STILL_ACTIVE</b> (a macro for **STATUS_PENDING** (minwinbase.h)). If the process has terminated and the function succeeds, the status returned is one of the following values:
      * 
-     * <ul>
-     * <li>The exit value specified in the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-exitprocess">ExitProcess</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-terminateprocess">TerminateProcess</a> function.</li>
-     * <li>The return value from the <a href="https://docs.microsoft.com/cpp/cpp/main-function-command-line-args">main</a> or <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-winmain">WinMain</a> function of the process.</li>
-     * <li>The exception value for an unhandled exception that caused the process to terminate.</li>
-     * </ul>
-     * 
-     * > [!IMPORTANT]
-     * > The **GetExitCodeProcess** function returns a valid error code defined by the application only after the thread terminates. Therefore, an application should not use **STILL_ACTIVE** (259) as an error code (**STILL_ACTIVE** is a macro for **STATUS_PENDING** (minwinbase.h)). If a thread returns **STILL_ACTIVE** (259) as an error code, then applications that test for that value could interpret it to mean that the thread is still running, and continue to test for the completion of the thread after the thread has terminated, which could put the application into an infinite loop.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getexitcodeprocess
      */
     GetExitCode() {
         result := ComCall(27, this, "uint*", &Code := 0, "HRESULT")

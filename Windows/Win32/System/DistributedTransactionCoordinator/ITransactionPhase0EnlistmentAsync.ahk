@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\ITransaction.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -72,9 +73,8 @@ class ITransactionPhase0EnlistmentAsync extends IUnknown {
     }
 
     /**
-     * Obtains the identifier (ID) for the specified transaction.
+     * 
      * @returns {ITransaction} 
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-gettransactionid
      */
     GetTransaction() {
         result := ComCall(7, this, "ptr*", &ppITransaction := 0, "HRESULT")

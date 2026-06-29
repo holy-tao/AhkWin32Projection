@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IWdsTransportNamespace.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWdsTransportCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents content being transmitted under a namespace over one or more sessions.
@@ -87,7 +88,7 @@ class IWdsTransportContent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontent-get_name
      */
     get_Name() {
-        pbszName := BSTR()
+        pbszName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbszName, "HRESULT")
         return pbszName
     }

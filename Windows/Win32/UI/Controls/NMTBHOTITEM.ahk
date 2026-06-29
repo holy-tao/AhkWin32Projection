@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMTBHOTITEM_FLAGS.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information used with the TBN_HOTITEMCHANGE notification code.

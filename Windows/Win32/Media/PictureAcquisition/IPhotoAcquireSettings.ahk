@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IPhotoAcquireSettings interface is used to work with image acquisition settings, such as file name format.
@@ -381,7 +384,7 @@ class IPhotoAcquireSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getoutputfilenametemplate
      */
     GetOutputFilenameTemplate() {
-        pbstrTemplate := BSTR()
+        pbstrTemplate := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrTemplate, "HRESULT")
         return pbstrTemplate
     }
@@ -436,7 +439,7 @@ class IPhotoAcquireSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getgrouptag
      */
     GetGroupTag() {
-        pbstrGroupTag := BSTR()
+        pbstrGroupTag := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pbstrGroupTag, "HRESULT")
         return pbstrGroupTag
     }

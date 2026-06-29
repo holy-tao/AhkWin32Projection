@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumWIA_DEV_INFO.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWiaItem.ahk
+#Include .\IWiaEventCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Applications use the IWiaDevMgr interface to create and manage image acquisition devices.

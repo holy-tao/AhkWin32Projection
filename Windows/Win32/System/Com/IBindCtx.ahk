@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
 #Include .\IRunningObjectTable.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IUnknown.ahk
+#Include .\BIND_OPTS.ahk
 #Include .\IEnumString.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to a bind context, which is an object that stores information about a particular moniker binding operation.

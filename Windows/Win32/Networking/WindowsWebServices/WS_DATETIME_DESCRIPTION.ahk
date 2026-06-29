@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_DATETIME.ahk
 #Include .\WS_DATETIME_FORMAT.ahk
+#Include .\WS_DATETIME.ahk
 
 /**
  * This type description is used with WS_DATETIME_TYPE and is optional. It is used to specify constraints on the set of values which can be deserialized.

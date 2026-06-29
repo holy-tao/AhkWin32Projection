@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IEnumVdsObject.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IVdsAsync.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\VDS_ISCSI_IPSEC_KEY.ahk
 
 /**
  * The IVdsSubSystemIscsi interface (vdshwprv.h) provides methods to query and configure iSCSI targets and portals on a subsystem.

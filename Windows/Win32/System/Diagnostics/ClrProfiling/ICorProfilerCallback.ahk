@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\COR_PRF_TRANSITION_REASON.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\COR_PRF_JIT_CACHE.ahk
+#Include .\COR_PRF_SUSPEND_REASON.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

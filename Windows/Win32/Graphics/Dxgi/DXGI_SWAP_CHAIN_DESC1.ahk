@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DXGI_SCALING.ahk
 #Include Common\DXGI_FORMAT.ahk
+#Include .\DXGI_SWAP_EFFECT.ahk
 #Include Common\DXGI_SAMPLE_DESC.ahk
 #Include .\DXGI_USAGE.ahk
-#Include .\DXGI_SCALING.ahk
-#Include .\DXGI_SWAP_EFFECT.ahk
 #Include Common\DXGI_ALPHA_MODE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes a swap chain. (DXGI_SWAP_CHAIN_DESC1)

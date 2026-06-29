@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include .\IXpsOMResource.ahk
 #Include .\IXpsOMPageReference.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to the content of the resource stream of a page's StoryFragments part.

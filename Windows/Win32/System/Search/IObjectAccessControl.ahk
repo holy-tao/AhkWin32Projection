@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Security\Authorization\TRUSTEE_W.ahk
+#Include .\SEC_OBJECT.ahk
+#Include ..\..\Security\Authorization\EXPLICIT_ACCESS_W.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

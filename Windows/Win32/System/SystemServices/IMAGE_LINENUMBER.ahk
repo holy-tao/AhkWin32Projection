@@ -9,7 +9,7 @@ class IMAGE_LINENUMBER extends Win32Struct {
 
     static packingSize => 2
 
-    class _Type_e__Union extends Win32Struct {
+    class _Type extends Win32Struct {
         static sizeof => 4
         static packingSize => 2
 
@@ -31,12 +31,12 @@ class IMAGE_LINENUMBER extends Win32Struct {
     }
 
     /**
-     * @type {_Type_e__Union}
+     * @type {_Type}
      */
     Type {
         get {
             if(!this.HasProp("__Type"))
-                this.__Type := IMAGE_LINENUMBER._Type_e__Union(0, this)
+                this.__Type := IMAGE_LINENUMBER._Type(0, this)
             return this.__Type
         }
     }

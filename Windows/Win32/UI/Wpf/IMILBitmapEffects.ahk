@@ -2,8 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMILBitmapEffectGroup.ahk
 #Include .\IMILBitmapEffect.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMILBitmapEffectGroup.ahk
 
 /**
  * Exposes methods that define an enumeration of effects.

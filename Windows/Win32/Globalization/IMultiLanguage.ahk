@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
-#Include ..\System\Com\IUnknown.ahk
-#Include .\MIMECPINFO.ahk
-#Include .\IEnumCodePage.ahk
-#Include .\MIMECSETINFO.ahk
 #Include ..\Foundation\BSTR.ahk
-#Include .\IEnumRfc1766.ahk
-#Include .\RFC1766INFO.ahk
 #Include .\IMLangConvertCharset.ahk
+#Include ..\Foundation\PWSTR.ahk
+#Include .\MIMECSETINFO.ahk
+#Include .\MIMECPINFO.ahk
+#Include .\RFC1766INFO.ahk
+#Include ..\System\Com\IUnknown.ahk
+#Include .\IEnumCodePage.ahk
+#Include ..\Foundation\HRESULT.ahk
+#Include .\IEnumRfc1766.ahk
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -99,17 +101,7 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * Converts a string-format security descriptor into a valid, functional security descriptor. (Unicode)
-     * @remarks
-     * If <b>ace_type</b> is ACCESS_ALLOWED_OBJECT_ACE_TYPE
-     * and neither <b>object_guid</b> nor <b>inherit_object_guid</b> has a  <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> specified, then <b>ConvertStringSecurityDescriptorToSecurityDescriptor</b> converts <b>ace_type</b> to ACCESS_ALLOWED_ACE_TYPE. For information about the  <b>ace_type</b>,  <b>object_guid</b>, and <b>inherit_object_guid</b> fields, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace-strings">Ace Strings</a>.
      * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The sddl.h header defines ConvertStringSecurityDescriptorToSecurityDescriptor as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwSrcEncoding 
      * @param {Integer} dwDstEncoding 
@@ -117,51 +109,7 @@ class IMultiLanguage extends IUnknown {
      * @param {Pointer<Integer>} pcSrcSize 
      * @param {Integer} pDstStr 
      * @param {Pointer<Integer>} pcDstSize 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A parameter is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_UNKNOWN_REVISION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The SDDL revision level is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NONE_MAPPED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) in the input security descriptor string could not be found in an account lookup operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertstringsecuritydescriptortosecuritydescriptorw
+     * @returns {HRESULT} 
      */
     ConvertString(pdwMode, dwSrcEncoding, dwDstEncoding, pSrcStr, pcSrcSize, pDstStr, pcDstSize) {
         pdwModeMarshal := pdwMode is VarRef ? "uint*" : "ptr"
@@ -229,7 +177,7 @@ class IMultiLanguage extends IUnknown {
      * @returns {BSTR} 
      */
     GetRfc1766FromLcid(Locale) {
-        pbstrRfc1766 := BSTR()
+        pbstrRfc1766 := BSTR({Value: 0}, True)
         result := ComCall(13, this, "uint", Locale, "ptr", pbstrRfc1766, "HRESULT")
         return pbstrRfc1766
     }

@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ADS_ATTR_DEF.ahk
+#Include .\ADS_CLASS_DEF.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Not currently implemented and should not be used.

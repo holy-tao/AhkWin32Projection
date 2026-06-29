@@ -2,8 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDXGIOutput.ahk
-#Include .\DXGI_MODE_DESC1.ahk
+#Include .\DXGI_ENUM_MODES.ahk
+#Include .\IDXGIResource.ahk
 #Include .\IDXGIOutputDuplication.ahk
+#Include Common\DXGI_FORMAT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DXGI_MODE_DESC1.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * An IDXGIOutput1 interface represents an adapter output (such as a monitor).

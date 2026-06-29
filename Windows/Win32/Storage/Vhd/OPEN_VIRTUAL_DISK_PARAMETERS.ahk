@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\OPEN_VIRTUAL_DISK_VERSION.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains virtual disk open request parameters.
@@ -8,9 +10,9 @@
  * @namespace Windows.Win32.Storage.Vhd
  */
 class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-open_virtual_disk_version">OPEN_VIRTUAL_DISK_VERSION</a> enumeration 
@@ -67,8 +69,8 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
     }
 
     class _Version2 extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+        static sizeof => 24
+        static packingSize => 4
 
         /**
          * @type {BOOL}
@@ -87,17 +89,20 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         ResiliencyGuid {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+            get {
+                if(!this.HasProp("__ResiliencyGuid"))
+                    this.__ResiliencyGuid := Guid(8, this)
+                return this.__ResiliencyGuid
+            }
         }
     }
 
     class _Version3 extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+        static sizeof => 40
+        static packingSize => 4
 
         /**
          * @type {BOOL}
@@ -116,19 +121,25 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         ResiliencyGuid {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+            get {
+                if(!this.HasProp("__ResiliencyGuid"))
+                    this.__ResiliencyGuid := Guid(8, this)
+                return this.__ResiliencyGuid
+            }
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         SnapshotId {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
+            get {
+                if(!this.HasProp("__SnapshotId"))
+                    this.__SnapshotId := Guid(24, this)
+                return this.__SnapshotId
+            }
         }
     }
 
@@ -138,7 +149,7 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
     Version1 {
         get {
             if(!this.HasProp("__Version1"))
-                this.__Version1 := OPEN_VIRTUAL_DISK_PARAMETERS._Version1(8, this)
+                this.__Version1 := OPEN_VIRTUAL_DISK_PARAMETERS._Version1(4, this)
             return this.__Version1
         }
     }
@@ -149,7 +160,7 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
     Version2 {
         get {
             if(!this.HasProp("__Version2"))
-                this.__Version2 := OPEN_VIRTUAL_DISK_PARAMETERS._Version2(8, this)
+                this.__Version2 := OPEN_VIRTUAL_DISK_PARAMETERS._Version2(4, this)
             return this.__Version2
         }
     }
@@ -160,7 +171,7 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
     Version3 {
         get {
             if(!this.HasProp("__Version3"))
-                this.__Version3 := OPEN_VIRTUAL_DISK_PARAMETERS._Version3(8, this)
+                this.__Version3 := OPEN_VIRTUAL_DISK_PARAMETERS._Version3(4, this)
             return this.__Version3
         }
     }

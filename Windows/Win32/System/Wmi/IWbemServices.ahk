@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IWbemObjectSink.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IEnumWbemClassObject.ahk
+#Include .\IWbemCallResult.ahk
+#Include .\IWbemObjectSink.ahk
+#Include .\IWbemContext.ahk
+#Include .\IWbemClassObject.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WBEM_GENERIC_FLAG_TYPE.ahk
 
 /**
  * Used by clients and providers to access WMI services. The interface is implemented by WMI and WMI providers, and is the primary WMI interface.

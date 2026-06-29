@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmObject.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\FsrmAccountType.ahk
+#Include .\IFsrmObject.ahk
+#Include .\FsrmPipelineModuleType.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines a module that is used to classify files or store and retrieve properties from files.
@@ -126,7 +131,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_moduleclsid
      */
     get_ModuleClsid() {
-        moduleClsid := BSTR()
+        moduleClsid := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", moduleClsid, "HRESULT")
         return moduleClsid
     }
@@ -152,7 +157,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_name
      */
     get_Name() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", name, "HRESULT")
         return name
     }
@@ -178,7 +183,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_company
      */
     get_Company() {
-        company := BSTR()
+        company := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", company, "HRESULT")
         return company
     }
@@ -206,7 +211,7 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_version
      */
     get_Version() {
-        _version := BSTR()
+        _version := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", _version, "HRESULT")
         return _version
     }

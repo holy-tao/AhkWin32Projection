@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IBackgroundCopyGroup.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IBackgroundCopyJob1.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Implement the IBackgroundCopyCallback1 interface to receive notification when events occur.

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_DRED_ALLOCATION_NODE1.ahk
 #Include .\D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1.ahk
 #Include .\D3D12_AUTO_BREADCRUMB_NODE1.ahk
 #Include .\D3D12_DRED_PAGE_FAULT_OUTPUT1.ahk
-#Include .\D3D12_DRED_ALLOCATION_NODE1.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

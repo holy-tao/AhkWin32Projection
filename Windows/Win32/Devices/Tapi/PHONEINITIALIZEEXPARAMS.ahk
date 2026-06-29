@@ -15,7 +15,7 @@ class PHONEINITIALIZEEXPARAMS extends Win32Struct {
 
     static packingSize => 4
 
-    class _Handles_e__Union extends Win32Struct {
+    class _Handles extends Win32Struct {
         static sizeof => 8
         static packingSize => 1
 
@@ -80,12 +80,12 @@ class PHONEINITIALIZEEXPARAMS extends Win32Struct {
     }
 
     /**
-     * @type {_Handles_e__Union}
+     * @type {_Handles}
      */
     Handles {
         get {
             if(!this.HasProp("__Handles"))
-                this.__Handles := PHONEINITIALIZEEXPARAMS._Handles_e__Union(16, this)
+                this.__Handles := PHONEINITIALIZEEXPARAMS._Handles(16, this)
             return this.__Handles
         }
     }

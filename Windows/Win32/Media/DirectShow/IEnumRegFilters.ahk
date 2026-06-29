@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\REGFILTER.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Note  This interface has been deprecated. (IEnumRegFilters)

@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BATTERY_CHARGING_SOURCE_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\USB_CHARGER_PORT.ahk
+#Include .\BATTERY_CHARGING_SOURCE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Power
  */
 class BATTERY_USB_CHARGER_STATUS extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -76,10 +77,13 @@ class BATTERY_USB_CHARGER_STATUS extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     OemCharger {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__OemCharger"))
+                this.__OemCharger := Guid(40, this)
+            return this.__OemCharger
+        }
     }
 }

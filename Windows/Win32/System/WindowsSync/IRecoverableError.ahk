@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ISyncChange.ahk
+#Include .\SYNC_PROVIDER_ROLE.ahk
+#Include .\ISyncChangeUnit.ahk
 #Include .\IRecoverableErrorData.ahk
+#Include .\ISyncChange.ahk
+#Include .\SYNC_PROGRESS_STAGE.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a recoverable error that occurred when an item was loaded or when an item was saved.

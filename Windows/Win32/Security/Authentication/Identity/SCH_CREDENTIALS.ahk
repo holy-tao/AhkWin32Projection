@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\Cryptography\CERT_CONTEXT.ahk
-#Include ..\..\Cryptography\HCERTSTORE.ahk
 #Include .\TLS_PARAMETERS.ahk
+#Include ..\..\Cryptography\HCERTSTORE.ahk
+#Include .\_HMAPPER.ahk
+#Include ..\..\Cryptography\CERT_CONTEXT.ahk
 
 /**
  * Contains the data for an Schannel credential. (SCH_CREDENTIALS)

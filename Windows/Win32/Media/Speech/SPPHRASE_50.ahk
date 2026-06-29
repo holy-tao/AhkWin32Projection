@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPPHRASERULE.ahk
-#Include .\SPPHRASEPROPERTY.ahk
-#Include .\SPPHRASEELEMENT.ahk
 #Include .\SPPHRASEREPLACEMENT.ahk
+#Include .\SPPHRASERULE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\SPPHRASEELEMENT.ahk
+#Include .\SPPHRASEPROPERTY.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
 class SPPHRASE_50 extends Win32Struct {
-    static sizeof => 152
+    static sizeof => 160
 
     static packingSize => 8
 
@@ -129,31 +131,34 @@ class SPPHRASE_50 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     SREngineID {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get {
+            if(!this.HasProp("__SREngineID"))
+                this.__SREngineID := Guid(128, this)
+            return this.__SREngineID
+        }
     }
 
     /**
      * @type {Integer}
      */
     ulSREnginePrivateDataSize {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 144, "uint")
+        set => NumPut("uint", value, this, 144)
     }
 
     /**
      * @type {Pointer<Integer>}
      */
     pSREnginePrivateData {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 152
+        this.cbSize := 160
     }
 }

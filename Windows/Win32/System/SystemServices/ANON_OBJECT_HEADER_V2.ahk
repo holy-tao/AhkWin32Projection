@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
 class ANON_OBJECT_HEADER_V2 extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -50,25 +51,20 @@ class ANON_OBJECT_HEADER_V2 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ClassID {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__ClassID"))
+                this.__ClassID := Guid(12, this)
+            return this.__ClassID
+        }
     }
 
     /**
      * @type {Integer}
      */
     SizeOfData {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flags {
         get => NumGet(this, 28, "uint")
         set => NumPut("uint", value, this, 28)
     }
@@ -76,7 +72,7 @@ class ANON_OBJECT_HEADER_V2 extends Win32Struct {
     /**
      * @type {Integer}
      */
-    MetaDataSize {
+    Flags {
         get => NumGet(this, 32, "uint")
         set => NumPut("uint", value, this, 32)
     }
@@ -84,8 +80,16 @@ class ANON_OBJECT_HEADER_V2 extends Win32Struct {
     /**
      * @type {Integer}
      */
-    MetaDataOffset {
+    MetaDataSize {
         get => NumGet(this, 36, "uint")
         set => NumPut("uint", value, this, 36)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MetaDataOffset {
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 }

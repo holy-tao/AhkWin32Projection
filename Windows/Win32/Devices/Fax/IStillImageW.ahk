@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\STI_DEVICE_INFORMATIONW.ahk
+#Include .\STINOTIFY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IStiDevice.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -94,12 +100,11 @@ class IStillImageW extends IUnknown {
     }
 
     /**
-     * Creates the object that's used to access a device. The instantiated object implements the IDeviceIoControl and ICreateDeviceAccessAsync interfaces.
+     * 
      * @param {PWSTR} pwszDeviceName 
      * @param {Integer} dwMode 
      * @param {IUnknown} punkOuter 
      * @returns {IStiDevice} 
-     * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-createdeviceaccessinstance
      */
     CreateDevice(pwszDeviceName, dwMode, punkOuter) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName

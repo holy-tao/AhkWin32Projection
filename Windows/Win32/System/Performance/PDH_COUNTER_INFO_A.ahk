@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PDH_DATA_ITEM_PATH_ELEMENTS_A.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\PDH_COUNTER_PATH_ELEMENTS_A.ahk
 
 /**

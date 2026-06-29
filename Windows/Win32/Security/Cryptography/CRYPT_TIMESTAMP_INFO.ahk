@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\CRYPT_TIMESTAMP_ACCURACY.ahk
+#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CERT_EXTENSION.ahk
 
 /**

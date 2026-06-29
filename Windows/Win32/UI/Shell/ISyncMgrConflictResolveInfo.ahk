@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SYNCMGR_PRESENTER_NEXT_STEP.ahk
+#Include .\SYNCMGR_PRESENTER_CHOICE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that get and set information about sync manager conflict resolution.

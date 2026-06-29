@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\XPS_OBJECT_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The base interface for sharable interfaces.

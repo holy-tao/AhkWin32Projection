@@ -1,11 +1,46 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\PRINTER_HANDLE.ahk
-#Include .\FINDPRINTERCHANGENOTIFICATION_HANDLE.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\PRINTER_OPTIONSW.ahk
+#Include ..\Gdi\DEVMODEW.ahk
 #Include .\IPrintAsyncNotifyChannel.ahk
+#Include .\EPrintXPSJobOperation.ahk
+#Include .\CORE_PRINTER_DRIVERA.ahk
+#Include .\DEVQUERYPRINT_INFO.ahk
+#Include .\PrintPropertyValue.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\PrintAsyncNotifyUserFilter.ahk
+#Include .\ATTRIBUTE_INFO_3.ahk
+#Include .\FINDPRINTERCHANGENOTIFICATION_HANDLE.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\BIDI_RESPONSE_CONTAINER.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\PRINTER_DEFAULTSA.ahk
+#Include .\SHOWUIPARAMS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\PRINT_EXECUTION_DATA.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\PRINTER_NOTIFY_OPTIONS.ahk
 #Include ..\Gdi\HDC.ahk
+#Include .\PrintAsyncNotifyConversationStyle.ahk
+#Include .\CORE_PRINTER_DRIVERW.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\DOC_INFO_1W.ahk
+#Include .\IPrintAsyncNotifyCallback.ahk
+#Include .\PRINTER_NOTIFY_INFO.ahk
+#Include .\EPrintXPSJobProgress.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\Gdi\DEVMODEA.ahk
+#Include .\DOC_INFO_1A.ahk
+#Include .\PrintNamedProperty.ahk
+#Include .\PRINTER_DEFAULTSW.ahk
+#Include .\PRINTER_OPTIONSA.ahk
+#Include .\PRINTER_NOTIFY_INFO_DATA.ahk
+#Include .\PRINTER_HANDLE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Storage\Xps\DOCINFOW.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -13570,7 +13605,7 @@ class Printing {
     static RegisterForPrintAsyncNotifications(pszName, pNotificationType, eUserFilter, eConversationStyle, pCallback) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        phNotify := HANDLE()
+        phNotify := HANDLE({Value: 0}, True)
         result := DllCall("winspool.drv\RegisterForPrintAsyncNotifications", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr", phNotify, "HRESULT")
         return phNotify
     }
@@ -14368,7 +14403,7 @@ class Printing {
     static AddPrintDeviceObject(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        phDeviceObject := HANDLE()
+        phDeviceObject := HANDLE({Value: 0}, True)
         result := DllCall("SPOOLSS.dll\AddPrintDeviceObject", "ptr", hPrinter, "ptr", phDeviceObject, "HRESULT")
         return phDeviceObject
     }

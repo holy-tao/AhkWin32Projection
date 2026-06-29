@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D12DebugCommandList.ahk
+#Include .\D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

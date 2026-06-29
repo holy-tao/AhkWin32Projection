@@ -1,13 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class NTMS_I1_LIBRARYINFORMATION extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 120
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -18,65 +20,47 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     CleanerSlot {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__CleanerSlot"))
+                this.__CleanerSlot := Guid(4, this)
+            return this.__CleanerSlot
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     CleanerSlotDefault {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__CleanerSlotDefault"))
+                this.__CleanerSlotDefault := Guid(20, this)
+            return this.__CleanerSlotDefault
+        }
     }
 
     /**
      * @type {BOOL}
      */
     LibrarySupportsDriveCleaning {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
      * @type {BOOL}
      */
     BarCodeReaderInstalled {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     InventoryMethod {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwCleanerUsesRemaining {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FirstDriveNumber {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwNumberOfDrives {
         get => NumGet(this, 44, "uint")
         set => NumPut("uint", value, this, 44)
     }
@@ -84,7 +68,7 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct {
     /**
      * @type {Integer}
      */
-    FirstSlotNumber {
+    dwCleanerUsesRemaining {
         get => NumGet(this, 48, "uint")
         set => NumPut("uint", value, this, 48)
     }
@@ -92,7 +76,7 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct {
     /**
      * @type {Integer}
      */
-    dwNumberOfSlots {
+    FirstDriveNumber {
         get => NumGet(this, 52, "uint")
         set => NumPut("uint", value, this, 52)
     }
@@ -100,7 +84,7 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct {
     /**
      * @type {Integer}
      */
-    FirstDoorNumber {
+    dwNumberOfDrives {
         get => NumGet(this, 56, "uint")
         set => NumPut("uint", value, this, 56)
     }
@@ -108,7 +92,7 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct {
     /**
      * @type {Integer}
      */
-    dwNumberOfDoors {
+    FirstSlotNumber {
         get => NumGet(this, 60, "uint")
         set => NumPut("uint", value, this, 60)
     }
@@ -116,7 +100,7 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct {
     /**
      * @type {Integer}
      */
-    FirstPortNumber {
+    dwNumberOfSlots {
         get => NumGet(this, 64, "uint")
         set => NumPut("uint", value, this, 64)
     }
@@ -124,7 +108,7 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct {
     /**
      * @type {Integer}
      */
-    dwNumberOfPorts {
+    FirstDoorNumber {
         get => NumGet(this, 68, "uint")
         set => NumPut("uint", value, this, 68)
     }
@@ -132,7 +116,7 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct {
     /**
      * @type {Integer}
      */
-    FirstChangerNumber {
+    dwNumberOfDoors {
         get => NumGet(this, 72, "uint")
         set => NumPut("uint", value, this, 72)
     }
@@ -140,7 +124,7 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct {
     /**
      * @type {Integer}
      */
-    dwNumberOfChangers {
+    FirstPortNumber {
         get => NumGet(this, 76, "uint")
         set => NumPut("uint", value, this, 76)
     }
@@ -148,7 +132,7 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct {
     /**
      * @type {Integer}
      */
-    dwNumberOfMedia {
+    dwNumberOfPorts {
         get => NumGet(this, 80, "uint")
         set => NumPut("uint", value, this, 80)
     }
@@ -156,7 +140,7 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct {
     /**
      * @type {Integer}
      */
-    dwNumberOfMediaTypes {
+    FirstChangerNumber {
         get => NumGet(this, 84, "uint")
         set => NumPut("uint", value, this, 84)
     }
@@ -164,16 +148,43 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct {
     /**
      * @type {Integer}
      */
-    dwNumberOfLibRequests {
+    dwNumberOfChangers {
         get => NumGet(this, 88, "uint")
         set => NumPut("uint", value, this, 88)
     }
 
     /**
-     * @type {Pointer}
+     * @type {Integer}
+     */
+    dwNumberOfMedia {
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwNumberOfMediaTypes {
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwNumberOfLibRequests {
+        get => NumGet(this, 100, "uint")
+        set => NumPut("uint", value, this, 100)
+    }
+
+    /**
+     * @type {Guid}
      */
     Reserved {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get {
+            if(!this.HasProp("__Reserved"))
+                this.__Reserved := Guid(104, this)
+            return this.__Reserved
+        }
     }
 }

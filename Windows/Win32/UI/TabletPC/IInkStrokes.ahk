@@ -1,13 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IInkTransform.ahk
 #Include .\IInkDisp.ahk
-#Include .\IInkRecognitionResult.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\IInkDrawingAttributes.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IInkStrokeDisp.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\InkBoundingBoxMode.ahk
 #Include .\IInkRectangle.ahk
+#Include .\IInkRecognitionResult.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * . (IInkStrokes)
@@ -122,7 +127,7 @@ class IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-tostring
      */
     ToString() {
-        ToString := BSTR()
+        ToString := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", ToString, "HRESULT")
         return ToString
     }

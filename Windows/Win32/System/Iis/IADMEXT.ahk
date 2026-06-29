@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -72,9 +74,8 @@ class IADMEXT extends IUnknown {
     }
 
     /**
-     * Eliminates the cache and ends asynchronous I/O with the DLL.
-     * @returns {HRESULT} Returns <b>TRUE</b> if the function succeeds; otherwise, it returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/filehc/nf-filehc-terminatecache
+     * 
+     * @returns {HRESULT} 
      */
     Terminate() {
         result := ComCall(5, this, "HRESULT")

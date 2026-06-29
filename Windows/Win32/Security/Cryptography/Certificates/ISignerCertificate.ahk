@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\X509PrivateKeyVerify.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX509PrivateKey.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IX509SignatureInformation.ahk
+#Include .\IX509PrivateKey.ahk
+#Include .\EncodingType.ahk
 
 /**
  * Represents a signing certificate that enables you to sign a certificate request.
@@ -175,7 +179,7 @@ class ISignerCertificate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificate-get_certificate
      */
     get_Certificate(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(8, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -358,7 +362,7 @@ class ISignerCertificate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificate-get_uicontextmessage
      */
     get_UIContextMessage() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pValue, "HRESULT")
         return pValue
     }

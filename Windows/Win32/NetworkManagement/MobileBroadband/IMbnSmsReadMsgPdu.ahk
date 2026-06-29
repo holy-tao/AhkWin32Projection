@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MBN_MSG_STATUS.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A collection of properties that represent an SMS message read from the device memory.
@@ -120,7 +123,7 @@ class IMbnSmsReadMsgPdu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgpdu-get_pdudata
      */
     get_PduData() {
-        PduData := BSTR()
+        PduData := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", PduData, "HRESULT")
         return PduData
     }

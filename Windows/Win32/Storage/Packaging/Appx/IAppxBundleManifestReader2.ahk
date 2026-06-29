@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAppxBundleManifestOptionalBundleInfoEnumerator.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides a read-only object model for manifests of bundle packages. (IAppxBundleManifestReader2)

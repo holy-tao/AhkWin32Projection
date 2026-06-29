@@ -1,9 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDiscFormat2.ahk
-#Include .\IDiscRecorder2.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include .\IMAPI_FORMAT2_DATA_MEDIA_STATE.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IMAPI_MEDIA_WRITE_PROTECT_STATE.ahk
+#Include .\IMAPI_MEDIA_PHYSICAL_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDiscRecorder2.ahk
+#Include .\IDiscFormat2.ahk
 
 /**
  * Use this interface to write a data stream to a disc.
@@ -643,7 +650,7 @@ class IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_clientname
      */
     get_ClientName() {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(31, this, "ptr", value, "HRESULT")
         return value
     }

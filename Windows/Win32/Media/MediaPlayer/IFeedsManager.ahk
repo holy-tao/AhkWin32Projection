@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\FEEDS_BACKGROUNDSYNC_ACTION.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FEEDS_BACKGROUNDSYNC_STATUS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
@@ -216,15 +220,14 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * Contains values that specify the behavior of UiaGetUpdatedCache.
+     * 
      * @param {BSTR} feedXmlIn 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate
      */
     Normalize(feedXmlIn) {
         feedXmlIn := feedXmlIn is String ? BSTR.Alloc(feedXmlIn).Value : feedXmlIn
 
-        feedXmlOut := BSTR()
+        feedXmlOut := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", feedXmlIn, "ptr", feedXmlOut, "HRESULT")
         return feedXmlOut
     }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DFORMAT.ahk
 #Include .\D3DSCANLINEORDERING.ahk
+#Include .\D3DFORMAT.ahk
 
 /**
  * Specifies types of display modes to filter out.

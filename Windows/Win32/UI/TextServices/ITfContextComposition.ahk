@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfRange.ahk
+#Include .\ITfCompositionView.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITfCompositionSink.ahk
+#Include .\IEnumITfCompositionView.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\ITfComposition.ahk
-#Include .\IEnumITfCompositionView.ahk
 
 /**
  * The ITfContextComposition interface is implemented by the TSF manager and is used by a text service to create and manipulate compositions. An instance of this interface is provided by ITfContext::QueryInterface with IID_ITfContextComposition.

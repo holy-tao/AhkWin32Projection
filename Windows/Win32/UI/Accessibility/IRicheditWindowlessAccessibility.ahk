@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IRawElementProviderWindowlessSite.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IRawElementProviderSimple.ahk
 
 /**

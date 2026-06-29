@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -93,7 +94,7 @@ class IHTMLTableCell2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_abbr() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -115,7 +116,7 @@ class IHTMLTableCell2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_axis() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -137,7 +138,7 @@ class IHTMLTableCell2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ch() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -159,7 +160,7 @@ class IHTMLTableCell2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_chOff() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", p, "HRESULT")
         return p
     }
@@ -181,7 +182,7 @@ class IHTMLTableCell2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_headers() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", p, "HRESULT")
         return p
     }
@@ -203,7 +204,7 @@ class IHTMLTableCell2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_scope() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", p, "HRESULT")
         return p
     }

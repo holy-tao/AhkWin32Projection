@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\UIA_PATTERN_ID.ahk
+#Include .\ProviderOptions.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\UIA_PROPERTY_ID.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines methods and properties that expose simple UI elements.

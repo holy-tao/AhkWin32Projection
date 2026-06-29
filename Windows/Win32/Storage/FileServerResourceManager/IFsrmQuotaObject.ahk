@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmQuotaBase.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IFsrmQuotaBase.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Base class for the quota and automatic quota interfaces.
@@ -73,7 +75,7 @@ class IFsrmQuotaObject extends IFsrmQuotaBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_path
      */
     get_Path() {
-        _path := BSTR()
+        _path := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", _path, "HRESULT")
         return _path
     }
@@ -87,7 +89,7 @@ class IFsrmQuotaObject extends IFsrmQuotaBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_usersid
      */
     get_UserSid() {
-        userSid := BSTR()
+        userSid := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", userSid, "HRESULT")
         return userSid
     }
@@ -101,7 +103,7 @@ class IFsrmQuotaObject extends IFsrmQuotaBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_useraccount
      */
     get_UserAccount() {
-        userAccount := BSTR()
+        userAccount := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", userAccount, "HRESULT")
         return userAccount
     }
@@ -112,7 +114,7 @@ class IFsrmQuotaObject extends IFsrmQuotaBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_sourcetemplatename
      */
     get_SourceTemplateName() {
-        quotaTemplateName := BSTR()
+        quotaTemplateName := BSTR({Value: 0}, True)
         result := ComCall(25, this, "ptr", quotaTemplateName, "HRESULT")
         return quotaTemplateName
     }

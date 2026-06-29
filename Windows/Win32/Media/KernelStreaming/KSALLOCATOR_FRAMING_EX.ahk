@@ -1,17 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KS_COMPRESSION.ahk
 #Include .\KS_FRAMING_ITEM.ahk
-#Include .\KS_FRAMING_RANGE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\KS_FRAMING_RANGE_WEIGHTED.ahk
+#Include .\KS_FRAMING_RANGE.ahk
+#Include .\KS_COMPRESSION.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSALLOCATOR_FRAMING_EX extends Win32Struct {
-    static sizeof => 96
+    static sizeof => 112
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

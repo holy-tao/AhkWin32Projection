@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SECRET_TYPE.ahk
+#Include .\PIN_CACHE_POLICY_TYPE.ahk
 #Include .\SECRET_PURPOSE.ahk
 #Include .\PIN_CACHE_POLICY.ahk
-#Include .\PIN_CACHE_POLICY_TYPE.ahk
 
 /**
  * The PIN_INFO structure contains information about a pin.

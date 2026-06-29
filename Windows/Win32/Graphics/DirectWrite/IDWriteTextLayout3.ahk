@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteTextLayout2.ahk
+#Include .\DWRITE_LINE_METRICS1.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\DWRITE_LINE_SPACING.ahk
+#Include .\IDWriteTextLayout2.ahk
 
 /**
  * Represents a block of text after it has been fully analyzed and formatted. | IDWriteTextLayout3 interface

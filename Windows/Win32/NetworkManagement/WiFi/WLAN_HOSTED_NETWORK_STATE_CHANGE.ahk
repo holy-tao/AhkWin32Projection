@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_HOSTED_NETWORK_STATE.ahk
 #Include .\WLAN_HOSTED_NETWORK_REASON.ahk
+#Include .\WLAN_HOSTED_NETWORK_STATE.ahk
 
 /**
  * Contains information about a network state change on the wireless Hosted Network.

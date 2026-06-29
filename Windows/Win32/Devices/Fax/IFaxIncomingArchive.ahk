@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFaxIncomingMessageIterator.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IFaxIncomingMessage.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFaxIncomingArchive interface is used by a fax client application to access and configure the archive of inbound fax messages received successfully by the fax service.
@@ -138,7 +140,7 @@ class IFaxIncomingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingarchive-get_archivefolder
      */
     get_ArchiveFolder() {
-        pbstrArchiveFolder := BSTR()
+        pbstrArchiveFolder := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrArchiveFolder, "HRESULT")
         return pbstrArchiveFolder
     }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ISyncChangeBatchBase.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ISyncKnowledge.ahk
 
 /**

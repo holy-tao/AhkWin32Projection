@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfLangBarItem.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITfLangBarItem.ahk
+#Include .\TfLBIClick.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include .\ITfMenu.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * The ITfLangBarItemBitmapButton interface is implemented by a language bar bitmap button provider and is used by the language bar manager to obtain information specific to a bitmap button item on the language bar.
@@ -232,7 +238,7 @@ class ITfLangBarItemBitmapButton extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembitmapbutton-gettext
      */
     GetText() {
-        pbstrText := BSTR()
+        pbstrText := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstrText, "HRESULT")
         return pbstrText
     }

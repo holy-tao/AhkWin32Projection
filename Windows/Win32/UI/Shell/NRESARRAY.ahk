@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\NetworkManagement\WNet\NETRESOURCEA.ahk
-#Include ..\..\NetworkManagement\WNet\NET_RESOURCE_SCOPE.ahk
 #Include ..\..\NetworkManagement\WNet\NET_RESOURCE_TYPE.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\NetworkManagement\WNet\NET_RESOURCE_SCOPE.ahk
 
 /**
  * Defines the CF_NETRESOURCE clipboard format.

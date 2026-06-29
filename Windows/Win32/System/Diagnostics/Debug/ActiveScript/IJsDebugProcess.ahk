@@ -2,8 +2,10 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Com\IUnknown.ahk
-#Include .\IJsDebugStackWalker.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
 #Include .\IJsDebugBreakPoint.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\IJsDebugStackWalker.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

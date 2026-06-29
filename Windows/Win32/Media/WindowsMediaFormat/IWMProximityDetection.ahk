@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\INSSBuffer.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWMStatusCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMProximityDetection interface validates a playback device for receiving media data.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VIDEOMEMORYINFO.ahk
-#Include .\DDPIXELFORMAT.ahk
 #Include .\DDNTCORECAPS.ahk
+#Include .\DDPIXELFORMAT.ahk
 #Include .\DDSCAPS.ahk
+#Include .\VIDEOMEMORYINFO.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

@@ -1,10 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 #Include .\STI_USD_CAPS.ahk
+#Include .\STI_DIAG.ahk
 #Include .\STINOTIFY.ahk
+#Include .\IStiDeviceControl.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\IO\OVERLAPPED.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\STI_DEVICE_STATUS.ahk
 #Include .\_ERROR_INFOW.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -69,11 +76,8 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * Retrieves the length of a monitor's capabilities string.
-     * @remarks
-     * This function usually returns quickly, but sometimes it can take several seconds to complete.
+     * 
      * @returns {STI_USD_CAPS} 
-     * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength
      */
     GetCapabilities() {
         pDevCaps := STI_USD_CAPS()
@@ -101,10 +105,9 @@ class IStiUSD extends IUnknown {
     }
 
     /**
-     * Windows has APIs and services that support diagnostics in and of your desktop apps.
+     * 
      * @param {Pointer<STI_DIAG>} pBuffer 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/diagnostics
      */
     Diagnostic(pBuffer) {
         result := ComCall(7, this, "ptr", pBuffer, "HRESULT")

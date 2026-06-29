@@ -1,7 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WMPBurnState.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\WMPFolderScanState.ahk
+#Include .\WMPRipState.ahk
+#Include .\IWMPCdromBurn.ahk
 #Include .\IWMPEvents2.ahk
+#Include .\IWMPLibrary.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WMPStringCollectionChangeEventType.ahk
+#Include .\IWMPCdromRip.ahk
 
 /**
  * The IWMPEvents3 interface provides access to events originating from the Windows Media Player 11 control so that an application that has this control embedded in it can respond to these events.

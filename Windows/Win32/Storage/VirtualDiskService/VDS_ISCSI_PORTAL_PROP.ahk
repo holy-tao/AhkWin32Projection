@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\VDS_IPADDRESS.ahk
-#Include .\VDS_IPADDRESS_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VDS_ISCSI_PORTAL_STATUS.ahk
+#Include .\VDS_IPADDRESS_TYPE.ahk
 
 /**
  * The VDS_ISCSI_PORTAL_PROP structure (vdshwprv.h) defines the properties of an iSCSI portal.
@@ -10,17 +11,20 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_ISCSI_PORTAL_PROP extends Win32Struct {
-    static sizeof => 568
+    static sizeof => 572
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The <b>VDS_OBJECT_ID</b> of the portal.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(0, this)
+            return this.__id
+        }
     }
 
     /**
@@ -30,7 +34,7 @@ class VDS_ISCSI_PORTAL_PROP extends Win32Struct {
     address {
         get {
             if(!this.HasProp("__address"))
-                this.__address := VDS_IPADDRESS(8, this)
+                this.__address := VDS_IPADDRESS(16, this)
             return this.__address
         }
     }
@@ -41,7 +45,7 @@ class VDS_ISCSI_PORTAL_PROP extends Win32Struct {
      * @type {VDS_ISCSI_PORTAL_STATUS}
      */
     status {
-        get => NumGet(this, 560, "int")
-        set => NumPut("int", value, this, 560)
+        get => NumGet(this, 568, "int")
+        set => NumPut("int", value, this, 568)
     }
 }

@@ -4,8 +4,6 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
- * Frees resources on the server side when called by RPC stub files (HPALETTE_UserFree).
- * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userfree
  * @namespace Windows.Win32.Graphics.Gdi
  */
 class HPALETTE extends Win32Handle {

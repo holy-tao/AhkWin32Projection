@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDCompositionFilterEffect.ahk
+#Include .\IDCompositionAnimation.ahk
+#Include ..\Direct2D\Common\D2D_VECTOR_4F.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The shadow effect is used to generate a shadow from the alpha channel of an image. The shadow is more opaque for higher alpha values and more transparent for lower alpha values. You can set the amount of blur and the color of the shadow.

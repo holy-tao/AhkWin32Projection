@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\KSJACK_SINK_INFORMATION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IKsJackSinkInformation interface provides access to jack sink information if the jack is supported by the hardware.

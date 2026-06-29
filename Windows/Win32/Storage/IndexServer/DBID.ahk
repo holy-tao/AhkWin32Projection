@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The DBID structure encapsulates various ways of identifying a database object.
@@ -10,20 +12,23 @@
  * @architecture X64, Arm64
  */
 class DBID extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
-    class _uGuid_e__Union extends Win32Struct {
-        static sizeof => 8
+    class _uGuid extends Win32Struct {
+        static sizeof => 16
         static packingSize => 8
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         guid {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__guid"))
+                    this.__guid := Guid(0, this)
+                return this.__guid
+            }
         }
 
         /**
@@ -35,7 +40,7 @@ class DBID extends Win32Struct {
         }
     }
 
-    class _uName_e__Union extends Win32Struct {
+    class _uName extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -57,12 +62,12 @@ class DBID extends Win32Struct {
     }
 
     /**
-     * @type {_uGuid_e__Union}
+     * @type {_uGuid}
      */
     uGuid {
         get {
             if(!this.HasProp("__uGuid"))
-                this.__uGuid := DBID._uGuid_e__Union(0, this)
+                this.__uGuid := DBID._uGuid(0, this)
             return this.__uGuid
         }
     }
@@ -71,17 +76,17 @@ class DBID extends Win32Struct {
      * @type {Integer}
      */
     eKind {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
-     * @type {_uName_e__Union}
+     * @type {_uName}
      */
     uName {
         get {
             if(!this.HasProp("__uName"))
-                this.__uName := DBID._uName_e__Union(16, this)
+                this.__uName := DBID._uName(24, this)
             return this.__uName
         }
     }

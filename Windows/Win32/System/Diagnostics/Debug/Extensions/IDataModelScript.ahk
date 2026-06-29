@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Com\IStream.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\IDataModelScriptClient.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -34,16 +38,15 @@ class IDataModelScript extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        scriptName := BSTR()
+        scriptName := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", scriptName, "HRESULT")
         return scriptName
     }
 
     /**
-     * Learn more about: RenameColumnGrbit enumeration
+     * 
      * @param {PWSTR} scriptName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/renamecolumngrbit-enumeration
      */
     Rename(scriptName) {
         scriptName := scriptName is String ? StrPtr(scriptName) : scriptName
@@ -63,10 +66,9 @@ class IDataModelScript extends IUnknown {
     }
 
     /**
-     * Calls the DsReplicaConsistencyCheck function, which invokes the Knowledge Consistency Checker (KCC) to verify the replication topology.
+     * 
      * @param {IDataModelScriptClient} client 
-     * @returns {HRESULT} This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/AD/executekcc-msad-domaincontroller
+     * @returns {HRESULT} 
      */
     Execute(client) {
         result := ComCall(6, this, "ptr", client, "HRESULT")

@@ -2,7 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDWriteTextFormat.ahk
+#Include .\DWRITE_VERTICAL_GLYPH_ORIENTATION.ahk
 #Include .\IDWriteFontFallback.ahk
+#Include .\DWRITE_OPTICAL_ALIGNMENT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Describes the font and paragraph properties used to format text, and it describes locale information. | IDWriteTextFormat1 interface

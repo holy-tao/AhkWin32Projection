@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DD_DIRECTDRAW_GLOBAL.ahk
 #Include .\DDSCAPS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The DD_GETAVAILDRIVERMEMORYDATA structure contains the information needed by the driver to query and return the amount of free memory.

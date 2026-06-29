@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\FsiFileSystems.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IFileSystemImage2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to set or check the metadata and metadata mirror files in a UDF file system (rev 2.50 and later) to determine redundancy.

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D12DeviceRemovedExtendedDataSettings.ahk
+#Include .\D3D12_DRED_ENABLEMENT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

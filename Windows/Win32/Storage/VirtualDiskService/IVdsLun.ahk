@@ -1,13 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\VDS_LUN_PROP.ahk
-#Include .\IVdsSubSystem.ahk
-#Include .\VDS_LUN_INFORMATION.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IEnumVdsObject.ahk
+#Include .\IVdsSubSystem.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IVdsAsync.ahk
+#Include .\VDS_LUN_STATUS.ahk
 #Include .\VDS_HINTS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\VDS_LUN_INFORMATION.ahk
 
 /**
  * The IVdsLun interface (vdshwprv.h) provides methods for performing query and configuration operations on a logical unit number (LUN).

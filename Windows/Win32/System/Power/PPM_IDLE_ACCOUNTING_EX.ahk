@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PPM_IDLE_STATE_ACCOUNTING_EX.ahk
 #Include .\PPM_IDLE_STATE_BUCKET_EX.ahk
+#Include .\PPM_IDLE_STATE_ACCOUNTING_EX.ahk
 
 /**
  * @namespace Windows.Win32.System.Power

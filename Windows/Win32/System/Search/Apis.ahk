@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -17465,21 +17468,16 @@ class Search {
     }
 
     /**
-     * SQLBindParameter Function
-     * @remarks
-     * An application calls **SQLBindParameter** to bind each parameter marker in an SQL statement. Bindings remain in effect until the application calls **SQLBindParameter** again, calls **SQLFreeStmt** with the SQL_RESET_PARAMS option, or calls **SQLSetDescField** to set the SQL_DESC_COUNT header field of the APD to 0.  
-     *   
-     *  For more information about parameters, see [Statement Parameters](../../../odbc/reference/develop-app/statement-parameters.md). For more information about parameter data types and parameter markers, see [Parameter Data Types](../../../odbc/reference/appendixes/parameter-data-types.md) and [Parameter Markers](../../../odbc/reference/appendixes/parameter-markers.md) in Appendix C: SQL Grammar.
-     * @param {Pointer<Void>} StatementHandle [Input] Statement handle.
-     * @param {Integer} ParameterNumber [Input] Parameter number, ordered sequentially in increasing parameter order, starting at 1.
-     * @param {Integer} ValueType [Input] The C data type of the parameter. For more information, see "*ValueType* Argument" in "Comments."
-     * @param {Integer} ParameterType [Input] The SQL data type of the parameter. For more information, see "*ParameterType* Argument" in "Comments."
+     * 
+     * @param {Pointer<Void>} StatementHandle 
+     * @param {Integer} ParameterNumber 
+     * @param {Integer} ValueType 
+     * @param {Integer} ParameterType 
      * @param {Integer} LengthPrecision 
      * @param {Integer} ParameterScale 
      * @param {Pointer<Void>} ParameterValue 
      * @param {Pointer<Integer>} StrLen_or_Ind 
-     * @returns {Integer} SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_ERROR, or SQL_INVALID_HANDLE.
-     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlbindparameter-function
+     * @returns {Integer} 
      * @deprecated ODBC API: SQLBindParam is deprecated. Please use SQLBindParameter instead.
      */
     static SQLBindParam(StatementHandle, ParameterNumber, ValueType, ParameterType, LengthPrecision, ParameterScale, ParameterValue, StrLen_or_Ind) {

@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\DDEML_MSG_HOOK_DATA.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) message. A DDE monitoring application can use this structure to obtain information about a DDE message that was sent or posted.

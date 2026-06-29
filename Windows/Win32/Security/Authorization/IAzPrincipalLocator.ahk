@@ -4,6 +4,7 @@
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IAzNameResolver.ahk
 #Include .\IAzObjectPicker.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Locates and chooses ADAM principals in Authorization Manager.

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WMDRM_IMPORT_INIT_STRUCT.ahk
 #Include .\IWMDRMWriter2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMDRMWriter3 interface enables writing of encrypted stream samples for importing protected content.An IWMDRMWriter3 interface exists for every writer object when linking to WMStubDRM.lib.

@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMSVidRect interface represents a rectangle with an associated window handle.

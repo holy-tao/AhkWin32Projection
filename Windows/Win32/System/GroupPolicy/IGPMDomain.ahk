@@ -1,15 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IGPMGPO.ahk
-#Include .\IGPMGPOCollection.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IGPMBackup.ahk
 #Include .\IGPMResult.ahk
-#Include .\IGPMSOM.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\IGPMGPOCollection.ahk
+#Include .\IGPMGPO.ahk
 #Include .\IGPMSOMCollection.ahk
-#Include .\IGPMWMIFilter.ahk
 #Include .\IGPMWMIFilterCollection.ahk
+#Include .\IGPMSearchCriteria.ahk
+#Include .\IGPMWMIFilter.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IGPMSOM.ahk
 
 /**
  * Represents a given domain and supports methods that allow you to query scope of management (SOM) objects, create, restore and query GPOs, and create and query WMI filters when you are using the Group Policy Management Console (GPMC) interfaces.
@@ -62,7 +66,7 @@ class IGPMDomain extends IDispatch {
      * @returns {BSTR} 
      */
     get_DomainController() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -72,7 +76,7 @@ class IGPMDomain extends IDispatch {
      * @returns {BSTR} 
      */
     get_Domain() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
         return pVal
     }

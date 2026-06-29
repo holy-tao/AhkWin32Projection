@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\..\System\Com\IEnumUnknown.ahk
+#Include ..\..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include .\IDENTITY_TYPE.ahk
+#Include ..\..\..\..\System\Com\IUnknown.ahk
+#Include .\IIdentityAdvise.ahk
 #Include ..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\..\Foundation\PROPERTYKEY.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider

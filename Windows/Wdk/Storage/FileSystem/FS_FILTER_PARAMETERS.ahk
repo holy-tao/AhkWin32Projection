@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\ERESOURCE.ahk
 #Include .\FS_FILTER_SECTION_SYNC_TYPE.ahk
-#Include .\FS_FILTER_SECTION_SYNC_OUTPUT.ahk
-#Include ..\..\Foundation\IRP.ahk
+#Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
 #Include .\FILE_INFORMATION_CLASS.ahk
+#Include .\FS_FILTER_SECTION_SYNC_OUTPUT.ahk
+#Include ..\..\Foundation\ERESOURCE.ahk
+#Include ..\..\Foundation\IRP.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem

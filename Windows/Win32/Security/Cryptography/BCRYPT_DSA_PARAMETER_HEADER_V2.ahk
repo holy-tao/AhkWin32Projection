@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HASHALGORITHM_ENUM.ahk
 #Include .\DSAFIPSVERSION_ENUM.ahk
+#Include .\HASHALGORITHM_ENUM.ahk
 
 /**
  * Contains parameter header information for a Digital Signature Algorithm (DSA) key.

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IOleDocumentView.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enumerates the views supported by a document object.

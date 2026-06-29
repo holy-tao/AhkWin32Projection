@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\RENDEZVOUS_SESSION_STATE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that send data about the session and that can terminate it.
@@ -73,7 +75,7 @@ class IRendezvousSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvoussession-get_remoteuser
      */
     get_RemoteUser() {
-        bstrUserName := BSTR()
+        bstrUserName := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", bstrUserName, "HRESULT")
         return bstrUserName
     }

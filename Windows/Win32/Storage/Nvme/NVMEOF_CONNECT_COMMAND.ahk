@@ -10,7 +10,7 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct {
 
     static packingSize => 4
 
-    class _CATTR_e__Union extends Win32Struct {
+    class _CATTR extends Win32Struct {
         static sizeof => 1
         static packingSize => 1
 
@@ -139,12 +139,12 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct {
     }
 
     /**
-     * @type {_CATTR_e__Union}
+     * @type {_CATTR}
      */
     CATTR {
         get {
             if(!this.HasProp("__CATTR"))
-                this.__CATTR := NVMEOF_CONNECT_COMMAND._CATTR_e__Union(46, this)
+                this.__CATTR := NVMEOF_CONNECT_COMMAND._CATTR(46, this)
             return this.__CATTR
         }
     }

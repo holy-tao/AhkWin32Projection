@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_CLEAR_VALUE.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D12_DEPTH_STENCIL_VALUE.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_CLEAR_VALUE.ahk
 
 /**
  * Describes the clear value to which resource(s) should be cleared at the beginning of a render pass.

@@ -2,6 +2,13 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\ICorProfilerInfo11.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\COR_PRF_EVENTPIPE_PARAM_DESC.ahk
+#Include .\COR_PRF_EVENTPIPE_PROVIDER_CONFIG.ahk
+#Include .\COR_PRF_EVENT_DATA.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

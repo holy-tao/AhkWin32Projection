@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_BIT_BLOB.ahk
-#Include .\CERT_ID.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\CERT_ID_OPTION.ahk
+#Include .\CERT_ID.ahk
+#Include .\CRYPT_BIT_BLOB.ahk
 #Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\CRYPT_ATTRIBUTE_TYPE_VALUE.ahk
 
 /**

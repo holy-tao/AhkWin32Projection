@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_FONT_METRICS1.ahk
+#Include .\DWRITE_UNICODE_RANGE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DWRITE_PANOSE.ahk
 #Include .\IDWriteFont.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a physical font in a font collection. (IDWriteFont1)

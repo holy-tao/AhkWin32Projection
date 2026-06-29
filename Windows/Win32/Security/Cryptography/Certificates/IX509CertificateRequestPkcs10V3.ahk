@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509CertificateRequestPkcs10V2.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IObjectId.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IX509CertificateRequestPkcs10V2.ahk
 #Include .\IX509NameValuePairs.ahk
+#Include .\IObjectId.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IX509CertificateRequestPkcs10V3 interface represents a PKCS
@@ -99,7 +102,7 @@ class IX509CertificateRequestPkcs10V3 extends IX509CertificateRequestPkcs10V2 {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v3-get_attestationencryptioncertificate
      */
     get_AttestationEncryptionCertificate(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(67, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -166,7 +169,7 @@ class IX509CertificateRequestPkcs10V3 extends IX509CertificateRequestPkcs10V2 {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v3-get_challengepassword
      */
     get_ChallengePassword() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(73, this, "ptr", pValue, "HRESULT")
         return pValue
     }

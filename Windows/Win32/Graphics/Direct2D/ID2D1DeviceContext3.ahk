@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1DeviceContext2.ahk
+#Include .\D2D1_BITMAP_INTERPOLATION_MODE.ahk
 #Include .\ID2D1SpriteBatch.ahk
+#Include .\ID2D1Bitmap.ahk
+#Include .\D2D1_SPRITE_OPTIONS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID2D1DeviceContext2.ahk
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext2 interface, plus it enables functionality for creating and drawing sprite batches.

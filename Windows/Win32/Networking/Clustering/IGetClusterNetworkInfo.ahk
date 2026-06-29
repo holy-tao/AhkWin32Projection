@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\HNETWORK.ahk
 
 /**
  * Called by a Failover Cluster Administrator extension to retrieve information about a network.

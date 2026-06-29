@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Include .\WRDS_SETTING_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WRDS_SETTING_LEVEL.ahk
+#Include .\WRDS_CONNECTION_SETTINGS.ahk
+#Include .\WRDS_CONNECTION_SETTING_LEVEL.ahk
 #Include .\WRDS_SETTINGS.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * Exposes methods for retrieving and adding policy-related settings.

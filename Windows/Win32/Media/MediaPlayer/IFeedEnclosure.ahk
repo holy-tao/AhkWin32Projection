@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\FEEDS_DOWNLOAD_STATUS.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\FEEDS_DOWNLOAD_ERROR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
@@ -96,7 +99,7 @@ class IFeedEnclosure extends IDispatch {
      * @returns {BSTR} 
      */
     get_Url() {
-        enclosureUrl := BSTR()
+        enclosureUrl := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", enclosureUrl, "HRESULT")
         return enclosureUrl
     }
@@ -106,7 +109,7 @@ class IFeedEnclosure extends IDispatch {
      * @returns {BSTR} 
      */
     get_Type() {
-        mimeType := BSTR()
+        mimeType := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", mimeType, "HRESULT")
         return mimeType
     }
@@ -161,7 +164,7 @@ class IFeedEnclosure extends IDispatch {
      * @returns {BSTR} 
      */
     get_LocalPath() {
-        localPath := BSTR()
+        localPath := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", localPath, "HRESULT")
         return localPath
     }
@@ -180,7 +183,7 @@ class IFeedEnclosure extends IDispatch {
      * @returns {BSTR} 
      */
     get_DownloadUrl() {
-        enclosureUrl := BSTR()
+        enclosureUrl := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", enclosureUrl, "HRESULT")
         return enclosureUrl
     }
@@ -190,7 +193,7 @@ class IFeedEnclosure extends IDispatch {
      * @returns {BSTR} 
      */
     get_DownloadMimeType() {
-        mimeType := BSTR()
+        mimeType := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", mimeType, "HRESULT")
         return mimeType
     }
@@ -205,108 +208,12 @@ class IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * Causes the file I/O functions to use the ANSI character set code page for the current process.
-     * @remarks
-     * The file I/O functions whose code page is set by <b>SetFileApisToANSI</b> are those 
-     *     functions exported by KERNEL32.DLL that accept or return a file name. 
-     *     <b>SetFileApisToANSI</b> sets the code page per process, rather than per thread or per 
-     *     computer.
      * 
-     * The <b>SetFileApisToANSI</b> function complements the 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-setfileapistooem">SetFileApisToOEM</a> function, which causes the same set 
-     *     of file I/O functions to use the OEM character set code page.
-     * 
-     * The 8-bit console functions use the OEM code page by default. All other functions use the ANSI code page by 
-     *     default. This means that strings returned by the console functions may not be processed correctly by other 
-     *     functions, and vice versa. For example, if the 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFileA</a> function returns a string that contains 
-     *     certain extended ANSI characters, and the 8-bit console functions are set to use the OEM code page, then the 
-     *     <a href="https://docs.microsoft.com/windows/console/writeconsole">WriteConsoleA</a> function does not display the string 
-     *     properly.
-     * 
-     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-arefileapisansi">AreFileApisANSI</a> function to determine 
-     *     which code page the set of file I/O functions is currently using. Use the 
-     *     <a href="https://docs.microsoft.com/windows/console/setconsolecp">SetConsoleCP</a> and 
-     *     <a href="https://docs.microsoft.com/windows/console/setconsoleoutputcp">SetConsoleOutputCP</a> functions to set the code page 
-     *     for the 8-bit console functions.
-     * 
-     * To solve the problem of code page incompatibility, it is best to use Unicode for console applications. Console 
-     *     applications that use Unicode are much more versatile than those that use 8-bit console functions. Barring that 
-     *     solution, a console application can call the 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-setfileapistooem">SetFileApisToOEM</a> function to cause the 
-     *     set of file I/O functions to use OEM character set strings rather than ANSI character set strings. Use the 
-     *     <b>SetFileApisToANSI</b> function to set those functions back to the ANSI code 
-     *     page.
-     * 
-     * When dealing with command lines, a console application should obtain the command line in Unicode form and then 
-     *     convert it to OEM form using the relevant character-to-OEM functions. Note also that the array in the 
-     *     <i>argv</i> parameter of the command-line <b>main</b> function 
-     *     contains ANSI character set strings in this case.
-     * 
-     * In Windows 8 and Windows Server 2012, this function is supported by the following technologies.
-     * 
-     * <table>
-     * <tr>
-     * <th>Technology</th>
-     * <th>Supported</th>
-     * </tr>
-     * <tr>
-     * <td>
-     * Server Message Block (SMB) 3.0 protocol
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 Transparent Failover (TFO)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 with Scale-out File Shares (SO)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Cluster Shared Volume File System (CsvFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Resilient File System (ReFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @param {BSTR} downloadUrl 
      * @param {BSTR} downloadFilePath 
      * @param {BSTR} downloadMimeType 
      * @param {BSTR} enclosureFilename 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfileapistoansi
      */
     SetFile(downloadUrl, downloadFilePath, downloadMimeType, enclosureFilename) {
         downloadUrl := downloadUrl is String ? BSTR.Alloc(downloadUrl).Value : downloadUrl

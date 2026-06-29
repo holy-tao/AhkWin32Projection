@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains information used by the IOCTL_DISK_CREATE_DISK control code to initialize GUID partition table (GPT) disks.
@@ -13,17 +14,20 @@
  * @namespace Windows.Win32.System.Ioctl
  */
 class CREATE_DISK_GPT extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The disk identifier (GUID) of the GPT disk to be initialized.
-     * @type {Pointer}
+     * @type {Guid}
      */
     DiskId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__DiskId"))
+                this.__DiskId := Guid(0, this)
+            return this.__DiskId
+        }
     }
 
     /**
@@ -31,7 +35,7 @@ class CREATE_DISK_GPT extends Win32Struct {
      * @type {Integer}
      */
     MaxPartitionCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 }

@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITAgentSession.ahk
+#Include .\AGENT_SESSION_EVENT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITAgentSessionEvent interface (tapi3cc.h) contains methods that retrieve the description of agent session events.

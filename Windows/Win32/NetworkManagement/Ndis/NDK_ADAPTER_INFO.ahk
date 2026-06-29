@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDK_VERSION.ahk
 #Include .\NDK_RDMA_TECHNOLOGY.ahk
+#Include .\NDK_VERSION.ahk
 
 /**
  * The NDK_ADAPTER_INFO structure specifies information about limits and capabilities of an NDK adapter.

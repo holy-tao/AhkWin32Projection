@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IShellItem.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes a method that unpins an application shortcut from the Start menu or the taskbar.

@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IDockingWindow.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Graphics\Gdi\HMONITOR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Deprecated. Data used in IBrowserService2::_GetToolbarItem, IBrowserService2::v_MayGetNextToolbarFocus, and IBrowserService2::_SetFocus to define a toolbar item.

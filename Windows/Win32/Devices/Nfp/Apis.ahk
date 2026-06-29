@@ -21,8 +21,7 @@ class Nfp {
     static DEVPKEY_NFP_Capabilities {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{fb3842cd-9e2a-4f83-8fcc-4b0761139ae9}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fb3842cd-9e2a-4f83-8fcc-4b0761139ae9}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }

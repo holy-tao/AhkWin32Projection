@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IXpsSignatureBlock.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A collection of IXpsSignatureBlock interfaces.

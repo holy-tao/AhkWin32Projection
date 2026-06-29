@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\DDPIXELFORMAT.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
 
 /**
  * The DD_MOTIONCOMP_LOCAL structure contains local data for each individual Microsoft DirectDraw motion compensation object.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
 class DD_MOTIONCOMP_LOCAL extends Win32Struct {
-    static sizeof => 96
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -24,11 +25,14 @@ class DD_MOTIONCOMP_LOCAL extends Win32Struct {
 
     /**
      * Specifies a GUID that describes the motion compensation process being used.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(8, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -36,8 +40,8 @@ class DD_MOTIONCOMP_LOCAL extends Win32Struct {
      * @type {Integer}
      */
     dwUncompWidth {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -45,8 +49,8 @@ class DD_MOTIONCOMP_LOCAL extends Win32Struct {
      * @type {Integer}
      */
     dwUncompHeight {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -56,7 +60,7 @@ class DD_MOTIONCOMP_LOCAL extends Win32Struct {
     ddUncompPixelFormat {
         get {
             if(!this.HasProp("__ddUncompPixelFormat"))
-                this.__ddUncompPixelFormat := DDPIXELFORMAT(24, this)
+                this.__ddUncompPixelFormat := DDPIXELFORMAT(32, this)
             return this.__ddUncompPixelFormat
         }
     }
@@ -65,16 +69,16 @@ class DD_MOTIONCOMP_LOCAL extends Win32Struct {
      * @type {Integer}
      */
     dwDriverReserved1 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     dwDriverReserved2 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
@@ -82,24 +86,24 @@ class DD_MOTIONCOMP_LOCAL extends Win32Struct {
      * @type {Integer}
      */
     dwDriverReserved3 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     lpDriverReserved1 {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     lpDriverReserved2 {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -107,7 +111,7 @@ class DD_MOTIONCOMP_LOCAL extends Win32Struct {
      * @type {Pointer<Void>}
      */
     lpDriverReserved3 {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 }

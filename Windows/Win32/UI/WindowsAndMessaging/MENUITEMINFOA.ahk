@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MENU_ITEM_MASK.ahk
-#Include .\MENU_ITEM_TYPE.ahk
-#Include .\MENU_ITEM_STATE.ahk
-#Include .\HMENU.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include .\MENU_ITEM_STATE.ahk
+#Include .\MENU_ITEM_TYPE.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\HMENU.ahk
+#Include .\MENU_ITEM_MASK.ahk
 
 /**
  * Contains information about a menu item. (MENUITEMINFOA)

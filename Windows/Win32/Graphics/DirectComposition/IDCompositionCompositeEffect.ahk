@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Direct2D\Common\D2D1_COMPOSITE_MODE.ahk
 #Include .\IDCompositionFilterEffect.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The composite effect is used to combine 2 or more images.

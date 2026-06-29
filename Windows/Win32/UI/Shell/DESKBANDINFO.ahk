@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINTL.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Receives information about a band object. This structure is used with the deprecated IDeskBand::GetBandInfo method.

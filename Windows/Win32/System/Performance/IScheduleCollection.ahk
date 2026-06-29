@@ -2,8 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\ISchedule.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ISchedule.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Manages a collection of Schedule objects.To get this interface, access the IDataCollectorSet::Schedules property.

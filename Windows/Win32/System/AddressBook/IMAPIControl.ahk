@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MAPIERROR.ahk
 
 /**
  * IMAPIControlIUnknown enables and disables a button control, and performs tasks when a user of a client application clicks the enabled control.

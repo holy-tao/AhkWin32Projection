@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IStreamSample.ahk
 #Include .\IAudioData.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Note  This interface is deprecated.

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D10View.ahk
+#Include .\D3D10_DEPTH_STENCIL_VIEW_DESC.ahk
 
 /**
  * A depth-stencil-view interface accesses a texture resource during depth-stencil testing. (ID3D10DepthStencilView)

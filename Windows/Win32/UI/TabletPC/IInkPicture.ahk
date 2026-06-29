@@ -1,15 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkDrawingAttributes.ahk
+#Include .\SelectionHitResult.ahk
 #Include .\IInkRenderer.ahk
+#Include .\InkCollectionMode.ahk
 #Include .\IInkDisp.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Ole\IPictureDisp.ahk
-#Include .\IInkStrokes.ahk
-#Include .\IInkCursors.ahk
+#Include .\IInkDrawingAttributes.ahk
+#Include .\InkPictureSizeMode.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IInkTablet.ahk
+#Include .\IInkCursors.ahk
+#Include .\InkMousePointer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IInkStrokes.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\InkOverlayEditingMode.ahk
+#Include .\InkCollectorEventInterest.ahk
+#Include .\IInkRectangle.ahk
+#Include .\InkOverlayEraserMode.ahk
+#Include .\InkApplicationGesture.ahk
+#Include ..\..\System\Ole\IPictureDisp.ahk
 
 /**
  * . (IInkPicture)

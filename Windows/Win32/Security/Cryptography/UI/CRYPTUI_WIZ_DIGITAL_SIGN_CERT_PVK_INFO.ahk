@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\CRYPTUI_WIZ_DIGITAL_SIGN_PVK_OPTION.ahk
-#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_PVK_FILE_INFO.ahk
 #Include ..\CRYPT_KEY_PROV_INFO.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_PVK_FILE_INFO.ahk
 
 /**
  * Contains information about the PVK file that contains the certificates used by the CryptUIWizDigitalSign function.

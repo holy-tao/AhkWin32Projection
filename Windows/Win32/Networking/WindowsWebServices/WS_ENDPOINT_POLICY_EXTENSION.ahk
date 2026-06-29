@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_XML_BUFFER.ahk
+#Include .\WS_XML_STRING.ahk
 #Include .\WS_POLICY_EXTENSION.ahk
 #Include .\WS_POLICY_EXTENSION_TYPE.ahk
-#Include .\WS_XML_STRING.ahk
 
 /**
  * This structure is used to specify an endpoint policy extension.

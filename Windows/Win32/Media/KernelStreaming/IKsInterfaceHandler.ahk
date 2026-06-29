@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\KSSTREAM_SEGMENT.ahk
+#Include .\IKsDataTypeHandler.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\DirectShow\IMediaSample.ahk
+#Include .\KSIOOPERATION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IKsPin.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

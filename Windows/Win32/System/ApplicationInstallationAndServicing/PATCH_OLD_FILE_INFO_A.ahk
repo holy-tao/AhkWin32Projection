@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PATCH_IGNORE_RANGE.ahk
 #Include .\PATCH_RETAIN_RANGE.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing

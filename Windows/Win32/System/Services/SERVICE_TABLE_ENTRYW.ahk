@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies the ServiceMain function for a service that can run in the calling process. It is used by the StartServiceCtrlDispatcher function. (Unicode)

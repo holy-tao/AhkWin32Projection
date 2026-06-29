@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_VIDSCHESCAPETYPE.ahk
 #Include .\D3DKMT_ESCAPE_PFN_CONTROL_COMMAND.ahk
+#Include .\D3DKMT_VIDSCHESCAPETYPE.ahk
+#Include ..\..\..\Win32\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

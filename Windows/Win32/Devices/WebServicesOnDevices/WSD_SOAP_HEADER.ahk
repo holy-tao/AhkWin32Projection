@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WSD_HEADER_RELATESTO.ahk
-#Include .\WSDXML_NAME.ahk
 #Include .\WSD_ENDPOINT_REFERENCE.ahk
-#Include .\WSD_APP_SEQUENCE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSDXML_ELEMENT.ahk
+#Include .\WSDXML_NAME.ahk
+#Include .\WSD_APP_SEQUENCE.ahk
 
 /**
  * Provides SOAP header data for the WSD_SOAP_MESSAGE structure.

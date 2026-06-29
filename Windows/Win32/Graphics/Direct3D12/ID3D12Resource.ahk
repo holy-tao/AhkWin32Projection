@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_HEAP_FLAGS.ahk
 #Include .\ID3D12Pageable.ahk
+#Include .\D3D12_RANGE.ahk
+#Include .\D3D12_BOX.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_RESOURCE_DESC.ahk
+#Include .\D3D12_HEAP_PROPERTIES.ahk
 
 /**
  * Encapsulates a generalized ability of the CPU and GPU to read and write to physical memory, or heaps. It contains abstractions for organizing and manipulating simple arrays of data as well as multidimensional data optimized for shader sampling.

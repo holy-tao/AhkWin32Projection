@@ -4,6 +4,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\INetFwOpenPort.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\NET_FW_IP_PROTOCOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The INetFwOpenPorts interface is a standard Automation collection interface.

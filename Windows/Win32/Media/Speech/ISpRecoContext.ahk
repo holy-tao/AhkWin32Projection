@@ -1,11 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISpEventSource.ahk
 #Include .\ISpRecognizer.ahk
-#Include .\ISpRecoGrammar.ahk
 #Include .\ISpRecoResult.ahk
+#Include .\SPBOOKMARKOPTIONS.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
 #Include .\ISpVoice.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\ISpEventSource.ahk
+#Include .\ISpRecoGrammar.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SPSERIALIZEDRESULT.ahk
+#Include .\SPRECOCONTEXTSTATUS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\SPCONTEXTSTATE.ahk
+#Include .\SPAUDIOOPTIONS.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -120,14 +131,11 @@ class ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * The DVDAdm.BookmarkOnClose property sets or retrieves a value that tells the MSDVDAdm object whether to automatically save a bookmark of the current location and settings when the user closes the application.
-     * @remarks
-     * This property is read/write with a default value of true.
+     * 
      * @param {SPBOOKMARKOPTIONS} Options 
      * @param {Integer} ullStreamPosition 
      * @param {LPARAM} lparamEvent 
-     * @returns {HRESULT} Returns a Boolean value, which if true, indicates that the MSDVDAdm control will save a bookmark of all DVD settings, including position on disc, parental level, and parental country/region when the user closes the DVD player application.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/bookmarkonclose-property
+     * @returns {HRESULT} 
      */
     Bookmark(Options, ullStreamPosition, lparamEvent) {
         result := ComCall(21, this, "int", Options, "uint", ullStreamPosition, "ptr", lparamEvent, "HRESULT")

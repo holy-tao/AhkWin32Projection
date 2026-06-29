@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFSample.ahk
 #Include .\ASF_MUX_STATISTICS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFASFContentInfo.ahk
 
 /**
  * Provides methods to create Advanced Systems Format (ASF) data packets.

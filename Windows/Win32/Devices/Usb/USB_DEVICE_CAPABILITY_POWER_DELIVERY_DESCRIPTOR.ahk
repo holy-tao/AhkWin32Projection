@@ -9,7 +9,7 @@ class USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR extends Win32Struct {
 
     static packingSize => 2
 
-    class _bmAttributes_e__Union extends Win32Struct {
+    class _bmAttributes extends Win32Struct {
         static sizeof => 4
         static packingSize => 1
 
@@ -190,12 +190,12 @@ class USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {_bmAttributes_e__Union}
+     * @type {_bmAttributes}
      */
     bmAttributes {
         get {
             if(!this.HasProp("__bmAttributes"))
-                this.__bmAttributes := USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR._bmAttributes_e__Union(4, this)
+                this.__bmAttributes := USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR._bmAttributes(4, this)
             return this.__bmAttributes
         }
     }

@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\WeekDays.ahk
 #Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Specifies when the data collector set runs.To get this interface, call the IScheduleCollection::CreateSchedule method.

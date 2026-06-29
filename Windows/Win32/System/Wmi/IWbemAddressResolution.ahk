@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -28,13 +30,12 @@ class IWbemAddressResolution extends IUnknown {
     static VTableNames => ["Resolve"]
 
     /**
-     * Locates the target function of the specified import and replaces the function pointer in the import thunk with the target of the function implementation.
+     * 
      * @param {PWSTR} wszNamespacePath 
      * @param {PWSTR} wszAddressType 
      * @param {Pointer<Integer>} pdwAddressLength 
      * @param {Pointer<Pointer<Integer>>} pabBinaryAddress 
-     * @returns {HRESULT} The address of the import, or the failure stub for it.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/resolvedelayloadedapi
+     * @returns {HRESULT} 
      */
     Resolve(wszNamespacePath, wszAddressType, pdwAddressLength, pabBinaryAddress) {
         wszNamespacePath := wszNamespacePath is String ? StrPtr(wszNamespacePath) : wszNamespacePath

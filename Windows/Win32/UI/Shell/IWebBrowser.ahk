@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
- * Exposes methods that are implemented by the WebBrowser control (Microsoft ActiveX control) or implemented by an instance of the InternetExplorer application (OLE Automation).
- * @see https://learn.microsoft.com/windows/win32/api/exdisp/nn-exdisp-iwebbrowser2
  * @namespace Windows.Win32.UI.Shell
  */
 class IWebBrowser extends IDispatch {
@@ -185,12 +186,8 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * RefreshIscsiSendTargetPortal function instructs the iSCSI initiator service to establish a discovery session with the indicated target portal and transmit a SendTargets request to refresh the list of discovered targets for the iSCSI initiator service. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RefreshIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @returns {HRESULT} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportala
+     * 
+     * @returns {HRESULT} 
      */
     Refresh() {
         result := ComCall(12, this, "HRESULT")
@@ -208,13 +205,8 @@ class IWebBrowser extends IDispatch {
     }
 
     /**
-     * Specifies that a running instances of the task is stopped at the end of the repetition pattern duration.
-     * @remarks
-     * For scripting development, this setting is specified using the [**RepetitionPattern.StopAtDurationEnd**](repetitionpattern-stopatdurationend.md) property.
      * 
-     * For C++ development, this setting is specified using the [**IRepetitionPattern::StopAtDurationEnd**](/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend) property.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element
      */
     Stop() {
         result := ComCall(14, this, "HRESULT")
@@ -271,7 +263,7 @@ class IWebBrowser extends IDispatch {
      * @returns {BSTR} 
      */
     get_Type() {
-        Type := BSTR()
+        Type := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", Type, "HRESULT")
         return Type
     }
@@ -357,7 +349,7 @@ class IWebBrowser extends IDispatch {
      * @returns {BSTR} 
      */
     get_LocationName() {
-        LocationName := BSTR()
+        LocationName := BSTR({Value: 0}, True)
         result := ComCall(29, this, "ptr", LocationName, "HRESULT")
         return LocationName
     }
@@ -367,7 +359,7 @@ class IWebBrowser extends IDispatch {
      * @returns {BSTR} 
      */
     get_LocationURL() {
-        LocationURL := BSTR()
+        LocationURL := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", LocationURL, "HRESULT")
         return LocationURL
     }

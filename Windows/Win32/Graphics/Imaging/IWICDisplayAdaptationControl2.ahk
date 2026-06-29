@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWICDisplayAdaptationControl.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WICBitmapToneMappingMode.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging

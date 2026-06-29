@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\FWPM_DISPLAY_DATA0.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Security\SID.ahk
 
 /**
@@ -15,7 +18,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class FWPM_SESSION0 extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -24,11 +27,14 @@ class FWPM_SESSION0 extends Win32Struct {
      * 
      * If this member is zero in the
      *    call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>, Base Filtering Engine (BFE) will generate a GUID.
-     * @type {Pointer}
+     * @type {Guid}
      */
     sessionKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__sessionKey"))
+                this.__sessionKey := Guid(0, this)
+            return this.__sessionKey
+        }
     }
 
     /**
@@ -40,7 +46,7 @@ class FWPM_SESSION0 extends Win32Struct {
     displayData {
         get {
             if(!this.HasProp("__displayData"))
-                this.__displayData := FWPM_DISPLAY_DATA0(8, this)
+                this.__displayData := FWPM_DISPLAY_DATA0(16, this)
             return this.__displayData
         }
     }
@@ -78,8 +84,8 @@ class FWPM_SESSION0 extends Win32Struct {
      * @type {Integer}
      */
     flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -90,8 +96,8 @@ class FWPM_SESSION0 extends Win32Struct {
      * @type {Integer}
      */
     txnWaitTimeoutInMSec {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -99,8 +105,8 @@ class FWPM_SESSION0 extends Win32Struct {
      * @type {Integer}
      */
     processId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -108,8 +114,8 @@ class FWPM_SESSION0 extends Win32Struct {
      * @type {Pointer<SID>}
      */
     sid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -117,8 +123,8 @@ class FWPM_SESSION0 extends Win32Struct {
      * @type {PWSTR}
      */
     username {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -126,7 +132,7 @@ class FWPM_SESSION0 extends Win32Struct {
      * @type {BOOL}
      */
     kernelMode {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 }

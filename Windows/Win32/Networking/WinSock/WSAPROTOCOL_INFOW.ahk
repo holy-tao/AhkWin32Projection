@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WSAPROTOCOLCHAIN.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Used to store or retrieve complete information for a given protocol. (Unicode)
@@ -12,9 +13,9 @@
  * @charset Unicode
  */
 class WSAPROTOCOL_INFOW extends Win32Struct {
-    static sizeof => 624
+    static sizeof => 628
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -380,11 +381,14 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * A globally unique identifier (GUID) assigned to the provider by the service provider vendor. This value is useful for instances where more than one service provider is able to implement a particular protocol. An application can use the <b>ProviderId</b> member to distinguish between providers that might otherwise be indistinguishable.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ProviderId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__ProviderId"))
+                this.__ProviderId := Guid(20, this)
+            return this.__ProviderId
+        }
     }
 
     /**
@@ -394,8 +398,8 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * @type {Integer}
      */
     dwCatalogEntryId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -408,7 +412,7 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
     ProtocolChain {
         get {
             if(!this.HasProp("__ProtocolChain"))
-                this.__ProtocolChain := WSAPROTOCOLCHAIN(36, this)
+                this.__ProtocolChain := WSAPROTOCOLCHAIN(40, this)
             return this.__ProtocolChain
         }
     }
@@ -420,8 +424,8 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * @type {Integer}
      */
     iVersion {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 
     /**
@@ -541,8 +545,8 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * @type {Integer}
      */
     iAddressFamily {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**
@@ -552,8 +556,8 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * @type {Integer}
      */
     iMaxSockAddr {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 
     /**
@@ -563,8 +567,8 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * @type {Integer}
      */
     iMinSockAddr {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
+        get => NumGet(this, 84, "int")
+        set => NumPut("int", value, this, 84)
     }
 
     /**
@@ -641,8 +645,8 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * @type {Integer}
      */
     iSocketType {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 
     /**
@@ -753,8 +757,8 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * @type {Integer}
      */
     iProtocol {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+        get => NumGet(this, 92, "int")
+        set => NumPut("int", value, this, 92)
     }
 
     /**
@@ -766,8 +770,8 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * @type {Integer}
      */
     iProtocolMaxOffset {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
+        get => NumGet(this, 96, "int")
+        set => NumPut("int", value, this, 96)
     }
 
     /**
@@ -777,8 +781,8 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * @type {Integer}
      */
     iNetworkByteOrder {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
+        get => NumGet(this, 100, "int")
+        set => NumPut("int", value, this, 100)
     }
 
     /**
@@ -788,8 +792,8 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * @type {Integer}
      */
     iSecurityScheme {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
+        get => NumGet(this, 104, "int")
+        set => NumPut("int", value, this, 104)
     }
 
     /**
@@ -840,8 +844,8 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * @type {Integer}
      */
     dwMessageSize {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 
     /**
@@ -851,8 +855,8 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * @type {Integer}
      */
     dwProviderReserved {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
@@ -862,7 +866,7 @@ class WSAPROTOCOL_INFOW extends Win32Struct {
      * @type {String}
      */
     szProtocol {
-        get => StrGet(this.ptr + 112, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 112, 255, "UTF-16")
+        get => StrGet(this.ptr + 116, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 116, 255, "UTF-16")
     }
 }

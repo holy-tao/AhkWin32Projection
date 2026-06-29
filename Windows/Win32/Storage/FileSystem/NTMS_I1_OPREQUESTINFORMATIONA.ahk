@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -7,9 +8,9 @@
  * @charset ANSI
  */
 class NTMS_I1_OPREQUESTINFORMATIONA extends Win32Struct {
-    static sizeof => 376
+    static sizeof => 384
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -55,50 +56,56 @@ class NTMS_I1_OPREQUESTINFORMATIONA extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Arg1 {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
+        get {
+            if(!this.HasProp("__Arg1"))
+                this.__Arg1 := Guid(156, this)
+            return this.__Arg1
+        }
     }
 
     /**
      * @type {Integer}
      */
     Arg2Type {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
+        get => NumGet(this, 172, "uint")
+        set => NumPut("uint", value, this, 172)
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Arg2 {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get {
+            if(!this.HasProp("__Arg2"))
+                this.__Arg2 := Guid(176, this)
+            return this.__Arg2
+        }
     }
 
     /**
      * @type {String}
      */
     szApplication {
-        get => StrGet(this.ptr + 184, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 184, 63, "UTF-8")
+        get => StrGet(this.ptr + 192, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 192, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     szUser {
-        get => StrGet(this.ptr + 248, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 248, 63, "UTF-8")
+        get => StrGet(this.ptr + 256, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 256, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     szComputer {
-        get => StrGet(this.ptr + 312, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 312, 63, "UTF-8")
+        get => StrGet(this.ptr + 320, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 320, 63, "UTF-8")
     }
 }

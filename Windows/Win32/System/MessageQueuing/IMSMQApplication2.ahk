@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMSMQApplication.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IMSMQApplication.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
@@ -83,7 +86,7 @@ class IMSMQApplication2 extends IMSMQApplication {
     MachineNameOfMachineId(bstrGuid) {
         bstrGuid := bstrGuid is String ? BSTR.Alloc(bstrGuid).Value : bstrGuid
 
-        pbstrMachineName := BSTR()
+        pbstrMachineName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", bstrGuid, "ptr", pbstrMachineName, "HRESULT")
         return pbstrMachineName
     }

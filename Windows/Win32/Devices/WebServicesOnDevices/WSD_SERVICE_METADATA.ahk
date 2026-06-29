@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSD_ENDPOINT_REFERENCE_LIST.ahk
-#Include .\WSD_NAME_LIST.ahk
 #Include .\WSDXML_ELEMENT.ahk
+#Include .\WSD_NAME_LIST.ahk
 
 /**
  * Provides metadata regarding a service hosted by a device.

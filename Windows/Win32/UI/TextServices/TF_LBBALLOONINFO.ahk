@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TfLBBalloonStyle.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\TfLBBalloonStyle.ahk
 
 /**
  * The TF_LBBALLOONINFO structure contains information about a language bar balloon item.

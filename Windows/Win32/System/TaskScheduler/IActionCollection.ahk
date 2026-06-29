@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\IAction.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IAction.ahk
+#Include .\TASK_ACTION_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the actions that are performed by the task.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_VIDEOPORT_LOCAL.ahk
 #Include .\DDSCAPSEX.ahk
+#Include .\DD_VIDEOPORT_LOCAL.ahk
 
 /**
  * The DD_SURFACE_MORE structure contains additional local data for each individual DirectDrawSurface object.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Retrieves the list of supported profiles. (D3D12_FEATURE_DATA_VIDEO_DECODE_PROFILES)

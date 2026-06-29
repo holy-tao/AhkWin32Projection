@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The REGPINMEDIUM structure describes a pin medium for registration through the IFilterMapper2 interface.
@@ -11,17 +12,20 @@
  * @namespace Windows.Win32.Media.DirectShow
  */
 class REGPINMEDIUM extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * GUID that specifies the medium.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsMedium {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__clsMedium"))
+                this.__clsMedium := Guid(0, this)
+            return this.__clsMedium
+        }
     }
 
     /**
@@ -29,8 +33,8 @@ class REGPINMEDIUM extends Win32Struct {
      * @type {Integer}
      */
     dw1 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -38,7 +42,7 @@ class REGPINMEDIUM extends Win32Struct {
      * @type {Integer}
      */
     dw2 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 }

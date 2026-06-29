@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -78,7 +79,7 @@ class ISVGStringList extends IDispatch {
     initialize(newItem) {
         newItem := newItem is String ? BSTR.Alloc(newItem).Value : newItem
 
-        ppResult := BSTR()
+        ppResult := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", newItem, "ptr", ppResult, "HRESULT")
         return ppResult
     }
@@ -89,7 +90,7 @@ class ISVGStringList extends IDispatch {
      * @returns {BSTR} 
      */
     getItem(index) {
-        ppResult := BSTR()
+        ppResult := BSTR({Value: 0}, True)
         result := ComCall(11, this, "int", index, "ptr", ppResult, "HRESULT")
         return ppResult
     }
@@ -103,7 +104,7 @@ class ISVGStringList extends IDispatch {
     insertItemBefore(newItem, index) {
         newItem := newItem is String ? BSTR.Alloc(newItem).Value : newItem
 
-        ppResult := BSTR()
+        ppResult := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", newItem, "int", index, "ptr", ppResult, "HRESULT")
         return ppResult
     }
@@ -117,7 +118,7 @@ class ISVGStringList extends IDispatch {
     replaceItem(newItem, index) {
         newItem := newItem is String ? BSTR.Alloc(newItem).Value : newItem
 
-        ppResult := BSTR()
+        ppResult := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", newItem, "int", index, "ptr", ppResult, "HRESULT")
         return ppResult
     }
@@ -128,7 +129,7 @@ class ISVGStringList extends IDispatch {
      * @returns {BSTR} 
      */
     removeItem(index) {
-        ppResult := BSTR()
+        ppResult := BSTR({Value: 0}, True)
         result := ComCall(14, this, "int", index, "ptr", ppResult, "HRESULT")
         return ppResult
     }
@@ -141,7 +142,7 @@ class ISVGStringList extends IDispatch {
     appendItem(newItem) {
         newItem := newItem is String ? BSTR.Alloc(newItem).Value : newItem
 
-        ppResult := BSTR()
+        ppResult := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", newItem, "ptr", ppResult, "HRESULT")
         return ppResult
     }

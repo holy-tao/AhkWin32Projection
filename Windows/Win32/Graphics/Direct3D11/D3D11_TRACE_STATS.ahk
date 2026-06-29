@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_SHADER_TRACE_DESC.ahk
-#Include .\D3D11_SHADER_TYPE.ahk
-#Include .\D3D11_VERTEX_SHADER_TRACE_DESC.ahk
-#Include .\D3D11_HULL_SHADER_TRACE_DESC.ahk
 #Include .\D3D11_DOMAIN_SHADER_TRACE_DESC.ahk
-#Include .\D3D11_GEOMETRY_SHADER_TRACE_DESC.ahk
-#Include .\D3D11_PIXEL_SHADER_TRACE_DESC.ahk
-#Include .\D3D11_COMPUTE_SHADER_TRACE_DESC.ahk
+#Include .\D3D11_HULL_SHADER_TRACE_DESC.ahk
 #Include .\D3D11_TRACE_GS_INPUT_PRIMITIVE.ahk
+#Include .\D3D11_COMPUTE_SHADER_TRACE_DESC.ahk
+#Include .\D3D11_SHADER_TRACE_DESC.ahk
+#Include .\D3D11_PIXEL_SHADER_TRACE_DESC.ahk
+#Include .\D3D11_SHADER_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D11_GEOMETRY_SHADER_TRACE_DESC.ahk
+#Include .\D3D11_VERTEX_SHADER_TRACE_DESC.ahk
 
 /**
  * Specifies statistics about a trace.

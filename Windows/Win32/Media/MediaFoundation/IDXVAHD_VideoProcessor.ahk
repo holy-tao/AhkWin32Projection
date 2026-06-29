@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXVAHD_STREAM_STATE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\DXVAHD_STREAM_DATA.ahk
+#Include .\DXVAHD_BLT_STATE.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor.

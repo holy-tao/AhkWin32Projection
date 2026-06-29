@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_GLOBAL.ahk
 #Include .\DD_SURFACE_LOCAL.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The DD_FLIPDATA structure contains information needed to do a flip.

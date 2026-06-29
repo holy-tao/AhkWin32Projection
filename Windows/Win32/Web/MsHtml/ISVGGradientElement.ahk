@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISVGAnimatedEnumeration.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ISVGAnimatedTransformList.ahk
 
 /**

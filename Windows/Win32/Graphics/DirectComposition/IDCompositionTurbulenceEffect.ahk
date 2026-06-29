@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDCompositionFilterEffect.ahk
+#Include ..\Direct2D\Common\D2D_VECTOR_2F.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\Direct2D\Common\D2D1_TURBULENCE_NOISE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The turbulence effect is used to generate a bitmap based on the Perlin noise function. The turbulence effect has no input image.

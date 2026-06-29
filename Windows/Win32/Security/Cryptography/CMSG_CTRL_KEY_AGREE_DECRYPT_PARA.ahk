@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_BIT_BLOB.ahk
 #Include .\NCRYPT_KEY_HANDLE.ahk
 #Include .\CMSG_KEY_AGREE_RECIPIENT_INFO.ahk
-#Include .\CRYPT_BIT_BLOB.ahk
 
 /**
  * Contains information about a key agreement recipient.

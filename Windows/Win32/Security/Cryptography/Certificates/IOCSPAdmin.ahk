@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IOCSPPropertyCollection.ahk
 #Include .\IOCSPCAConfigurationCollection.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * Provides functionality to manage an Online Certificate Status Protocol (OCSP) responder server.
@@ -578,7 +580,7 @@ class IOCSPAdmin extends IDispatch {
     GetSecurity(bstrServerName) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
 
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", bstrServerName, "ptr", pVal, "HRESULT")
         return pVal
     }

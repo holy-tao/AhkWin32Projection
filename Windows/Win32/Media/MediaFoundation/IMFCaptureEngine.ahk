@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFCaptureSink.ahk
 #Include .\IMFCaptureSource.ahk
+#Include .\IMFCaptureEngineOnEventCallback.ahk
+#Include .\IMFAttributes.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MF_CAPTURE_ENGINE_SINK_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFCaptureSink.ahk
 
 /**
  * Controls one or more capture devices.

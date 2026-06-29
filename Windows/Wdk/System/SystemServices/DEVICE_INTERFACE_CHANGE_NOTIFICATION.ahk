@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
 class DEVICE_INTERFACE_CHANGE_NOTIFICATION extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -27,26 +28,32 @@ class DEVICE_INTERFACE_CHANGE_NOTIFICATION extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Event {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__Event"))
+                this.__Event := Guid(4, this)
+            return this.__Event
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     InterfaceClassGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__InterfaceClassGuid"))
+                this.__InterfaceClassGuid := Guid(20, this)
+            return this.__InterfaceClassGuid
+        }
     }
 
     /**
      * @type {Pointer<UNICODE_STRING>}
      */
     SymbolicLinkName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

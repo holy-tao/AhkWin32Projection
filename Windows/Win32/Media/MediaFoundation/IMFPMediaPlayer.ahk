@@ -1,11 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\IMFPMediaItem.ahk
 #Include .\MFVideoNormalizedRect.ahk
+#Include .\IMFPMediaItem.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include .\MFP_MEDIAPLAYER_STATE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Contains methods to play media files. (Deprecated.).

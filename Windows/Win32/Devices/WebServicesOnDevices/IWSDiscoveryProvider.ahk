@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WSD_NAME_LIST.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\WSD_URI_LIST.ahk
+#Include .\IWSDiscoveryProviderNotify.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWSDXMLContext.ahk
 
 /**

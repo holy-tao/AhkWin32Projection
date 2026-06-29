@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Ndis\IF_OPER_STATUS.ahk
+#Include .\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk
 #Include .\IP_ADAPTER_ADDRESSES_XP.ahk
 #Include .\IP_ADAPTER_UNICAST_ADDRESS_XP.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk
-#Include .\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk
-#Include .\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk
-#Include ..\Ndis\IF_OPER_STATUS.ahk
 #Include .\IP_ADAPTER_PREFIX_XP.ahk
+#Include .\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk
 
 /**
  * The IP_ADAPTER_ADDRESSES_XP structure (iptypes.h) is the header node for a linked list of addresses for a particular adapter.

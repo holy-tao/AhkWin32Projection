@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\TSSESSION_STATE.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\CLIENT_DISPLAY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes properties that store information about a user session.
@@ -125,7 +127,7 @@ class ITsSbSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_targetname
      */
     get_TargetName() {
-        targetName := BSTR()
+        targetName := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", targetName, "HRESULT")
         return targetName
     }
@@ -148,7 +150,7 @@ class ITsSbSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_username
      */
     get_Username() {
-        userName := BSTR()
+        userName := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", userName, "HRESULT")
         return userName
     }
@@ -159,7 +161,7 @@ class ITsSbSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_domain
      */
     get_Domain() {
-        domain := BSTR()
+        domain := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", domain, "HRESULT")
         return domain
     }
@@ -235,7 +237,7 @@ class ITsSbSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_initialprogram
      */
     get_InitialProgram() {
-        app := BSTR()
+        app := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", app, "HRESULT")
         return app
     }

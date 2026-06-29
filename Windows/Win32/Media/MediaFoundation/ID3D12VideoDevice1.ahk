@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk
+#Include .\D3D12_VIDEO_MOTION_ESTIMATOR_DESC.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\ID3D12VideoDevice.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Adds support for motion estimation.

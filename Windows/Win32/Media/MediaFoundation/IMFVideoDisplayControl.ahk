@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MFVideoNormalizedRect.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Controls how the Enhanced Video Renderer (EVR) displays video.

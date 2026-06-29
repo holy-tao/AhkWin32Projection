@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\Direct3D12\ID3D12CommandQueue.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\Direct3D12\ID3D12Fence.ahk
+#Include ..\Direct3D9\IDirect3DResource9.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9on12

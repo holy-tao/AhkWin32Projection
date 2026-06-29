@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D2D1_CHANNEL_DEPTH.ahk
+#Include .\D2D1_INPUT_DESCRIPTION.ahk
+#Include .\D2D1_BUFFER_PRECISION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Describes the render information common to all of the various transform implementations.

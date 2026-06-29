@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\BINARY_CONTAINER.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -10,7 +12,7 @@ class BIDI_DATA extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 16
         static packingSize => 8
 
@@ -67,12 +69,12 @@ class BIDI_DATA extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := BIDI_DATA._u_e__Union(8, this)
+                this.__u := BIDI_DATA._u(8, this)
             return this.__u
         }
     }

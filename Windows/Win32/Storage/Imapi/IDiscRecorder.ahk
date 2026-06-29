@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MEDIA_TYPES.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\DISC_RECORDER_STATE_FLAGS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\RECORDER_TYPES.ahk
+#Include .\MEDIA_FLAGS.ahk
 #Include ..\..\System\Com\StructuredStorage\IPropertyStorage.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IDiscRecorder interface enables access to a single disc recorder device, labeled the active disc recorder. An IMAPI object such as MSDiscMasterObj maintains an active disc recorder.
@@ -104,7 +109,7 @@ class IDiscRecorder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getbasepnpid
      */
     GetBasePnPID() {
-        pbstrBasePnPID := BSTR()
+        pbstrBasePnPID := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrBasePnPID, "HRESULT")
         return pbstrBasePnPID
     }
@@ -115,7 +120,7 @@ class IDiscRecorder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getpath
      */
     GetPath() {
-        pbstrPath := BSTR()
+        pbstrPath := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrPath, "HRESULT")
         return pbstrPath
     }

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaEngineSrcElements.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IMFMediaEngineSrcElements.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IMFMediaEngineSrcElements interface to provide additional capabilities.
@@ -56,7 +57,7 @@ class IMFMediaEngineSrcElementsEx extends IMFMediaEngineSrcElements {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginesrcelementsex-getkeysystem
      */
     GetKeySystem(index) {
-        pType := BSTR()
+        pType := BSTR({Value: 0}, True)
         result := ComCall(10, this, "uint", index, "ptr", pType, "HRESULT")
         return pType
     }

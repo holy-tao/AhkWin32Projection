@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISpeechRecoContext.ahk
 #Include .\ISpeechRecoResultTimes.ahk
-#Include .\ISpeechAudioFormat.ahk
-#Include .\ISpeechPhraseInfo.ahk
+#Include .\ISpeechRecoContext.ahk
+#Include .\SpeechVoiceSpeakFlags.ahk
 #Include .\ISpeechPhraseAlternates.ahk
-#Include .\ISpeechMemoryStream.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISpeechPhraseInfo.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\ISpeechAudioFormat.ahk
+#Include .\ISpeechMemoryStream.ahk
+#Include .\SpeechDiscardType.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -109,12 +112,11 @@ class ISpeechRecoResult extends IDispatch {
     }
 
     /**
-     * Defines the type that contains the list of recognition alternates for an ink word.
+     * 
      * @param {Integer} RequestCount 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @returns {ISpeechPhraseAlternates} 
-     * @see https://learn.microsoft.com/windows/win32/tablet/alternateslisttype-complex-type
      */
     Alternates(RequestCount, StartElement, Elements) {
         result := ComCall(12, this, "int", RequestCount, "int", StartElement, "int", Elements, "ptr*", &Alternates := 0, "HRESULT")

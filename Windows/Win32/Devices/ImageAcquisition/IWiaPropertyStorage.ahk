@@ -1,11 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\StructuredStorage\IEnumSTATPROPSTG.ahk
-#Include ..\..\System\Com\StructuredStorage\STATPROPSETSTG.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\System\Com\StructuredStorage\STATPROPSETSTG.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPSPEC.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWiaPropertyStorage interface is used to access information about the IWiaItem object's properties. Applications must query an item to obtain its IWiaPropertyStorage interface.
@@ -223,17 +228,9 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
+     * 
      * @param {Integer} grfCommitFlags 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
-     * 
-     * 
-     *   
-     * 
-     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * 
-     *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-commitcomplete
+     * @returns {HRESULT} 
      */
     Commit(grfCommitFlags) {
         result := ComCall(9, this, "uint", grfCommitFlags, "HRESULT")
@@ -241,32 +238,8 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * Allows a security package to discontinue the impersonation of the caller and restore its own security context.
-     * @remarks
-     * <b>RevertSecurityContext</b> is not available with all <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security packages</a> on all platforms. Typically, it is implemented only on platforms and with security packages for which a call to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-querysecuritypackageinfoa">QuerySecurityPackageInfo</a> function indicates impersonation support.
-     * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
      * 
-     * If the function fails, the return value can be one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The handle passed to the function is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-revertsecuritycontext
+     * @returns {HRESULT} 
      */
     Revert() {
         result := ComCall(10, this, "HRESULT")
@@ -274,18 +247,8 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * Enumerates calendar information for a specified locale.Note  To receive a calendar identifier in addition to calendar information, the application should use the EnumCalendarInfoEx function. (ANSI)
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumcalendarinfoexa">EnumCalendarInfoEx</a>.
      * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines EnumCalendarInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @returns {IEnumSTATPROPSTG} 
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-enumcalendarinfoa
      */
     Enum() {
         result := ComCall(11, this, "ptr*", &ppenum := 0, "HRESULT")
@@ -305,12 +268,9 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * The SetClassIDInBlob function sets the named class identifier value of a BLOB.
-     * @param {Pointer<Guid>} clsid 
-     * @returns {HRESULT} If the function is successful, the return value is NMERR\_SUCCESS.
      * 
-     * If the function is unsuccessful, the return value is a NMERR value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/setclassidinblob
+     * @param {Pointer<Guid>} clsid 
+     * @returns {HRESULT} 
      */
     SetClass(clsid) {
         result := ComCall(13, this, "ptr", clsid, "HRESULT")
@@ -318,9 +278,8 @@ class IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * State Variables for Current Values and Associated Data
+     * 
      * @returns {STATPROPSETSTG} 
-     * @see https://learn.microsoft.com/windows/win32/OpenGL/state-variables-for-current-values-and-associated-data
      */
     Stat() {
         pstatpsstg := STATPROPSETSTG()

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
@@ -95,7 +96,7 @@ class IDispCivicAddressReport extends IDispatch {
      * @returns {BSTR} 
      */
     get_AddressLine1() {
-        pAddress1 := BSTR()
+        pAddress1 := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pAddress1, "HRESULT")
         return pAddress1
     }
@@ -105,7 +106,7 @@ class IDispCivicAddressReport extends IDispatch {
      * @returns {BSTR} 
      */
     get_AddressLine2() {
-        pAddress2 := BSTR()
+        pAddress2 := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pAddress2, "HRESULT")
         return pAddress2
     }
@@ -115,7 +116,7 @@ class IDispCivicAddressReport extends IDispatch {
      * @returns {BSTR} 
      */
     get_City() {
-        pCity := BSTR()
+        pCity := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pCity, "HRESULT")
         return pCity
     }
@@ -125,7 +126,7 @@ class IDispCivicAddressReport extends IDispatch {
      * @returns {BSTR} 
      */
     get_StateProvince() {
-        pStateProvince := BSTR()
+        pStateProvince := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pStateProvince, "HRESULT")
         return pStateProvince
     }
@@ -135,7 +136,7 @@ class IDispCivicAddressReport extends IDispatch {
      * @returns {BSTR} 
      */
     get_PostalCode() {
-        pPostalCode := BSTR()
+        pPostalCode := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pPostalCode, "HRESULT")
         return pPostalCode
     }
@@ -145,7 +146,7 @@ class IDispCivicAddressReport extends IDispatch {
      * @returns {BSTR} 
      */
     get_CountryRegion() {
-        pCountryRegion := BSTR()
+        pCountryRegion := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pCountryRegion, "HRESULT")
         return pCountryRegion
     }

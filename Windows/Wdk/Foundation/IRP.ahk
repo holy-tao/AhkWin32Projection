@@ -1,11 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\IO_STACK_LOCATION.ahk
+#Include ..\..\Win32\Foundation\BOOLEAN.ahk
+#Include .\_IORING_OBJECT.ahk
 #Include .\MDL.ahk
 #Include .\IRP.ahk
-#Include ..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk
-#Include .\KEVENT.ahk
-#Include .\IO_STACK_LOCATION.ahk
+#Include .\PETHREAD.ahk
 #Include .\FILE_OBJECT.ahk
+#Include ..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk
+#Include ..\..\Win32\Foundation\PSTR.ahk
+#Include .\KEVENT.ahk
+#Include ..\..\Win32\Foundation\CHAR.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -15,7 +20,7 @@ class IRP extends Win32Struct {
 
     static packingSize => 8
 
-    class _AssociatedIrp_e__Union extends Win32Struct {
+    class _AssociatedIrp extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -44,7 +49,7 @@ class IRP extends Win32Struct {
         }
     }
 
-    class _Overlay_e__Union extends Win32Struct {
+    class _Overlay extends Win32Struct {
         static sizeof => 16
         static packingSize => 8
 
@@ -91,7 +96,7 @@ class IRP extends Win32Struct {
         AsynchronousParameters {
             get {
                 if(!this.HasProp("__AsynchronousParameters"))
-                    this.__AsynchronousParameters := IRP._Overlay_e__Union._AsynchronousParameters(0, this)
+                    this.__AsynchronousParameters := IRP._Overlay._AsynchronousParameters(0, this)
                 return this.__AsynchronousParameters
             }
         }
@@ -105,7 +110,7 @@ class IRP extends Win32Struct {
         }
     }
 
-    class _Tail_e__Union extends Win32Struct {
+    class _Tail extends Win32Struct {
         static sizeof => 72
         static packingSize => 8
 
@@ -187,7 +192,7 @@ class IRP extends Win32Struct {
         Overlay {
             get {
                 if(!this.HasProp("__Overlay"))
-                    this.__Overlay := IRP._Tail_e__Union._Overlay(0, this)
+                    this.__Overlay := IRP._Tail._Overlay(0, this)
                 return this.__Overlay
             }
         }
@@ -242,12 +247,12 @@ class IRP extends Win32Struct {
     }
 
     /**
-     * @type {_AssociatedIrp_e__Union}
+     * @type {_AssociatedIrp}
      */
     AssociatedIrp {
         get {
             if(!this.HasProp("__AssociatedIrp"))
-                this.__AssociatedIrp := IRP._AssociatedIrp_e__Union(24, this)
+                this.__AssociatedIrp := IRP._AssociatedIrp(24, this)
             return this.__AssociatedIrp
         }
     }
@@ -357,12 +362,12 @@ class IRP extends Win32Struct {
     }
 
     /**
-     * @type {_Overlay_e__Union}
+     * @type {_Overlay}
      */
     Overlay {
         get {
             if(!this.HasProp("__Overlay"))
-                this.__Overlay := IRP._Overlay_e__Union(72, this)
+                this.__Overlay := IRP._Overlay(72, this)
             return this.__Overlay
         }
     }
@@ -384,12 +389,12 @@ class IRP extends Win32Struct {
     }
 
     /**
-     * @type {_Tail_e__Union}
+     * @type {_Tail}
      */
     Tail {
         get {
             if(!this.HasProp("__Tail"))
-                this.__Tail := IRP._Tail_e__Union(104, this)
+                this.__Tail := IRP._Tail(104, this)
             return this.__Tail
         }
     }

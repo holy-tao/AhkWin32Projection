@@ -10,7 +10,7 @@ class INSTANCE_AGGREGATE_STANDARD_INFORMATION extends Win32Struct {
 
     static packingSize => 4
 
-    class _Type_e__Union extends Win32Struct {
+    class _Type extends Win32Struct {
         static sizeof => 32
         static packingSize => 4
 
@@ -190,7 +190,7 @@ class INSTANCE_AGGREGATE_STANDARD_INFORMATION extends Win32Struct {
         MiniFilter {
             get {
                 if(!this.HasProp("__MiniFilter"))
-                    this.__MiniFilter := INSTANCE_AGGREGATE_STANDARD_INFORMATION._Type_e__Union._MiniFilter(0, this)
+                    this.__MiniFilter := INSTANCE_AGGREGATE_STANDARD_INFORMATION._Type._MiniFilter(0, this)
                 return this.__MiniFilter
             }
         }
@@ -201,7 +201,7 @@ class INSTANCE_AGGREGATE_STANDARD_INFORMATION extends Win32Struct {
         LegacyFilter {
             get {
                 if(!this.HasProp("__LegacyFilter"))
-                    this.__LegacyFilter := INSTANCE_AGGREGATE_STANDARD_INFORMATION._Type_e__Union._LegacyFilter(0, this)
+                    this.__LegacyFilter := INSTANCE_AGGREGATE_STANDARD_INFORMATION._Type._LegacyFilter(0, this)
                 return this.__LegacyFilter
             }
         }
@@ -224,12 +224,12 @@ class INSTANCE_AGGREGATE_STANDARD_INFORMATION extends Win32Struct {
     }
 
     /**
-     * @type {_Type_e__Union}
+     * @type {_Type}
      */
     Type {
         get {
             if(!this.HasProp("__Type"))
-                this.__Type := INSTANCE_AGGREGATE_STANDARD_INFORMATION._Type_e__Union(8, this)
+                this.__Type := INSTANCE_AGGREGATE_STANDARD_INFORMATION._Type(8, this)
             return this.__Type
         }
     }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\_URB_HEADER.ahk
-#Include .\URB.ahk
 #Include .\_URB_HCD_AREA.ahk
+#Include .\URB.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

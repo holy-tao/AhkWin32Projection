@@ -1,14 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IOleClientSite.ahk
-#Include ..\Com\IMoniker.ahk
-#Include ..\Com\IDataObject.ahk
-#Include .\IEnumOLEVERB.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Include ..\Com\DVASPECT.ahk
+#Include ..\Com\IAdviseSink.ahk
 #Include ..\Com\IEnumSTATDATA.ahk
+#Include ..\..\UI\WindowsAndMessaging\MSG.ahk
+#Include .\OLEMISC.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\Com\IDataObject.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IEnumOLEVERB.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IOleClientSite.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Graphics\Gdi\LOGPALETTE.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\IMoniker.ahk
 
 /**
  * Serves as the principal means by which an embedded object provides basic functionality to, and communicates with, its container.

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USE_INFO_2.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\USE_INFO_ASG_TYPE.ahk
 
 /**

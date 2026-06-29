@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDiskQuotaUser.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Adds multiple quota user objects to a container that is then submitted for update in a single call.

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_ENDPOINT_IDENTITY.ahk
+#Include .\WS_XML_BUFFER.ahk
 #Include .\WS_ENDPOINT_IDENTITY_TYPE.ahk
+#Include .\WS_ENDPOINT_IDENTITY.ahk
 
 /**
  * Type for unknown endpoint identity. This type is only used to represent an endpoint identity type that was deserialized but was not understood.

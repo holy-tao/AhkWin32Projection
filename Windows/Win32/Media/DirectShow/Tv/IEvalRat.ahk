@@ -2,6 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\EnTvRat_System.ahk
+#Include .\EnTvRat_GenericLevel.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IEvalRat interface is used to evaluate content ratings carried by a broadcast stream.

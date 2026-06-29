@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IWTSVirtualChannelCallback.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IWTSVirtualChannel.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to notify the Remote Desktop Connection (RDC) client plug-in about incoming requests on a particular listener.

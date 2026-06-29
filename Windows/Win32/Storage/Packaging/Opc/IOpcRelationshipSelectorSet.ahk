@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcRelationshipSelector.ahk
 #Include .\IOpcRelationshipSelectorEnumerator.ahk
+#Include .\IOpcRelationshipSelector.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\OPC_RELATIONSHIP_SELECTOR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * An unordered set of IOpcRelationshipSelector interface pointers that represent the selection criteria that is used to identify relationships for signing.

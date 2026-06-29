@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\X500NameFlags.ahk
 
 /**
  * Represents an X.500 distinguished name (DN).
@@ -183,7 +186,7 @@ class IX500DistinguishedName extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix500distinguishedname-get_name
      */
     get_Name() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -197,7 +200,7 @@ class IX500DistinguishedName extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix500distinguishedname-get_encodedname
      */
     get_EncodedName(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(10, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }

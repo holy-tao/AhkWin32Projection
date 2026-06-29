@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
-#Include .\D3D12_VIDEO_PROCESS_ALPHA_FILL_MODE.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
+#Include .\D3D12_VIDEO_PROCESS_ALPHA_FILL_MODE.ahk
 
 /**
  * Specifies output stream arguments for the output passed to ID3D12VideoProcessCommandList::ProcessFrames.

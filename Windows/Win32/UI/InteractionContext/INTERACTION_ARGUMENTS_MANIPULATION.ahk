@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MANIPULATION_TRANSFORM.ahk
 #Include .\MANIPULATION_VELOCITY.ahk
 #Include .\MANIPULATION_RAILS_STATE.ahk
+#Include .\MANIPULATION_TRANSFORM.ahk
 
 /**
  * Defines the state of a manipulation.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDI_ROTATION.ahk
 #Include .\D3DDDIFORMAT.ahk
 #Include .\D3DDDI_VIDEO_SIGNAL_SCANLINE_ORDERING.ahk
-#Include .\D3DDDI_ROTATION.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IMoniker.ahk
+#Include ..\..\System\Com\IBindCtx.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\BINDINFO.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -28,7 +33,7 @@ class IDownloadManager extends IUnknown {
     static VTableNames => ["Download"]
 
     /**
-     * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Clear method removes all items from a download collection.
+     * 
      * @param {IMoniker} pmk 
      * @param {IBindCtx} pbc 
      * @param {Integer} dwBindVerb 
@@ -37,11 +42,7 @@ class IDownloadManager extends IUnknown {
      * @param {PWSTR} pszHeaders 
      * @param {PWSTR} pszRedir 
      * @param {Integer} uiCP 
-     * @returns {HRESULT} This method has no parameters.
-     * 
-     * 
-     * This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/WMP/downloadcollection-clear
+     * @returns {HRESULT} 
      */
     Download(pmk, pbc, dwBindVerb, grfBINDF, pBindInfo, pszHeaders, pszRedir, uiCP) {
         pszHeaders := pszHeaders is String ? StrPtr(pszHeaders) : pszHeaders

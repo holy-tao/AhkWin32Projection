@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_AUTHENTICATED_CONFIGURE_INPUT.ahk
-#Include .\D3D11_OMAC.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\D3D11_AUTHENTICATED_PROCESS_IDENTIFIER_TYPE.ahk
+#Include .\D3D11_AUTHENTICATED_CONFIGURE_INPUT.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D11_OMAC.ahk
 
 /**
  * Contains input data for a D3D11_AUTHENTICATED_CONFIGURE_SHARED_RESOURCE command.
@@ -11,7 +13,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
 class D3D11_AUTHENTICATED_CONFIGURE_SHARED_RESOURCE_INPUT extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -34,8 +36,8 @@ class D3D11_AUTHENTICATED_CONFIGURE_SHARED_RESOURCE_INPUT extends Win32Struct {
      * @type {D3D11_AUTHENTICATED_PROCESS_IDENTIFIER_TYPE}
      */
     ProcessType {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -45,7 +47,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_SHARED_RESOURCE_INPUT extends Win32Struct {
     ProcessHandle {
         get {
             if(!this.HasProp("__ProcessHandle"))
-                this.__ProcessHandle := HANDLE(48, this)
+                this.__ProcessHandle := HANDLE(56, this)
             return this.__ProcessHandle
         }
     }
@@ -55,7 +57,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_SHARED_RESOURCE_INPUT extends Win32Struct {
      * @type {BOOL}
      */
     AllowAccess {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 }

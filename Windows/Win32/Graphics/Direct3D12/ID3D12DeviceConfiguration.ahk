@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\Direct3D\ID3DBlob.ahk
+#Include .\D3D12_DEVICE_CONFIGURATION_DESC.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_VERSIONED_ROOT_SIGNATURE_DESC.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -29,9 +33,8 @@ class ID3D12DeviceConfiguration extends IUnknown {
     static VTableNames => ["GetDesc", "GetEnabledExperimentalFeatures", "SerializeVersionedRootSignature", "CreateVersionedRootSignatureDeserializer"]
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetDescription
+     * 
      * @returns {D3D12_DEVICE_CONFIGURATION_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getdescription
      */
     GetDesc() {
         result := ComCall(3, this, "ptr")

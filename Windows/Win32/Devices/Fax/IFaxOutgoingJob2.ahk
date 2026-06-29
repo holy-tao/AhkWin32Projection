@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFaxOutgoingJob.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFaxOutgoingJob.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FAX_SCHEDULE_TYPE_ENUM.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Describes an object that is used by a fax client application to retrieve information about an outgoing fax job in a fax server's queue.
@@ -88,7 +91,7 @@ class IFaxOutgoingJob2 extends IFaxOutgoingJob {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_receiptaddress
      */
     get_ReceiptAddress() {
-        pbstrReceiptAddress := BSTR()
+        pbstrReceiptAddress := BSTR({Value: 0}, True)
         result := ComCall(39, this, "ptr", pbstrReceiptAddress, "HRESULT")
         return pbstrReceiptAddress
     }

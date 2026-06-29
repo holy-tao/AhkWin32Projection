@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\DVB_STRCONV_MODE.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) extended event descriptor.
@@ -126,7 +128,7 @@ class IDvbExtendedEventDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbextendedeventdescriptor-gettextw
      */
     GetTextW(convMode) {
-        pbstrText := BSTR()
+        pbstrText := BSTR({Value: 0}, True)
         result := ComCall(11, this, "int", convMode, "ptr", pbstrText, "HRESULT")
         return pbstrText
     }
@@ -139,7 +141,7 @@ class IDvbExtendedEventDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbextendedeventdescriptor-getconcatenatedtextw
      */
     GetConcatenatedTextW(FollowingDescriptor, convMode) {
-        pbstrText := BSTR()
+        pbstrText := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", FollowingDescriptor, "int", convMode, "ptr", pbstrText, "HRESULT")
         return pbstrText
     }

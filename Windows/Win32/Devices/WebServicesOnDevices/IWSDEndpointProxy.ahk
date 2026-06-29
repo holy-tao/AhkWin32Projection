@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WSD_OPERATION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\WSD_SYNCHRONOUS_RESPONSE_CONTEXT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWSDAsyncResult.ahk
+#Include .\IWSDAsyncCallback.ahk
+#Include .\WSD_SOAP_FAULT.ahk
 
 /**
  * Implements a device services messaging proxy.

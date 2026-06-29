@@ -1,17 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IDebugProperty.ahk
-#Include ..\..\Variant\VARIANT.ahk
-#Include ..\..\Variant\VARENUM.ahk
-#Include ..\..\Com\CY.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\Com\IUnknown.ahk
-#Include ..\..\Com\IDispatch.ahk
-#Include ..\..\Com\SAFEARRAY.ahk
 #Include ..\..\..\Foundation\DECIMAL.ahk
 #Include ..\..\Ole\IRecordInfo.ahk
+#Include ..\..\Variant\VARENUM.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IDebugProperty.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\Com\StructuredStorage\ILockBytes.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\Variant\VARIANT.ahk
+#Include ..\..\Com\IDispatch.ahk
+#Include ..\..\Com\CY.ahk
+#Include ..\..\Com\SAFEARRAY.ahk
 #Include .\IDebugExtendedProperty.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\CHAR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

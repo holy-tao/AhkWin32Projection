@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -127,7 +128,7 @@ class IHeaderFooter extends IDispatch {
      * @returns {BSTR} 
      */
     get_htmlHead() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", p, "HRESULT")
         return p
     }
@@ -137,7 +138,7 @@ class IHeaderFooter extends IDispatch {
      * @returns {BSTR} 
      */
     get_htmlFoot() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -159,7 +160,7 @@ class IHeaderFooter extends IDispatch {
      * @returns {BSTR} 
      */
     get_textHead() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -181,7 +182,7 @@ class IHeaderFooter extends IDispatch {
      * @returns {BSTR} 
      */
     get_textFoot() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -241,7 +242,7 @@ class IHeaderFooter extends IDispatch {
      * @returns {BSTR} 
      */
     get_URL() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", p, "HRESULT")
         return p
     }
@@ -263,7 +264,7 @@ class IHeaderFooter extends IDispatch {
      * @returns {BSTR} 
      */
     get_title() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", p, "HRESULT")
         return p
     }
@@ -285,7 +286,7 @@ class IHeaderFooter extends IDispatch {
      * @returns {BSTR} 
      */
     get_dateShort() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", p, "HRESULT")
         return p
     }
@@ -307,7 +308,7 @@ class IHeaderFooter extends IDispatch {
      * @returns {BSTR} 
      */
     get_dateLong() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", p, "HRESULT")
         return p
     }
@@ -329,7 +330,7 @@ class IHeaderFooter extends IDispatch {
      * @returns {BSTR} 
      */
     get_timeShort() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", p, "HRESULT")
         return p
     }
@@ -351,7 +352,7 @@ class IHeaderFooter extends IDispatch {
      * @returns {BSTR} 
      */
     get_timeLong() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", p, "HRESULT")
         return p
     }

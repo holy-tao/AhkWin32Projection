@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -13,7 +14,7 @@
  * @architecture X64, Arm64
  */
 class SP_DEVINFO_LIST_DETAIL_DATA_W extends Win32Struct {
-    static sizeof => 552
+    static sizeof => 560
 
     static packingSize => 8
 
@@ -28,11 +29,14 @@ class SP_DEVINFO_LIST_DETAIL_DATA_W extends Win32Struct {
 
     /**
      * The setup class GUID that is associated with the device information set or GUID_NULL if there is no associated setup class.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ClassGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ClassGuid"))
+                this.__ClassGuid := Guid(4, this)
+            return this.__ClassGuid
+        }
     }
 
     /**
@@ -44,7 +48,7 @@ class SP_DEVINFO_LIST_DETAIL_DATA_W extends Win32Struct {
     RemoteMachineHandle {
         get {
             if(!this.HasProp("__RemoteMachineHandle"))
-                this.__RemoteMachineHandle := HANDLE(16, this)
+                this.__RemoteMachineHandle := HANDLE(24, this)
             return this.__RemoteMachineHandle
         }
     }
@@ -54,12 +58,12 @@ class SP_DEVINFO_LIST_DETAIL_DATA_W extends Win32Struct {
      * @type {String}
      */
     RemoteMachineName {
-        get => StrGet(this.ptr + 24, 262, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 262, "UTF-16")
+        get => StrGet(this.ptr + 32, 262, "UTF-16")
+        set => StrPut(value, this.ptr + 32, 262, "UTF-16")
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 552
+        this.cbSize := 560
     }
 }

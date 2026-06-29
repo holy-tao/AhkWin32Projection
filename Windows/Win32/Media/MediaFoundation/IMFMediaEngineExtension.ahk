@@ -1,7 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IMFByteStream.ahk
+#Include .\IMFAsyncResult.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MF_MEDIA_ENGINE_CANPLAY.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\MF_OBJECT_TYPE.ahk
+#Include .\IMFAsyncCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables an application to load media resources in the Media Engine.

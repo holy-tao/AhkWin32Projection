@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\KernelStreaming\KSM_NODE.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
+#Include ..\..\KernelStreaming\KSM_NODE.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
 class KSM_BDA_ISDBCAS_REQUEST extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -26,16 +27,16 @@ class KSM_BDA_ISDBCAS_REQUEST extends Win32Struct {
      * @type {Integer}
      */
     ulRequestID {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     ulIsdbCommandSize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -44,7 +45,7 @@ class KSM_BDA_ISDBCAS_REQUEST extends Win32Struct {
     argbIsdbCommandData {
         get {
             if(!this.HasProp("__argbIsdbCommandDataProxyArray"))
-                this.__argbIsdbCommandDataProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__argbIsdbCommandDataProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
             return this.__argbIsdbCommandDataProxyArray
         }
     }

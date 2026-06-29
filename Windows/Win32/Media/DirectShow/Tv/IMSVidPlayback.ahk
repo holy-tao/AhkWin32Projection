@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IMSVidInputDevice.ahk
+#Include .\PositionModeList.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMSVidPlayback interface controls a Video Control playback device.

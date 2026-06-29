@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_SA_BUNDLE_FLAGS.ahk
-#Include .\IPSEC_SA_LIFETIME0.ahk
-#Include .\IPSEC_ID0.ahk
-#Include .\IPSEC_SA0.ahk
-#Include .\IPSEC_KEYMODULE_STATE0.ahk
-#Include .\FWP_IP_VERSION.ahk
 #Include .\IPSEC_PFS_GROUP.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include .\IPSEC_ID0.ahk
+#Include .\IPSEC_SA_BUNDLE_FLAGS.ahk
+#Include .\IPSEC_KEYMODULE_STATE0.ahk
+#Include .\IPSEC_SA_LIFETIME0.ahk
+#Include .\IPSEC_SA0.ahk
 
 /**
  * Is used to store information about an IPsec security association (SA) bundle. (IPSEC_SA_BUNDLE0)

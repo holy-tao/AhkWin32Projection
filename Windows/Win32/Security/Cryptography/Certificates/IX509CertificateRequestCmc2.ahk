@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IX509CertificateRequestCmc.ahk
-#Include .\IX509EnrollmentPolicyServer.ahk
 #Include .\IX509CertificateTemplate.ahk
+#Include .\Pkcs10AllowedSignatureTypes.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IX509CertificateRequest.ahk
+#Include .\ISignerCertificate.ahk
+#Include .\IX509EnrollmentPolicyServer.ahk
+#Include .\X509CertificateEnrollmentContext.ahk
 
 /**
  * The IX509CertificateRequestCmc2 interface represents a CMC (Certificate Management Message over CMS) certificate request.

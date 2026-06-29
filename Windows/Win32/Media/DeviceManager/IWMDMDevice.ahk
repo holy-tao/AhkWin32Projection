@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\OPAQUECOMMAND.ahk
 #Include .\WMDMID.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWMDMEnumStorage.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMDMDevice interface provides methods to examine and explore a single portable device. The interface can be used to get information about a device and enumerate its storages. IWMDMDevice2 extends the capabilities of this interface.

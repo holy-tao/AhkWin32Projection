@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include .\HCOMDB.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
@@ -16,8 +17,7 @@ class SerialCommunication {
     static DEVPKEY_DeviceInterface_Serial_UsbVendorId {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{4c6bf15c-4c03-4aac-91f5-64c0f852bcf4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4c6bf15c-4c03-4aac-91f5-64c0f852bcf4}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -29,8 +29,7 @@ class SerialCommunication {
     static DEVPKEY_DeviceInterface_Serial_UsbProductId {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{4c6bf15c-4c03-4aac-91f5-64c0f852bcf4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4c6bf15c-4c03-4aac-91f5-64c0f852bcf4}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -42,8 +41,7 @@ class SerialCommunication {
     static DEVPKEY_DeviceInterface_Serial_PortName {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{4c6bf15c-4c03-4aac-91f5-64c0f852bcf4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4c6bf15c-4c03-4aac-91f5-64c0f852bcf4}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }

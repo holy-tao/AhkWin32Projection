@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains information identifying the adapter.
@@ -27,7 +28,7 @@
  * @architecture X64, Arm64
  */
 class D3DADAPTER_IDENTIFIER9 extends Win32Struct {
-    static sizeof => 1096
+    static sizeof => 1104
 
     static packingSize => 8
 
@@ -132,11 +133,14 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct {
      * 
      * 
      * Can be queried to check changes in the driver and chip set. This GUID is a unique identifier for the driver and chip set pair. Query this member to track changes to the driver and chip set in order to generate a new profile for the graphics subsystem. DeviceIdentifier can also be used to identify particular problematic drivers.
-     * @type {Pointer}
+     * @type {Guid}
      */
     DeviceIdentifier {
-        get => NumGet(this, 1080, "ptr")
-        set => NumPut("ptr", value, this, 1080)
+        get {
+            if(!this.HasProp("__DeviceIdentifier"))
+                this.__DeviceIdentifier := Guid(1080, this)
+            return this.__DeviceIdentifier
+        }
     }
 
     /**
@@ -176,7 +180,7 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct {
      * @type {Integer}
      */
     WHQLLevel {
-        get => NumGet(this, 1088, "uint")
-        set => NumPut("uint", value, this, 1088)
+        get => NumGet(this, 1096, "uint")
+        set => NumPut("uint", value, this, 1096)
     }
 }

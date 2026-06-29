@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D11_FILL_MODE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D11_CULL_MODE.ahk
 
 /**

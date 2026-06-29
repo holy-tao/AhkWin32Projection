@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Allows for communicating with a device service on a particular Mobile Broadband device.
@@ -189,7 +192,7 @@ class IMbnDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-get_interfaceid
      */
     get_InterfaceID() {
-        InterfaceID := BSTR()
+        InterfaceID := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", InterfaceID, "HRESULT")
         return InterfaceID
     }
@@ -200,7 +203,7 @@ class IMbnDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-get_deviceserviceid
      */
     get_DeviceServiceID() {
-        DeviceServiceID := BSTR()
+        DeviceServiceID := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", DeviceServiceID, "HRESULT")
         return DeviceServiceID
     }

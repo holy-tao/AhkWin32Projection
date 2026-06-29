@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * The ATSC_FILTER_OPTIONS structure specifies additional criteria for matching ATSC section headers.

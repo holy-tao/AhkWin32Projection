@@ -1,6 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\AM_WST_PAGE.ahk
+#Include ..\..\Graphics\Gdi\BITMAPINFO.ahk
+#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Include .\AM_WST_STATE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\AM_WST_SERVICE.ahk
+#Include .\AM_WST_DRAWBGMODE.ahk
+#Include .\AM_WST_LEVEL.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

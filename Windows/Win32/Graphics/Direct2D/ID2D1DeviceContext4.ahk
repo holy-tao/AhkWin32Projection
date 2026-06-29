@@ -1,10 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1DeviceContext3.ahk
-#Include .\ID2D1SvgGlyphStyle.ahk
+#Include .\D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION.ahk
+#Include ..\DirectWrite\IDWriteFontFace.ahk
+#Include Common\D2D_MATRIX_3X2_F.ahk
+#Include ..\DirectWrite\DWRITE_MEASURING_MODE.ahk
+#Include ..\DirectWrite\DWRITE_GLYPH_RUN.ahk
+#Include ..\DirectWrite\IDWriteTextLayout.ahk
+#Include ..\DirectWrite\IDWriteTextFormat.ahk
 #Include .\ID2D1Image.ahk
+#Include .\ID2D1SvgGlyphStyle.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ID2D1Brush.ahk
+#Include Common\D2D_RECT_F.ahk
 #Include .\ID2D1CommandList.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D2D1_DRAW_TEXT_OPTIONS.ahk
+#Include Common\D2D_POINT_2F.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\ID2D1DeviceContext3.ahk
+#Include ..\DirectWrite\DWRITE_GLYPH_IMAGE_FORMATS.ahk
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext3 interface, plus it enables functionality for handling new types of color font glyphs.

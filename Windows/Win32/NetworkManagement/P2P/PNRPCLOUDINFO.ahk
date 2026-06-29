@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PNRP_CLOUD_STATE.ahk
 #Include .\PNRP_CLOUD_ID.ahk
 #Include .\PNRP_SCOPE.ahk
-#Include .\PNRP_CLOUD_STATE.ahk
 #Include .\PNRP_CLOUD_FLAGS.ahk
 
 /**

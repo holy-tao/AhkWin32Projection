@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\D3D_SHADER_CACHE_APPLICATION_DESC.ahk
+#Include .\ID3DShaderCacheComponent.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\D3D_SHADER_CACHE_COMPILER_PROPERTIES.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D_SHADER_CACHE_TARGET_FLAGS.ahk
+#Include .\D3D_SHADER_CACHE_PSDB_PROPERTIES.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D
@@ -38,9 +45,8 @@ class ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetDescription
+     * 
      * @returns {D3D_SHADER_CACHE_APPLICATION_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getdescription
      */
     GetDesc() {
         pApplicationDesc := D3D_SHADER_CACHE_APPLICATION_DESC()

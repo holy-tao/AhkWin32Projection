@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWindowsParentalControlsCore.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IWPCGamesSettings.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWindowsParentalControlsCore.ahk
 
 /**
  * Enables access to all settings interfaces of the Minimum Compliance API.

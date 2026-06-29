@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\IDxcOperationResult.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\DXC_OUT_KIND.ahk
+#Include .\IDxcBlobUtf16.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc

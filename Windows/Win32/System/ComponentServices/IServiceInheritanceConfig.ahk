@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\CSC_InheritanceConfig.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Determines whether to construct a new context based on the current context or to create a new context based solely on the information in CServiceConfig.

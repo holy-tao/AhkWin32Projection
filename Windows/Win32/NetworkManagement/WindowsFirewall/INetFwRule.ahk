@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\NET_FW_ACTION.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\NET_FW_RULE_DIRECTION.ahk
 
 /**
  * To the properties of a rule.
@@ -338,7 +342,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_name
      */
     get_Name() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", name, "HRESULT")
         return name
     }
@@ -370,7 +374,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_description
      */
     get_Description() {
-        desc := BSTR()
+        desc := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", desc, "HRESULT")
         return desc
     }
@@ -402,7 +406,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_applicationname
      */
     get_ApplicationName() {
-        imageFileName := BSTR()
+        imageFileName := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", imageFileName, "HRESULT")
         return imageFileName
     }
@@ -434,7 +438,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_servicename
      */
     get_ServiceName() {
-        serviceName := BSTR()
+        serviceName := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", serviceName, "HRESULT")
         return serviceName
     }
@@ -505,7 +509,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_localports
      */
     get_LocalPorts() {
-        portNumbers := BSTR()
+        portNumbers := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", portNumbers, "HRESULT")
         return portNumbers
     }
@@ -541,7 +545,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_remoteports
      */
     get_RemotePorts() {
-        portNumbers := BSTR()
+        portNumbers := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", portNumbers, "HRESULT")
         return portNumbers
     }
@@ -589,7 +593,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_localaddresses
      */
     get_LocalAddresses() {
-        localAddrs := BSTR()
+        localAddrs := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", localAddrs, "HRESULT")
         return localAddrs
     }
@@ -650,7 +654,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_remoteaddresses
      */
     get_RemoteAddresses() {
-        remoteAddrs := BSTR()
+        remoteAddrs := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", remoteAddrs, "HRESULT")
         return remoteAddrs
     }
@@ -699,7 +703,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_icmptypesandcodes
      */
     get_IcmpTypesAndCodes() {
-        icmpTypesAndCodes := BSTR()
+        icmpTypesAndCodes := BSTR({Value: 0}, True)
         result := ComCall(25, this, "ptr", icmpTypesAndCodes, "HRESULT")
         return icmpTypesAndCodes
     }
@@ -794,7 +798,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_interfacetypes
      */
     get_InterfaceTypes() {
-        interfaceTypes := BSTR()
+        interfaceTypes := BSTR({Value: 0}, True)
         result := ComCall(31, this, "ptr", interfaceTypes, "HRESULT")
         return interfaceTypes
     }
@@ -861,7 +865,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_grouping
      */
     get_Grouping() {
-        _context := BSTR()
+        _context := BSTR({Value: 0}, True)
         result := ComCall(35, this, "ptr", _context, "HRESULT")
         return _context
     }

@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION.ahk
+#Include .\D3D12_VIDEO_ENCODER_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Graphics\Direct3D12\ID3D12Pageable.ahk
 
 /**

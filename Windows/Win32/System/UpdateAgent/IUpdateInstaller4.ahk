@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUpdateInstaller3.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods to finalize updates that were previously staged or installed.

@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSAUDIO_PACKETSIZE_CONSTRAINTS extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

@@ -2,6 +2,16 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IEnroll2.ahk
+#Include .\CERT_CREATE_REQUEST_FLAGS.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\XEKL_KEYSPEC.ahk
+#Include .\ADDED_CERT_TYPE.ahk
+#Include .\XEKL_KEYSIZE.ahk
+#Include .\PENDING_REQUEST_DESIRED_PROPERTY.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\CRYPT_INTEGER_BLOB.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\CERT_CONTEXT.ahk
 
 /**
  * The IEnroll4 interface represents the Certificate Enrollment Control and is used primarily to generate certificate requests.

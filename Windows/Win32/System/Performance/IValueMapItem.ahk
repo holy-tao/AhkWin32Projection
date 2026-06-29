@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\ValueMapType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines a name/value pair.To get this interface, call the IValueMap::Item property. To create this interface, call the IValueMap::CreateValueMapItem method.
@@ -77,7 +80,7 @@ class IValueMapItem extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-get_description
      */
     get_Description() {
-        description := BSTR()
+        description := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", description, "HRESULT")
         return description
     }
@@ -128,7 +131,7 @@ class IValueMapItem extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-get_key
      */
     get_Key() {
-        key := BSTR()
+        key := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", key, "HRESULT")
         return key
     }

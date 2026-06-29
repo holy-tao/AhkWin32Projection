@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Allows the client to create a dynamic keyword address, which holds a list of IP addresses.
@@ -7,7 +9,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
 class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -15,11 +17,14 @@ class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct {
      * Type: **[GUID](/windows/win32/api/guiddef/ns-guiddef-guid)**
      * 
      * A unique **GUID** identifier for this object. It must be a non-empty **GUID**.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(0, this)
+            return this.__id
+        }
     }
 
     /**
@@ -29,8 +34,8 @@ class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct {
      * @type {PWSTR}
      */
     keyword {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -40,8 +45,8 @@ class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct {
      * @type {Integer}
      */
     flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -51,7 +56,7 @@ class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct {
      * @type {PWSTR}
      */
     addresses {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

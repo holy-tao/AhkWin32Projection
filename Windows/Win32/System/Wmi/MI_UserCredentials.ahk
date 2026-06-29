@@ -12,7 +12,7 @@ class MI_UserCredentials extends Win32Struct {
 
     static packingSize => 8
 
-    class _credentials_e__Union extends Win32Struct {
+    class _credentials extends Win32Struct {
         static sizeof => 24
         static packingSize => 8
 
@@ -45,12 +45,12 @@ class MI_UserCredentials extends Win32Struct {
     }
 
     /**
-     * @type {_credentials_e__Union}
+     * @type {_credentials}
      */
     credentials {
         get {
             if(!this.HasProp("__credentials"))
-                this.__credentials := MI_UserCredentials._credentials_e__Union(8, this)
+                this.__credentials := MI_UserCredentials._credentials(8, this)
             return this.__credentials
         }
     }

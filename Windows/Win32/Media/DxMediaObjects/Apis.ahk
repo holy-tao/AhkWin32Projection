@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IEnumDMO.ahk
+#Include .\DMO_MEDIA_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\DMO_PARTIAL_MEDIATYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.DxMediaObjects

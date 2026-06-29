@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IDebugCodeContext.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\IDebugApplicationThread.ahk
+#Include .\IDebugCodeContext.ahk
 #Include ..\IDebugProperty.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include .\IDebugApplicationThread.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -46,7 +48,7 @@ class IDebugStackFrame extends IUnknown {
      * @returns {BSTR} 
      */
     GetDescriptionString(fLong) {
-        pbstrDescription := BSTR()
+        pbstrDescription := BSTR({Value: 0}, True)
         result := ComCall(4, this, "int", fLong, "ptr", pbstrDescription, "HRESULT")
         return pbstrDescription
     }
@@ -57,21 +59,14 @@ class IDebugStackFrame extends IUnknown {
      * @returns {BSTR} 
      */
     GetLanguageString(fLong) {
-        pbstrLanguage := BSTR()
+        pbstrLanguage := BSTR({Value: 0}, True)
         result := ComCall(5, this, "int", fLong, "ptr", pbstrLanguage, "HRESULT")
         return pbstrLanguage
     }
 
     /**
-     * Retrieves the context of the specified thread.
-     * @remarks
-     * This function is used to retrieve the thread context of the specified thread. The function retrieves a selective context based on the value of the **ContextFlags** member of the context structure. The thread identified by the *hThread* parameter is typically being debugged, but the function can also operate when the thread is not being debugged.
      * 
-     * You cannot get a valid context for a running thread. Use the [SuspendThread](/windows/desktop/api/processthreadsapi/nf-processthreadsapi-suspendthread) function to suspend the thread before calling **GetThreadContext**.
-     * 
-     * If you call **GetThreadContext** for the current thread, the function returns successfully; however, the context returned is not valid.
      * @returns {IDebugApplicationThread} 
-     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadcontext
      */
     GetThread() {
         result := ComCall(6, this, "ptr*", &ppat := 0, "HRESULT")

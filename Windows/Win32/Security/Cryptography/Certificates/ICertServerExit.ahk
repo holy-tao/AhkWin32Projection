@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Exported by the server engine and is called by exit modules.
@@ -280,7 +281,7 @@ class ICertServerExit extends IDispatch {
     GetRequestAttribute(strAttributeName) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        pstrAttributeValue := BSTR()
+        pstrAttributeValue := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", strAttributeName, "ptr", pstrAttributeValue, "HRESULT")
         return pstrAttributeValue
     }
@@ -667,7 +668,7 @@ class ICertServerExit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-enumerateextensions
      */
     EnumerateExtensions() {
-        pstrExtensionName := BSTR()
+        pstrExtensionName := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pstrExtensionName, "HRESULT")
         return pstrExtensionName
     }
@@ -705,7 +706,7 @@ class ICertServerExit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-enumerateattributes
      */
     EnumerateAttributes() {
-        pstrAttributeName := BSTR()
+        pstrAttributeName := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pstrAttributeName, "HRESULT")
         return pstrAttributeName
     }

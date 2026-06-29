@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MF_QUALITY_DROP_MODE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MF_QUALITY_LEVEL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables the quality manager to adjust the audio or video quality of a component in the pipeline.

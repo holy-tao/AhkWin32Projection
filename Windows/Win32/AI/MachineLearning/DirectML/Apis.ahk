@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12Device.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\DML_CREATE_DEVICE_FLAGS.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\DML_FEATURE_LEVEL.ahk
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.DirectML

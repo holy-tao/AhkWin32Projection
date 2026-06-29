@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\EContextType.ahk
 #Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\IHostSecurityContext.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -109,7 +112,7 @@ class IHostSecurityManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-openthreadtoken
      */
     OpenThreadToken(dwDesiredAccess, bOpenAsSelf) {
-        phThreadToken := HANDLE()
+        phThreadToken := HANDLE({Value: 0}, True)
         result := ComCall(5, this, "uint", dwDesiredAccess, "int", bOpenAsSelf, "ptr", phThreadToken, "HRESULT")
         return phThreadToken
     }

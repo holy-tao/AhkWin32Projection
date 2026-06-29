@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FWP_BYTE_ARRAY16.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Is used to specify various parameters for IPV6 cryptographically generated address (CGA) authentication.

@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Include .\WTS_SERVICE_STATE.ahk
+#Include .\WTS_SESSION_ID.ahk
 #Include .\IWRdsProtocolListener.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IWRdsProtocolSettings.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WRDS_SETTINGS.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * Exposes methods that the Remote Desktop Services service uses to communicate with the protocol provider.

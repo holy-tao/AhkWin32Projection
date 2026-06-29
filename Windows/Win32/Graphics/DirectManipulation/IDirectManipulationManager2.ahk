@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IDirectManipulationManager.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IDirectManipulationManager interface that provides access to all the Direct Manipulation features and APIs available to the client application.

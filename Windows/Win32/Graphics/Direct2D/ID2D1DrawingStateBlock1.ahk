@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D2D1_DRAWING_STATE_DESCRIPTION1.ahk
 #Include .\ID2D1DrawingStateBlock.ahk
 
 /**

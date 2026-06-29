@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SYNC_PROVIDER_ROLE.ahk
+#Include .\SYNC_PROGRESS_STAGE.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\SYNC_RANGE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents information about the current synchronization session.

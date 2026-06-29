@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The VMRGUID structure is a member of the VMRMONITORINFO structure and is used to identify a monitor on the system (VMR-7 only).
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  */
 class VMRGUID extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -24,10 +25,13 @@ class VMRGUID extends Win32Struct {
 
     /**
      * Specifies the GUID for the monitor.
-     * @type {Pointer}
+     * @type {Guid}
      */
     GUID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__GUID"))
+                this.__GUID := Guid(8, this)
+            return this.__GUID
+        }
     }
 }

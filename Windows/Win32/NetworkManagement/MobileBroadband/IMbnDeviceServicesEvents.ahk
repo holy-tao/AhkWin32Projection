@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\IMbnDeviceService.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MBN_DEVICE_SERVICES_INTERFACE_STATE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Signals an application about notification events related to Mobile Broadband device services on the system.

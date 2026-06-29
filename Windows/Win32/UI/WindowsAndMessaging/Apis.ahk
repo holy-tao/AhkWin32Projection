@@ -1,16 +1,112 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include .\HDEVNOTIFY.ahk
-#Include .\HDWP.ahk
-#Include .\HACCEL.ahk
-#Include .\HMENU.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Include .\WINDOWINFO.ahk
+#Include .\REGISTER_NOTIFICATION_FLAGS.ahk
+#Include .\MrmPlatformVersion.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include .\MrmDumpType.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include .\MrmIndexerFlags.ahk
+#Include ..\..\Graphics\Gdi\HRGN.ahk
+#Include .\GDI_IMAGE_TYPE.ahk
+#Include .\DI_FLAGS.ahk
 #Include .\HCURSOR.ahk
-#Include .\HHOOK.ahk
+#Include .\PEEK_MESSAGE_REMOVE_TYPE.ahk
+#Include .\SYSTEM_PARAMETERS_INFO_ACTION.ahk
+#Include .\UPDATELAYEREDWINDOWINFO.ahk
+#Include .\GET_CLASS_LONG_INDEX.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\IndexedResourceQualifier.ahk
+#Include .\MENUITEMINFOA.ahk
+#Include .\GET_WINDOW_CMD.ahk
+#Include .\WNDCLASSA.ahk
+#Include .\ACCEL.ahk
+#Include .\MESSAGEBOX_STYLE.ahk
+#Include .\WINDOW_STYLE.ahk
+#Include .\MrmPackagingOptions.ahk
+#Include .\WNDCLASSEXA.ahk
+#Include .\MENUBARINFO.ahk
+#Include .\MrmResourceIndexerHandle.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\GET_MENU_DEFAULT_ITEM_FLAGS.ahk
+#Include .\OBJECT_IDENTIFIER.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\SET_WINDOW_POS_FLAGS.ahk
+#Include .\MrmPackagingMode.ahk
+#Include .\WINDOW_LONG_PTR_INDEX.ahk
+#Include .\MrmResourceIndexerMessage.ahk
+#Include .\WINDOW_EX_STYLE.ahk
+#Include .\TILE_WINDOWS_HOW.ahk
+#Include .\TITLEBARINFO.ahk
+#Include .\MSGBOXPARAMSW.ahk
+#Include .\SYSTEM_CURSOR_ID.ahk
+#Include .\MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS.ahk
+#Include .\ICONINFOEXW.ahk
+#Include .\IMAGE_FLAGS.ahk
+#Include .\TRACK_POPUP_MENU_FLAGS.ahk
+#Include .\WINDOW_MESSAGE_FILTER_ACTION.ahk
+#Include ..\..\Foundation\CHAR.ahk
+#Include .\MSG.ahk
+#Include .\SCROLLBAR_CONSTANTS.ahk
+#Include .\SEND_MESSAGE_TIMEOUT_FLAGS.ahk
+#Include .\CHANGEFILTERSTRUCT.ahk
+#Include .\ALTTABINFO.ahk
+#Include .\GUITHREADINFO.ahk
+#Include .\WINDOWPLACEMENT.ahk
+#Include .\SCROLLINFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\SCROLLBARINFO.ahk
+#Include .\ANIMATE_WINDOW_FLAGS.ahk
+#Include .\CASCADE_WINDOWS_HOW.ahk
+#Include .\QUEUE_STATUS_FLAGS.ahk
 #Include .\HICON.ahk
+#Include .\MOVESIZE_OPERATION.ahk
+#Include .\MESSAGEBOX_RESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\HACCEL.ahk
+#Include .\CHANGE_WINDOW_MESSAGE_FILTER_FLAGS.ahk
+#Include .\WINDOW_ACTION.ahk
+#Include .\MSGBOXPARAMSA.ahk
+#Include .\SCROLL_WINDOW_FLAGS.ahk
+#Include ..\..\Foundation\WAIT_EVENT.ahk
+#Include .\LAYERED_WINDOW_ATTRIBUTES_FLAGS.ahk
+#Include .\FOREGROUND_WINDOW_LOCK_CODE.ahk
+#Include .\MENUINFO.ahk
+#Include .\HDWP.ahk
+#Include .\SYSTEM_PARAMETERS_INFO_UPDATE_FLAGS.ahk
+#Include .\FLASHWINFO.ahk
+#Include .\MENUITEMINFOW.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include .\CWP_FLAGS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\UPDATE_LAYERED_WINDOW_FLAGS.ahk
+#Include .\WINDOWS_HOOK_ID.ahk
+#Include .\HDEVNOTIFY.ahk
+#Include .\SYSTEM_METRICS_INDEX.ahk
+#Include .\WNDCLASSEXW.ahk
+#Include .\TOOLTIP_DISMISS_FLAGS.ahk
+#Include .\GET_ANCESTOR_FLAGS.ahk
+#Include .\CURSORINFO.ahk
+#Include ..\..\Graphics\Gdi\BLENDFUNCTION.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include .\HMENU.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include .\MENU_ITEM_FLAGS.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include .\HHOOK.ahk
+#Include .\ICONINFO.ahk
+#Include ..\..\Graphics\Gdi\HBRUSH.ahk
+#Include .\TPMPARAMS.ahk
+#Include .\WINDOW_DISPLAY_AFFINITY.ahk
+#Include .\DLGTEMPLATE.ahk
+#Include .\WNDCLASSW.ahk
+#Include .\ICONINFOEXA.ahk
+#Include .\SHOW_WINDOW_CMD.ahk
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
@@ -22038,17 +22134,10 @@ class WindowsAndMessaging {
     }
 
     /**
-     * Removes a hook procedure installed in a hook chain by the SetWindowsHookEx function.
-     * @remarks
-     * The hook procedure can be in the state of being called by another thread even after <b>UnhookWindowsHookEx</b> returns. If the hook procedure is not being called concurrently, the hook procedure is removed immediately before <b>UnhookWindowsHookEx</b> returns.
+     * 
      * @param {Integer} nCode 
      * @param {Pointer<HOOKPROC>} pfnFilterProc 
-     * @returns {BOOL} Type: <b>BOOL</b>
-     * 
-     * If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unhookwindowshookex
+     * @returns {BOOL} 
      */
     static UnhookWindowsHook(nCode, pfnFilterProc) {
         result := DllCall("USER32.dll\UnhookWindowsHook", "int", nCode, "ptr", pfnFilterProc, "int")

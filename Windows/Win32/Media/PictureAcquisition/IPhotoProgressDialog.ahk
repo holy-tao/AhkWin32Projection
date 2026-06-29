@@ -1,9 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Include .\IPhotoProgressActionCB.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\PROGRESS_DIALOG_IMAGE_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\PROGRESS_DIALOG_CHECKBOX_ID.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * Provides the progress dialog box that may be displayed when enumerating or importing images. The dialog box is modal and runs in its own thread.

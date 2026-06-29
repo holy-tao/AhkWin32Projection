@@ -2,8 +2,6 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
- * The entire certificate  chain will be included in the signature.
- * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_info
  * @namespace Windows.Win32.Security.Cryptography.UI
  */
 class CRYPTUI_WIZ_DIGITAL_SIGN extends Win32Enum {

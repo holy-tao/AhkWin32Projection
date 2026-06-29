@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IOleUILinkContainerW.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\IOleUILinkContainerW.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * An extension of the IOleUILinkContainer interface. It returns the time that an object was last updated, which is link information that IOleUILinkContainer does not provide. (Unicode)

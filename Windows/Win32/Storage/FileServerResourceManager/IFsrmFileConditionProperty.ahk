@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmFileCondition.ahk
+#Include .\FsrmPropertyConditionType.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\FsrmFileSystemPropertyId.ahk
+#Include .\FsrmPropertyValueType.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFsrmFileCondition.ahk
 
 /**
  * Defines a file condition property.
@@ -77,7 +81,7 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-get_propertyname
      */
     get_PropertyName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
         return pVal
     }

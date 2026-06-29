@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\ACE_HEADER.ahk
 #Include .\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk
+#Include ..\..\..\Guid.ahk
+#Include .\ACE_HEADER.ahk
 
 /**
  * The SYSTEM_AUDIT_CALLBACK_OBJECT_ACE structure defines an access control entry for a system access control list.
@@ -17,9 +18,9 @@
  * @namespace Windows.Win32.Security
  */
 class SYSTEM_AUDIT_CALLBACK_OBJECT_ACE extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure that specifies the size and type of ACE. It contains flags that control inheritance of the ACE by child objects. The structure also contains flags that indicate whether the ACE audits successful access attempts, failed access attempts, or both. The <b>AceType</b> member of the <b>ACE_HEADER</b> structure should be set to SYSTEM_AUDIT_CALLBACK_OBJECT_ACE_TYPE, and the <b>AceSize</b> member should be set to the total number of bytes allocated for the <b>SYSTEM_AUDIT_CALLBACK_OBJECT_ACE</b> structure.
@@ -61,11 +62,14 @@ class SYSTEM_AUDIT_CALLBACK_OBJECT_ACE extends Win32Struct {
      * This member is valid only if the ACE_OBJECT_TYPE_PRESENT bit is set in the <b>Flags</b> member. Otherwise, <b>ObjectType</b> is ignored.
      * 
      * The purpose of this GUID depends on the access rights specified in the <b>Mask</b> member.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ObjectType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__ObjectType"))
+                this.__ObjectType := Guid(12, this)
+            return this.__ObjectType
+        }
     }
 
     /**
@@ -76,11 +80,14 @@ class SYSTEM_AUDIT_CALLBACK_OBJECT_ACE extends Win32Struct {
      * 
      * This member is valid only if the ACE_INHERITED_OBJECT_TYPE_PRESENT bit is set in the <b>Flags</b> member. If that bit is not set, <b>InheritedObjectType</b> is ignored and all types of child objects can inherit the ACE. In either case, inheritance is also controlled by the inheritance flags in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a>, as well as by any protection against inheritance placed on the child objects.
-     * @type {Pointer}
+     * @type {Guid}
      */
     InheritedObjectType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__InheritedObjectType"))
+                this.__InheritedObjectType := Guid(28, this)
+            return this.__InheritedObjectType
+        }
     }
 
     /**
@@ -88,7 +95,7 @@ class SYSTEM_AUDIT_CALLBACK_OBJECT_ACE extends Win32Struct {
      * @type {Integer}
      */
     SidStart {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

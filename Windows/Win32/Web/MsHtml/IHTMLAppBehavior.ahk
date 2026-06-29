@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -154,7 +155,7 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_applicationName() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -176,7 +177,7 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_version() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -198,7 +199,7 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_icon() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -220,7 +221,7 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_singleInstance() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", p, "HRESULT")
         return p
     }
@@ -242,7 +243,7 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_minimizeButton() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", p, "HRESULT")
         return p
     }
@@ -264,7 +265,7 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_maximizeButton() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", p, "HRESULT")
         return p
     }
@@ -286,7 +287,7 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_border() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", p, "HRESULT")
         return p
     }
@@ -308,7 +309,7 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", p, "HRESULT")
         return p
     }
@@ -330,7 +331,7 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_sysMenu() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", p, "HRESULT")
         return p
     }
@@ -352,7 +353,7 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_caption() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", p, "HRESULT")
         return p
     }
@@ -374,7 +375,7 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_windowState() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", p, "HRESULT")
         return p
     }
@@ -396,7 +397,7 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_showInTaskBar() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", p, "HRESULT")
         return p
     }
@@ -406,7 +407,7 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_commandLine() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(31, this, "ptr", p, "HRESULT")
         return p
     }

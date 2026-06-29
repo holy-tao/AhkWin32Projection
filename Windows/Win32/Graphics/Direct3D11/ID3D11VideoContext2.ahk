@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D11VideoContext1.ahk
+#Include .\ID3D11VideoProcessor.ahk
+#Include ..\Dxgi\DXGI_HDR_METADATA_TYPE.ahk
 
 /**
  * Provides the video functionality of a Microsoft Direct3D 11 device. (ID3D11VideoContext2)

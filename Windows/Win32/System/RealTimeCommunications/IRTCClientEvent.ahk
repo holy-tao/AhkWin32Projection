@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IRTCClient.ahk
+#Include .\RTC_CLIENT_EVENT_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

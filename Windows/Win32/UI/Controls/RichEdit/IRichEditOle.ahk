@@ -1,9 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Ole\IOleClientSite.ahk
+#Include .\CHARRANGE.ahk
+#Include .\REOBJECT.ahk
+#Include ..\..\..\System\Com\StructuredStorage\IStorage.ahk
+#Include ..\..\..\Foundation\HGLOBAL.ahk
 #Include ..\..\..\System\Com\IDataObject.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Ole\IOleClientSite.ahk
+#Include .\RICH_EDIT_GET_OBJECT_FLAGS.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The IRichEditOle interface exposes the Component Object Model (COM) functionality of a rich edit control. The interface can be obtained by sending the EM_GETOLEINTERFACE message. This interface has the following methods.

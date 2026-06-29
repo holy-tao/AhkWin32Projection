@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPartBase.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IPartBase.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -33,7 +35,7 @@ class IPartThumbnail extends IPartBase {
      * @returns {BSTR} 
      */
     GetThumbnailProperties() {
-        pContentType := BSTR()
+        pContentType := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pContentType, "HRESULT")
         return pContentType
     }

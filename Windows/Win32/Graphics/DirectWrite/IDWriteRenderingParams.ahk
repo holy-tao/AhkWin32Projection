@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_RENDERING_MODE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\DWRITE_PIXEL_GEOMETRY.ahk
 
 /**
  * Represents text rendering settings such as ClearType level, enhanced contrast, and gamma correction for glyph rasterization and filtering.

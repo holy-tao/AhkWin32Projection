@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IComponents.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\ITuningSpace.ahk
-#Include .\IComponents.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\ILocator.ahk
 
 /**

@@ -1,13 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\System\Diagnostics\Etw\EVENT_TRACE_HEADER.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
 class DXVA2TraceVideoProcessBltData extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -26,14 +28,6 @@ class DXVA2TraceVideoProcessBltData extends Win32Struct {
      * @type {Integer}
      */
     pObject {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    pRenderTarget {
         get => NumGet(this, 48, "uint")
         set => NumPut("uint", value, this, 48)
     }
@@ -41,9 +35,17 @@ class DXVA2TraceVideoProcessBltData extends Win32Struct {
     /**
      * @type {Integer}
      */
-    TargetFrameTime {
+    pRenderTarget {
         get => NumGet(this, 56, "uint")
         set => NumPut("uint", value, this, 56)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    TargetFrameTime {
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -52,7 +54,7 @@ class DXVA2TraceVideoProcessBltData extends Win32Struct {
     TargetRect {
         get {
             if(!this.HasProp("__TargetRect"))
-                this.__TargetRect := RECT(64, this)
+                this.__TargetRect := RECT(72, this)
             return this.__TargetRect
         }
     }
@@ -61,7 +63,7 @@ class DXVA2TraceVideoProcessBltData extends Win32Struct {
      * @type {BOOL}
      */
     Enter {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 }

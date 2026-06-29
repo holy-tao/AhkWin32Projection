@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
+#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information used to change a password.

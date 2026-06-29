@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Describes the configuration of a Microsoft Direct3D 11 decoder device for DirectX Video Acceleration (DXVA).
@@ -7,35 +8,44 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
 class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 100
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * If the bitstream data buffers are encrypted using the D3D11CryptoSession mechanism, this GUID should be set to zero. If no encryption is applied, the value is <b>DXVA_NoEncrypt</b>. If <b>ConfigBitstreamRaw</b> is 0, the value must be <b>DXVA_NoEncrypt</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidConfigBitstreamEncryption {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guidConfigBitstreamEncryption"))
+                this.__guidConfigBitstreamEncryption := Guid(0, this)
+            return this.__guidConfigBitstreamEncryption
+        }
     }
 
     /**
      * If the macroblock control data buffers are  encrypted using the D3D11CryptoSession mechanism, this GUID should be set to zero.  If no encryption is applied, the value is <b>DXVA_NoEncrypt</b>. If <b>ConfigBitstreamRaw</b> is 1, the value must be <b>DXVA_NoEncrypt</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidConfigMBcontrolEncryption {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidConfigMBcontrolEncryption"))
+                this.__guidConfigMBcontrolEncryption := Guid(16, this)
+            return this.__guidConfigMBcontrolEncryption
+        }
     }
 
     /**
      * If the residual difference decoding data buffers are  encrypted using the D3D11CryptoSession mechanism, this GUID should be set to zero.   If no encryption is applied, the value is <b>DXVA_NoEncrypt</b>. If <b>ConfigBitstreamRaw</b> is 1, the value must be <b>DXVA_NoEncrypt</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidConfigResidDiffEncryption {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__guidConfigResidDiffEncryption"))
+                this.__guidConfigResidDiffEncryption := Guid(32, this)
+            return this.__guidConfigResidDiffEncryption
+        }
     }
 
     /**
@@ -43,8 +53,8 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
      * @type {Integer}
      */
     ConfigBitstreamRaw {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -52,8 +62,8 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
      * @type {Integer}
      */
     ConfigMBcontrolRasterOrder {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -61,8 +71,8 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
      * @type {Integer}
      */
     ConfigResidDiffHost {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -94,8 +104,8 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
      * @type {Integer}
      */
     ConfigSpatialResid8 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -106,8 +116,8 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
      * @type {Integer}
      */
     ConfigResid8Subtraction {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -118,8 +128,8 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
      * @type {Integer}
      */
     ConfigSpatialHost8or9Clipping {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
@@ -127,8 +137,8 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
      * @type {Integer}
      */
     ConfigSpatialResidInterleaved {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -161,8 +171,8 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
      * @type {Integer}
      */
     ConfigIntraResidUnsigned {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     /**
@@ -173,8 +183,8 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
      * @type {Integer}
      */
     ConfigResidDiffAccelerator {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -185,8 +195,8 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
      * @type {Integer}
      */
     ConfigHostInverseScan {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
@@ -200,8 +210,8 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
      * @type {Integer}
      */
     ConfigSpecificIDCT {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
@@ -209,8 +219,8 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
      * @type {Integer}
      */
     Config4GroupedCoefs {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
@@ -218,8 +228,8 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
      * @type {Integer}
      */
     ConfigMinRenderTargetBuffCount {
-        get => NumGet(this, 72, "ushort")
-        set => NumPut("ushort", value, this, 72)
+        get => NumGet(this, 96, "ushort")
+        set => NumPut("ushort", value, this, 96)
     }
 
     /**
@@ -227,7 +237,7 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
      * @type {Integer}
      */
     ConfigDecoderSpecific {
-        get => NumGet(this, 74, "ushort")
-        set => NumPut("ushort", value, this, 74)
+        get => NumGet(this, 98, "ushort")
+        set => NumPut("ushort", value, this, 98)
     }
 }

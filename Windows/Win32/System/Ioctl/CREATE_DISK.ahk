@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PARTITION_STYLE.ahk
 #Include .\CREATE_DISK_MBR.ahk
+#Include .\PARTITION_STYLE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\CREATE_DISK_GPT.ahk
 
 /**
@@ -12,7 +13,7 @@
 class CREATE_DISK extends Win32Struct {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The format of a partition. 
@@ -32,7 +33,7 @@ class CREATE_DISK extends Win32Struct {
     Mbr {
         get {
             if(!this.HasProp("__Mbr"))
-                this.__Mbr := CREATE_DISK_MBR(8, this)
+                this.__Mbr := CREATE_DISK_MBR(4, this)
             return this.__Mbr
         }
     }
@@ -43,7 +44,7 @@ class CREATE_DISK extends Win32Struct {
     Gpt {
         get {
             if(!this.HasProp("__Gpt"))
-                this.__Gpt := CREATE_DISK_GPT(8, this)
+                this.__Gpt := CREATE_DISK_GPT(4, this)
             return this.__Gpt
         }
     }

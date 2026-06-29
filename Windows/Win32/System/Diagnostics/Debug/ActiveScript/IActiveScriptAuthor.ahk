@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IScriptNode.ahk
-#Include .\IScriptEntry.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Com\IDispatch.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IScriptNode.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
+#Include .\IScriptEntry.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -202,7 +207,7 @@ class IActiveScriptAuthor extends IUnknown {
      * @returns {BSTR} 
      */
     GetChars(fRequestedList) {
-        pbstrChars := BSTR()
+        pbstrChars := BSTR({Value: 0}, True)
         result := ComCall(14, this, "uint", fRequestedList, "ptr", pbstrChars, "HRESULT")
         return pbstrChars
     }

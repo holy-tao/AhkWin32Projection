@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IMEAPPLETCFG.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IMEAPPLETUI.ahk
+#Include ..\..\..\Foundation\WPARAM.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IImePadApplet interface inputs strings into apps through the IImePad interface.

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\EAP_METHOD_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\EAP_TYPE.ahk
 
 /**
@@ -9,7 +11,7 @@
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
 class EAP_ERROR extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -360,11 +362,14 @@ class EAP_ERROR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
+     * @type {Guid}
      */
     rootCauseGuid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__rootCauseGuid"))
+                this.__rootCauseGuid := Guid(24, this)
+            return this.__rootCauseGuid
+        }
     }
 
     /**
@@ -443,11 +448,14 @@ class EAP_ERROR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
+     * @type {Guid}
      */
     repairGuid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__repairGuid"))
+                this.__repairGuid := Guid(40, this)
+            return this.__repairGuid
+        }
     }
 
     /**
@@ -521,11 +529,14 @@ class EAP_ERROR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
+     * @type {Guid}
      */
     helpLinkGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__helpLinkGuid"))
+                this.__helpLinkGuid := Guid(56, this)
+            return this.__helpLinkGuid
+        }
     }
 
     /**
@@ -533,8 +544,8 @@ class EAP_ERROR extends Win32Struct {
      * @type {PWSTR}
      */
     pRootCauseString {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -542,7 +553,7 @@ class EAP_ERROR extends Win32Struct {
      * @type {PWSTR}
      */
     pRepairString {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 }

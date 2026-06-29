@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\STORAGE_DISK_HEALTH_STATUS.ahk
 #Include .\STORAGE_DISK_OPERATIONAL_STATUS.ahk
-#Include .\STORAGE_OPERATIONAL_REASON.ahk
 #Include .\STORAGE_OPERATIONAL_STATUS_REASON.ahk
+#Include .\STORAGE_OPERATIONAL_REASON.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl

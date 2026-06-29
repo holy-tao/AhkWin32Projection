@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CHAR_IMAGE_INFO.ahk
-#Include .\FSCNTL_SCREEN_INFO.ahk
 #Include ..\..\System\Console\COORD.ahk
+#Include .\FSCNTL_SCREEN_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display

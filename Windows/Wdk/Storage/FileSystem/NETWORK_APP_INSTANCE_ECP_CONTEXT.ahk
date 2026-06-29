@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
 class NETWORK_APP_INSTANCE_ECP_CONTEXT extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,10 +27,13 @@ class NETWORK_APP_INSTANCE_ECP_CONTEXT extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     AppInstanceID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__AppInstanceID"))
+                this.__AppInstanceID := Guid(4, this)
+            return this.__AppInstanceID
+        }
     }
 }

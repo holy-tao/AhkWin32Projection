@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RID_DEVICE_INFO_TYPE.ahk
+#Include .\RID_DEVICE_INFO_HID.ahk
 #Include .\RID_DEVICE_INFO_MOUSE.ahk
 #Include .\RID_DEVICE_INFO_KEYBOARD.ahk
-#Include .\RID_DEVICE_INFO_HID.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\RID_DEVICE_INFO_TYPE.ahk
 
 /**
  * Defines the raw input data coming from any device.

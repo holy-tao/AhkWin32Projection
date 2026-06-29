@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcRelationship.ahk
 #Include .\IOpcRelationshipEnumerator.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\OPC_URI_TARGET_MODE.ahk
 #Include ..\..\..\System\Com\IStream.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\Com\IUri.ahk
 
 /**
  * Represents a Relationships part as an unordered set of IOpcRelationship interface pointers to relationship objects.

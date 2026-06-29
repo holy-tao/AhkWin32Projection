@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_TRI_STATE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Indicates whether or not Enhanced Barriers are supported.

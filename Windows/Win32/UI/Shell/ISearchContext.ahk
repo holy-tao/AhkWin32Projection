@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that channel customization information to the search hooks.
@@ -38,7 +39,7 @@ class ISearchContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-isearchcontext-getsearchurl
      */
     GetSearchUrl() {
-        pbstrSearchUrl := BSTR()
+        pbstrSearchUrl := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pbstrSearchUrl, "HRESULT")
         return pbstrSearchUrl
     }
@@ -51,7 +52,7 @@ class ISearchContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-isearchcontext-getsearchtext
      */
     GetSearchText() {
-        pbstrSearchText := BSTR()
+        pbstrSearchText := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", pbstrSearchText, "HRESULT")
         return pbstrSearchText
     }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINTRUST_DETACHED_SIG_FILE_HANDLES.ahk
 #Include .\WINTRUST_DETACHED_SIG_BLOBS.ahk
+#Include .\WINTRUST_DETACHED_SIG_FILE_HANDLES.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust

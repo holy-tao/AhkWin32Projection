@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_CONNECTION_MODE.ahk
-#Include .\DOT11_SSID.ahk
 #Include .\DOT11_BSS_TYPE.ahk
+#Include .\DOT11_SSID.ahk
+#Include .\WLAN_CONNECTION_MODE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about media specific module (MSM) connection related notifications.

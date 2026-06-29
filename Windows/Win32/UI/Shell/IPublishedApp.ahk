@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IShellApp.ahk
+#Include .\PUBAPPINFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
  * Exposes methods that represent applications to Add/Remove Programs in Control Panel.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_XML_TRANSFORM_CHAIN_CONFIG.ahk
 #Include .\CRYPT_XML_SIGNATURE.ahk
+#Include .\CRYPT_XML_TRANSFORM_CHAIN_CONFIG.ahk
 
 /**
  * Defines document context information.

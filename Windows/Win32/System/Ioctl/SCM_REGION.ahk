@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
 class SCM_REGION extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -42,41 +43,31 @@ class SCM_REGION extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     LogicalDeviceGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__LogicalDeviceGuid"))
+                this.__LogicalDeviceGuid := Guid(16, this)
+            return this.__LogicalDeviceGuid
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     AddressRangeType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__AddressRangeType"))
+                this.__AddressRangeType := Guid(32, this)
+            return this.__AddressRangeType
+        }
     }
 
     /**
      * @type {Integer}
      */
     AssociatedId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    StartingDPA {
         get => NumGet(this, 48, "uint")
         set => NumPut("uint", value, this, 48)
     }
@@ -84,7 +75,7 @@ class SCM_REGION extends Win32Struct {
     /**
      * @type {Integer}
      */
-    BaseSPA {
+    Length {
         get => NumGet(this, 56, "uint")
         set => NumPut("uint", value, this, 56)
     }
@@ -92,7 +83,7 @@ class SCM_REGION extends Win32Struct {
     /**
      * @type {Integer}
      */
-    SPAOffset {
+    StartingDPA {
         get => NumGet(this, 64, "uint")
         set => NumPut("uint", value, this, 64)
     }
@@ -100,8 +91,24 @@ class SCM_REGION extends Win32Struct {
     /**
      * @type {Integer}
      */
-    RegionOffset {
+    BaseSPA {
         get => NumGet(this, 72, "uint")
         set => NumPut("uint", value, this, 72)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SPAOffset {
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    RegionOffset {
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 }

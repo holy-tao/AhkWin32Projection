@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CREATESTRUCTA.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\CREATESTRUCTA.ahk
 
 /**
  * Contains information passed to a WH_CBT hook procedure, CBTProc, before a window is created. (ANSI)

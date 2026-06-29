@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDiskQuotaUser.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enumerates user quota entries on the volume.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The CodecAPIEventData structure (strmif.h) contains event data for the EC_CODECAPI_EVENT event. This event is sent by codecs that support the ICodecAPI interface.
@@ -9,17 +10,20 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class CodecAPIEventData extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A GUID that identifies the codec event.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(0, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -28,8 +32,8 @@ class CodecAPIEventData extends Win32Struct {
      * @type {Integer}
      */
     dataLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -39,7 +43,7 @@ class CodecAPIEventData extends Win32Struct {
     reserved {
         get {
             if(!this.HasProp("__reservedProxyArray"))
-                this.__reservedProxyArray := Win32FixedArray(this.ptr + 12, 3, Primitive, "uint")
+                this.__reservedProxyArray := Win32FixedArray(this.ptr + 20, 3, Primitive, "uint")
             return this.__reservedProxyArray
         }
     }

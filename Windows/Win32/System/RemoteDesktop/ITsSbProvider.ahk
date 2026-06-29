@@ -1,17 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include .\ITsSbTarget.ahk
 #Include .\ITsSbLoadBalanceResult.ahk
 #Include .\ITsSbSession.ahk
 #Include .\ITsSbPluginPropertySet.ahk
+#Include .\ITsSbResourceNotification.ahk
 #Include .\ITsSbTargetPropertySet.ahk
-#Include .\ITsSbEnvironment.ahk
+#Include .\ITsSbGlobalStore.ahk
 #Include .\ITsSbResourcePluginStore.ahk
 #Include .\ITsSbFilterPluginStore.ahk
-#Include .\ITsSbGlobalStore.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITsSbEnvironmentPropertySet.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ITsSbEnvironment.ahk
 
 /**
  * Exposes methods that create default implementations of objects that are used in Remote Desktop Virtualization.

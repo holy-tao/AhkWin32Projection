@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\ExtensibleAuthenticationProtocol\EAP_METHOD_TYPE.ahk
-#Include ..\..\Security\ExtensibleAuthenticationProtocol\EAP_TYPE.ahk
 #Include .\ONEX_VARIABLE_BLOB.ahk
+#Include ..\..\Security\ExtensibleAuthenticationProtocol\EAP_METHOD_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Security\ExtensibleAuthenticationProtocol\EAP_TYPE.ahk
 
 /**
  * Contains 802.1X EAP error when an error occurs with 802.1X authentication.
@@ -18,9 +19,9 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
 class ONEX_EAP_ERROR extends Win32Struct {
-    static sizeof => 72
+    static sizeof => 92
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The error value defined in the <i>Winerror.h</i> header file. This member also sometimes contains the reason the EAP method failed. The existing values for this member for the reason the EAP method failed are defined in the <i>Eaphosterror.h</i> header file.
@@ -864,11 +865,14 @@ class ONEX_EAP_ERROR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
+     * @type {Guid}
      */
     rootCauseGuid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__rootCauseGuid"))
+                this.__rootCauseGuid := Guid(24, this)
+            return this.__rootCauseGuid
+        }
     }
 
     /**
@@ -1129,11 +1133,14 @@ class ONEX_EAP_ERROR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
+     * @type {Guid}
      */
     repairGuid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__repairGuid"))
+                this.__repairGuid := Guid(40, this)
+            return this.__repairGuid
+        }
     }
 
     /**
@@ -1228,11 +1235,14 @@ class ONEX_EAP_ERROR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
+     * @type {Guid}
      */
     helpLinkGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__helpLinkGuid"))
+                this.__helpLinkGuid := Guid(56, this)
+            return this.__helpLinkGuid
+        }
     }
 
     /**
@@ -1242,8 +1252,8 @@ class ONEX_EAP_ERROR extends Win32Struct {
      * @type {Integer}
      */
     _bitfield {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -1269,7 +1279,7 @@ class ONEX_EAP_ERROR extends Win32Struct {
     RootCauseString {
         get {
             if(!this.HasProp("__RootCauseString"))
-                this.__RootCauseString := ONEX_VARIABLE_BLOB(52, this)
+                this.__RootCauseString := ONEX_VARIABLE_BLOB(76, this)
             return this.__RootCauseString
         }
     }
@@ -1282,7 +1292,7 @@ class ONEX_EAP_ERROR extends Win32Struct {
     RepairString {
         get {
             if(!this.HasProp("__RepairString"))
-                this.__RepairString := ONEX_VARIABLE_BLOB(60, this)
+                this.__RepairString := ONEX_VARIABLE_BLOB(84, this)
             return this.__RepairString
         }
     }

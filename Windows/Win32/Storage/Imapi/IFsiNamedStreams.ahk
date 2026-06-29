@@ -2,8 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Ole\IEnumVARIANT.ahk
 #Include .\IFsiFileItem2.ahk
+#Include ..\..\System\Ole\IEnumVARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IEnumFsiItems.ahk
 
 /**

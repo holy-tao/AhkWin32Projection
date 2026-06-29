@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXGI_INFO_QUEUE_FILTER_DESC.ahk
-#Include .\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk
 #Include .\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk
+#Include .\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk
+#Include .\DXGI_INFO_QUEUE_FILTER_DESC.ahk
 
 /**
  * Describes a debug message filter, which contains lists of message types to allow and deny.

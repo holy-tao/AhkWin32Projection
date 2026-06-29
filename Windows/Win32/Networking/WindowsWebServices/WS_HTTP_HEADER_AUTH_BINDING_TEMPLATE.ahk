@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_CHANNEL_PROPERTIES.ahk
-#Include .\WS_CHANNEL_PROPERTY.ahk
 #Include .\WS_SECURITY_PROPERTIES.ahk
-#Include .\WS_SECURITY_PROPERTY.ahk
-#Include .\WS_HTTP_HEADER_AUTH_SECURITY_BINDING_TEMPLATE.ahk
+#Include .\WS_CHANNEL_PROPERTY.ahk
+#Include .\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTY.ahk
-#Include .\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL.ahk
+#Include .\WS_SECURITY_PROPERTY.ahk
+#Include .\WS_HTTP_HEADER_AUTH_SECURITY_BINDING_TEMPLATE.ahk
+#Include .\WS_CHANNEL_PROPERTIES.ahk
 
 /**
  * HTTP header authentication security template information to be filled in by application. Associated with WS_HTTP_HEADER_AUTH_BINDING_TEMPLATE_TYPE.

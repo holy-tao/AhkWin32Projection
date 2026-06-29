@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL.ahk
 
 /**

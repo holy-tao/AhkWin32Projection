@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IVssWMFiledesc interface is a C++ (not COM) interface returned to a calling application by a number of query methods. It provides detailed information about a file or set of files (a file set).
@@ -43,7 +44,7 @@ class IVssWMFiledesc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswmfiledesc-getpath
      */
     GetPath() {
-        pbstrPath := BSTR()
+        pbstrPath := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pbstrPath, "HRESULT")
         return pbstrPath
     }
@@ -61,7 +62,7 @@ class IVssWMFiledesc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswmfiledesc-getfilespec
      */
     GetFilespec() {
-        pbstrFilespec := BSTR()
+        pbstrFilespec := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", pbstrFilespec, "HRESULT")
         return pbstrFilespec
     }
@@ -122,7 +123,7 @@ class IVssWMFiledesc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswmfiledesc-getalternatelocation
      */
     GetAlternateLocation() {
-        pbstrAlternateLocation := BSTR()
+        pbstrAlternateLocation := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", pbstrAlternateLocation, "HRESULT")
         return pbstrAlternateLocation
     }

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D2D1_ANTIALIAS_MODE.ahk
-#Include .\D2D1_TEXT_ANTIALIAS_MODE.ahk
+#Include .\D2D1_UNIT_MODE.ahk
 #Include Common\D2D_MATRIX_3X2_F.ahk
 #Include .\D2D1_PRIMITIVE_BLEND.ahk
-#Include .\D2D1_UNIT_MODE.ahk
+#Include .\D2D1_TEXT_ANTIALIAS_MODE.ahk
 
 /**
  * Describes the drawing state of a device context.

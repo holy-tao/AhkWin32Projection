@@ -1,28 +1,30 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGAnimatedNumber.ahk
 #Include .\ISVGPoint.ahk
-#Include .\ISVGPathSegClosePath.ahk
-#Include .\ISVGPathSegMovetoAbs.ahk
-#Include .\ISVGPathSegMovetoRel.ahk
-#Include .\ISVGPathSegLinetoAbs.ahk
-#Include .\ISVGPathSegLinetoRel.ahk
-#Include .\ISVGPathSegCurvetoCubicAbs.ahk
-#Include .\ISVGPathSegCurvetoCubicRel.ahk
-#Include .\ISVGPathSegCurvetoQuadraticAbs.ahk
-#Include .\ISVGPathSegCurvetoQuadraticRel.ahk
-#Include .\ISVGPathSegArcAbs.ahk
-#Include .\ISVGPathSegArcRel.ahk
-#Include .\ISVGPathSegLinetoHorizontalAbs.ahk
 #Include .\ISVGPathSegLinetoHorizontalRel.ahk
+#Include .\ISVGPathSegLinetoAbs.ahk
 #Include .\ISVGPathSegLinetoVerticalAbs.ahk
-#Include .\ISVGPathSegLinetoVerticalRel.ahk
-#Include .\ISVGPathSegCurvetoCubicSmoothAbs.ahk
-#Include .\ISVGPathSegCurvetoCubicSmoothRel.ahk
+#Include .\ISVGPathSegLinetoHorizontalAbs.ahk
+#Include .\ISVGPathSegCurvetoQuadraticAbs.ahk
+#Include .\ISVGPathSegArcAbs.ahk
+#Include .\ISVGPathSegMovetoAbs.ahk
+#Include .\ISVGPathSegArcRel.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISVGPathSegCurvetoCubicRel.ahk
 #Include .\ISVGPathSegCurvetoQuadraticSmoothAbs.ahk
 #Include .\ISVGPathSegCurvetoQuadraticSmoothRel.ahk
+#Include .\ISVGPathSegMovetoRel.ahk
+#Include .\ISVGPathSegCurvetoCubicSmoothAbs.ahk
+#Include .\ISVGPathSegLinetoVerticalRel.ahk
+#Include .\ISVGPathSegCurvetoCubicAbs.ahk
+#Include .\ISVGAnimatedNumber.ahk
+#Include .\ISVGPathSegCurvetoCubicSmoothRel.ahk
+#Include .\ISVGPathSegClosePath.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\ISVGPathSegCurvetoQuadraticRel.ahk
+#Include .\ISVGPathSegLinetoRel.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

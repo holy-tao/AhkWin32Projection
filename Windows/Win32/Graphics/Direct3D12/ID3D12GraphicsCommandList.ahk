@@ -1,7 +1,35 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_GPU_DESCRIPTOR_HANDLE.ahk
+#Include .\D3D12_TILE_COPY_FLAGS.ahk
+#Include .\D3D12_VIEWPORT.ahk
+#Include .\ID3D12CommandSignature.ahk
 #Include .\ID3D12CommandList.ahk
+#Include .\D3D12_DISCARD_REGION.ahk
+#Include .\D3D12_BOX.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_CPU_DESCRIPTOR_HANDLE.ahk
+#Include .\D3D12_INDEX_BUFFER_VIEW.ahk
+#Include .\ID3D12CommandAllocator.ahk
+#Include .\D3D12_PREDICATION_OP.ahk
+#Include .\ID3D12PipelineState.ahk
+#Include ..\Direct3D\D3D_PRIMITIVE_TOPOLOGY.ahk
+#Include .\ID3D12DescriptorHeap.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_STREAM_OUTPUT_BUFFER_VIEW.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D12_RESOURCE_BARRIER.ahk
+#Include .\ID3D12QueryHeap.ahk
+#Include .\D3D12_TEXTURE_COPY_LOCATION.ahk
+#Include .\D3D12_VERTEX_BUFFER_VIEW.ahk
+#Include .\D3D12_CLEAR_FLAGS.ahk
+#Include .\ID3D12Resource.ahk
+#Include .\ID3D12RootSignature.ahk
+#Include .\D3D12_QUERY_TYPE.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\D3D12_TILED_RESOURCE_COORDINATE.ahk
+#Include .\D3D12_TILE_REGION_SIZE.ahk
 
 /**
  * Encapsulates a list of graphics commands for rendering. Includes APIs for instrumenting the command list execution, and for setting and clearing the pipeline state.

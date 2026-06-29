@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IN_ADDR.ahk
+#Include .\IN6_ADDR.ahk
 #Include .\SOCKADDR.ahk
 #Include .\ADDRESS_FAMILY.ahk
 #Include .\SOCKADDR_IN.ahk
-#Include .\IN_ADDR.ahk
 #Include .\sockaddr_in6_old.ahk
-#Include .\IN6_ADDR.ahk
 
 /**
  * Provides generic socket address information, and is used with the INTERFACE_INFO structure.

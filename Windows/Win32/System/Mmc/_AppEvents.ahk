@@ -1,7 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MenuItem.ahk
+#Include .\Nodes.ahk
+#Include .\View.ahk
+#Include .\SnapIn.ahk
+#Include .\Document.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\_Application.ahk
+#Include .\Node.ahk
 
 /**
  * @namespace Windows.Win32.System.Mmc

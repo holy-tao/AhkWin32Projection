@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\L2TP_TUNNEL_CONFIG_PARAMS2.ahk
 #Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
+#Include .\L2TP_TUNNEL_CONFIG_PARAMS2.ahk
 
 /**
  * Used to get and set the device configuration for Layer 2 Tunneling Protocol (L2TP) on a RAS Server. (L2TP_CONFIG_PARAMS1)

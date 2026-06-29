@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAzApplicationGroup.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IAzApplicationGroup.ahk
 #Include .\IAzRoleAssignments.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IAzApplicationGroup interface by adding support for the BizRule group type.
@@ -61,7 +63,7 @@ class IAzApplicationGroup2 extends IAzApplicationGroup {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup2-get_bizrule
      */
     get_BizRule() {
-        pbstrProp := BSTR()
+        pbstrProp := BSTR({Value: 0}, True)
         result := ComCall(39, this, "ptr", pbstrProp, "HRESULT")
         return pbstrProp
     }
@@ -85,7 +87,7 @@ class IAzApplicationGroup2 extends IAzApplicationGroup {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup2-get_bizrulelanguage
      */
     get_BizRuleLanguage() {
-        pbstrProp := BSTR()
+        pbstrProp := BSTR({Value: 0}, True)
         result := ComCall(41, this, "ptr", pbstrProp, "HRESULT")
         return pbstrProp
     }
@@ -109,7 +111,7 @@ class IAzApplicationGroup2 extends IAzApplicationGroup {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup2-get_bizruleimportedpath
      */
     get_BizRuleImportedPath() {
-        pbstrProp := BSTR()
+        pbstrProp := BSTR({Value: 0}, True)
         result := ComCall(43, this, "ptr", pbstrProp, "HRESULT")
         return pbstrProp
     }

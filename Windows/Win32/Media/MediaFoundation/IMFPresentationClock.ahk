@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFClock.ahk
 #Include .\IMFPresentationTimeSource.ahk
+#Include .\IMFClockStateSink.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a presentation clock, which is used to schedule when samples are rendered and to synchronize multiple streams.

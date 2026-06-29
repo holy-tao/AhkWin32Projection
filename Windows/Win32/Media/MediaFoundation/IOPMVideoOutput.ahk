@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\OPM_REQUESTED_INFORMATION.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS.ahk
+#Include .\OPM_CONFIGURE_PARAMETERS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\OPM_RANDOM_NUMBER.ahk
+#Include .\OPM_ENCRYPTED_INITIALIZATION_PARAMETERS.ahk
+#Include .\OPM_GET_INFO_PARAMETERS.ahk
 
 /**
  * Represents a video output for an Output Protection Manager (OPM) session.

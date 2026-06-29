@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\VDS_OBJECT_TYPE.ahk
+#Include .\VDS_FILE_SYSTEM_TYPE_PROP.ahk
+#Include .\IVdsAdviseSink.ahk
 #Include .\VDS_SERVICE_PROP.ahk
-#Include .\IEnumVdsObject.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VDS_DRIVE_LETTER_PROP.ahk
+#Include .\IEnumVdsObject.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods to query and interact with VDS.

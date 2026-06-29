@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include Common\D2D_RECT_F.ahk
-#Include .\D2D1_EXTEND_MODE.ahk
 #Include .\D2D1_INTERPOLATION_MODE.ahk
+#Include .\D2D1_EXTEND_MODE.ahk
 
 /**
  * Describes image brush features.

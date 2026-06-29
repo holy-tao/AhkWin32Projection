@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITsSbEnvironment.ahk
 #Include .\ITsSbBaseNotifySink.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that return information about environments to Remote Desktop Connection Broker (RD Connection Broker).

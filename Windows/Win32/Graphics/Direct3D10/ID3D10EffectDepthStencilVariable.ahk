@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10EffectVariable.ahk
 #Include .\ID3D10DepthStencilState.ahk
 #Include .\D3D10_DEPTH_STENCIL_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D10EffectVariable.ahk
 
 /**
  * A depth-stencil-variable interface accesses depth-stencil state.

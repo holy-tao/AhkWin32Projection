@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUIAutomationCondition.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a condition that is the negative of another condition.

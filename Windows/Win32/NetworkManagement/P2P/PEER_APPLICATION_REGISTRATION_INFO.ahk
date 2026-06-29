@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_APPLICATION.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\PEER_DATA.ahk
+#Include .\PEER_APPLICATION.ahk
 
 /**
  * The PEER_APPLICATION_REGISTRATION_INFO structure contains peer application information for registration with the local computer.
@@ -13,7 +15,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
 class PEER_APPLICATION_REGISTRATION_INFO extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -35,8 +37,8 @@ class PEER_APPLICATION_REGISTRATION_INFO extends Win32Struct {
      * @type {PWSTR}
      */
     pwzApplicationToLaunch {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -44,8 +46,8 @@ class PEER_APPLICATION_REGISTRATION_INFO extends Win32Struct {
      * @type {PWSTR}
      */
     pwzApplicationArguments {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -53,7 +55,7 @@ class PEER_APPLICATION_REGISTRATION_INFO extends Win32Struct {
      * @type {Integer}
      */
     dwPublicationScope {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 }

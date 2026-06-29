@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\D3D11_AUTHENTICATED_QUERY_OUTPUT.ahk
-#Include .\D3D11_OMAC.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\D3D11_OMAC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the response to a D3D11_AUTHENTICATED_QUERY_DEVICE_HANDLE query.
@@ -10,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
 class D3D11_AUTHENTICATED_QUERY_DEVICE_HANDLE_OUTPUT extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -33,7 +35,7 @@ class D3D11_AUTHENTICATED_QUERY_DEVICE_HANDLE_OUTPUT extends Win32Struct {
     DeviceHandle {
         get {
             if(!this.HasProp("__DeviceHandle"))
-                this.__DeviceHandle := HANDLE(40, this)
+                this.__DeviceHandle := HANDLE(48, this)
             return this.__DeviceHandle
         }
     }

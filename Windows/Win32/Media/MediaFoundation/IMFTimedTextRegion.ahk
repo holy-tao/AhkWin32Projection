@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MF_TIMED_TEXT_WRITING_MODE.ahk
+#Include .\MF_TIMED_TEXT_UNIT_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\MFARGB.ahk
+#Include .\MF_TIMED_TEXT_DISPLAY_ALIGNMENT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MF_TIMED_TEXT_SCROLL_MODE.ahk
 
 /**
  * Represents the display region of a timed-text object.

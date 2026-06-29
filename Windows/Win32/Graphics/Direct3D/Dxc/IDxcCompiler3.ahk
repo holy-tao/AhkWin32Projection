@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\IDxcIncludeHandler.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\DxcBuffer.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -28,14 +33,13 @@ class IDxcCompiler3 extends IUnknown {
     static VTableNames => ["Compile", "Disassemble"]
 
     /**
-     * This section contains information about the following Direct3D HLSL compiler functions
+     * 
      * @param {Pointer<DxcBuffer>} pSource 
      * @param {Pointer<PWSTR>} pArguments 
      * @param {Integer} argCount 
      * @param {IDxcIncludeHandler} pIncludeHandler 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-d3dcompiler-reference-functions
      */
     Compile(pSource, pArguments, argCount, pIncludeHandler, riid) {
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The SERVER_INFO_1515 structure specifies whether the server should force a client to disconnect once the client's logon time has expired.

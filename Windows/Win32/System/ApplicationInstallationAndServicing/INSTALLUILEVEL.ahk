@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Simple progress and error handling.
- * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisetinternalui
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
 class INSTALLUILEVEL extends Win32Enum {

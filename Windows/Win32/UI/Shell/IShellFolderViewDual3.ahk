@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellFolderViewDual2.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IShellFolderViewDual2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that modify the current folder view.
@@ -72,7 +73,7 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2 {
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-get_groupby
      */
     get_GroupBy() {
-        pbstrGroupBy := BSTR()
+        pbstrGroupBy := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", pbstrGroupBy, "HRESULT")
         return pbstrGroupBy
     }
@@ -129,7 +130,7 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2 {
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-get_sortcolumns
      */
     get_SortColumns() {
-        pbstrSortColumns := BSTR()
+        pbstrSortColumns := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", pbstrSortColumns, "HRESULT")
         return pbstrSortColumns
     }

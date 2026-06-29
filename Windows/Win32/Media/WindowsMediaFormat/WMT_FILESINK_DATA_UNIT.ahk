@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WMT_BUFFER_SEGMENT.ahk
 #Include .\INSSBuffer.ahk
+#Include .\WMT_BUFFER_SEGMENT.ahk
 #Include .\WMT_PAYLOAD_FRAGMENT.ahk
 
 /**

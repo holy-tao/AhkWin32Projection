@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\SIZE.ahk
 
 /**
@@ -35,17 +36,20 @@
  * @namespace Windows.Win32.Media.DirectShow
  */
 class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
-    static sizeof => 120
+    static sizeof => 128
 
     static packingSize => 8
 
     /**
      * <b>GUID</b> that identifies the format type. For example, <b>FORMAT_VideoInfo</b> or <b>FORMAT_VideoInfo2</b>. For more information, see the <b>formattype</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(0, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -53,8 +57,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     VideoStandard {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -68,7 +72,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
     InputSize {
         get {
             if(!this.HasProp("__InputSize"))
-                this.__InputSize := SIZE(12, this)
+                this.__InputSize := SIZE(20, this)
             return this.__InputSize
         }
     }
@@ -84,7 +88,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
     MinCroppingSize {
         get {
             if(!this.HasProp("__MinCroppingSize"))
-                this.__MinCroppingSize := SIZE(20, this)
+                this.__MinCroppingSize := SIZE(28, this)
             return this.__MinCroppingSize
         }
     }
@@ -99,7 +103,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
     MaxCroppingSize {
         get {
             if(!this.HasProp("__MaxCroppingSize"))
-                this.__MaxCroppingSize := SIZE(28, this)
+                this.__MaxCroppingSize := SIZE(36, this)
             return this.__MaxCroppingSize
         }
     }
@@ -113,8 +117,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     CropGranularityX {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
@@ -126,8 +130,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     CropGranularityY {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -139,8 +143,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     CropAlignX {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -152,8 +156,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     CropAlignY {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
@@ -167,7 +171,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
     MinOutputSize {
         get {
             if(!this.HasProp("__MinOutputSize"))
-                this.__MinOutputSize := SIZE(52, this)
+                this.__MinOutputSize := SIZE(60, this)
             return this.__MinOutputSize
         }
     }
@@ -183,7 +187,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
     MaxOutputSize {
         get {
             if(!this.HasProp("__MaxOutputSize"))
-                this.__MaxOutputSize := SIZE(60, this)
+                this.__MaxOutputSize := SIZE(68, this)
             return this.__MaxOutputSize
         }
     }
@@ -197,8 +201,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     OutputGranularityX {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**
@@ -210,8 +214,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     OutputGranularityY {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 
     /**
@@ -223,8 +227,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     StretchTapsX {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
+        get => NumGet(this, 84, "int")
+        set => NumPut("int", value, this, 84)
     }
 
     /**
@@ -236,8 +240,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     StretchTapsY {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 
     /**
@@ -249,8 +253,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     ShrinkTapsX {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
+        get => NumGet(this, 92, "int")
+        set => NumPut("int", value, this, 92)
     }
 
     /**
@@ -310,8 +314,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     ShrinkTapsY {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+        get => NumGet(this, 96, "int")
+        set => NumPut("int", value, this, 96)
     }
 
     /**
@@ -319,8 +323,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     MinFrameInterval {
-        get => NumGet(this, 96, "int64")
-        set => NumPut("int64", value, this, 96)
+        get => NumGet(this, 104, "int64")
+        set => NumPut("int64", value, this, 104)
     }
 
     /**
@@ -328,8 +332,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     MaxFrameInterval {
-        get => NumGet(this, 104, "int64")
-        set => NumPut("int64", value, this, 104)
+        get => NumGet(this, 112, "int64")
+        set => NumPut("int64", value, this, 112)
     }
 
     /**
@@ -341,8 +345,8 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     MinBitsPerSecond {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
+        get => NumGet(this, 120, "int")
+        set => NumPut("int", value, this, 120)
     }
 
     /**
@@ -354,7 +358,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     MaxBitsPerSecond {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
+        get => NumGet(this, 124, "int")
+        set => NumPut("int", value, this, 124)
     }
 }

@@ -1,5 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\WSMAN_SHELL_DISCONNECT_INFO.ahk
+#Include .\WSMAN_API_HANDLE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WSMAN_COMMAND_HANDLE.ahk
+#Include .\WSMAN_SENDER_DETAILS.ahk
+#Include .\WSMAN_DATA.ahk
+#Include .\WSMAN_COMMAND_ARG_SET.ahk
+#Include .\WSMAN_OPTION_SET.ahk
+#Include .\WSMAN_SHELL_STARTUP_INFO_V11.ahk
+#Include .\WSMAN_PLUGIN_REQUEST.ahk
+#Include .\WSMAN_AUTHENTICATION_CREDENTIALS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\WSManSessionOption.ahk
+#Include .\WSMAN_OPERATION_HANDLE.ahk
+#Include .\WSMAN_AUTHZ_QUOTA.ahk
+#Include .\WSMAN_STREAM_ID_SET.ahk
+#Include .\WSMAN_SESSION_HANDLE.ahk
+#Include .\WSMAN_SHELL_ASYNC.ahk
+#Include .\WSMAN_SHELL_HANDLE.ahk
+#Include .\WSMAN_PROXY_INFO.ahk
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement

@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VDS_VDISK_STATE.ahk
 #Include ..\Vhd\VIRTUAL_STORAGE_TYPE.ahk
 #Include ..\Vhd\DEPENDENT_DISK_FLAG.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines the properties of a virtual disk.
@@ -10,17 +13,20 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_VDISK_PROPERTIES extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 88
 
     static packingSize => 8
 
     /**
      * Unique VDS-specific session identifier of the disk.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__Id"))
+                this.__Id := Guid(0, this)
+            return this.__Id
+        }
     }
 
     /**
@@ -28,8 +34,8 @@ class VDS_VDISK_PROPERTIES extends Win32Struct {
      * @type {VDS_VDISK_STATE}
      */
     State {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -39,7 +45,7 @@ class VDS_VDISK_PROPERTIES extends Win32Struct {
     VirtualDeviceType {
         get {
             if(!this.HasProp("__VirtualDeviceType"))
-                this.__VirtualDeviceType := VIRTUAL_STORAGE_TYPE(16, this)
+                this.__VirtualDeviceType := VIRTUAL_STORAGE_TYPE(20, this)
             return this.__VirtualDeviceType
         }
     }
@@ -49,8 +55,8 @@ class VDS_VDISK_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     VirtualSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -58,8 +64,8 @@ class VDS_VDISK_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     PhysicalSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -67,8 +73,8 @@ class VDS_VDISK_PROPERTIES extends Win32Struct {
      * @type {PWSTR}
      */
     pPath {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -76,8 +82,8 @@ class VDS_VDISK_PROPERTIES extends Win32Struct {
      * @type {PWSTR}
      */
     pDeviceName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -85,8 +91,8 @@ class VDS_VDISK_PROPERTIES extends Win32Struct {
      * @type {DEPENDENT_DISK_FLAG}
      */
     DiskFlag {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 
     /**
@@ -94,8 +100,8 @@ class VDS_VDISK_PROPERTIES extends Win32Struct {
      * @type {BOOL}
      */
     bIsChild {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**
@@ -103,7 +109,7 @@ class VDS_VDISK_PROPERTIES extends Win32Struct {
      * @type {PWSTR}
      */
     pParentPath {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 }

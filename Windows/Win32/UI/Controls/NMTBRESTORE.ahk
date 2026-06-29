@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\TBBUTTON.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Allows applications to extract the information that was placed in NMTBSAVE when the toolbar state was saved. This structure is passed to applications when they receive a TBN_RESTORE notification code.

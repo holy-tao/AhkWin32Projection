@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFsrmFileScreenTemplate.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\FsrmEnumOptions.ahk
 #Include .\IFsrmCommittableCollection.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to manage file screen templates.
@@ -90,7 +93,7 @@ class IFsrmFileScreenTemplateManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-exporttemplates
      */
     ExportTemplates(fileScreenTemplateNamesArray) {
-        serializedFileScreenTemplates := BSTR()
+        serializedFileScreenTemplates := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", fileScreenTemplateNamesArray, "ptr", serializedFileScreenTemplates, "HRESULT")
         return serializedFileScreenTemplates
     }

@@ -9,7 +9,7 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct {
 
     static packingSize => 4
 
-    class _SCSpecific_e__Union extends Win32Struct {
+    class _SCSpecific extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -17,7 +17,7 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct {
             static sizeof => 4
             static packingSize => 2
 
-            class _AUTHREQ_e__Union extends Win32Struct {
+            class _AUTHREQ extends Win32Struct {
                 static sizeof => 2
                 static packingSize => 2
 
@@ -76,12 +76,12 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct {
             }
 
             /**
-             * @type {_AUTHREQ_e__Union}
+             * @type {_AUTHREQ}
              */
             AUTHREQ {
                 get {
                     if(!this.HasProp("__AUTHREQ"))
-                        this.__AUTHREQ := NVMEOF_CONNECT_RESPONSE._SCSpecific_e__Union._Success._AUTHREQ_e__Union(2, this)
+                        this.__AUTHREQ := NVMEOF_CONNECT_RESPONSE._SCSpecific._Success._AUTHREQ(2, this)
                     return this.__AUTHREQ
                 }
             }
@@ -93,7 +93,7 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct {
         Success {
             get {
                 if(!this.HasProp("__Success"))
-                    this.__Success := NVMEOF_CONNECT_RESPONSE._SCSpecific_e__Union._Success(0, this)
+                    this.__Success := NVMEOF_CONNECT_RESPONSE._SCSpecific._Success(0, this)
                 return this.__Success
             }
         }
@@ -108,12 +108,12 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct {
     }
 
     /**
-     * @type {_SCSpecific_e__Union}
+     * @type {_SCSpecific}
      */
     SCSpecific {
         get {
             if(!this.HasProp("__SCSpecific"))
-                this.__SCSpecific := NVMEOF_CONNECT_RESPONSE._SCSpecific_e__Union(0, this)
+                this.__SCSpecific := NVMEOF_CONNECT_RESPONSE._SCSpecific(0, this)
             return this.__SCSpecific
         }
     }

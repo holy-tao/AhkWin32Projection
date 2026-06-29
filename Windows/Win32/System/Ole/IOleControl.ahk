@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\CONTROLINFO.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\UI\WindowsAndMessaging\MSG.ahk
 
 /**
  * Provides the features for supporting keyboard mnemonics, ambient properties, and events in control objects.

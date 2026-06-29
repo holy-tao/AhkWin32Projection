@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfKeyTraceEventSink interface is implemented by an application or text service to receive key stroke event notifications before the event is processed by the target.

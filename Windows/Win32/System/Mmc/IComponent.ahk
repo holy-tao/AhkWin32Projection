@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDataObject.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MMC_NOTIFY_TYPE.ahk
+#Include .\RESULTDATAITEM.ahk
+#Include .\IConsole.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\DATA_OBJECT_TYPES.ahk
 
 /**
  * The IComponent interface a base class for all derived interfaces such as IMPEG2Component and it describes the general characteristics of a component, which is an elementary stream within the program stream.

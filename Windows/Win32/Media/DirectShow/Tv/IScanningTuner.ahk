@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\ITuner.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IScanningTuner interface is implemented on the BDA Network Provider filter.

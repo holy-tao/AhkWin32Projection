@@ -2,7 +2,6 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_system_info">MINIDUMP_SYSTEM_INFO</see>, <see href="https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_altplatform_info_v1">SP_ALTPLATFORM_INFO_V1</see>, <see href="https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_altplatform_info_v2">SP_ALTPLATFORM_INFO_V2</see>.
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
 class VER_PLATFORM extends Win32Enum {

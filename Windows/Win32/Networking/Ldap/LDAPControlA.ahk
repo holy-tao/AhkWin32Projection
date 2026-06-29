@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\LDAP_BERVAL.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Represents both client-side and server controls. (ANSI)

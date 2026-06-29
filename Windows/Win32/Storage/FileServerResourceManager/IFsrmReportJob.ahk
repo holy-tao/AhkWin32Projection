@@ -1,10 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmObject.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IFsrmCollection.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\IFsrmObject.ahk
 #Include .\IFsrmReport.ahk
+#Include .\FsrmReportRunningStatus.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IFsrmCollection.ahk
+#Include .\FsrmReportGenerationContext.ahk
+#Include .\FsrmReportType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to configure a report job.
@@ -115,7 +121,7 @@ class IFsrmReportJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_task
      */
     get_Task() {
-        taskName := BSTR()
+        taskName := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", taskName, "HRESULT")
         return taskName
     }
@@ -249,7 +255,7 @@ class IFsrmReportJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_mailto
      */
     get_MailTo() {
-        mailTo := BSTR()
+        mailTo := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", mailTo, "HRESULT")
         return mailTo
     }
@@ -301,7 +307,7 @@ class IFsrmReportJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_lasterror
      */
     get_LastError() {
-        lastError := BSTR()
+        lastError := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", lastError, "HRESULT")
         return lastError
     }
@@ -314,7 +320,7 @@ class IFsrmReportJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_lastgeneratedindirectory
      */
     get_LastGeneratedInDirectory() {
-        _path := BSTR()
+        _path := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", _path, "HRESULT")
         return _path
     }

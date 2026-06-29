@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods and properties that make a user interface element and its children accessible to client applications.
@@ -214,7 +215,7 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accname
      */
     get_accName(varChild) {
-        pszName := BSTR()
+        pszName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", varChild, "ptr", pszName, "HRESULT")
         return pszName
     }
@@ -234,7 +235,7 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accvalue
      */
     get_accValue(varChild) {
-        pszValue := BSTR()
+        pszValue := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", varChild, "ptr", pszValue, "HRESULT")
         return pszValue
     }
@@ -311,7 +312,7 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accdescription
      */
     get_accDescription(varChild) {
-        pszDescription := BSTR()
+        pszDescription := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", varChild, "ptr", pszDescription, "HRESULT")
         return pszDescription
     }
@@ -569,7 +570,7 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_acchelp
      */
     get_accHelp(varChild) {
-        pszHelp := BSTR()
+        pszHelp := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", varChild, "ptr", pszHelp, "HRESULT")
         return pszHelp
     }
@@ -648,7 +649,7 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_acckeyboardshortcut
      */
     get_accKeyboardShortcut(varChild) {
-        pszKeyboardShortcut := BSTR()
+        pszKeyboardShortcut := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", varChild, "ptr", pszKeyboardShortcut, "HRESULT")
         return pszKeyboardShortcut
     }
@@ -903,7 +904,7 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accdefaultaction
      */
     get_accDefaultAction(varChild) {
-        pszDefaultAction := BSTR()
+        pszDefaultAction := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", varChild, "ptr", pszDefaultAction, "HRESULT")
         return pszDefaultAction
     }

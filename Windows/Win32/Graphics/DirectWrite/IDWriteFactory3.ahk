@@ -1,14 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_GRID_FIT_MODE.ahk
+#Include .\DWRITE_MATRIX.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\DWRITE_FONT_SIMULATIONS.ahk
 #Include .\IDWriteFactory2.ahk
-#Include .\IDWriteGlyphRunAnalysis.ahk
-#Include .\IDWriteRenderingParams3.ahk
+#Include .\DWRITE_PIXEL_GEOMETRY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDWriteFontFile.ahk
 #Include .\IDWriteFontFaceReference.ahk
-#Include .\IDWriteFontSet.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IDWriteRenderingParams3.ahk
+#Include .\DWRITE_RENDERING_MODE1.ahk
+#Include .\DWRITE_MEASURING_MODE.ahk
 #Include .\IDWriteFontSetBuilder.ahk
+#Include .\DWRITE_GLYPH_RUN.ahk
+#Include .\IDWriteFontSet.ahk
+#Include .\DWRITE_TEXT_ANTIALIAS_MODE.ahk
 #Include .\IDWriteFontCollection1.ahk
 #Include .\IDWriteFontDownloadQueue.ahk
+#Include .\IDWriteGlyphRunAnalysis.ahk
 
 /**
  * The root factory interface for all DirectWrite objects. (IDWriteFactory3)

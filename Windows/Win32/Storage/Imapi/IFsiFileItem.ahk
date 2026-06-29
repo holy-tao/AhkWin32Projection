@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IFsiItem.ahk
 #Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to identify the file size and data stream of the file contents.

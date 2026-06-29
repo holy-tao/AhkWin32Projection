@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Direct2D\Common\D2D1_BORDER_MODE.ahk
 #Include .\IDCompositionFilterEffect.ahk
+#Include .\IDCompositionAnimation.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The Gaussian blur effect is used to blur an image by a Gaussian function, typically to reduce image noise and reduce detail.

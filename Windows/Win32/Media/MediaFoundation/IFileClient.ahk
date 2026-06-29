@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFileIo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -40,13 +42,9 @@ class IFileClient extends IUnknown {
     }
 
     /**
-     * The WriteBackRootHintDatafile method writes the RootHints back to the DNS Cache file.
+     * 
      * @param {IFileIo} pFio 
-     * @returns {HRESULT} This method has no parameters.
-     * 
-     * 
-     * This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-roothints-writebackroothintdatafile
+     * @returns {HRESULT} 
      */
     Write(pFio) {
         result := ComCall(4, this, "ptr", pFio, "HRESULT")
@@ -54,12 +52,9 @@ class IFileClient extends IUnknown {
     }
 
     /**
-     * The ReadBlobFromFile function reads a BLOB in a file.
-     * @param {IFileIo} pFio 
-     * @returns {HRESULT} If the function is successful, the return value is NMERR\_SUCCESS.
      * 
-     * If the function is unsuccessful, the return value is a NMERR value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
+     * @param {IFileIo} pFio 
+     * @returns {HRESULT} 
      */
     Read(pFio) {
         result := ComCall(5, this, "ptr", pFio, "HRESULT")

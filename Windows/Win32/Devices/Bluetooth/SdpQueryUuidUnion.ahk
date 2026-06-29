@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The SdpQueryUuidUnion union contains the UUID on which to perform an SDP query. Used in conjunction with the SdpQueryUuid structure.
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.Devices.Bluetooth
  */
 class SdpQueryUuidUnion extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * UUID in 128-bit format.
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuid128 {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__uuid128"))
+                this.__uuid128 := Guid(0, this)
+            return this.__uuid128
+        }
     }
 
     /**

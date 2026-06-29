@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDTFilter.ahk
+#Include .\ProtType.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IDTFilter.ahk
 
 /**
  * The IDTFilter2 interface extends the IDTFilter interface and is exposed by the Decrypter/Detagger filter.
@@ -45,7 +47,7 @@ class IDTFilter2 extends IDTFilter {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter2-get_challengeurl
      */
     get_ChallengeUrl() {
-        pbstrChallengeUrl := BSTR()
+        pbstrChallengeUrl := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrChallengeUrl, "HRESULT")
         return pbstrChallengeUrl
     }

@@ -1,7 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\WindowsAndMessaging\HDWP.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\FOLDERSETTINGS.ahk
+#Include .\IExplorerBrowserEvents.ahk
+#Include .\EXPLORER_BROWSER_FILL_FLAGS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\EXPLORER_BROWSER_OPTIONS.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * IExplorerBrowser is a browser object that can be either navigated or that can host a view of a data object. As a full-featured browser object, it also supports an automatic travel log.

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITsSbClientConnection.ahk
+#Include .\ITsSbPlacementNotifySink.ahk
 #Include .\ITsSbPlugin.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that prepare the environment (the computer that hosts the virtual machine).

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_AUTHENTICATED_CONFIGURE_INPUT.ahk
-#Include .\D3D11_OMAC.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3D11_AUTHENTICATED_PROTECTION_FLAGS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_AUTHENTICATED_CONFIGURE_INPUT.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\D3D11_OMAC.ahk
 
 /**
  * Contains input data for a D3D11_AUTHENTICATED_CONFIGURE_PROTECTION command.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
 class D3D11_AUTHENTICATED_CONFIGURE_PROTECTION_INPUT extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -34,7 +35,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_PROTECTION_INPUT extends Win32Struct {
     Protections {
         get {
             if(!this.HasProp("__Protections"))
-                this.__Protections := D3D11_AUTHENTICATED_PROTECTION_FLAGS(40, this)
+                this.__Protections := D3D11_AUTHENTICATED_PROTECTION_FLAGS(48, this)
             return this.__Protections
         }
     }

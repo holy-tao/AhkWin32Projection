@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3DBOX.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\D3DLOCKED_BOX.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDirect3DDevice9.ahk
+#Include .\D3DVOLUME_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IDirect3DVolume9 (d3d9.h) interface is used by applications to manipulate volume resources.

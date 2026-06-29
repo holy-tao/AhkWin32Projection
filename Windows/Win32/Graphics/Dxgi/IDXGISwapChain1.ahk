@@ -1,12 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDXGISwapChain.ahk
+#Include .\IDXGIOutput.ahk
+#Include .\DXGI_PRESENT.ahk
 #Include .\DXGI_SWAP_CHAIN_DESC1.ahk
 #Include .\DXGI_SWAP_CHAIN_FULLSCREEN_DESC.ahk
+#Include Common\DXGI_MODE_ROTATION.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\IDXGIOutput.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDXGISwapChain.ahk
 #Include .\DXGI_RGBA.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DXGI_PRESENT_PARAMETERS.ahk
 
 /**
  * Provides presentation capabilities that are enhanced from IDXGISwapChain. These presentation capabilities consist of specifying dirty rectangles and scroll rectangle to optimize the presentation.

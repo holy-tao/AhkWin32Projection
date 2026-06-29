@@ -2,8 +2,6 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
- * Request denied.
- * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-getissuedcertificate
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
 class CR_DISP extends Win32Enum {

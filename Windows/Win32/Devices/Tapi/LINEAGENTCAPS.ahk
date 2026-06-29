@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The LINEAGENTCAPS structure describes the capabilities of an ACD agent. The lineGetAgentCaps function returns the LINEAGENTCAPS structure.
@@ -7,9 +8,9 @@
  * @namespace Windows.Win32.Devices.Tapi
  */
 class LINEAGENTCAPS extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 72
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Total size allocated to this data structure, in bytes.
@@ -151,10 +152,13 @@ class LINEAGENTCAPS extends Win32Struct {
 
     /**
      * GUID for ACD proxy associated with the line. This element is exposed only to applications that negotiate a TAPI version of 2.2 or higher.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ProxyGUID {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get {
+            if(!this.HasProp("__ProxyGUID"))
+                this.__ProxyGUID := Guid(56, this)
+            return this.__ProxyGUID
+        }
     }
 }

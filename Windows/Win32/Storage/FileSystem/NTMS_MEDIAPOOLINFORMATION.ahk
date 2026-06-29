@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The NTMS_MEDIAPOOLINFORMATION structure defines the properties specific to a media pool object.
@@ -11,9 +12,9 @@
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class NTMS_MEDIAPOOLINFORMATION extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * NTMS supports the following media pool types. 
@@ -85,20 +86,26 @@ class NTMS_MEDIAPOOLINFORMATION extends Win32Struct {
 
     /**
      * Single media type that makes up each media pool.
-     * @type {Pointer}
+     * @type {Guid}
      */
     MediaType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__MediaType"))
+                this.__MediaType := Guid(4, this)
+            return this.__MediaType
+        }
     }
 
     /**
      * Parent media pool or <b>NULL</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Parent {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__Parent"))
+                this.__Parent := Guid(20, this)
+            return this.__Parent
+        }
     }
 
     /**
@@ -125,8 +132,8 @@ class NTMS_MEDIAPOOLINFORMATION extends Win32Struct {
      * @type {Integer}
      */
     AllocationPolicy {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -153,8 +160,8 @@ class NTMS_MEDIAPOOLINFORMATION extends Win32Struct {
      * @type {Integer}
      */
     DeallocationPolicy {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -162,8 +169,8 @@ class NTMS_MEDIAPOOLINFORMATION extends Win32Struct {
      * @type {Integer}
      */
     dwMaxAllocates {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -171,8 +178,8 @@ class NTMS_MEDIAPOOLINFORMATION extends Win32Struct {
      * @type {Integer}
      */
     dwNumberOfPhysicalMedia {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -180,8 +187,8 @@ class NTMS_MEDIAPOOLINFORMATION extends Win32Struct {
      * @type {Integer}
      */
     dwNumberOfLogicalMedia {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -189,7 +196,7 @@ class NTMS_MEDIAPOOLINFORMATION extends Win32Struct {
      * @type {Integer}
      */
     dwNumberOfMediaPools {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 }

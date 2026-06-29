@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IVdsAsync.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides a method to format a partition with additional formatting options.

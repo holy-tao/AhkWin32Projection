@@ -1,14 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IItemEnumerator.ahk
 #Include .\ISettingsNamespace.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\ITargetInfo.ahk
+#Include .\WcmNamespaceAccess.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ISettingsIdentity.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include .\ITargetInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\WcmNamespaceEnumerationFlags.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\WcmUserStatus.ahk
+#Include ..\Com\IStream.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\ISettingsContext.ahk
+#Include .\IItemEnumerator.ahk
 
 /**
  * The central interface for opening namespaces and controlling how they are opened.
@@ -78,7 +85,7 @@ class ISettingsEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-geterrordescription
      */
     GetErrorDescription(_HResult) {
-        Message := BSTR()
+        Message := BSTR({Value: 0}, True)
         result := ComCall(5, this, "int", _HResult, "ptr", Message, "HRESULT")
         return Message
     }

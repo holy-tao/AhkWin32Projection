@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\SID.ahk
 #Include .\INET_FIREWALL_AC_CAPABILITIES.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
 #Include .\INET_FIREWALL_AC_BINARIES.ahk
+#Include ..\..\Security\SID.ahk
 
 /**
  * The INET_FIREWALL_APP_CONTAINER structure contains information about a specific app container. (INET_FIREWALL_APP_CONTAINER)

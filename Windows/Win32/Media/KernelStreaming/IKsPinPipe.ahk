@@ -1,7 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IKsAllocatorEx.ahk
+#Include .\KSALLOCATOR_FRAMING_EX.ahk
+#Include ..\DirectShow\IPin.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\KSPEEKOPERATION.ahk
+#Include .\FRAMING_CACHE_OPS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\FRAMING_PROP.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

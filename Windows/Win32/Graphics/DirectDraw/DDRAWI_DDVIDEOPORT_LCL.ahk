@@ -1,20 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
-#Include .\DDVIDEOPORTDESC.ahk
 #Include .\DDVIDEOPORTCONNECT.ahk
-#Include .\DDVIDEOPORTINFO.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\DDPIXELFORMAT.ahk
 #Include .\DDRAWI_DDRAWSURFACE_INT.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Include .\DDVIDEOPORTINFO.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\DDRAWI_DDVIDEOPORT_INT.ahk
+#Include .\DDVIDEOPORTDESC.ahk
+#Include .\DDPIXELFORMAT.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
 class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct {
-    static sizeof => 312
+    static sizeof => 320
 
     static packingSize => 8
 
@@ -43,7 +44,7 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct {
     ddvpInfo {
         get {
             if(!this.HasProp("__ddvpInfo"))
-                this.__ddvpInfo := DDVIDEOPORTINFO(88, this)
+                this.__ddvpInfo := DDVIDEOPORTINFO(96, this)
             return this.__ddvpInfo
         }
     }
@@ -52,46 +53,30 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct {
      * @type {Pointer<DDRAWI_DDRAWSURFACE_INT>}
      */
     lpSurface {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 
     /**
      * @type {Pointer<DDRAWI_DDRAWSURFACE_INT>}
      */
     lpVBISurface {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 
     /**
      * @type {Pointer<Pointer<DDRAWI_DDRAWSURFACE_INT>>}
      */
     lpFlipInts {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+        get => NumGet(this, 200, "ptr")
+        set => NumPut("ptr", value, this, 200)
     }
 
     /**
      * @type {Integer}
      */
     dwNumAutoflip {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwProcessID {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwStateFlags {
         get => NumGet(this, 208, "uint")
         set => NumPut("uint", value, this, 208)
     }
@@ -99,7 +84,7 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct {
     /**
      * @type {Integer}
      */
-    dwFlags {
+    dwProcessID {
         get => NumGet(this, 212, "uint")
         set => NumPut("uint", value, this, 212)
     }
@@ -107,23 +92,31 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct {
     /**
      * @type {Integer}
      */
-    dwRefCnt {
+    dwStateFlags {
         get => NumGet(this, 216, "uint")
         set => NumPut("uint", value, this, 216)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwFlags {
+        get => NumGet(this, 220, "uint")
+        set => NumPut("uint", value, this, 220)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwRefCnt {
+        get => NumGet(this, 224, "uint")
+        set => NumPut("uint", value, this, 224)
     }
 
     /**
      * @type {Pointer}
      */
     fpLastFlip {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    dwReserved1 {
         get => NumGet(this, 232, "ptr")
         set => NumPut("ptr", value, this, 232)
     }
@@ -131,9 +124,17 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct {
     /**
      * @type {Pointer}
      */
-    dwReserved2 {
+    dwReserved1 {
         get => NumGet(this, 240, "ptr")
         set => NumPut("ptr", value, this, 240)
+    }
+
+    /**
+     * @type {Pointer}
+     */
+    dwReserved2 {
+        get => NumGet(this, 248, "ptr")
+        set => NumPut("ptr", value, this, 248)
     }
 
     /**
@@ -142,7 +143,7 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct {
     hDDVideoPort {
         get {
             if(!this.HasProp("__hDDVideoPort"))
-                this.__hDDVideoPort := HANDLE(248, this)
+                this.__hDDVideoPort := HANDLE(256, this)
             return this.__hDDVideoPort
         }
     }
@@ -151,30 +152,22 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct {
      * @type {Integer}
      */
     dwNumVBIAutoflip {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
+        get => NumGet(this, 264, "uint")
+        set => NumPut("uint", value, this, 264)
     }
 
     /**
      * @type {Pointer<DDVIDEOPORTDESC>}
      */
     lpVBIDesc {
-        get => NumGet(this, 264, "ptr")
-        set => NumPut("ptr", value, this, 264)
+        get => NumGet(this, 272, "ptr")
+        set => NumPut("ptr", value, this, 272)
     }
 
     /**
      * @type {Pointer<DDVIDEOPORTDESC>}
      */
     lpVideoDesc {
-        get => NumGet(this, 272, "ptr")
-        set => NumPut("ptr", value, this, 272)
-    }
-
-    /**
-     * @type {Pointer<DDVIDEOPORTINFO>}
-     */
-    lpVBIInfo {
         get => NumGet(this, 280, "ptr")
         set => NumPut("ptr", value, this, 280)
     }
@@ -182,24 +175,32 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct {
     /**
      * @type {Pointer<DDVIDEOPORTINFO>}
      */
-    lpVideoInfo {
+    lpVBIInfo {
         get => NumGet(this, 288, "ptr")
         set => NumPut("ptr", value, this, 288)
+    }
+
+    /**
+     * @type {Pointer<DDVIDEOPORTINFO>}
+     */
+    lpVideoInfo {
+        get => NumGet(this, 296, "ptr")
+        set => NumPut("ptr", value, this, 296)
     }
 
     /**
      * @type {Integer}
      */
     dwVBIProcessID {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
+        get => NumGet(this, 304, "uint")
+        set => NumPut("uint", value, this, 304)
     }
 
     /**
      * @type {Pointer<DDRAWI_DDVIDEOPORT_INT>}
      */
     lpVPNotify {
-        get => NumGet(this, 304, "ptr")
-        set => NumPut("ptr", value, this, 304)
+        get => NumGet(this, 312, "ptr")
+        set => NumPut("ptr", value, this, 312)
     }
 }

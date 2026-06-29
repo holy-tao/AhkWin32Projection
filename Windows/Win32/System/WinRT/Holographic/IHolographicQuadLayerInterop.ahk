@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IInspectable.ahk
+#Include ..\..\..\Graphics\Direct3D12\D3D12_RESOURCE_DESC.ahk
 #Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk
+#Include ..\IInspectable.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12Device.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12CommandQueue.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * A nano-COM interface that allows COM interop with the [HolographicQuadLayer](/uwp/api/windows.graphics.holographic.holographicquadlayer) Windows Runtime class for apps that use Direct3D 12 for holographic rendering.

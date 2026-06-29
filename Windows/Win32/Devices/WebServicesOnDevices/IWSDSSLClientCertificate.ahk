@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
 
 /**
  * Retrieves the client SSL certificate.
@@ -52,7 +54,7 @@ class IWSDSSLClientCertificate extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsslclientcertificate-getmappedaccesstoken
      */
     GetMappedAccessToken() {
-        phToken := HANDLE()
+        phToken := HANDLE({Value: 0}, True)
         result := ComCall(4, this, "ptr", phToken, "HRESULT")
         return phToken
     }

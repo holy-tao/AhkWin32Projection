@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include ..\Foundation\PWSTR.ahk
+#Include .\ISpellChecker.ahk
 #Include ..\System\Com\IUnknown.ahk
 #Include ..\System\Com\IEnumString.ahk
-#Include .\ISpellChecker.ahk
+#Include ..\Foundation\BOOL.ahk
+#Include ..\Foundation\HRESULT.ahk
 
 /**
  * A factory for instantiating a spell checker (ISpellChecker) as well as providing functionality for determining which languages are supported.

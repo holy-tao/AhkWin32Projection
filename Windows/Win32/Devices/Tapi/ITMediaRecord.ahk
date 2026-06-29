@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITMediaRecord interface provides recording-specific methods that allow an application to set and get the names of files to record.
@@ -58,7 +59,7 @@ class ITMediaRecord extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediarecord-get_filename
      */
     get_FileName() {
-        pbstrFileName := BSTR()
+        pbstrFileName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrFileName, "HRESULT")
         return pbstrFileName
     }

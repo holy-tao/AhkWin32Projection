@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include Common\DXGI_COLOR_SPACE_TYPE.ahk
+#Include Common\DXGI_FORMAT.ahk
 #Include .\IDXGISwapChain2.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends IDXGISwapChain2 with methods to support getting the index of the swap chain's current back buffer and support for color space.

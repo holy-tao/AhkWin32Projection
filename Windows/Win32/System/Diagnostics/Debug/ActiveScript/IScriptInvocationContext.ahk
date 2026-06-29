@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Include .\SCRIPT_INVOCATION_CONTEXT_TYPE.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -42,7 +44,7 @@ class IScriptInvocationContext extends IUnknown {
      * @returns {BSTR} 
      */
     GetContextDescription() {
-        pDescription := BSTR()
+        pDescription := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", pDescription, "HRESULT")
         return pDescription
     }

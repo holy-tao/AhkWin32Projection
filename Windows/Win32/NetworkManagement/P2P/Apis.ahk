@@ -1,7 +1,55 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DRT_DATA.ahk
+#Include .\PEERDIST_STATUS.ahk
+#Include .\PEER_GRAPH_EVENT_REGISTRATION.ahk
+#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
+#Include .\PEER_PRESENCE_INFO.ahk
+#Include .\DRT_BOOTSTRAP_PROVIDER.ahk
+#Include .\PEER_CONTACT.ahk
+#Include .\PEER_ENDPOINT.ahk
+#Include .\PEER_APP_LAUNCH_INFO.ahk
+#Include .\DRT_SCOPE.ahk
+#Include .\PEER_GRAPH_EVENT_DATA.ahk
+#Include .\PEER_PNRP_ENDPOINT_INFO.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\PEER_GROUP_EVENT_REGISTRATION.ahk
+#Include ..\..\System\IO\OVERLAPPED.ahk
+#Include .\PEER_APPLICATION_REGISTRATION_TYPE.ahk
+#Include .\PEERDIST_RETRIEVAL_OPTIONS.ahk
+#Include .\PEER_VERSION_DATA.ahk
+#Include .\PEERDIST_STATUS_INFO.ahk
+#Include .\PEER_GROUP_EVENT_DATA.ahk
+#Include .\PEER_OBJECT.ahk
+#Include .\PEER_APPLICATION_REGISTRATION_INFO.ahk
+#Include .\PEER_GRAPH_PROPERTIES.ahk
+#Include .\PEER_CREDENTIAL_INFO.ahk
+#Include .\DRT_SEARCH_INFO.ahk
+#Include .\PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\PEER_COLLAB_EVENT_REGISTRATION.ahk
+#Include .\PEER_INVITATION_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\PEERDIST_PUBLICATION_OPTIONS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\PEER_PNRP_REGISTRATION_INFO.ahk
+#Include .\PEER_COLLAB_EVENT_DATA.ahk
+#Include .\PEER_RECORD.ahk
+#Include .\PEERDIST_CONTENT_TAG.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\PEER_ADDRESS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\PEER_PNRP_CLOUD_INFO.ahk
+#Include .\DRT_REGISTRATION.ahk
+#Include .\DRT_SECURITY_PROVIDER.ahk
+#Include .\DRT_SETTINGS.ahk
+#Include .\PEER_NODE_INFO.ahk
+#Include .\PEER_INVITATION_RESPONSE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\PEER_GROUP_PROPERTIES.ahk
+#Include .\PEER_INVITATION.ahk
+#Include .\PEER_SECURITY_INTERFACE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.P2P
@@ -4643,7 +4691,7 @@ class P2P {
     static PeerCollabAsyncInviteContact(pcContact, pcEndpoint, pcInvitation, hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        phInvitation := HANDLE()
+        phInvitation := HANDLE({Value: 0}, True)
         result := DllCall("P2P.dll\PeerCollabAsyncInviteContact", "ptr", pcContact, "ptr", pcEndpoint, "ptr", pcInvitation, "ptr", hEvent, "ptr", phInvitation, "HRESULT")
         return phInvitation
     }
@@ -4848,7 +4896,7 @@ class P2P {
     static PeerCollabAsyncInviteEndpoint(pcEndpoint, pcInvitation, hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        phInvitation := HANDLE()
+        phInvitation := HANDLE({Value: 0}, True)
         result := DllCall("P2P.dll\PeerCollabAsyncInviteEndpoint", "ptr", pcEndpoint, "ptr", pcInvitation, "ptr", hEvent, "ptr", phInvitation, "HRESULT")
         return phInvitation
     }

@@ -9,7 +9,7 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct {
 
     static packingSize => 8
 
-    class _Capabilities_e__Union extends Win32Struct {
+    class _Capabilities extends Win32Struct {
         static sizeof => 1
         static packingSize => 1
 
@@ -58,7 +58,7 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct {
         }
     }
 
-    class _Control_e__Union extends Win32Struct {
+    class _Control extends Win32Struct {
         static sizeof => 1
         static packingSize => 1
 
@@ -98,7 +98,7 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct {
         }
     }
 
-    class _Status_e__Union extends Win32Struct {
+    class _Status extends Win32Struct {
         static sizeof => 1
         static packingSize => 1
 
@@ -155,34 +155,34 @@ class PCI_ADVANCED_FEATURES_CAPABILITY extends Win32Struct {
     }
 
     /**
-     * @type {_Capabilities_e__Union}
+     * @type {_Capabilities}
      */
     Capabilities {
         get {
             if(!this.HasProp("__Capabilities"))
-                this.__Capabilities := PCI_ADVANCED_FEATURES_CAPABILITY._Capabilities_e__Union(9, this)
+                this.__Capabilities := PCI_ADVANCED_FEATURES_CAPABILITY._Capabilities(9, this)
             return this.__Capabilities
         }
     }
 
     /**
-     * @type {_Control_e__Union}
+     * @type {_Control}
      */
     Control {
         get {
             if(!this.HasProp("__Control"))
-                this.__Control := PCI_ADVANCED_FEATURES_CAPABILITY._Control_e__Union(10, this)
+                this.__Control := PCI_ADVANCED_FEATURES_CAPABILITY._Control(10, this)
             return this.__Control
         }
     }
 
     /**
-     * @type {_Status_e__Union}
+     * @type {_Status}
      */
     Status {
         get {
             if(!this.HasProp("__Status"))
-                this.__Status := PCI_ADVANCED_FEATURES_CAPABILITY._Status_e__Union(11, this)
+                this.__Status := PCI_ADVANCED_FEATURES_CAPABILITY._Status(11, this)
             return this.__Status
         }
     }

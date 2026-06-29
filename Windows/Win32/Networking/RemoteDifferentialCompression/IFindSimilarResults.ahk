@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SimilarityFileId.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods for retrieving information from the file list returned by the ISimilarity::FindSimilarFileId method.

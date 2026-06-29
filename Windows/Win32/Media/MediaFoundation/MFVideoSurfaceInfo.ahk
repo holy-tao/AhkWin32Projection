@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MFPaletteEntry.ahk
-#Include .\MFARGB.ahk
 #Include .\MFAYUVSample.ahk
+#Include .\MFARGB.ahk
 
 /**
  * Contains information about an uncompressed video format. This structure is used in the MFVIDEOFORMAT structure.

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * A switch-to-reference interface (see the switch-to-reference layer) enables an application to switch between a hardware and software device.

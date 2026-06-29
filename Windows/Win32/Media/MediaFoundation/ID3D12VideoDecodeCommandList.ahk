@@ -1,7 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D12VideoDecoder.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12QueryHeap.ahk
+#Include ..\..\Graphics\Direct3D12\D3D12_PREDICATION_OP.ahk
+#Include ..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_MODE.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12CommandAllocator.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Graphics\Direct3D12\D3D12_RESOURCE_BARRIER.ahk
+#Include ..\..\Graphics\Direct3D12\D3D12_QUERY_TYPE.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Include .\D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS.ahk
+#Include ..\..\Graphics\Direct3D12\D3D12_DISCARD_REGION.ahk
 #Include ..\..\Graphics\Direct3D12\ID3D12CommandList.ahk
+#Include ..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.ahk
+#Include .\D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS.ahk
 
 /**
  * Encapsulates a list of graphics commands for video decoding.

@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\DVB_STRCONV_MODE.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) download content descriptor.
@@ -216,7 +219,7 @@ class IIsdbDownloadContentDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-gettextw
      */
     GetTextW(convMode) {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(19, this, "int", convMode, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }

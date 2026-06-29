@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\HTTP_FILTER_CONTEXT.ahk
+#Include .\HSE_VERSION_INFO.ahk
+#Include .\HTTP_FILTER_VERSION.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\EXTENSION_CONTROL_BLOCK.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis

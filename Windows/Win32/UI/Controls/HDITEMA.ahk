@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HDI_MASK.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include .\HEADER_CONTROL_FORMAT_FLAGS.ahk
 #Include .\HEADER_CONTROL_FORMAT_TYPE.ahk
 #Include .\HEADER_CONTROL_FORMAT_STATE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\HEADER_CONTROL_FORMAT_FLAGS.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\HDI_MASK.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * Contains information about an item in a header control. This structure supersedes the HD_ITEM structure. (ANSI)

@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\IDispatch.ahk
 #Include .\IEventObjectCollection.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IPublisherFilter.ahk
 
 /**
  * Controls the behavior of an event object, the object that fires an event to its subscribers. (IEventControl)

@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_FONT_AXIS_VALUE.ahk
+#Include .\DWRITE_AUTOMATIC_FONT_AXES.ahk
 #Include .\IDWriteTextLayout3.ahk
+#Include .\DWRITE_TEXT_RANGE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a block of text after it has been fully analyzed and formatted.

@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPrintSchemaDisplayableElement.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IPrintSchemaDisplayableElement.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\PrintSchemaParameterDataType.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -77,7 +80,7 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement {
      * @returns {BSTR} 
      */
     get_UnitType() {
-        pbstrUnitType := BSTR()
+        pbstrUnitType := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstrUnitType, "HRESULT")
         return pbstrUnitType
     }

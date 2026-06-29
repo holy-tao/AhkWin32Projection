@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\KSPRIORITY.ahk
 #Include .\KSIDENTIFIER.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\KSPRIORITY.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSPIN_CONNECT extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -29,7 +30,7 @@ class KSPIN_CONNECT extends Win32Struct {
     Medium {
         get {
             if(!this.HasProp("__Medium"))
-                this.__Medium := KSIDENTIFIER(16, this)
+                this.__Medium := KSIDENTIFIER(24, this)
             return this.__Medium
         }
     }
@@ -38,8 +39,8 @@ class KSPIN_CONNECT extends Win32Struct {
      * @type {Integer}
      */
     PinId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -48,7 +49,7 @@ class KSPIN_CONNECT extends Win32Struct {
     PinToHandle {
         get {
             if(!this.HasProp("__PinToHandle"))
-                this.__PinToHandle := HANDLE(40, this)
+                this.__PinToHandle := HANDLE(56, this)
             return this.__PinToHandle
         }
     }
@@ -59,7 +60,7 @@ class KSPIN_CONNECT extends Win32Struct {
     Priority {
         get {
             if(!this.HasProp("__Priority"))
-                this.__Priority := KSPRIORITY(48, this)
+                this.__Priority := KSPRIORITY(64, this)
             return this.__Priority
         }
     }

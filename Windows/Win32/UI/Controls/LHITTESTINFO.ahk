@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include .\LITEM.ahk
 #Include .\LIST_ITEM_FLAGS.ahk
+#Include .\LITEM.ahk
 #Include .\LIST_ITEM_STATE_FLAGS.ahk
+#Include ..\..\Foundation\POINT.ahk
 
 /**
  * Used to get information about the link corresponding to a given location.

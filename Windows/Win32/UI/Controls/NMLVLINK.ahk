@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\LITEM.ahk
 #Include .\LIST_ITEM_FLAGS.ahk
+#Include .\LITEM.ahk
+#Include .\NMHDR.ahk
 #Include .\LIST_ITEM_STATE_FLAGS.ahk
 
 /**

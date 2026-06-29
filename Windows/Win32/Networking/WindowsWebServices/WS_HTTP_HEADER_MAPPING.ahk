@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_STRING.ahk
 #Include .\WS_XML_DICTIONARY.ahk
+#Include .\WS_XML_STRING.ahk
 
 /**
  * Specifies an individual header that is mapped as part of WS_HTTP_MESSAGE_MAPPING.

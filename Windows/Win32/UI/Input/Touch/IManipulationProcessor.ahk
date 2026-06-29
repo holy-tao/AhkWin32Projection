@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\MANIPULATION_PROCESSOR_MANIPULATIONS.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IManipulationProcessor provides functionality for monitoring and responding to multitouch input.

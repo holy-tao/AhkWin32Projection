@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOYREGHWCONFIG.ahk
-#Include .\JOYREGHWSETTINGS.ahk
-#Include .\JOYREGHWVALUES.ahk
-#Include .\JOYRANGE.ahk
 #Include .\JOYPOS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\JOYREGHWSETTINGS.ahk
+#Include .\JOYRANGE.ahk
+#Include .\JOYREGHWVALUES.ahk
+#Include .\JOYREGHWCONFIG.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -12,7 +13,7 @@
 class DIJOYCONFIG_DX5 extends Win32Struct {
     static sizeof => 1160
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -23,11 +24,14 @@ class DIJOYCONFIG_DX5 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidInstance {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidInstance"))
+                this.__guidInstance := Guid(4, this)
+            return this.__guidInstance
+        }
     }
 
     /**
@@ -36,7 +40,7 @@ class DIJOYCONFIG_DX5 extends Win32Struct {
     hwc {
         get {
             if(!this.HasProp("__hwc"))
-                this.__hwc := JOYREGHWCONFIG(16, this)
+                this.__hwc := JOYREGHWCONFIG(20, this)
             return this.__hwc
         }
     }
@@ -45,23 +49,23 @@ class DIJOYCONFIG_DX5 extends Win32Struct {
      * @type {Integer}
      */
     dwGain {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 132, "uint")
+        set => NumPut("uint", value, this, 132)
     }
 
     /**
      * @type {String}
      */
     wszType {
-        get => StrGet(this.ptr + 132, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 132, 255, "UTF-16")
+        get => StrGet(this.ptr + 136, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 136, 255, "UTF-16")
     }
 
     /**
      * @type {String}
      */
     wszCallout {
-        get => StrGet(this.ptr + 644, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 644, 255, "UTF-16")
+        get => StrGet(this.ptr + 648, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 648, 255, "UTF-16")
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\LDAP_BERVAL.ahk
 
 /**
@@ -29,7 +30,7 @@ class LDAPModW extends Win32Struct {
 
     static packingSize => 8
 
-    class _mod_vals_e__Union extends Win32Struct {
+    class _mod_vals extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -70,12 +71,12 @@ class LDAPModW extends Win32Struct {
     /**
      * Pointer to an array of values, if any, to add, delete, or replace. If <b>mop_op</b> does not include the LDAP_MOD_BVALUES flag, the <b>modv_strvals</b> member is a pointer to an array of null-terminated strings. If <b>mop_op</b> includes LDAP_MOD_BVALUES, the <b>modv_bvals</b> member is a pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> pointers, which is useful for specifying binary values.
-     * @type {_mod_vals_e__Union}
+     * @type {_mod_vals}
      */
     mod_vals {
         get {
             if(!this.HasProp("__mod_vals"))
-                this.__mod_vals := LDAPModW._mod_vals_e__Union(16, this)
+                this.__mod_vals := LDAPModW._mod_vals(16, this)
             return this.__mod_vals
         }
     }

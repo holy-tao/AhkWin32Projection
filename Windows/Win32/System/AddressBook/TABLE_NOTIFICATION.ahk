@@ -1,23 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPropValue.ahk
-#Include .\__UPV.ahk
-#Include ..\Com\CY.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\SBinary.ahk
-#Include .\SShortArray.ahk
-#Include .\SLongArray.ahk
-#Include .\SRealArray.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\SDoubleArray.ahk
-#Include .\SCurrencyArray.ahk
-#Include .\SAppTimeArray.ahk
-#Include .\SDateTimeArray.ahk
 #Include .\SBinaryArray.ahk
 #Include .\SLPSTRArray.ahk
-#Include .\SWStringArray.ahk
-#Include .\SGuidArray.ahk
-#Include .\SLargeIntegerArray.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\CY.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\SCurrencyArray.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\SRow.ahk
+#Include .\SLongArray.ahk
+#Include .\SDateTimeArray.ahk
+#Include .\SPropValue.ahk
+#Include .\SBinary.ahk
+#Include .\SWStringArray.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\SGuidArray.ahk
+#Include .\__UPV.ahk
+#Include .\SRealArray.ahk
+#Include .\SShortArray.ahk
+#Include .\SLargeIntegerArray.ahk
+#Include .\SAppTimeArray.ahk
 
 /**
  * Describes a row in a table that has been affected by some type of event, such as a change or an error. This causes a table notification to be generated.

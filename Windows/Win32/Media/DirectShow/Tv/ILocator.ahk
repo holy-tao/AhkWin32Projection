@@ -2,6 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\ModulationType.ahk
+#Include ..\BinaryConvolutionCodeRate.ahk
+#Include ..\FECMethod.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ILocator interface is implemented (through derived interfaces such as IATSCLocator) on Locator objects that contain tuning information about the tuning space.

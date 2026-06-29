@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SECPKG_EXTENDED_INFORMATION_CLASS.ahk
-#Include .\SECPKG_GSS_INFO.ahk
-#Include .\SECPKG_CONTEXT_THUNKS.ahk
-#Include .\SECPKG_MUTUAL_AUTH_LEVEL.ahk
-#Include .\SECPKG_WOW_CLIENT_DLL.ahk
 #Include .\SECURITY_STRING.ahk
-#Include .\SECPKG_EXTRA_OIDS.ahk
+#Include .\SECPKG_EXTENDED_INFORMATION_CLASS.ahk
 #Include .\SECPKG_SERIALIZED_OID.ahk
+#Include .\SECPKG_GSS_INFO.ahk
+#Include .\SECPKG_MUTUAL_AUTH_LEVEL.ahk
 #Include .\SECPKG_NEGO2_INFO.ahk
+#Include .\SECPKG_WOW_CLIENT_DLL.ahk
+#Include .\SECPKG_EXTRA_OIDS.ahk
+#Include .\SECPKG_CONTEXT_THUNKS.ahk
 
 /**
  * The SECPKG_EXTENDED_INFORMATION structure is used to hold information about optional package capabilities.This structure is used by the SpGetExtendedInformation and SpSetExtendedInformation functions.
@@ -20,7 +20,7 @@ class SECPKG_EXTENDED_INFORMATION extends Win32Struct {
 
     static packingSize => 8
 
-    class _Info_e__Union extends Win32Struct {
+    class _Info extends Win32Struct {
         static sizeof => 48
         static packingSize => 8
 
@@ -103,12 +103,12 @@ class SECPKG_EXTENDED_INFORMATION extends Win32Struct {
 
     /**
      * Structure that contains the information.
-     * @type {_Info_e__Union}
+     * @type {_Info}
      */
     Info {
         get {
             if(!this.HasProp("__Info"))
-                this.__Info := SECPKG_EXTENDED_INFORMATION._Info_e__Union(8, this)
+                this.__Info := SECPKG_EXTENDED_INFORMATION._Info(8, this)
             return this.__Info
         }
     }

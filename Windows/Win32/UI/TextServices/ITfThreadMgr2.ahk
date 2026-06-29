@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ITfDocumentMgr.ahk
-#Include .\IEnumTfDocumentMgrs.ahk
-#Include .\ITfFunctionProvider.ahk
 #Include .\IEnumTfFunctionProviders.ahk
 #Include .\ITfCompartmentMgr.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ITfFunctionProvider.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnumTfDocumentMgrs.ahk
 
 /**
  * The ITfThreadMgr2 defines the primary object implemented by the TSF manager. ITfThreadMgr2 is used by applications and text services to activate and deactivate text services, create document managers, and maintain the document context focus.

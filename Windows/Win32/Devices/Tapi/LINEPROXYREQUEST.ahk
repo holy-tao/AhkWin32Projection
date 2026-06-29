@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LINEAGENTGROUPLIST.ahk
-#Include .\LINEAGENTCAPS.ahk
 #Include .\LINEAGENTSTATUS.ahk
-#Include .\LINEAGENTACTIVITYLIST.ahk
-#Include .\LINEAGENTINFO.ahk
-#Include ..\..\System\Com\CY.ahk
-#Include .\LINEAGENTSESSIONLIST.ahk
 #Include .\LINEAGENTSESSIONINFO.ahk
 #Include .\LINEQUEUELIST.ahk
+#Include ..\..\System\Com\CY.ahk
+#Include .\LINEAGENTGROUPLIST.ahk
 #Include .\LINEQUEUEINFO.ahk
+#Include .\LINEAGENTCAPS.ahk
+#Include .\LINEAGENTSESSIONLIST.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\LINEAGENTACTIVITYLIST.ahk
+#Include .\LINEAGENTINFO.ahk
 
 /**
  * The LINEPROXYREQUEST structure contains parameter values of the application making the proxy request. Multiple TAPI call center functions generate a LINE_PROXYREQUEST message that references a LINEPROXYREQUEST structure.
@@ -166,8 +167,8 @@ class LINEPROXYREQUEST extends Win32Struct {
     }
 
     class _GetAgentCaps extends Win32Struct {
-        static sizeof => 72
-        static packingSize => 8
+        static sizeof => 76
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -183,7 +184,7 @@ class LINEPROXYREQUEST extends Win32Struct {
         AgentCaps {
             get {
                 if(!this.HasProp("__AgentCaps"))
-                    this.__AgentCaps := LINEAGENTCAPS(8, this)
+                    this.__AgentCaps := LINEAGENTCAPS(4, this)
                 return this.__AgentCaps
             }
         }
@@ -421,8 +422,8 @@ class LINEPROXYREQUEST extends Win32Struct {
     }
 
     class _CreateAgentSession extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 36
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -457,19 +458,22 @@ class LINEPROXYREQUEST extends Win32Struct {
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         GroupID {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
+            get {
+                if(!this.HasProp("__GroupID"))
+                    this.__GroupID := Guid(16, this)
+                return this.__GroupID
+            }
         }
 
         /**
          * @type {Integer}
          */
         dwWorkingAddressID {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
+            get => NumGet(this, 32, "uint")
+            set => NumPut("uint", value, this, 32)
         }
     }
 
@@ -551,15 +555,18 @@ class LINEPROXYREQUEST extends Win32Struct {
     }
 
     class _GetQueueList extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 40
+        static packingSize => 4
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         GroupID {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__GroupID"))
+                    this.__GroupID := Guid(0, this)
+                return this.__GroupID
+            }
         }
 
         /**
@@ -568,7 +575,7 @@ class LINEPROXYREQUEST extends Win32Struct {
         QueueList {
             get {
                 if(!this.HasProp("__QueueList"))
-                    this.__QueueList := LINEQUEUELIST(8, this)
+                    this.__QueueList := LINEQUEUELIST(16, this)
                 return this.__QueueList
             }
         }

@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IStream.ahk
+#Include .\IAppxBundleManifestReader.ahk
+#Include .\IAppxBundleReader.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAppxBundleWriter.ahk
-#Include .\IAppxBundleReader.ahk
-#Include .\IAppxBundleManifestReader.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Creates objects for reading and writing bundle packages.

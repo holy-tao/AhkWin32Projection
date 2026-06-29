@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMSVidDevice interface is the base interface for all the devices and features that the Video Control supports.
@@ -97,7 +99,7 @@ class IMSVidDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice-get_name
      */
     get_Name() {
-        Name := BSTR()
+        Name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", Name, "HRESULT")
         return Name
     }
@@ -180,7 +182,7 @@ class IMSVidDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice-get_category
      */
     get_Category() {
-        Guid := BSTR()
+        Guid := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", Guid, "HRESULT")
         return Guid
     }
@@ -195,7 +197,7 @@ class IMSVidDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice-get_classid
      */
     get_ClassID() {
-        Clsid := BSTR()
+        Clsid := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", Clsid, "HRESULT")
         return Clsid
     }

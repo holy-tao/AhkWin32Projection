@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\CY.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains parameters used to create a font object through the OleCreateFontIndirect function.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCERTSTOREPROV.ahk
 #Include .\CERT_STORE_PROV_FLAGS.ahk
+#Include .\HCERTSTOREPROV.ahk
 
 /**
  * Contains information returned by the installed CertDllOpenStoreProv function when a store is opened by using the CertOpenStore function.

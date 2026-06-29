@@ -1,7 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteTextAnalysisSink.ahk
+#Include .\IDWriteNumberSubstitution.ahk
+#Include .\DWRITE_SCRIPT_ANALYSIS.ahk
+#Include .\DWRITE_GLYPH_OFFSET.ahk
+#Include .\IDWriteFontFace.ahk
+#Include .\DWRITE_TYPOGRAPHIC_FEATURES.ahk
+#Include .\IDWriteTextAnalysisSource.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DWRITE_MATRIX.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DWRITE_SHAPING_GLYPH_PROPERTIES.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\DWRITE_SHAPING_TEXT_PROPERTIES.ahk
 
 /**
  * Analyzes various text properties for complex script processing such as bidirectional (bidi) support for languages like Arabic, determination of line break opportunities, glyph placement, and number substitution.

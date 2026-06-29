@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Security\Authentication\Identity\MSV1_0_PROTOCOL_MESSAGE_TYPE.ahk
 #Include ..\..\..\Win32\Security\Authentication\Identity\SECURITY_LOGON_TYPE.ahk
+#Include ..\..\..\Win32\Security\PSID.ahk
+#Include ..\..\..\Win32\Security\Authentication\Identity\MSV1_0_PROTOCOL_MESSAGE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem

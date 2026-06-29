@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\POINTL.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\SIZE.ahk
 
 /**
  * Represents the data structure used for the CF_OBJECTDESRIPTOR and CF_LINKSRCDESCRIPTOR file formats.
@@ -9,9 +10,9 @@
  * @namespace Windows.Win32.System.Ole
  */
 class OBJECTDESCRIPTOR extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size of structure, in bytes.
@@ -24,11 +25,14 @@ class OBJECTDESCRIPTOR extends Win32Struct {
 
     /**
      * The CLSID of the object being transferred. The clsid is used to obtain the icon for the <b>Display As Icon</b> option in the <b>Paste Special</b> dialog box and is applicable only if the Embed Source or Embedded Object formats are offered. If neither is offered, the value of clsid should be CLSID_NULL. The clsid can be retrieved by the source by loading the object and calling the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getuserclassid">IOleObject::GetUserClassID</a> method. Note that for link objects, this value is not the same as the value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersist-getclassid">IPersist::GetClassID</a> method.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(4, this)
+            return this.__clsid
+        }
     }
 
     /**
@@ -36,8 +40,8 @@ class OBJECTDESCRIPTOR extends Win32Struct {
      * @type {Integer}
      */
     dwDrawAspect {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -47,7 +51,7 @@ class OBJECTDESCRIPTOR extends Win32Struct {
     sizel {
         get {
             if(!this.HasProp("__sizel"))
-                this.__sizel := SIZE(20, this)
+                this.__sizel := SIZE(24, this)
             return this.__sizel
         }
     }
@@ -59,7 +63,7 @@ class OBJECTDESCRIPTOR extends Win32Struct {
     pointl {
         get {
             if(!this.HasProp("__pointl"))
-                this.__pointl := POINTL(28, this)
+                this.__pointl := POINTL(32, this)
             return this.__pointl
         }
     }
@@ -69,8 +73,8 @@ class OBJECTDESCRIPTOR extends Win32Struct {
      * @type {Integer}
      */
     dwStatus {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -78,8 +82,8 @@ class OBJECTDESCRIPTOR extends Win32Struct {
      * @type {Integer}
      */
     dwFullUserTypeName {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -87,12 +91,12 @@ class OBJECTDESCRIPTOR extends Win32Struct {
      * @type {Integer}
      */
     dwSrcOfCopy {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 48
+        this.cbSize := 52
     }
 }

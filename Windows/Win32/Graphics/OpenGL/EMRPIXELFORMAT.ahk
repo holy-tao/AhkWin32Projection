@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PFD_FLAGS.ahk
 #Include ..\Gdi\EMR.ahk
 #Include ..\Gdi\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include .\PIXELFORMATDESCRIPTOR.ahk
-#Include .\PFD_FLAGS.ahk
 #Include .\PFD_PIXEL_TYPE.ahk
+#Include .\PIXELFORMATDESCRIPTOR.ahk
 
 /**
  * The EMRPIXELFORMAT structure contains the members for the SetPixelFormat enhanced metafile record. The pixel format information in ENHMETAHEADER refers to this structure.

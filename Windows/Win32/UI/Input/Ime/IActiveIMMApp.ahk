@@ -1,18 +1,32 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include .\IMEMENUITEMINFOW.ahk
 #Include .\HIMC.ahk
-#Include .\IEnumRegisterWordA.ahk
-#Include .\IEnumRegisterWordW.ahk
-#Include .\CANDIDATEFORM.ahk
-#Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
 #Include ..\..\..\Graphics\Gdi\LOGFONTW.ahk
 #Include .\COMPOSITIONFORM.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\POINT.ahk
+#Include .\STYLEBUFW.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\IMEMENUITEMINFOA.ahk
+#Include .\IEnumRegisterWordW.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\REGISTERWORDW.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\KeyboardAndMouse\HKL.ahk
+#Include ..\..\..\Foundation\WPARAM.ahk
+#Include .\IEnumRegisterWordA.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\LRESULT.ahk
+#Include .\REGISTERWORDA.ahk
+#Include .\CANDIDATEFORM.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
+#Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
+#Include ..\..\..\Foundation\POINT.ahk
+#Include .\CANDIDATELIST.ahk
 #Include .\IEnumInputContext.ahk
+#Include .\STYLEBUFA.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -39,19 +53,16 @@ class IActiveIMMApp extends IUnknown {
     static VTableNames => ["AssociateContext", "ConfigureIMEA", "ConfigureIMEW", "CreateContext", "DestroyContext", "EnumRegisterWordA", "EnumRegisterWordW", "EscapeA", "EscapeW", "GetCandidateListA", "GetCandidateListW", "GetCandidateListCountA", "GetCandidateListCountW", "GetCandidateWindow", "GetCompositionFontA", "GetCompositionFontW", "GetCompositionStringA", "GetCompositionStringW", "GetCompositionWindow", "GetContext", "GetConversionListA", "GetConversionListW", "GetConversionStatus", "GetDefaultIMEWnd", "GetDescriptionA", "GetDescriptionW", "GetGuideLineA", "GetGuideLineW", "GetIMEFileNameA", "GetIMEFileNameW", "GetOpenStatus", "GetProperty", "GetRegisterWordStyleA", "GetRegisterWordStyleW", "GetStatusWindowPos", "GetVirtualKey", "InstallIMEA", "InstallIMEW", "IsIME", "IsUIMessageA", "IsUIMessageW", "NotifyIME", "RegisterWordA", "RegisterWordW", "ReleaseContext", "SetCandidateWindow", "SetCompositionFontA", "SetCompositionFontW", "SetCompositionStringA", "SetCompositionStringW", "SetCompositionWindow", "SetConversionStatus", "SetOpenStatus", "SetStatusWindowPos", "SimulateHotKey", "UnregisterWordA", "UnregisterWordW", "Activate", "Deactivate", "OnDefWindowProc", "FilterClientWindows", "GetCodePageA", "GetLangId", "AssociateContextEx", "DisableIME", "GetImeMenuItemsA", "GetImeMenuItemsW", "EnumInputContext"]
 
     /**
-     * Inserts a name into the name cache to find a specified FIO_CONTEXT structure.
-     * @remarks
-     * If the name is already present in the cache, this call fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_DUP_NAME.
+     * 
      * @param {HWND} _hWnd 
      * @param {HIMC} hIME 
      * @returns {HIMC} 
-     * @see https://learn.microsoft.com/windows/win32/api/filehc/nf-filehc-associatecontextwithname
      */
     AssociateContext(_hWnd, hIME) {
         _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         hIME := hIME is Win32Handle ? NumGet(hIME, "ptr") : hIME
 
-        phPrev := HIMC()
+        phPrev := HIMC({Value: 0}, True)
         result := ComCall(3, this, "ptr", _hWnd, "ptr", hIME, "ptr", phPrev, "HRESULT")
         return phPrev
     }
@@ -94,7 +105,7 @@ class IActiveIMMApp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-createcontext
      */
     CreateContext() {
-        phIMC := HIMC()
+        phIMC := HIMC({Value: 0}, True)
         result := ComCall(6, this, "ptr", phIMC, "HRESULT")
         return phIMC
     }
@@ -401,15 +412,14 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * Gets the context preference flags.
+     * 
      * @param {HWND} _hWnd 
      * @returns {HIMC} 
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpreferenceflags
      */
     GetContext(_hWnd) {
         _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        phIMC := HIMC()
+        phIMC := HIMC({Value: 0}, True)
         result := ComCall(22, this, "ptr", _hWnd, "ptr", phIMC, "HRESULT")
         return phIMC
     }
@@ -691,7 +701,7 @@ class IActiveIMMApp extends IUnknown {
         szIMEFileName := szIMEFileName is String ? StrPtr(szIMEFileName) : szIMEFileName
         szLayoutText := szLayoutText is String ? StrPtr(szLayoutText) : szLayoutText
 
-        phKL := HKL()
+        phKL := HKL({Value: 0}, True)
         result := ComCall(39, this, "ptr", szIMEFileName, "ptr", szLayoutText, "ptr", phKL, "HRESULT")
         return phKL
     }
@@ -706,7 +716,7 @@ class IActiveIMMApp extends IUnknown {
         szIMEFileName := szIMEFileName is String ? StrPtr(szIMEFileName) : szIMEFileName
         szLayoutText := szLayoutText is String ? StrPtr(szLayoutText) : szLayoutText
 
-        phKL := HKL()
+        phKL := HKL({Value: 0}, True)
         result := ComCall(40, this, "ptr", szIMEFileName, "ptr", szLayoutText, "ptr", phKL, "HRESULT")
         return phKL
     }
@@ -996,24 +1006,9 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * The ActivateActCtx function activates the specified activation context.
-     * @remarks
-     * The <i>lpCookie</i> parameter is later passed to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-deactivateactctx">DeactivateActCtx</a>, which verifies the pairing of calls to 
-     * <b>ActivateActCtx</b> and 
-     * <b>DeactivateActCtx</b> and ensures that the appropriate activation context is being deactivated. This is done because the deactivation of activation contexts must occur in the reverse order of activation.
      * 
-     * The activation of activation contexts can be understood as pushing an activation context onto a stack of activation contexts. The activation context you activate through this function  redirects any binding to DLLs, window classes, COM servers, type libraries, and mutexes for any side-by-side APIs you call.
-     * 
-     * The top item of an activation context stack is the active, default-activation context of the current thread. If a null activation context handle is pushed onto the stack, thereby activating it, the default settings in the original manifest override all activation contexts that are lower on the stack.
      * @param {BOOL} fRestoreLayout 
-     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
-     * 
-     * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-activateactctx
+     * @returns {HRESULT} 
      */
     Activate(fRestoreLayout) {
         result := ComCall(60, this, "int", fRestoreLayout, "HRESULT")
@@ -1021,16 +1016,8 @@ class IActiveIMMApp extends IUnknown {
     }
 
     /**
-     * The DeactivateActCtx function deactivates the activation context corresponding to the specified cookie.
-     * @remarks
-     * The deactivation of activation contexts must occur in the reverse order of activation. It can be understood as popping an activation context from a stack.
-     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
-     * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-deactivateactctx
+     * @returns {HRESULT} 
      */
     Deactivate() {
         result := ComCall(61, this, "HRESULT")

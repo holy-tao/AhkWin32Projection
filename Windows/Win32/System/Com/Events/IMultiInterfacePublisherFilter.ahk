@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IMultiInterfaceEventControl.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\IUnknown.ahk
+#Include .\IFiringControl.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Manages a filtered subscription cache for an event method.

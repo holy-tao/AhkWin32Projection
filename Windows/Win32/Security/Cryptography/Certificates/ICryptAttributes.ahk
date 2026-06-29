@@ -2,8 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\ICryptAttribute.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IObjectId.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ICryptAttribute.ahk
 
 /**
  * The ICryptAttributes interface contains methods and properties that enable you to manage a collection of ICryptAttribute objects.

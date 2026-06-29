@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IFaxJobStatus.ahk
+#Include .\IFaxServer2.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IFaxAccount.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Called by the fax service to send event notifications about particular fax accounts. This property sends event notifications. Events include changes to incoming and outgoing job queues, and changes to incoming and outgoing archives. (IIFaxAccountNotify)

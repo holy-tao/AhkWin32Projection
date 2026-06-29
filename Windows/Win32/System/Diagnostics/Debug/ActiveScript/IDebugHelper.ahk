@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\IDebugProperty.ahk
+#Include .\IDebugFormatter.ahk
 #Include .\ISimpleConnectionPoint.ahk
+#Include .\IDebugApplicationThread.ahk
+#Include ..\IDebugProperty.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Variant\VARIANT.ahk
+#Include ..\..\..\Com\IDispatch.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

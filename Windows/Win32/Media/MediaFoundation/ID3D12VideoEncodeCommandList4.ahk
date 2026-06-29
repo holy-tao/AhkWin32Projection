@@ -1,7 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1.ahk
+#Include .\D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS1.ahk
 #Include .\ID3D12VideoEncodeCommandList3.ahk
+#Include .\ID3D12VideoEncoderHeap1.ahk
+#Include .\D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_INPUT_ARGUMENTS.ahk
+#Include .\ID3D12VideoEncoder.ahk
+#Include .\D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_OUTPUT_ARGUMENTS.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

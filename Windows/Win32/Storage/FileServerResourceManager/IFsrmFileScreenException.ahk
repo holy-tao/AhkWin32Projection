@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmObject.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmMutableCollection.ahk
+#Include .\IFsrmObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to configure an exception that excludes the specified files from the file screening process.
@@ -55,7 +56,7 @@ class IFsrmFileScreenException extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenexception-get_path
      */
     get_Path() {
-        _path := BSTR()
+        _path := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", _path, "HRESULT")
         return _path
     }

@@ -1,6 +1,55 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\HTTP_PUSH_WAIT_HANDLE.ahk
+#Include ..\..\Security\Cryptography\ALG_ID.ahk
+#Include .\APP_CACHE_GROUP_INFO.ahk
+#Include .\GOPHER_FIND_DATAA.ahk
+#Include .\APP_CACHE_GROUP_LIST.ahk
+#Include .\INTERNET_COOKIE_FLAGS.ahk
+#Include .\INTERNET_CACHE_ENTRY_INFOW.ahk
+#Include ..\..\Storage\FileSystem\WIN32_FIND_DATAA.ahk
+#Include .\PROXY_AUTO_DETECT_TYPE.ahk
+#Include .\INTERNET_SCHEME.ahk
+#Include .\INTERNET_BUFFERSA.ahk
+#Include .\INTERNET_CONNECTION.ahk
+#Include .\GOPHER_FIND_DATAW.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\HTTP_PUSH_NOTIFICATION_STATUS.ahk
+#Include .\CACHE_CONFIG.ahk
+#Include .\FTP_FLAGS.ahk
+#Include .\INTERNET_SECURITY_INFO.ahk
+#Include .\APP_CACHE_STATE.ahk
+#Include .\INTERNET_CACHE_CONFIG_INFOA.ahk
+#Include .\INTERNET_CACHE_CONFIG_INFOW.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\APP_CACHE_DOWNLOAD_LIST.ahk
+#Include .\INTERNET_CACHE_ENTRY_INFOA.ahk
+#Include .\INTERNET_COOKIE2.ahk
+#Include .\INTERNET_AUTODIAL.ahk
+#Include .\INTERNET_BUFFERSW.ahk
+#Include .\INTERNET_CACHE_GROUP_INFOW.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\Cryptography\CERT_CHAIN_CONTEXT.ahk
+#Include .\URL_COMPONENTSW.ahk
+#Include .\WININET_PROXY_INFO_LIST.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\WPAD_CACHE_DELETE.ahk
+#Include .\APP_CACHE_FINALIZE_STATE.ahk
+#Include .\URLCACHE_ENTRY_INFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\URL_CACHE_LIMIT_TYPE.ahk
+#Include .\URL_COMPONENTSA.ahk
+#Include .\HTTP_ADDREQ_FLAG.ahk
+#Include .\HTTP_PUSH_TRANSPORT_SETTING.ahk
+#Include .\INTERNET_CACHE_GROUP_INFOA.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\WinHttp\WIN_HTTP_CREATE_URL_FLAGS.ahk
+#Include ..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\HTTP_WEB_SOCKET_BUFFER_TYPE.ahk
+#Include .\HTTP_PUSH_WAIT_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet

@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\KSDATAFORMAT.ahk
 #Include .\KS_VIDEO_STREAM_CONFIG_CAPS.ahk
-#Include ..\..\Foundation\SIZE.ahk
 #Include .\KS_BITMAPINFOHEADER.ahk
+#Include ..\..\Foundation\SIZE.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KS_DATARANGE_IMAGE extends Win32Struct {
-    static sizeof => 208
+    static sizeof => 240
 
     static packingSize => 8
 
@@ -30,7 +31,7 @@ class KS_DATARANGE_IMAGE extends Win32Struct {
     ConfigCaps {
         get {
             if(!this.HasProp("__ConfigCaps"))
-                this.__ConfigCaps := KS_VIDEO_STREAM_CONFIG_CAPS(48, this)
+                this.__ConfigCaps := KS_VIDEO_STREAM_CONFIG_CAPS(72, this)
             return this.__ConfigCaps
         }
     }
@@ -41,7 +42,7 @@ class KS_DATARANGE_IMAGE extends Win32Struct {
     ImageInfoHeader {
         get {
             if(!this.HasProp("__ImageInfoHeader"))
-                this.__ImageInfoHeader := KS_BITMAPINFOHEADER(168, this)
+                this.__ImageInfoHeader := KS_BITMAPINFOHEADER(200, this)
             return this.__ImageInfoHeader
         }
     }

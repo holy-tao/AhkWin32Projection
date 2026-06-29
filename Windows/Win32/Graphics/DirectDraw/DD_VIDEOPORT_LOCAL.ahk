@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_LOCAL.ahk
-#Include .\DDVIDEOPORTDESC.ahk
 #Include .\DDVIDEOPORTCONNECT.ahk
 #Include .\DDVIDEOPORTINFO.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\DDVIDEOPORTDESC.ahk
 #Include .\DDPIXELFORMAT.ahk
 #Include .\DD_SURFACE_INT.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * The DD_VIDEOPORT_LOCAL structure contains video port extensions (VPE)-related data that is unique to an individual Microsoft DirectDraw VPE object.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
 class DD_VIDEOPORT_LOCAL extends Win32Struct {
-    static sizeof => 224
+    static sizeof => 232
 
     static packingSize => 8
 
@@ -48,7 +49,7 @@ class DD_VIDEOPORT_LOCAL extends Win32Struct {
     ddvpInfo {
         get {
             if(!this.HasProp("__ddvpInfo"))
-                this.__ddvpInfo := DDVIDEOPORTINFO(88, this)
+                this.__ddvpInfo := DDVIDEOPORTINFO(96, this)
             return this.__ddvpInfo
         }
     }
@@ -58,8 +59,8 @@ class DD_VIDEOPORT_LOCAL extends Win32Struct {
      * @type {Pointer<DD_SURFACE_INT>}
      */
     lpSurface {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 
     /**
@@ -67,8 +68,8 @@ class DD_VIDEOPORT_LOCAL extends Win32Struct {
      * @type {Pointer<DD_SURFACE_INT>}
      */
     lpVBISurface {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 
     /**
@@ -76,8 +77,8 @@ class DD_VIDEOPORT_LOCAL extends Win32Struct {
      * @type {Integer}
      */
     dwNumAutoflip {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
+        get => NumGet(this, 200, "uint")
+        set => NumPut("uint", value, this, 200)
     }
 
     /**
@@ -85,8 +86,8 @@ class DD_VIDEOPORT_LOCAL extends Win32Struct {
      * @type {Integer}
      */
     dwNumVBIAutoflip {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
+        get => NumGet(this, 204, "uint")
+        set => NumPut("uint", value, this, 204)
     }
 
     /**
@@ -94,15 +95,6 @@ class DD_VIDEOPORT_LOCAL extends Win32Struct {
      * @type {Pointer}
      */
     dwReserved1 {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
-
-    /**
-     * Reserved for use by the display driver.
-     * @type {Pointer}
-     */
-    dwReserved2 {
         get => NumGet(this, 208, "ptr")
         set => NumPut("ptr", value, this, 208)
     }
@@ -111,8 +103,17 @@ class DD_VIDEOPORT_LOCAL extends Win32Struct {
      * Reserved for use by the display driver.
      * @type {Pointer}
      */
-    dwReserved3 {
+    dwReserved2 {
         get => NumGet(this, 216, "ptr")
         set => NumPut("ptr", value, this, 216)
+    }
+
+    /**
+     * Reserved for use by the display driver.
+     * @type {Pointer}
+     */
+    dwReserved3 {
+        get => NumGet(this, 224, "ptr")
+        set => NumPut("ptr", value, this, 224)
     }
 }

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Parses the X.500 and Windows path in ADSI.
@@ -74,7 +75,7 @@ class IADsPathname extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspathname-retrieve
      */
     Retrieve(lnFormatType) {
-        pbstrADsPath := BSTR()
+        pbstrADsPath := BSTR({Value: 0}, True)
         result := ComCall(9, this, "int", lnFormatType, "ptr", pbstrADsPath, "HRESULT")
         return pbstrADsPath
     }
@@ -96,7 +97,7 @@ class IADsPathname extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspathname-getelement
      */
     GetElement(lnElementIndex) {
-        pbstrElement := BSTR()
+        pbstrElement := BSTR({Value: 0}, True)
         result := ComCall(11, this, "int", lnElementIndex, "ptr", pbstrElement, "HRESULT")
         return pbstrElement
     }
@@ -153,7 +154,7 @@ class IADsPathname extends IDispatch {
     GetEscapedElement(lnReserved, bstrInStr) {
         bstrInStr := bstrInStr is String ? BSTR.Alloc(bstrInStr).Value : bstrInStr
 
-        pbstrOutStr := BSTR()
+        pbstrOutStr := BSTR({Value: 0}, True)
         result := ComCall(15, this, "int", lnReserved, "ptr", bstrInStr, "ptr", pbstrOutStr, "HRESULT")
         return pbstrOutStr
     }

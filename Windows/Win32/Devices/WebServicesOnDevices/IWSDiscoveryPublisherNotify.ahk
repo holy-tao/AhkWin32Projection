@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWSDMessageParameters.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WSD_SOAP_MESSAGE.ahk
 
 /**
  * Is implemented by the client program to receive callback notifications from IWSDiscoveryPublisher.

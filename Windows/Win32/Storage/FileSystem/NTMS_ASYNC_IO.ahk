@@ -1,53 +1,61 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class NTMS_ASYNC_IO extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 64
 
     static packingSize => 8
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     OperationId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__OperationId"))
+                this.__OperationId := Guid(0, this)
+            return this.__OperationId
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     EventId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__EventId"))
+                this.__EventId := Guid(16, this)
+            return this.__EventId
+        }
     }
 
     /**
      * @type {Integer}
      */
     dwOperationType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     dwResult {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
      * @type {Integer}
      */
     dwAsyncState {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -56,7 +64,7 @@ class NTMS_ASYNC_IO extends Win32Struct {
     hEvent {
         get {
             if(!this.HasProp("__hEvent"))
-                this.__hEvent := HANDLE(32, this)
+                this.__hEvent := HANDLE(48, this)
             return this.__hEvent
         }
     }
@@ -65,7 +73,7 @@ class NTMS_ASYNC_IO extends Win32Struct {
      * @type {BOOL}
      */
     bOnStateChange {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

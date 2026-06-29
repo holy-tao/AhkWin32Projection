@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IHTMLDataTransfer.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IHTMLWindow2.ahk
+#Include .\IHTMLDataTransfer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -136,11 +139,8 @@ class IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * Submits a custom shader message to the information queue.
-     * @remarks
-     * This operation does nothing on devices that do not support it.
-     * @returns {HRESULT} This function does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/printf
+     * 
+     * @returns {HRESULT} 
      */
     print() {
         result := ComCall(13, this, "HRESULT")

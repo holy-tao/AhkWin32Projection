@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_PROBE_MATCH_LIST.ahk
 #Include .\WSDXML_ELEMENT.ahk
+#Include .\WSD_PROBE_MATCH_LIST.ahk
 
 /**
  * Represents a ProbeMatches message.

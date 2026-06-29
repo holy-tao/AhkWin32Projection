@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\VSS_PROVIDER_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Specifies shadow copy provider properties.
@@ -8,17 +9,20 @@
  * @namespace Windows.Win32.Storage.Vss
  */
 class VSS_PROVIDER_PROP extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 72
 
     static packingSize => 8
 
     /**
      * Identifies the provider who supports shadow copies of this class.
-     * @type {Pointer}
+     * @type {Guid}
      */
     m_ProviderId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__m_ProviderId"))
+                this.__m_ProviderId := Guid(0, this)
+            return this.__m_ProviderId
+        }
     }
 
     /**
@@ -26,8 +30,8 @@ class VSS_PROVIDER_PROP extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     m_pwszProviderName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -36,8 +40,8 @@ class VSS_PROVIDER_PROP extends Win32Struct {
      * @type {VSS_PROVIDER_TYPE}
      */
     m_eProviderType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -45,26 +49,32 @@ class VSS_PROVIDER_PROP extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     m_pwszProviderVersion {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * A <a href="https://docs.microsoft.com/windows/desktop/VSS/volume-shadow-copy-api-data-types">VSS_ID</a> (GUID) uniquely 
-     *       identifying the version of a provider.
-     * @type {Pointer}
-     */
-    m_ProviderVersionId {
         get => NumGet(this, 32, "ptr")
         set => NumPut("ptr", value, this, 32)
     }
 
     /**
+     * A <a href="https://docs.microsoft.com/windows/desktop/VSS/volume-shadow-copy-api-data-types">VSS_ID</a> (GUID) uniquely 
+     *       identifying the version of a provider.
+     * @type {Guid}
+     */
+    m_ProviderVersionId {
+        get {
+            if(!this.HasProp("__m_ProviderVersionId"))
+                this.__m_ProviderVersionId := Guid(40, this)
+            return this.__m_ProviderVersionId
+        }
+    }
+
+    /**
      * Class identifier of the component registered in the local machine's COM catalog.
-     * @type {Pointer}
+     * @type {Guid}
      */
     m_ClassId {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__m_ClassId"))
+                this.__m_ClassId := Guid(56, this)
+            return this.__m_ClassId
+        }
     }
 }

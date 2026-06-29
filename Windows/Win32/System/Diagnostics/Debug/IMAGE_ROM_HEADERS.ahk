@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_FILE_HEADER.ahk
 #Include ..\..\SystemInformation\IMAGE_FILE_MACHINE.ahk
-#Include .\IMAGE_FILE_CHARACTERISTICS.ahk
 #Include .\IMAGE_ROM_OPTIONAL_HEADER.ahk
+#Include .\IMAGE_FILE_CHARACTERISTICS.ahk
+#Include .\IMAGE_FILE_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ILocationReport.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ILocationReport.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * ICivicAddressReport represents a location report that contains information in the form of a street address.
@@ -44,7 +45,7 @@ class ICivicAddressReport extends ILocationReport {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getaddressline1
      */
     GetAddressLine1() {
-        pbstrAddress1 := BSTR()
+        pbstrAddress1 := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", pbstrAddress1, "HRESULT")
         return pbstrAddress1
     }
@@ -55,7 +56,7 @@ class ICivicAddressReport extends ILocationReport {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getaddressline2
      */
     GetAddressLine2() {
-        pbstrAddress2 := BSTR()
+        pbstrAddress2 := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrAddress2, "HRESULT")
         return pbstrAddress2
     }
@@ -66,7 +67,7 @@ class ICivicAddressReport extends ILocationReport {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getcity
      */
     GetCity() {
-        pbstrCity := BSTR()
+        pbstrCity := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrCity, "HRESULT")
         return pbstrCity
     }
@@ -77,7 +78,7 @@ class ICivicAddressReport extends ILocationReport {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getstateprovince
      */
     GetStateProvince() {
-        pbstrStateProvince := BSTR()
+        pbstrStateProvince := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrStateProvince, "HRESULT")
         return pbstrStateProvince
     }
@@ -88,7 +89,7 @@ class ICivicAddressReport extends ILocationReport {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getpostalcode
      */
     GetPostalCode() {
-        pbstrPostalCode := BSTR()
+        pbstrPostalCode := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbstrPostalCode, "HRESULT")
         return pbstrPostalCode
     }
@@ -101,7 +102,7 @@ class ICivicAddressReport extends ILocationReport {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getcountryregion
      */
     GetCountryRegion() {
-        pbstrCountryRegion := BSTR()
+        pbstrCountryRegion := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrCountryRegion, "HRESULT")
         return pbstrCountryRegion
     }

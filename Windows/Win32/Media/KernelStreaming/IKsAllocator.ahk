@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\KSSTREAMALLOCATOR_STATUS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\KSSTREAMALLOCATOR_STATUS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\KSALLOCATORMODE.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

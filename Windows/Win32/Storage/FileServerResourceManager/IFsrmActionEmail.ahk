@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmAction.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmAction.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to send an email message in response to a quota or file screen event.
@@ -96,7 +97,7 @@ class IFsrmActionEmail extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailfrom
      */
     get_MailFrom() {
-        mailFrom := BSTR()
+        mailFrom := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", mailFrom, "HRESULT")
         return mailFrom
     }
@@ -127,7 +128,7 @@ class IFsrmActionEmail extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailreplyto
      */
     get_MailReplyTo() {
-        mailReplyTo := BSTR()
+        mailReplyTo := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", mailReplyTo, "HRESULT")
         return mailReplyTo
     }
@@ -158,7 +159,7 @@ class IFsrmActionEmail extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailto
      */
     get_MailTo() {
-        mailTo := BSTR()
+        mailTo := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", mailTo, "HRESULT")
         return mailTo
     }
@@ -182,7 +183,7 @@ class IFsrmActionEmail extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailcc
      */
     get_MailCc() {
-        mailCc := BSTR()
+        mailCc := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", mailCc, "HRESULT")
         return mailCc
     }
@@ -206,7 +207,7 @@ class IFsrmActionEmail extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailbcc
      */
     get_MailBcc() {
-        mailBcc := BSTR()
+        mailBcc := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", mailBcc, "HRESULT")
         return mailBcc
     }
@@ -230,7 +231,7 @@ class IFsrmActionEmail extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailsubject
      */
     get_MailSubject() {
-        mailSubject := BSTR()
+        mailSubject := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", mailSubject, "HRESULT")
         return mailSubject
     }
@@ -254,7 +255,7 @@ class IFsrmActionEmail extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_messagetext
      */
     get_MessageText() {
-        messageText := BSTR()
+        messageText := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", messageText, "HRESULT")
         return messageText
     }

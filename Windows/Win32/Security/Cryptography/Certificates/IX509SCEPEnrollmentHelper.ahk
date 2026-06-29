@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\X509SCEPProcessMessageFlags.ahk
 #Include .\IX509SCEPEnrollment.ahk
+#Include .\X509SCEPDisposition.ahk
+#Include .\IX509CertificateRequestPkcs10.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\X509CertificateEnrollmentContext.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -102,10 +107,9 @@ class IX509SCEPEnrollmentHelper extends IDispatch {
     }
 
     /**
-     * Specifies certification authority property values.
+     * 
      * @param {X509SCEPProcessMessageFlags} ProcessFlags 
      * @returns {X509SCEPDisposition} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmentcaproperty
      */
     Enroll(ProcessFlags) {
         result := ComCall(9, this, "int", ProcessFlags, "int*", &pDisposition := 0, "HRESULT")
@@ -136,7 +140,7 @@ class IX509SCEPEnrollmentHelper extends IDispatch {
      * @returns {BSTR} 
      */
     get_ResultMessageText() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pValue, "HRESULT")
         return pValue
     }

@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IADsADSystemInfo interface retrieves data about the local computer if it is running a Windows operating system in a Windows domain. For example, you can get the domain, site, and distinguished name of the local computer.
@@ -99,7 +101,7 @@ class IADsADSystemInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_UserName() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -109,7 +111,7 @@ class IADsADSystemInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_ComputerName() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -119,7 +121,7 @@ class IADsADSystemInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_SiteName() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -129,7 +131,7 @@ class IADsADSystemInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_DomainShortName() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -139,7 +141,7 @@ class IADsADSystemInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_DomainDNSName() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -149,7 +151,7 @@ class IADsADSystemInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_ForestDNSName() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -159,7 +161,7 @@ class IADsADSystemInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_PDCRoleOwner() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -169,7 +171,7 @@ class IADsADSystemInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_SchemaRoleOwner() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -189,7 +191,7 @@ class IADsADSystemInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsadsysteminfo-getanydcname
      */
     GetAnyDCName() {
-        pszDCName := BSTR()
+        pszDCName := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pszDCName, "HRESULT")
         return pszDCName
     }
@@ -205,7 +207,7 @@ class IADsADSystemInfo extends IDispatch {
     GetDCSiteName(szServer) {
         szServer := szServer is String ? BSTR.Alloc(szServer).Value : szServer
 
-        pszSiteName := BSTR()
+        pszSiteName := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", szServer, "ptr", pszSiteName, "HRESULT")
         return pszSiteName
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -22,9 +23,9 @@
  * @charset Unicode
  */
 class NTMS_LIBREQUESTINFORMATIONW extends Win32Struct {
-    static sizeof => 496
+    static sizeof => 532
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -53,47 +54,62 @@ class NTMS_LIBREQUESTINFORMATIONW extends Win32Struct {
 
     /**
      * Unique identifier of a side being serviced.
-     * @type {Pointer}
+     * @type {Guid}
      */
     PartitionId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__PartitionId"))
+                this.__PartitionId := Guid(12, this)
+            return this.__PartitionId
+        }
     }
 
     /**
      * Unique identifier of a drive being serviced.
-     * @type {Pointer}
+     * @type {Guid}
      */
     DriveId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__DriveId"))
+                this.__DriveId := Guid(28, this)
+            return this.__DriveId
+        }
     }
 
     /**
      * Unique identifier of a piece of physical media being serviced.
-     * @type {Pointer}
+     * @type {Guid}
      */
     PhysMediaId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__PhysMediaId"))
+                this.__PhysMediaId := Guid(44, this)
+            return this.__PhysMediaId
+        }
     }
 
     /**
      * Library for this request.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Library {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__Library"))
+                this.__Library := Guid(60, this)
+            return this.__Library
+        }
     }
 
     /**
      * Unique identifier of a slot of the piece of physical media being serviced.
-     * @type {Pointer}
+     * @type {Guid}
      */
     SlotId {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get {
+            if(!this.HasProp("__SlotId"))
+                this.__SlotId := Guid(76, this)
+            return this.__SlotId
+        }
     }
 
     /**
@@ -103,7 +119,7 @@ class NTMS_LIBREQUESTINFORMATIONW extends Win32Struct {
     TimeQueued {
         get {
             if(!this.HasProp("__TimeQueued"))
-                this.__TimeQueued := SYSTEMTIME(56, this)
+                this.__TimeQueued := SYSTEMTIME(92, this)
             return this.__TimeQueued
         }
     }
@@ -115,7 +131,7 @@ class NTMS_LIBREQUESTINFORMATIONW extends Win32Struct {
     TimeCompleted {
         get {
             if(!this.HasProp("__TimeCompleted"))
-                this.__TimeCompleted := SYSTEMTIME(72, this)
+                this.__TimeCompleted := SYSTEMTIME(108, this)
             return this.__TimeCompleted
         }
     }
@@ -125,8 +141,8 @@ class NTMS_LIBREQUESTINFORMATIONW extends Win32Struct {
      * @type {String}
      */
     szApplication {
-        get => StrGet(this.ptr + 88, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 88, 63, "UTF-16")
+        get => StrGet(this.ptr + 124, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 124, 63, "UTF-16")
     }
 
     /**
@@ -134,8 +150,8 @@ class NTMS_LIBREQUESTINFORMATIONW extends Win32Struct {
      * @type {String}
      */
     szUser {
-        get => StrGet(this.ptr + 216, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 216, 63, "UTF-16")
+        get => StrGet(this.ptr + 252, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 252, 63, "UTF-16")
     }
 
     /**
@@ -143,8 +159,8 @@ class NTMS_LIBREQUESTINFORMATIONW extends Win32Struct {
      * @type {String}
      */
     szComputer {
-        get => StrGet(this.ptr + 344, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 344, 63, "UTF-16")
+        get => StrGet(this.ptr + 380, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 380, 63, "UTF-16")
     }
 
     /**
@@ -153,17 +169,20 @@ class NTMS_LIBREQUESTINFORMATIONW extends Win32Struct {
      * @type {Integer}
      */
     dwErrorCode {
-        get => NumGet(this, 472, "uint")
-        set => NumPut("uint", value, this, 472)
+        get => NumGet(this, 508, "uint")
+        set => NumPut("uint", value, this, 508)
     }
 
     /**
      * Associated work item ID for this request. This is currently used to contain the work item ID to be canceled on an NTMS_LM_REMOVE request.
-     * @type {Pointer}
+     * @type {Guid}
      */
     WorkItemId {
-        get => NumGet(this, 480, "ptr")
-        set => NumPut("ptr", value, this, 480)
+        get {
+            if(!this.HasProp("__WorkItemId"))
+                this.__WorkItemId := Guid(512, this)
+            return this.__WorkItemId
+        }
     }
 
     /**
@@ -171,7 +190,7 @@ class NTMS_LIBREQUESTINFORMATIONW extends Win32Struct {
      * @type {Integer}
      */
     dwPriority {
-        get => NumGet(this, 488, "uint")
-        set => NumPut("uint", value, this, 488)
+        get => NumGet(this, 528, "uint")
+        set => NumPut("uint", value, this, 528)
     }
 }

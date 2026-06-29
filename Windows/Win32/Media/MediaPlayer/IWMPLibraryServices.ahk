@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WMPLibraryType.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWMPLibrary.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMPLibraryServices interface provides methods to enumerate libraries.

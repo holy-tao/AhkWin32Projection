@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Use this structure to specify or modify the attributes of a window type.

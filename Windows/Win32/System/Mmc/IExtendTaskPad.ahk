@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include .\IEnumTASK.ahk
-#Include .\MMC_TASK_DISPLAY_OBJECT.ahk
 #Include .\MMC_LISTPAD_INFO.ahk
+#Include .\MMC_TASK_DISPLAY_OBJECT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\IDataObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IExtendTaskPad interface is introduced in MMC 1.1.

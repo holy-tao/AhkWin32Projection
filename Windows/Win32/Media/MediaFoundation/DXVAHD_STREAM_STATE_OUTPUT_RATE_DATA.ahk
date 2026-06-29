@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DXVAHD_OUTPUT_RATE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\DXVAHD_RATIONAL.ahk
 
 /**

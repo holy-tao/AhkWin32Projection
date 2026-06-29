@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\TVITEMEXA.ahk
-#Include .\TVITEM_MASK.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include .\TVITEMEXW_CHILDREN.ahk
+#Include .\TVITEMEXA.ahk
+#Include .\NMHDR.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\HTREEITEM.ahk
+#Include .\TVITEM_MASK.ahk
 
 /**
  * Contains information pertaining to extended TreeView notification information. (ANSI)

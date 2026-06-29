@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IObjectId.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an SMIMECapabilities extension that identifies the decryption capabilities of an email recipient.

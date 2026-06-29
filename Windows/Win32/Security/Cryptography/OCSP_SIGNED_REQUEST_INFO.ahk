@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\OCSP_SIGNATURE_INFO.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Contains information for an online certificate status protocol (OCSP) request with optional signature information.

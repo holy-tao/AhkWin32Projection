@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Direct3D\D3D_PRIMITIVE_TOPOLOGY.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes a shader. (D3D10_SHADER_DESC)

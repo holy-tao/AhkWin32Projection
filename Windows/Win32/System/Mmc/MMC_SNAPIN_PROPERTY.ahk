@@ -1,15 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\Variant\VARENUM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\CHAR.ahk
 #Include ..\Com\CY.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include .\MMC_PROPERTY_ACTION.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\SAFEARRAY.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\Ole\IRecordInfo.ahk
-#Include .\MMC_PROPERTY_ACTION.ahk
+#Include ..\..\Foundation\DECIMAL.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 
 /**
  * The MMC_SNAPIN_PROPERTY structure is introduced in MMC 2.0.

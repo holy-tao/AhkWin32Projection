@@ -1,5 +1,34 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\AddPackageDependencyOptions.ahk
+#Include .\AppPolicyCreateFileAccess.ahk
+#Include .\AppPolicyShowDeveloperDiagnostic.ahk
+#Include .\PACKAGE_ID.ahk
+#Include .\AppPolicyClrCompat.ahk
+#Include .\AppPolicyMediaFoundationCodecLoading.ahk
+#Include .\PACKAGEDEPENDENCY_CONTEXT.ahk
+#Include ..\..\..\Foundation\FILETIME.ahk
+#Include .\AppPolicyProcessTerminationMethod.ahk
+#Include .\CreatePackageDependencyOptions.ahk
+#Include .\FindPackageDependencyCriteria.ahk
+#Include .\AppPolicyThreadInitializationType.ahk
+#Include .\AppPolicyLifecycleManagement.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\WIN32_ERROR.ahk
+#Include .\PackagePathType.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\PACKAGE_VERSION.ahk
+#Include .\PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Security\PSID.ahk
+#Include .\AddPackageDependencyOptions2.ahk
+#Include .\PackageInfo3Type.ahk
+#Include .\AppPolicyWindowingModel.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\PackageDependencyProcessorArchitectures.ahk
+#Include .\_PACKAGE_INFO_REFERENCE.ahk
+#Include .\PackageDependencyLifetimeKind.ahk
+#Include .\PackageOrigin.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx

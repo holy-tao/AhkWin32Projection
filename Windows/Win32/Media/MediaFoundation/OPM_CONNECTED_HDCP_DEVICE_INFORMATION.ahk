@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\OPM_RANDOM_NUMBER.ahk
 #Include .\OPM_HDCP_KEY_SELECTION_VECTOR.ahk
+#Include .\OPM_RANDOM_NUMBER.ahk
 
 /**
  * Contains the result from an OPM_GET_CONNECTED_HDCP_DEVICE_INFORMATION query.

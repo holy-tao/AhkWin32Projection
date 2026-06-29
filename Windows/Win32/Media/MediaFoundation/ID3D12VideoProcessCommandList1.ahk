@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D12VideoProcessor.ahk
 #Include .\ID3D12VideoProcessCommandList.ahk
+#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1.ahk
+#Include .\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS.ahk
 
 /**
  * Encapsulates a list of graphics commands for video processing. (ID3D12VideoProcessCommandList1)

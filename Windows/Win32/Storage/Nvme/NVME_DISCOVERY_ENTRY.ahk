@@ -9,7 +9,7 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct {
 
     static packingSize => 2
 
-    class _TREQ_e__Union extends Win32Struct {
+    class _TREQ extends Win32Struct {
         static sizeof => 1
         static packingSize => 1
 
@@ -68,7 +68,7 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct {
         }
     }
 
-    class _EFLAGS_e__Union extends Win32Struct {
+    class _EFLAGS extends Win32Struct {
         static sizeof => 2
         static packingSize => 2
 
@@ -143,12 +143,12 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct {
     }
 
     /**
-     * @type {_TREQ_e__Union}
+     * @type {_TREQ}
      */
     TREQ {
         get {
             if(!this.HasProp("__TREQ"))
-                this.__TREQ := NVME_DISCOVERY_ENTRY._TREQ_e__Union(3, this)
+                this.__TREQ := NVME_DISCOVERY_ENTRY._TREQ(3, this)
             return this.__TREQ
         }
     }
@@ -178,12 +178,12 @@ class NVME_DISCOVERY_ENTRY extends Win32Struct {
     }
 
     /**
-     * @type {_EFLAGS_e__Union}
+     * @type {_EFLAGS}
      */
     EFLAGS {
         get {
             if(!this.HasProp("__EFLAGS"))
-                this.__EFLAGS := NVME_DISCOVERY_ENTRY._EFLAGS_e__Union(10, this)
+                this.__EFLAGS := NVME_DISCOVERY_ENTRY._EFLAGS(10, this)
             return this.__EFLAGS
         }
     }

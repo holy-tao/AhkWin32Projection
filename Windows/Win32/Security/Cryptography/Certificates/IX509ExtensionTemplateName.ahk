@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509Extension.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509Extension.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines methods and properties that can be used to initialize or retrieve a template name extension.
@@ -135,7 +137,7 @@ class IX509ExtensionTemplateName extends IX509Extension {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensiontemplatename-get_templatename
      */
     get_TemplateName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pValue, "HRESULT")
         return pValue
     }

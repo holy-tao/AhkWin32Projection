@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\SLLICENSINGSTATUS.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the licensing status. (SL_LICENSING_STATUS)
@@ -8,7 +10,7 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
 class SL_LICENSING_STATUS extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -16,11 +18,14 @@ class SL_LICENSING_STATUS extends Win32Struct {
      * Type: <b>SLID</b>
      * 
      * The SKU ID.
-     * @type {Pointer}
+     * @type {Guid}
      */
     SkuId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__SkuId"))
+                this.__SkuId := Guid(0, this)
+            return this.__SkuId
+        }
     }
 
     /**
@@ -30,8 +35,8 @@ class SL_LICENSING_STATUS extends Win32Struct {
      * @type {SLLICENSINGSTATUS}
      */
     eStatus {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -41,8 +46,8 @@ class SL_LICENSING_STATUS extends Win32Struct {
      * @type {Integer}
      */
     dwGraceTime {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -52,8 +57,8 @@ class SL_LICENSING_STATUS extends Win32Struct {
      * @type {Integer}
      */
     dwTotalGraceDays {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -63,8 +68,8 @@ class SL_LICENSING_STATUS extends Win32Struct {
      * @type {HRESULT}
      */
     hrReason {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -74,7 +79,7 @@ class SL_LICENSING_STATUS extends Win32Struct {
      * @type {Integer}
      */
     qwValidityExpiration {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

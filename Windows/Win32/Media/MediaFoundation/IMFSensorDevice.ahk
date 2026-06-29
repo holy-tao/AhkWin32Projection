@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MFSensorStreamType.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\MFSensorDeviceType.ahk
 #Include .\IMFAttributes.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MFSensorDeviceMode.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a sensor device that can belong to a sensor group, which is represented by the IMFSensorGroup interface. The term &quot;device&quot; in this context could refer to a physical device, a custom media source, or a frame provider.

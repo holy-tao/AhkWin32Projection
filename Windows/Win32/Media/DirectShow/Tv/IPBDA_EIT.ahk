@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\MPEG_DATE_AND_TIME.ahk
 #Include .\MPEG_TIME.ahk
+#Include .\MPEG_DATE_AND_TIME.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IGenericDescriptor.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Implements methods that enable the client to get information from an event information table (EIT) in a Protected Broadcast Device Architecture (PBDA) transport stream. The IPBDASiParser::GetEIT method returns a pointer to this interface.

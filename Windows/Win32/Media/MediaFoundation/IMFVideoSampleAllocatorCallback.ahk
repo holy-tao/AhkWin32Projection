@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFVideoSampleAllocatorNotify.ahk
 
 /**
  * Enables an application to track video samples allocated by the enhanced video renderer (EVR).

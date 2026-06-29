@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Include .\IDebugHostTypeSignature.ahk
+#Include .\IDebugHostSymbolEnumerator.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\IModelObject.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -29,18 +33,11 @@ class IDataModelConcept extends IUnknown {
     static VTableNames => ["InitializeObject", "GetName"]
 
     /**
-     * The InitializeObjectAttributes macro initializes the opaque OBJECT_ATTRIBUTES structure, which specifies the properties of an object handle to routines that open handles.
-     * @remarks
-     * <b>InitializeObjectAttributes</b> initializes an <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wudfwdm/ns-wudfwdm-_object_attributes">OBJECT_ATTRIBUTES</a> structure that specifies the properties of an object handle to be opened. The caller can then pass a pointer to this structure to a routine that actually opens the handle. 
      * 
-     * Driver routines that run in a process context other than that of the system process must set the OBJ_KERNEL_HANDLE flag for the <i>Attributes</i> parameter. This flag restricts the use of a handle opened for that object to processes running only in kernel mode. Otherwise, the handle can be accessed by the process in whose context the driver is running.
-     * 
-     * Note that <b>InitializeObjectAttributes</b> always sets the <b>SecurityQualityOfService</b> member of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wudfwdm/ns-wudfwdm-_object_attributes">OBJECT_ATTRIBUTES</a> to <b>NULL</b>. Drivers that require a non-<b>NULL</b> value can set <b>SecurityQualityOfService</b> directly.
      * @param {IModelObject} modelObject 
      * @param {IDebugHostTypeSignature} matchingTypeSignature 
      * @param {IDebugHostSymbolEnumerator} wildcardMatches 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ntdef/nf-ntdef-initializeobjectattributes
      */
     InitializeObject(modelObject, matchingTypeSignature, wildcardMatches) {
         result := ComCall(3, this, "ptr", modelObject, "ptr", matchingTypeSignature, "ptr", wildcardMatches, "HRESULT")
@@ -53,7 +50,7 @@ class IDataModelConcept extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        modelName := BSTR()
+        modelName := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", modelName, "HRESULT")
         return modelName
     }

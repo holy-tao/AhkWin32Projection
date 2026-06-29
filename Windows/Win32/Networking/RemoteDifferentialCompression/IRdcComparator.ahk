@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\RdcBufferPointer.ahk
+#Include .\RdcNeedPointer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\RDC_ErrorCode.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to compare two signature streams (seed and source) and produce the list of source and seed file data chunks needed to create the target file.

@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Factory6.ahk
 #Include .\ID2D1Device6.ahk
+#Include ..\Dxgi\IDXGIDevice.ahk
+#Include .\ID2D1Factory6.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Creates Direct2D resources. This interface performs all the same functions as the ID2D1Factory6 interface, plus it enables the creation of ID2D1Device6 objects.

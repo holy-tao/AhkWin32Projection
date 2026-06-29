@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_RECOVERY_TYPE.ahk
 #Include .\WHEA_RECOVERY_FAILURE_REASON.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include .\WHEA_RECOVERY_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

@@ -1,8 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include .\HIDP_VALUE_CAPS.ahk
+#Include .\HIDP_BUTTON_CAPS.ahk
+#Include .\HIDP_CAPS.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\HIDP_DATA.ahk
 #Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include .\HIDP_EXTENDED_ATTRIBUTES.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\PHIDP_PREPARSED_DATA.ahk
+#Include .\HIDD_ATTRIBUTES.ahk
+#Include .\HIDP_KEYBOARD_MODIFIER_STATE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\USAGE_AND_PAGE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\HIDP_LINK_COLLECTION_NODE.ahk
+#Include .\HIDP_KEYBOARD_DIRECTION.ahk
+#Include .\HIDP_REPORT_TYPE.ahk
+#Include .\HIDP_BUTTON_ARRAY_DATA.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -707,8 +726,7 @@ class HumanInterfaceDevice {
     static DEVPKEY_DeviceInterface_HID_UsagePage {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -720,8 +738,7 @@ class HumanInterfaceDevice {
     static DEVPKEY_DeviceInterface_HID_UsageId {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -733,8 +750,7 @@ class HumanInterfaceDevice {
     static DEVPKEY_DeviceInterface_HID_IsReadOnly {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -746,8 +762,7 @@ class HumanInterfaceDevice {
     static DEVPKEY_DeviceInterface_HID_VendorId {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -759,8 +774,7 @@ class HumanInterfaceDevice {
     static DEVPKEY_DeviceInterface_HID_ProductId {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -772,8 +786,7 @@ class HumanInterfaceDevice {
     static DEVPKEY_DeviceInterface_HID_VersionNumber {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -785,8 +798,7 @@ class HumanInterfaceDevice {
     static DEVPKEY_DeviceInterface_HID_BackgroundAccess {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -798,8 +810,7 @@ class HumanInterfaceDevice {
     static DEVPKEY_DeviceInterface_HID_WakeScreenOnInputCapable {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{cbf38310-4a17-4310-a1eb-247f0b67593b}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }

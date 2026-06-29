@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\Authentication\Identity\SecPkgContext_ConnectionInfo.ahk
-#Include ..\..\Security\Cryptography\ALG_ID.ahk
 #Include ..\..\Security\Authentication\Identity\SecPkgContext_CipherInfo.ahk
+#Include ..\..\Security\Cryptography\ALG_ID.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Security\Authentication\Identity\SecPkgContext_ConnectionInfo.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet

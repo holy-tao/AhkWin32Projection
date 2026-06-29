@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
@@ -7,7 +8,7 @@
 class USB_DEVICE_CAPABILITY_PLATFORM_DESCRIPTOR extends Win32Struct {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -42,11 +43,14 @@ class USB_DEVICE_CAPABILITY_PLATFORM_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     PlatformCapabilityUuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__PlatformCapabilityUuid"))
+                this.__PlatformCapabilityUuid := Guid(4, this)
+            return this.__PlatformCapabilityUuid
+        }
     }
 
     /**
@@ -55,7 +59,7 @@ class USB_DEVICE_CAPABILITY_PLATFORM_DESCRIPTOR extends Win32Struct {
     CapabililityData {
         get {
             if(!this.HasProp("__CapabililityDataProxyArray"))
-                this.__CapabililityDataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__CapabililityDataProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
             return this.__CapabililityDataProxyArray
         }
     }

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUpdateServiceManager.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IUpdateServiceRegistration.ahk
+#Include .\IUpdateServiceManager.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Adds or removes the registration of the update service with Windows Update Agent or Automatic Updates. (IUpdateServiceManager2)
@@ -49,7 +50,7 @@ class IUpdateServiceManager2 extends IUpdateServiceManager {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicemanager2-get_clientapplicationid
      */
     get_ClientApplicationID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", retval, "HRESULT")
         return retval
     }

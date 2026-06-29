@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HSE_EXEC_UNICODE_URL_USER_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HSE_EXEC_URL_ENTITY_INFO.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\HSE_EXEC_UNICODE_URL_USER_INFO.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis

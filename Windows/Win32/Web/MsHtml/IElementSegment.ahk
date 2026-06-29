@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\ISegment.ahk
 #Include .\IHTMLElement.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

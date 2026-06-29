@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\PROCESSTRACE_HANDLE.ahk
 #Include .\TRACE_LOGFILE_HEADER.ahk
+#Include .\PROCESSTRACE_HANDLE.ahk
 
 /**
  * Provided to the BufferCallback as the *ConsumerInfo* parameter and provides details on the current processing session.

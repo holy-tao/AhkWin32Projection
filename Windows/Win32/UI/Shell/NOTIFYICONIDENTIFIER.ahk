@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains information used by Shell_NotifyIconGetRect to identify the icon for which to retrieve the bounding rectangle.
@@ -19,7 +20,7 @@
  * @architecture X64, Arm64
  */
 class NOTIFYICONIDENTIFIER extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -63,15 +64,18 @@ class NOTIFYICONIDENTIFIER extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * A registered GUID that identifies the icon. Use <b>GUID_NULL</b> if the icon is not identified by a GUID.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidItem {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__guidItem"))
+                this.__guidItem := Guid(20, this)
+            return this.__guidItem
+        }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 32
+        this.cbSize := 40
     }
 }

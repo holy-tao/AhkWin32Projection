@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D12Resource.ahk
 #Include .\ID3D12DebugCommandList2.ahk
+#Include .\D3D12_BARRIER_LAYOUT.ahk
+#Include .\D3D12_BARRIER_ACCESS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

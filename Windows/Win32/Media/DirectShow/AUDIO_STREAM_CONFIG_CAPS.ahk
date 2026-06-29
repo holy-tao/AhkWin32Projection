@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The AUDIO_STREAM_CONFIG_CAPS structure describes a range of audio formats. Audio compression and capture filters use this structure to describe the formats they can produce.
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.Media.DirectShow
  */
 class AUDIO_STREAM_CONFIG_CAPS extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Will be set to MEDIATYPE_Audio to indicate an audio sample.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(0, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -25,8 +29,8 @@ class AUDIO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     MinimumChannels {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -34,8 +38,8 @@ class AUDIO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     MaximumChannels {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -43,8 +47,8 @@ class AUDIO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     ChannelsGranularity {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -52,8 +56,8 @@ class AUDIO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     MinimumBitsPerSample {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -61,8 +65,8 @@ class AUDIO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     MaximumBitsPerSample {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -70,8 +74,8 @@ class AUDIO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     BitsPerSampleGranularity {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -79,8 +83,8 @@ class AUDIO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     MinimumSampleFrequency {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -88,8 +92,8 @@ class AUDIO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     MaximumSampleFrequency {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -97,7 +101,7 @@ class AUDIO_STREAM_CONFIG_CAPS extends Win32Struct {
      * @type {Integer}
      */
     SampleFrequencyGranularity {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

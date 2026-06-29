@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\UPDFCACHE_FLAGS.ahk
 #Include .\IOleCache.ahk
+#Include ..\Com\IDataObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables object clients to selectively update each cache that was created with IOleCache::Cache.

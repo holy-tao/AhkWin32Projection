@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IFROW.ahk
 #Include .\INTERNAL_IF_OPER_STATUS.ahk
+#Include .\MIB_IFROW.ahk
 
 /**
  * Contains a table of interface entries.

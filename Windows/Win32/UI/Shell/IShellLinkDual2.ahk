@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IShellLinkDual.ahk
 #Include .\FolderItem.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the ShellLinkObject object and supports one additional property.

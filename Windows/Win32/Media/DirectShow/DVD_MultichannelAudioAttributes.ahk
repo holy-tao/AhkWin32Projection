@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DVD_MUA_MixingInfo.ahk
 #Include .\DVD_MUA_Coeff.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DVD_MultichannelAudioAttributes structure describes the multichannel attributes of one audio stream within a specified title.

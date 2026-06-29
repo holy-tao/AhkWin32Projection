@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
 
 /**
  * Specifies information about a User Access Logging (UAL) session.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.System.UserAccessLogging
  */
 class UAL_DATA_BLOB extends Win32Struct {
-    static sizeof => 672
+    static sizeof => 688
 
     static packingSize => 8
 
@@ -24,20 +25,26 @@ class UAL_DATA_BLOB extends Win32Struct {
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that represents the role or minor product name associated with a UAL session.
-     * @type {Pointer}
+     * @type {Guid}
      */
     RoleGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__RoleGuid"))
+                this.__RoleGuid := Guid(4, this)
+            return this.__RoleGuid
+        }
     }
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies a tenant of a hosted environment. This can be used to differentiate client tenants when more than one tenant uses the same host service.
-     * @type {Pointer}
+     * @type {Guid}
      */
     TenantId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__TenantId"))
+                this.__TenantId := Guid(20, this)
+            return this.__TenantId
+        }
     }
 
     /**
@@ -47,7 +54,7 @@ class UAL_DATA_BLOB extends Win32Struct {
     Address {
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := SOCKADDR_STORAGE(24, this)
+                this.__Address := SOCKADDR_STORAGE(40, this)
             return this.__Address
         }
     }
@@ -57,7 +64,7 @@ class UAL_DATA_BLOB extends Win32Struct {
      * @type {String}
      */
     UserName {
-        get => StrGet(this.ptr + 152, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 152, 259, "UTF-16")
+        get => StrGet(this.ptr + 168, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 168, 259, "UTF-16")
     }
 }

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RM_FILTER_ACTION.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\RM_FILTER_TRIGGER.ahk
 #Include .\RM_UNIQUE_PROCESS.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Include .\RM_FILTER_ACTION.ahk
 
 /**
  * Contains information about modifications to restart or shutdown actions.

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IADs.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IADsPrintQueue interface represents a printer on a network.
@@ -173,7 +174,7 @@ class IADsPrintQueue extends IADs {
      * @returns {BSTR} 
      */
     get_PrinterPath() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -195,7 +196,7 @@ class IADsPrintQueue extends IADs {
      * @returns {BSTR} 
      */
     get_Model() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -217,7 +218,7 @@ class IADsPrintQueue extends IADs {
      * @returns {BSTR} 
      */
     get_Datatype() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -239,7 +240,7 @@ class IADsPrintQueue extends IADs {
      * @returns {BSTR} 
      */
     get_PrintProcessor() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -261,7 +262,7 @@ class IADsPrintQueue extends IADs {
      * @returns {BSTR} 
      */
     get_Description() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -283,7 +284,7 @@ class IADsPrintQueue extends IADs {
      * @returns {BSTR} 
      */
     get_Location() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -381,7 +382,7 @@ class IADsPrintQueue extends IADs {
      * @returns {BSTR} 
      */
     get_BannerPage() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(40, this, "ptr", retval, "HRESULT")
         return retval
     }

@@ -4,8 +4,6 @@
 #Include ..\..\..\Win32Handle.ahk
 
 /**
- * Defines the level of access that a handle has on files.
- * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/ne-windowsstoragecom-handle_access_options
  * @namespace Windows.Win32.Foundation
  */
 class HANDLE extends Win32Handle {

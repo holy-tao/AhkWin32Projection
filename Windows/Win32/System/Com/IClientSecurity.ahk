@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\RPC_C_AUTHN_LEVEL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\RPC_C_IMP_LEVEL.ahk
 #Include .\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Gives the client control over the security settings for each individual interface proxy of an object.

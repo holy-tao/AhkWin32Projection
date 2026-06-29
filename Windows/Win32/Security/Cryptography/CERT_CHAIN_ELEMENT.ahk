@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_CONTEXT.ahk
+#Include .\CTL_USAGE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CERT_TRUST_STATUS.ahk
 #Include .\CERT_REVOCATION_INFO.ahk
-#Include .\CTL_USAGE.ahk
+#Include .\CERT_CONTEXT.ahk
 
 /**
  * The CERT_CHAIN_ELEMENT structure is a single element in a simple certificate chain.

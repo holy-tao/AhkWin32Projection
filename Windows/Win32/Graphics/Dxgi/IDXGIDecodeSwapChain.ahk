@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS.ahk
+#Include .\DXGI_PRESENT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**

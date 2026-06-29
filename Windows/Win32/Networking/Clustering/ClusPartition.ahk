@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Provides extended information about a partition on a Physical Disk resource.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/nn-msclus-iscluspartitionex
  * @namespace Windows.Win32.Networking.Clustering
  */
 class ClusPartition extends Win32Struct {

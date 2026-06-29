@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Returns a pointer to the application object that the window belongs to.
- * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_application
  * @namespace Windows.Win32.System.DesktopSharing
  */
 class RDPSRAPIWindow extends Win32Struct {

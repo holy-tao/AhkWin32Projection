@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\UiaRect.ahk
+#Include .\NavigateDirection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IRawElementProviderFragmentRoot.ahk
 
 /**

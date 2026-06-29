@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_BINDING.ahk
-#Include .\WS_SECURITY_BINDING_TYPE.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
 #Include .\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL.ahk
+#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
+#Include .\WS_SECURITY_BINDING_TYPE.ahk
+#Include .\WS_SECURITY_BINDING.ahk
 
 /**
  * The security binding subtype for specifying the use of the Windows Integrated Authentication protocol (such as Kerberos, NTLM or SPNEGO) with the named pipe transport.

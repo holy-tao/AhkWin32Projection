@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMILBitmapEffectOutputConnector.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that define an interior output connector.

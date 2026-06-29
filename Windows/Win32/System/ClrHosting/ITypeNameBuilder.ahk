@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -77,13 +79,8 @@ class ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * Include the specified pointer in the set of pointers processed by the Interaction Context object.
-     * @remarks
-     * Turn pointer filtering on by setting INTERACTION_CONTEXT_PROPERTY_FILTER_POINTERS in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext">SetPropertyInteractionContext</a>.
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
-     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-addpointerinteractioncontext
+     * 
+     * @returns {HRESULT} 
      */
     AddPointer() {
         result := ComCall(8, this, "HRESULT")
@@ -135,7 +132,7 @@ class ITypeNameBuilder extends IUnknown {
      * @returns {BSTR} 
      */
     ToString() {
-        pszStringRepresentation := BSTR()
+        pszStringRepresentation := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pszStringRepresentation, "HRESULT")
         return pszStringRepresentation
     }

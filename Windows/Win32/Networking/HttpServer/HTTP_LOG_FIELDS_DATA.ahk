@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_LOG_DATA.ahk
-#Include .\HTTP_LOG_DATA_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTTP_VERB.ahk
+#Include .\HTTP_LOG_DATA.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\HTTP_LOG_DATA_TYPE.ahk
 
 /**
  * Used to pass the fields that are logged for an HTTP response when WC3 logging is enabled.

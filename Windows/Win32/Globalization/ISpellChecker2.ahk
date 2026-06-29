@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include ..\Foundation\PWSTR.ahk
 #Include .\ISpellChecker.ahk
+#Include ..\Foundation\HRESULT.ahk
 
 /**
  * Represents a particular spell checker for a particular language, with the added ability to remove words from the added words dictionary, or from the ignore list.

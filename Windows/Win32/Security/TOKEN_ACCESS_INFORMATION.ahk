@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\SID_AND_ATTRIBUTES_HASH.ahk
+#Include .\TOKEN_MANDATORY_POLICY.ahk
 #Include .\TOKEN_PRIVILEGES.ahk
-#Include ..\Foundation\LUID.ahk
+#Include .\PSID.ahk
+#Include .\SID_AND_ATTRIBUTES_HASH.ahk
+#Include .\TOKEN_MANDATORY_POLICY_ID.ahk
 #Include .\TOKEN_TYPE.ahk
 #Include .\SECURITY_IMPERSONATION_LEVEL.ahk
-#Include .\TOKEN_MANDATORY_POLICY.ahk
-#Include .\TOKEN_MANDATORY_POLICY_ID.ahk
+#Include ..\Foundation\LUID.ahk
 
 /**
  * Specifies all the information in a token that is necessary to perform an access check.

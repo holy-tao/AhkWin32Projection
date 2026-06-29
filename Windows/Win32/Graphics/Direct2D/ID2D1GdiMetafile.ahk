@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Resource.ahk
 #Include Common\D2D_RECT_F.ahk
+#Include .\ID2D1Resource.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID2D1GdiMetafileSink.ahk
 
 /**
  * A Direct2D resource that wraps a WMF, EMF, or EMF+ metafile.

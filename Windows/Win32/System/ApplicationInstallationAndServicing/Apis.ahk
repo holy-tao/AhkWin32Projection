@@ -1,8 +1,53 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\MSICOSTTREE.ahk
+#Include .\MSITRANSACTIONSTATE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\MSIHANDLE.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\MSITRANSFORM_ERROR.ahk
+#Include .\PATCH_IGNORE_RANGE.ahk
+#Include .\PATCH_OLD_FILE_INFO_H.ahk
+#Include ..\..\Security\Cryptography\ALG_ID.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DELTA_HEADER_INFO.ahk
+#Include .\ACTCTX_SECTION_KEYED_DATA.ahk
+#Include .\DELTA_INPUT.ahk
+#Include .\MSIDBSTATE.ahk
+#Include .\PATCH_RETAIN_RANGE.ahk
+#Include .\MSIMODIFY.ahk
+#Include .\MSIPATCHSEQUENCEINFOA.ahk
+#Include .\MSIDBERROR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\INSTALLMESSAGE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\MSICOLINFO.ahk
+#Include .\MSIFILEHASHINFO.ahk
+#Include .\MSIASSEMBLYINFO.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\MSIINSTALLCONTEXT.ahk
+#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\ACTCTXA.ahk
+#Include .\DELTA_HASH.ahk
+#Include .\DELTA_OUTPUT.ahk
+#Include .\MSICONDITION.ahk
+#Include .\MSIPATCHSEQUENCEINFOW.ahk
+#Include .\PATCH_OPTION_DATA.ahk
+#Include .\INSTALLLEVEL.ahk
+#Include .\INSTALLSTATE.ahk
+#Include .\PATCH_OLD_FILE_INFO_W.ahk
+#Include .\USERINFOSTATE.ahk
+#Include .\INSTALLUILEVEL.ahk
+#Include .\PROTECTED_FILE_DATA.ahk
+#Include .\MSIRUNMODE.ahk
+#Include .\ACTCTXW.ahk
+#Include .\MSITRANSFORM_VALIDATE.ahk
+#Include .\INSTALLTYPE.ahk
+#Include ..\Registry\HKEY.ahk
+#Include .\PATCH_OLD_FILE_INFO_A.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -29445,14 +29490,14 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hDatabaseReference Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> that does not include the changes.
      * @param {PSTR} szTransformFile A null-terminated string that specifies the name of the transform file being generated. This parameter can be null. If <i>szTransformFile</i> is null, you can use 
      * <b>MsiDatabaseGenerateTransform</b> to test whether two databases are identical without creating a transform. If the databases are identical, the function returns ERROR_NO_DATA. If the databases are different the function returns NOERROR.
-     * @param {Integer} iReserved1 This is a reserved argument and must be set to 0.
-     * @param {Integer} iReserved2 This is a reserved argument and must be set to 0.
      * @returns {Integer} The 
      * <b>MsiDatabaseGenerateTransform</b> function returns one of the following values:
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasegeneratetransforma
      * @since windows8.0
      */
-    static MsiDatabaseGenerateTransformA(hDatabase, hDatabaseReference, szTransformFile, iReserved1, iReserved2) {
+    static MsiDatabaseGenerateTransformA(hDatabase, hDatabaseReference, szTransformFile) {
+        static iReserved1 := 0, iReserved2 := 0 ;Reserved parameters must always be NULL
+
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
         hDatabaseReference := hDatabaseReference is Win32Handle ? NumGet(hDatabaseReference, "ptr") : hDatabaseReference
         szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
@@ -29490,14 +29535,14 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hDatabaseReference Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> that does not include the changes.
      * @param {PWSTR} szTransformFile A null-terminated string that specifies the name of the transform file being generated. This parameter can be null. If <i>szTransformFile</i> is null, you can use 
      * <b>MsiDatabaseGenerateTransform</b> to test whether two databases are identical without creating a transform. If the databases are identical, the function returns ERROR_NO_DATA. If the databases are different the function returns NOERROR.
-     * @param {Integer} iReserved1 This is a reserved argument and must be set to 0.
-     * @param {Integer} iReserved2 This is a reserved argument and must be set to 0.
      * @returns {Integer} The 
      * <b>MsiDatabaseGenerateTransform</b> function returns one of the following values:
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasegeneratetransformw
      * @since windows8.0
      */
-    static MsiDatabaseGenerateTransformW(hDatabase, hDatabaseReference, szTransformFile, iReserved1, iReserved2) {
+    static MsiDatabaseGenerateTransformW(hDatabase, hDatabaseReference, szTransformFile) {
+        static iReserved1 := 0, iReserved2 := 0 ;Reserved parameters must always be NULL
+
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
         hDatabaseReference := hDatabaseReference is Win32Handle ? NumGet(hDatabaseReference, "ptr") : hDatabaseReference
         szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile

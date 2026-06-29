@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDWriteRenderingParams2.ahk
+#Include .\DWRITE_RENDERING_MODE1.ahk
 
 /**
  * Represents text rendering settings for glyph rasterization and filtering. (IDWriteRenderingParams3)

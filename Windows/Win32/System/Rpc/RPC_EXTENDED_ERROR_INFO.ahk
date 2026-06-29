@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\RPC_EE_INFO_PARAM.ahk
-#Include .\ExtendedErrorParamTypes.ahk
 #Include .\BinaryParam.ahk
+#Include .\ExtendedErrorParamTypes.ahk
+#Include .\RPC_EE_INFO_PARAM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
  * The RPC_EXTENDED_ERROR_INFO structure is used to store extended error information.
@@ -22,7 +24,7 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 16
         static packingSize => 4
 
@@ -77,12 +79,12 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := RPC_EXTENDED_ERROR_INFO._u_e__Union(20, this)
+                this.__u := RPC_EXTENDED_ERROR_INFO._u(20, this)
             return this.__u
         }
     }

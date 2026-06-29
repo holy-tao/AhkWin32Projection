@@ -1,8 +1,33 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Include .\WTSLISTENERCONFIGA.ahk
+#Include .\WTS_SESSION_INFO_1A.ahk
+#Include .\WTS_SERIALIZED_USER_CREDENTIAL.ahk
+#Include .\WTS_SESSION_INFO_1W.ahk
 #Include .\WTS_CLOUD_AUTH_HANDLE.ahk
+#Include .\WTS_SESSION_INFOA.ahk
+#Include .\WTS_VIRTUAL_CLASS.ahk
+#Include .\WTSLISTENERCONFIGW.ahk
+#Include ..\..\UI\WindowsAndMessaging\MESSAGEBOX_STYLE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\WTS_TYPE_CLASS.ahk
+#Include .\WTS_SESSION_INFOW.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\UI\WindowsAndMessaging\MESSAGEBOX_RESULT.ahk
+#Include .\WTS_INFO_CLASS.ahk
+#Include .\WTS_PROCESS_INFOW.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\WTS_SERVER_INFOA.ahk
+#Include .\WTS_CONFIG_CLASS.ahk
+#Include .\WTS_SERVER_INFOW.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Security\OBJECT_SECURITY_INFORMATION.ahk
+#Include .\WTS_PROCESS_INFOA.ahk
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop

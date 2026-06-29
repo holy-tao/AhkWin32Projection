@@ -2,7 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\EnrollmentCAProperty.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ICertificationAuthority interface represents a single certification authority. A collection of certification authorities is represented by the ICertificationAuthorities interface.

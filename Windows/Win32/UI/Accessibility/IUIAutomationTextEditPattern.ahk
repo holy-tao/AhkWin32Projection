@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUIAutomationTextPattern.ahk
 #Include .\IUIAutomationTextRange.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to a control that modifies text, for example a control that performs auto-correction or enables input composition through an Input Method Editor (IME).

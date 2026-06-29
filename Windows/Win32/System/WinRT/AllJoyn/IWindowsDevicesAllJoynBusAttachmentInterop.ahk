@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\IInspectable.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface allows for retrieval of the underlying alljoyn_busattachment object.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Receives item data in response to a call to SHGetDataFromIDList.
@@ -7,9 +8,9 @@
  * @namespace Windows.Win32.UI.Shell
  */
 class SHDESCRIPTIONID extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -24,10 +25,13 @@ class SHDESCRIPTIONID extends Win32Struct {
      * Type: <b>CLSID</b>
      * 
      * Receives the CLSID of the object to which the item belongs.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(4, this)
+            return this.__clsid
+        }
     }
 }

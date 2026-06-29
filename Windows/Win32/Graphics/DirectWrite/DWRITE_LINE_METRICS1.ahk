@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DWRITE_LINE_METRICS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about a formatted line of text. (DWRITE_LINE_METRICS1)

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\..\Foundation\PROPERTYKEY.ahk
 
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.Media.Audio.Apo
  */
 class AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 

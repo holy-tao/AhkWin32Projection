@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -11,17 +12,20 @@
  * @charset ANSI
  */
 class CORE_PRINTER_DRIVERA extends Win32Struct {
-    static sizeof => 288
+    static sizeof => 296
 
     static packingSize => 8
 
     /**
      * The GUID of the core printer driver.
-     * @type {Pointer}
+     * @type {Guid}
      */
     CoreDriverGUID {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__CoreDriverGUID"))
+                this.__CoreDriverGUID := Guid(0, this)
+            return this.__CoreDriverGUID
+        }
     }
 
     /**
@@ -31,7 +35,7 @@ class CORE_PRINTER_DRIVERA extends Win32Struct {
     ftDriverDate {
         get {
             if(!this.HasProp("__ftDriverDate"))
-                this.__ftDriverDate := FILETIME(8, this)
+                this.__ftDriverDate := FILETIME(16, this)
             return this.__ftDriverDate
         }
     }
@@ -46,15 +50,15 @@ class CORE_PRINTER_DRIVERA extends Win32Struct {
      * @type {Integer}
      */
     dwlDriverVersion {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {String}
      */
     szPackageID {
-        get => StrGet(this.ptr + 24, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 24, 259, "UTF-8")
+        get => StrGet(this.ptr + 32, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 32, 259, "UTF-8")
     }
 }

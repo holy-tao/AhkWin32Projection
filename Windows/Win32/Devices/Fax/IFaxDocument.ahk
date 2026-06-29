@@ -1,11 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFaxSender.ahk
-#Include .\IFaxRecipients.ahk
+#Include .\IFaxServer.ahk
+#Include .\FAX_RECEIPT_TYPE_ENUM.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FAX_SCHEDULE_TYPE_ENUM.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IFaxRecipients.ahk
+#Include .\FAX_COVERPAGE_TYPE_ENUM.ahk
+#Include .\FAX_PRIORITY_TYPE_ENUM.ahk
+#Include .\IFaxSender.ahk
 
 /**
  * The IFaxDocument interface defines a messaging object used by a fax client application to compose a fax document and submit it to the fax service for processing.
@@ -184,7 +191,7 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_body
      */
     get_Body() {
-        pbstrBody := BSTR()
+        pbstrBody := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrBody, "HRESULT")
         return pbstrBody
     }
@@ -238,7 +245,7 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_coverpage
      */
     get_CoverPage() {
-        pbstrCoverPage := BSTR()
+        pbstrCoverPage := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrCoverPage, "HRESULT")
         return pbstrCoverPage
     }
@@ -268,7 +275,7 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_subject
      */
     get_Subject() {
-        pbstrSubject := BSTR()
+        pbstrSubject := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstrSubject, "HRESULT")
         return pbstrSubject
     }
@@ -292,7 +299,7 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_note
      */
     get_Note() {
-        pbstrNote := BSTR()
+        pbstrNote := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstrNote, "HRESULT")
         return pbstrNote
     }
@@ -353,7 +360,7 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_receiptaddress
      */
     get_ReceiptAddress() {
-        pbstrReceiptAddress := BSTR()
+        pbstrReceiptAddress := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", pbstrReceiptAddress, "HRESULT")
         return pbstrReceiptAddress
     }
@@ -379,7 +386,7 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_documentname
      */
     get_DocumentName() {
-        pbstrDocumentName := BSTR()
+        pbstrDocumentName := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", pbstrDocumentName, "HRESULT")
         return pbstrDocumentName
     }

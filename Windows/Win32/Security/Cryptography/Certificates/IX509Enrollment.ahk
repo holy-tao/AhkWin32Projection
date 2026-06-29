@@ -1,11 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX509CertificateRequest.ahk
-#Include .\IX509NameValuePairs.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\PFXExportOptions.ahk
 #Include .\IX509EnrollmentStatus.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IX509NameValuePairs.ahk
+#Include .\IX509CertificateRequest.ahk
+#Include .\InstallResponseRestrictionFlags.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\X509CertificateEnrollmentContext.ahk
 
 /**
  * Represents the top level object and enables you to enroll in a certificate hierarchy and install a certificate response.
@@ -265,7 +271,7 @@ class IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-createrequest
      */
     CreateRequest(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(10, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -434,7 +440,7 @@ class IX509Enrollment extends IDispatch {
     CreatePFX(strPassword, ExportOptions, Encoding) {
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", strPassword, "int", ExportOptions, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -562,7 +568,7 @@ class IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_certificate
      */
     get_Certificate(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(22, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -574,7 +580,7 @@ class IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_response
      */
     get_Response(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(23, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -585,7 +591,7 @@ class IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_certificatefriendlyname
      */
     get_CertificateFriendlyName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -609,7 +615,7 @@ class IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_certificatedescription
      */
     get_CertificateDescription() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -647,7 +653,7 @@ class IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_caconfigstring
      */
     get_CAConfigString() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(29, this, "ptr", pValue, "HRESULT")
         return pValue
     }

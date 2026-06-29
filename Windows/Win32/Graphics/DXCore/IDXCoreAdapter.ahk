@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\DXCoreAdapterState.ahk
+#Include .\DXCoreAdapterProperty.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The **IDXCoreAdapter** interface implements methods for retrieving details about an adapter item.

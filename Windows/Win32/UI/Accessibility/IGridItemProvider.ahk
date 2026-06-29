@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IRawElementProviderSimple.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to individual child controls of containers that implement IGridProvider.

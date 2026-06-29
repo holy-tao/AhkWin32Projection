@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\CLS_LSN.ahk
 
 /**
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class CLS_INFORMATION extends Win32Struct {
-    static sizeof => 112
+    static sizeof => 120
 
     static packingSize => 8
 
@@ -179,10 +180,13 @@ class CLS_INFORMATION extends Win32Struct {
 
     /**
      * The unique identifier for a log.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Identity {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+        get {
+            if(!this.HasProp("__Identity"))
+                this.__Identity := Guid(104, this)
+            return this.__Identity
+        }
     }
 }

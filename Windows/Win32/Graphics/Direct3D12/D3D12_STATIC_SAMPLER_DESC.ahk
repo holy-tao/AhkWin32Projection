@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_STATIC_BORDER_COLOR.ahk
 #Include .\D3D12_FILTER.ahk
+#Include .\D3D12_SHADER_VISIBILITY.ahk
 #Include .\D3D12_TEXTURE_ADDRESS_MODE.ahk
 #Include .\D3D12_COMPARISON_FUNC.ahk
-#Include .\D3D12_STATIC_BORDER_COLOR.ahk
-#Include .\D3D12_SHADER_VISIBILITY.ahk
 
 /**
  * Describes a static sampler.

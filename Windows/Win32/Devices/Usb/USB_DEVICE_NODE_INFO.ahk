@@ -1,22 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_WMI_DEVICE_NODE_TYPE.ahk
-#Include .\USB_TOPOLOGY_ADDRESS.ahk
-#Include .\USB_DEVICE_INFO.ahk
-#Include .\USB_DEVICE_STATE.ahk
-#Include .\USB_DEVICE_DESCRIPTOR.ahk
-#Include .\USB_DEVICE_SPEED.ahk
-#Include .\USB_CONNECTION_STATUS.ahk
+#Include .\USB_COMPOSITE_DEVICE_INFO.ahk
 #Include .\USB_PIPE_INFO.ahk
+#Include .\USB_CONFIGURATION_DESCRIPTOR.ahk
+#Include .\USB_WMI_DEVICE_NODE_TYPE.ahk
+#Include .\USB_HUB_PORT_INFORMATION.ahk
+#Include .\USB_CONNECTION_STATUS.ahk
+#Include .\USB_HUB_DESCRIPTOR.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\USB_TOPOLOGY_ADDRESS.ahk
+#Include .\USB_CONTROLLER_DEVICE_INFO.ahk
 #Include .\USB_ENDPOINT_DESCRIPTOR.ahk
 #Include .\USB_HUB_DEVICE_INFO.ahk
-#Include .\USB_HUB_DESCRIPTOR.ahk
+#Include .\USB_DEVICE_INFO.ahk
+#Include .\USB_DEVICE_STATE.ahk
 #Include .\USB_HUB_CAPABILITIES.ahk
-#Include .\USB_HUB_PORT_INFORMATION.ahk
-#Include .\USB_COMPOSITE_DEVICE_INFO.ahk
-#Include .\USB_CONFIGURATION_DESCRIPTOR.ahk
+#Include .\USB_DEVICE_DESCRIPTOR.ahk
+#Include .\USB_DEVICE_SPEED.ahk
 #Include .\USB_COMPOSITE_FUNCTION_INFO.ahk
-#Include .\USB_CONTROLLER_DEVICE_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

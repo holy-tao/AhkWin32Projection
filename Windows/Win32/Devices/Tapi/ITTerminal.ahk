@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\TERMINAL_DIRECTION.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\TERMINAL_STATE.ahk
+#Include .\TERMINAL_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITTerminal interface is the base interface for a Terminal object.
@@ -81,7 +85,7 @@ class ITTerminal extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_name
      */
     get_Name() {
-        ppName := BSTR()
+        ppName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", ppName, "HRESULT")
         return ppName
     }
@@ -118,7 +122,7 @@ class ITTerminal extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_terminalclass
      */
     get_TerminalClass() {
-        ppTerminalClass := BSTR()
+        ppTerminalClass := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", ppTerminalClass, "HRESULT")
         return ppTerminalClass
     }

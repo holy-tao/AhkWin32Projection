@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\SORTCOLUMN.ahk
+#Include .\SORT_ORDER_TYPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -29,13 +31,8 @@ class ISortColumnArray extends IUnknown {
     static VTableNames => ["GetCount", "GetAt", "GetSortType"]
 
     /**
-     * Retrieves the number of tagged elements in a given color profile.
-     * @remarks
-     * This function will fail if *hProfile* is not a valid ICC profile.
      * 
-     * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcountcolorprofileelements
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &columnCount := 0, "HRESULT")
@@ -43,22 +40,9 @@ class ISortColumnArray extends IUnknown {
     }
 
     /**
-     * Retrieves a copy of the character string associated with the specified local atom. (ANSI)
-     * @remarks
-     * The string returned for an integer atom (an atom whose value is in the range 0x0001 to 0xBFFF) is a null-terminated string in which the first character is a pound sign (#) and the remaining characters represent the unsigned integer atom value. 
      * 
-     * <h3><a id="Security_Considerations"></a><a id="security_considerations"></a><a id="SECURITY_CONSIDERATIONS"></a>Security Considerations</h3>
-     * Using this function incorrectly might compromise the security of your program. Incorrect use of this function includes not correctly specifying the size of the <i>lpBuffer</i> parameter. 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetAtomName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} index 
      * @returns {SORTCOLUMN} 
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getatomnamea
      */
     GetAt(index) {
         _sortcolumn := SORTCOLUMN()

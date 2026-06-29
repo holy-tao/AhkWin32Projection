@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CERT_LOGOTYPE_IMAGE_INFO_TYPE.ahk
 #Include .\CERT_LOGOTYPE_CHOICE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains more detailed information about an image logotype.

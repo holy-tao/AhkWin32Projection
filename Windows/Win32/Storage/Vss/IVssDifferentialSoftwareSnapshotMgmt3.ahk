@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IVssDifferentialSoftwareSnapshotMgmt2.ahk
 #Include .\VSS_VOLUME_PROTECTION_INFO.ahk
+#Include .\VSS_PROTECTION_LEVEL.ahk
 
 /**
  * Defines methods that allow applications to use the shadow copy protection feature of VSS.

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
 class KSM_BDA_SCAN_CAPABILTIES extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -22,10 +23,13 @@ class KSM_BDA_SCAN_CAPABILTIES extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidBroadcastStandard {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__uuidBroadcastStandard"))
+                this.__uuidBroadcastStandard := Guid(24, this)
+            return this.__uuidBroadcastStandard
+        }
     }
 }

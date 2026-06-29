@@ -1,6 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DEFAULT_FOLDER_MENU_RESTRICTIONS.ahk
+#Include ..\..\System\Registry\HKEY.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include .\IShellFolder.ahk
+#Include .\IContextMenuCB.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

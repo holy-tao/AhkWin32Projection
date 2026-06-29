@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Represents an HTTP request header as a name/value string pair.

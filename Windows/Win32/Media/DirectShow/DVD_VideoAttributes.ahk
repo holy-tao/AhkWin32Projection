@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DVD_VIDEO_COMPRESSION.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DVD_VideoAttributes structure describes the attributes of the video stream for the current title or menu.

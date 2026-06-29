@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFAttributes.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMFMediaTypeHandler.ahk
 
 /**

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_SVG_ASPECT_ALIGN.ahk
 #Include .\D2D1_SVG_ASPECT_SCALING.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D2D1_SVG_ASPECT_ALIGN.ahk
 
 /**
  * Represents all SVG preserveAspectRatio settings.

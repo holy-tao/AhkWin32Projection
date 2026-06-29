@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IRawElementProviderSimple.ahk
 #Include .\ITextRangeProvider.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IRawElementProviderSimple.ahk
 
 /**
  * Provides access to a text-based control (or an object embedded in text) that is a child or descendant of another text-based control.

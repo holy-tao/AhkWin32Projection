@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains information about a DFS namespace. This structure contains the version GUID for the metadata for the namespace.
@@ -16,16 +17,19 @@
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  */
 class DFS_INFO_7 extends Win32Struct {
-    static sizeof => 8
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The value of this <b>GUID</b> changes each time the DFS metadata is changed.
-     * @type {Pointer}
+     * @type {Guid}
      */
     GenerationGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__GenerationGuid"))
+                this.__GenerationGuid := Guid(0, this)
+            return this.__GenerationGuid
+        }
     }
 }

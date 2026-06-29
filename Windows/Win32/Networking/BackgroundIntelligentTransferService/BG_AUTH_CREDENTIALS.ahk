@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BG_AUTH_TARGET.ahk
-#Include .\BG_AUTH_SCHEME.ahk
-#Include .\BG_AUTH_CREDENTIALS_UNION.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\BG_BASIC_CREDENTIALS.ahk
+#Include .\BG_AUTH_SCHEME.ahk
+#Include .\BG_AUTH_TARGET.ahk
+#Include .\BG_AUTH_CREDENTIALS_UNION.ahk
 
 /**
  * Identifies the target (proxy or server), authentication scheme, and the user's credentials to use for user authentication requests. The structure is passed to the IBackgroundCopyJob2::SetCredentials method.

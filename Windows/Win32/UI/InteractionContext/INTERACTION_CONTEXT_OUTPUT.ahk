@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\INTERACTION_ID.ahk
-#Include .\INTERACTION_FLAGS.ahk
-#Include ..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
-#Include .\INTERACTION_ARGUMENTS_MANIPULATION.ahk
 #Include .\MANIPULATION_TRANSFORM.ahk
-#Include .\MANIPULATION_VELOCITY.ahk
-#Include .\MANIPULATION_RAILS_STATE.ahk
-#Include .\INTERACTION_ARGUMENTS_TAP.ahk
 #Include .\INTERACTION_ARGUMENTS_CROSS_SLIDE.ahk
+#Include .\INTERACTION_FLAGS.ahk
 #Include .\CROSS_SLIDE_FLAGS.ahk
+#Include .\MANIPULATION_VELOCITY.ahk
+#Include .\INTERACTION_ARGUMENTS_MANIPULATION.ahk
+#Include .\INTERACTION_ARGUMENTS_TAP.ahk
+#Include ..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
+#Include .\MANIPULATION_RAILS_STATE.ahk
 
 /**
  * Defines the output of the Interaction Context object.
@@ -21,7 +21,7 @@ class INTERACTION_CONTEXT_OUTPUT extends Win32Struct {
 
     static packingSize => 4
 
-    class _arguments_e__Union extends Win32Struct {
+    class _arguments extends Win32Struct {
         static sizeof => 60
         static packingSize => 4
 
@@ -105,12 +105,12 @@ class INTERACTION_CONTEXT_OUTPUT extends Win32Struct {
     }
 
     /**
-     * @type {_arguments_e__Union}
+     * @type {_arguments}
      */
     arguments {
         get {
             if(!this.HasProp("__arguments"))
-                this.__arguments := INTERACTION_CONTEXT_OUTPUT._arguments_e__Union(20, this)
+                this.__arguments := INTERACTION_CONTEXT_OUTPUT._arguments(20, this)
             return this.__arguments
         }
     }

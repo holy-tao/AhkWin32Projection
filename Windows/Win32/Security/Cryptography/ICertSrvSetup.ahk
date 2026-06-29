@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\ICertSrvSetupKeyInformationCollection.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\ICertSrvSetupKeyInformation.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\CASetupProperty.ahk
+#Include .\ICertSrvSetupKeyInformationCollection.ahk
 
 /**
  * Defines functionality to install and uninstall Certification Authority (CA) and Certification Authority Web Enrollment roles on a Certificate Services computer.
@@ -63,7 +66,7 @@ class ICertSrvSetup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-get_caerrorstring
      */
     get_CAErrorString() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
         return pVal
     }

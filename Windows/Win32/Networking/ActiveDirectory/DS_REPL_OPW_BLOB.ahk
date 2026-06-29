@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\DS_REPL_OP_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * The DS_REPL_OPW_BLOB structure describes a replication task currently executing or pending execution.
@@ -9,9 +10,9 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
 class DS_REPL_OPW_BLOB extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 68
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time that this operation was added to the queue.
@@ -100,19 +101,25 @@ class DS_REPL_OPW_BLOB extends Win32Struct {
 
     /**
      * Contains the <b>objectGuid</b> of the naming context identified by <b>pszNamingContext</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidNamingContextObjGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__uuidNamingContextObjGuid"))
+                this.__uuidNamingContextObjGuid := Guid(36, this)
+            return this.__uuidNamingContextObjGuid
+        }
     }
 
     /**
      * Contains the <b>objectGuid</b> of the directory system agent object identified by <b>pszDsaDN</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidDsaObjGuid {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get {
+            if(!this.HasProp("__uuidDsaObjGuid"))
+                this.__uuidDsaObjGuid := Guid(52, this)
+            return this.__uuidDsaObjGuid
+        }
     }
 }

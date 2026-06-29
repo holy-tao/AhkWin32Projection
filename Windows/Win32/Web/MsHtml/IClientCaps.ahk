@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -156,7 +158,7 @@ class IClientCaps extends IDispatch {
      * @returns {BSTR} 
      */
     get_cpuClass() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", p, "HRESULT")
         return p
     }
@@ -166,7 +168,7 @@ class IClientCaps extends IDispatch {
      * @returns {BSTR} 
      */
     get_systemLanguage() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -176,7 +178,7 @@ class IClientCaps extends IDispatch {
      * @returns {BSTR} 
      */
     get_userLanguage() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", p, "HRESULT")
         return p
     }
@@ -186,7 +188,7 @@ class IClientCaps extends IDispatch {
      * @returns {BSTR} 
      */
     get_platform() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -268,7 +270,7 @@ class IClientCaps extends IDispatch {
      * @returns {BSTR} 
      */
     get_connectionType() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", p, "HRESULT")
         return p
     }
@@ -299,7 +301,7 @@ class IClientCaps extends IDispatch {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        pbstrVer := BSTR()
+        pbstrVer := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", bstrName, "ptr", bstrUrl, "ptr", pbstrVer, "HRESULT")
         return pbstrVer
     }

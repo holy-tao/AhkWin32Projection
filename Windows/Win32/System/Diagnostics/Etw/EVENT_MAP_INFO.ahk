@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MAP_FLAGS.ahk
 #Include .\MAP_VALUETYPE.ahk
 #Include .\EVENT_MAP_ENTRY.ahk
+#Include .\MAP_FLAGS.ahk
 
 /**
  * Defines the metadata about the event map.

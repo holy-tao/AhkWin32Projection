@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IGPMResult.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\GPMReportType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IGPMBackup interface supports methods that allow you to delete GPMBackup objects and to retrieve various properties of GPMBackup objects.
@@ -91,7 +94,7 @@ class IGPMBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_ID() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -101,7 +104,7 @@ class IGPMBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_GPOID() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -111,7 +114,7 @@ class IGPMBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_GPODomain() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -121,7 +124,7 @@ class IGPMBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_GPODisplayName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -140,7 +143,7 @@ class IGPMBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_Comment() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -150,7 +153,7 @@ class IGPMBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_BackupDir() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pVal, "HRESULT")
         return pVal
     }

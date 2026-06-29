@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMediaStream.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\STREAM_STATE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MMSSF_GET_INFORMATION_FLAGS.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\STREAM_TYPE.ahk
 
 /**
  * Note  This interface is deprecated.
@@ -245,7 +250,7 @@ class IMultiMediaStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-getendofstreameventhandle
      */
     GetEndOfStreamEventHandle() {
-        phEOS := HANDLE()
+        phEOS := HANDLE({Value: 0}, True)
         result := ComCall(11, this, "ptr", phEOS, "HRESULT")
         return phEOS
     }

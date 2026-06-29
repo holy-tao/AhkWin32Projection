@@ -2,7 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\IWTSListener.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWTSListenerCallback.ahk
 
 /**
  * Manages all Remote Desktop Connection (RDC) client plug-ins and dynamic virtual channel (DVC) listeners.

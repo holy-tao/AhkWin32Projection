@@ -1,11 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\PresentStatisticsKind.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\IPresentationBuffer.ahk
-#Include .\IPresentationSurface.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Include .\SystemInterruptTime.ahk
 #Include .\IPresentStatistics.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPresentationSurface.ahk
+#Include .\IPresentationBuffer.ahk
 
 /**
  * Defines methods for managing presentation.
@@ -196,7 +200,7 @@ class IPresentationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-getlostevent
      */
     GetLostEvent() {
-        lostEventHandle := HANDLE()
+        lostEventHandle := HANDLE({Value: 0}, True)
         result := ComCall(12, this, "ptr", lostEventHandle, "HRESULT")
         return lostEventHandle
     }
@@ -213,7 +217,7 @@ class IPresentationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-getpresentstatisticsavailableevent
      */
     GetPresentStatisticsAvailableEvent() {
-        presentStatisticsAvailableEventHandle := HANDLE()
+        presentStatisticsAvailableEventHandle := HANDLE({Value: 0}, True)
         result := ComCall(13, this, "ptr", presentStatisticsAvailableEventHandle, "HRESULT")
         return presentStatisticsAvailableEventHandle
     }

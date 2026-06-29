@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\VM_PATCH_INFO.ahk
 #Include .\ITsSbPlugin.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITsSbProvisioningPluginNotifySink.ahk
 
 /**
  * Exposes methods that create and maintain virtual machines.

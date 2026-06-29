@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IMSVidOutputDeviceEvent.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface is not implemented.

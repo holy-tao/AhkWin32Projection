@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 
 /**
@@ -8,7 +10,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
 class CQFORM extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -31,11 +33,14 @@ class CQFORM extends Win32Struct {
 
     /**
      * Contains  the class identifier used to identify the query form.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(8, this)
+            return this.__clsid
+        }
     }
 
     /**
@@ -45,7 +50,7 @@ class CQFORM extends Win32Struct {
     hIcon {
         get {
             if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(16, this)
+                this.__hIcon := HICON(24, this)
             return this.__hIcon
         }
     }
@@ -55,7 +60,7 @@ class CQFORM extends Win32Struct {
      * @type {PWSTR}
      */
     pszTitle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

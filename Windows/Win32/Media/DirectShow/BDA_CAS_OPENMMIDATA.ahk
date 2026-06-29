@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
 class BDA_CAS_OPENMMIDATA extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,19 +27,22 @@ class BDA_CAS_OPENMMIDATA extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidDialogType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__uuidDialogType"))
+                this.__uuidDialogType := Guid(8, this)
+            return this.__uuidDialogType
+        }
     }
 
     /**
      * @type {Integer}
      */
     usDialogDataLength {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
+        get => NumGet(this, 24, "ushort")
+        set => NumPut("ushort", value, this, 24)
     }
 
     /**
@@ -47,7 +51,7 @@ class BDA_CAS_OPENMMIDATA extends Win32Struct {
     argbDialogData {
         get {
             if(!this.HasProp("__argbDialogDataProxyArray"))
-                this.__argbDialogDataProxyArray := Win32FixedArray(this.ptr + 18, 1, Primitive, "char")
+                this.__argbDialogDataProxyArray := Win32FixedArray(this.ptr + 26, 1, Primitive, "char")
             return this.__argbDialogDataProxyArray
         }
     }

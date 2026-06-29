@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\PEER_DATA.ahk
 
 /**
@@ -16,17 +17,20 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
 class PEER_OBJECT extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
     /**
      * GUID value under which the peer object is uniquely registered.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(0, this)
+            return this.__id
+        }
     }
 
     /**
@@ -37,7 +41,7 @@ class PEER_OBJECT extends Win32Struct {
     data {
         get {
             if(!this.HasProp("__data"))
-                this.__data := PEER_DATA(8, this)
+                this.__data := PEER_DATA(16, this)
             return this.__data
         }
     }
@@ -47,7 +51,7 @@ class PEER_OBJECT extends Win32Struct {
      * @type {Integer}
      */
     dwPublicationScope {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

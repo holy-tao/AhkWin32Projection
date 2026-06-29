@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class TRANSACTION_NOTIFICATION_PROPAGATE_ARGUMENT extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -18,26 +19,32 @@ class TRANSACTION_NOTIFICATION_PROPAGATE_ARGUMENT extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     UOW {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__UOW"))
+                this.__UOW := Guid(4, this)
+            return this.__UOW
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     TmIdentity {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__TmIdentity"))
+                this.__TmIdentity := Guid(20, this)
+            return this.__TmIdentity
+        }
     }
 
     /**
      * @type {Integer}
      */
     BufferLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

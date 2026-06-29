@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellFavoritesNameSpace.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\IShellFavoritesNameSpace.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -246,7 +247,7 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
      * @returns {BSTR} 
      */
     get_Columns() {
-        bstrColumns := BSTR()
+        bstrColumns := BSTR({Value: 0}, True)
         result := ComCall(34, this, "ptr", bstrColumns, "HRESULT")
         return bstrColumns
     }
@@ -292,13 +293,10 @@ class IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * Hides all descendant nodes, controls, or content of the UI Automation element.
+     * 
      * @param {VARIANT} var 
      * @param {Integer} iDepth 
-     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * Returns S_OK if successful or an error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-expandcollapsepattern_collapse
+     * @returns {HRESULT} 
      */
     Expand(var, iDepth) {
         result := ComCall(39, this, "ptr", var, "int", iDepth, "HRESULT")

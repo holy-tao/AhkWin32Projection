@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ATTRIBUTE_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The HelperAttributeInfo structure contains the name of the helper attribute and its type.

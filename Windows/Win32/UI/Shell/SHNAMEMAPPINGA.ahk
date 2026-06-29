@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains the old and new path names for each file that was moved, copied, or renamed by the SHFileOperation function. (ANSI)

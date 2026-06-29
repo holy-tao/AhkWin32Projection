@@ -2,6 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWMReaderAdvanced.ahk
+#Include .\WMT_PLAY_MODE.ahk
+#Include .\IWMReaderCallback.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WMT_ATTR_DATATYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * The IWMReaderAdvanced2 interface provides additional advanced methods for a reader object.

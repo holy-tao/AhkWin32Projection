@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Graphics\Gdi\HMONITOR.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
- * Targets a monitor(s) for the creation of a graphics capture item.
- * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.capture.interop/nf-windows-graphics-capture-interop-igraphicscaptureiteminterop-createformonitor
  * @namespace Windows.Win32.System.WinRT.Graphics.Capture
  */
 class IGraphicsCaptureItemInterop extends IUnknown {

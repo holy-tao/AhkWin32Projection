@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_MESSAGE_DESCRIPTION.ahk
 #Include .\WS_PARAMETER_DESCRIPTION.ahk
 #Include .\WS_OPERATION_STYLE.ahk
+#Include .\WS_MESSAGE_DESCRIPTION.ahk
 
 /**
  * Metadata for the service operation.

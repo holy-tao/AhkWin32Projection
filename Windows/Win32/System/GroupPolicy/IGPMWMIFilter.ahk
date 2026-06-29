@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include .\IGPMSecurityInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IGPMWMIFilter interface contains methods that allow you to set and retrieve security attributes and various properties for a WMI filter. WMI filter queries are specified using WMI Query Language (WQL).
@@ -70,7 +71,7 @@ class IGPMWMIFilter extends IDispatch {
      * @returns {BSTR} 
      */
     get_Path() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -92,7 +93,7 @@ class IGPMWMIFilter extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -114,7 +115,7 @@ class IGPMWMIFilter extends IDispatch {
      * @returns {BSTR} 
      */
     get_Description() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pVal, "HRESULT")
         return pVal
     }

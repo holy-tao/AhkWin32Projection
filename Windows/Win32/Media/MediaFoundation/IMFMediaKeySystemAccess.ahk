@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaKeys2.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IMFMediaKeys2.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -68,7 +69,7 @@ class IMFMediaKeySystemAccess extends IUnknown {
      * @returns {BSTR} 
      */
     get_KeySystem() {
-        pKeySystem := BSTR()
+        pKeySystem := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", pKeySystem, "HRESULT")
         return pKeySystem
     }

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_GLOBAL.ahk
 #Include .\DD_SURFACE_LOCAL.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The DD_DESTROYSURFACEDATA structure contains information necessary to destroy the specified surface--in the case of DestroyD3DBuffer, a command or vertex buffer.

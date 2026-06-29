@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\UI_INFO_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ShellCommandInfo.ahk
+#Include .\UI_INFO_TYPE.ahk
 
 /**
  * The UiInfo structure is used to display repair messages to the user.

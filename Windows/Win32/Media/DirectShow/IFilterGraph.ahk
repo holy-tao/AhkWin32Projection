@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumFilters.ahk
 #Include .\IBaseFilter.ahk
+#Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IEnumFilters.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPin.ahk
 
 /**
  * The IFilterGraph interface provides methods for building a filter graph.

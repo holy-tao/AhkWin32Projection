@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\PROPERTYKEY.ahk
 
 /**
@@ -16,8 +15,7 @@ class Endpoints {
     static DEVPKEY_AudioEndpointPlugin_FactoryCLSID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{12d83bd7-cf12-46be-8540-812710d3021c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{12d83bd7-cf12-46be-8540-812710d3021c}").CopyTo(value.fmtid.ptr)
             value.pid := 1
             return value
         }
@@ -29,8 +27,7 @@ class Endpoints {
     static DEVPKEY_AudioEndpointPlugin_DataFlow {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{12d83bd7-cf12-46be-8540-812710d3021c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{12d83bd7-cf12-46be-8540-812710d3021c}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -42,8 +39,7 @@ class Endpoints {
     static DEVPKEY_AudioEndpointPlugin_PnPInterface {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{12d83bd7-cf12-46be-8540-812710d3021c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{12d83bd7-cf12-46be-8540-812710d3021c}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -55,8 +51,7 @@ class Endpoints {
     static DEVPKEY_AudioEndpointPlugin2_FactoryCLSID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{12d83bd7-cf12-46be-8540-812710d3021c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{12d83bd7-cf12-46be-8540-812710d3021c}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }

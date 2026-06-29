@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Mmc
@@ -60,7 +62,7 @@ class Node extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        Name := BSTR()
+        Name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", Name, "HRESULT")
         return Name
     }
@@ -73,7 +75,7 @@ class Node extends IDispatch {
     get_Property(PropertyName) {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        _PropertyValue := BSTR()
+        _PropertyValue := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", PropertyName, "ptr", _PropertyValue, "HRESULT")
         return _PropertyValue
     }
@@ -83,7 +85,7 @@ class Node extends IDispatch {
      * @returns {BSTR} 
      */
     get_Bookmark() {
-        Bookmark := BSTR()
+        Bookmark := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", Bookmark, "HRESULT")
         return Bookmark
     }
@@ -102,7 +104,7 @@ class Node extends IDispatch {
      * @returns {BSTR} 
      */
     get_Nodetype() {
-        Nodetype := BSTR()
+        Nodetype := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", Nodetype, "HRESULT")
         return Nodetype
     }

@@ -1,9 +1,38 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11SamplerState.ahk
+#Include .\ID3D11Predicate.ahk
+#Include .\ID3D11BlendState.ahk
 #Include .\ID3D11DeviceChild.ahk
-#Include .\D3D11_MAPPED_SUBRESOURCE.ahk
+#Include .\ID3D11RenderTargetView.ahk
+#Include .\D3D11_DEVICE_CONTEXT_TYPE.ahk
+#Include .\ID3D11PixelShader.ahk
+#Include .\ID3D11HullShader.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D11DepthStencilState.ahk
+#Include ..\Direct3D\D3D_PRIMITIVE_TOPOLOGY.ahk
 #Include .\ID3D11CommandList.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\ID3D11DepthStencilView.ahk
+#Include .\D3D11_MAPPED_SUBRESOURCE.ahk
+#Include .\D3D11_MAP.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\ID3D11Asynchronous.ahk
+#Include .\D3D11_VIEWPORT.ahk
+#Include .\ID3D11ClassInstance.ahk
+#Include .\ID3D11VertexShader.ahk
+#Include .\ID3D11UnorderedAccessView.ahk
+#Include .\ID3D11Buffer.ahk
+#Include .\ID3D11GeometryShader.ahk
+#Include .\ID3D11InputLayout.ahk
+#Include .\ID3D11Resource.ahk
+#Include .\ID3D11ShaderResourceView.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\ID3D11ComputeShader.ahk
+#Include .\ID3D11DomainShader.ahk
+#Include .\D3D11_BOX.ahk
+#Include .\ID3D11RasterizerState.ahk
 
 /**
  * The ID3D11DeviceContext interface represents a device context which generates rendering commands.

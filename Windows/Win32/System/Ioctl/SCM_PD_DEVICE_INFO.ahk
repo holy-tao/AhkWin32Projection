@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
 class SCM_PD_DEVICE_INFO extends Win32Struct {
-    static sizeof => 112
+    static sizeof => 120
 
     static packingSize => 8
 
@@ -26,25 +27,20 @@ class SCM_PD_DEVICE_INFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     DeviceGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__DeviceGuid"))
+                this.__DeviceGuid := Guid(8, this)
+            return this.__DeviceGuid
+        }
     }
 
     /**
      * @type {Integer}
      */
     UnsafeShutdownCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PersistentMemorySizeInBytes {
         get => NumGet(this, 24, "uint")
         set => NumPut("uint", value, this, 24)
     }
@@ -52,7 +48,7 @@ class SCM_PD_DEVICE_INFO extends Win32Struct {
     /**
      * @type {Integer}
      */
-    VolatileMemorySizeInBytes {
+    PersistentMemorySizeInBytes {
         get => NumGet(this, 32, "uint")
         set => NumPut("uint", value, this, 32)
     }
@@ -60,7 +56,7 @@ class SCM_PD_DEVICE_INFO extends Win32Struct {
     /**
      * @type {Integer}
      */
-    TotalMemorySizeInBytes {
+    VolatileMemorySizeInBytes {
         get => NumGet(this, 40, "uint")
         set => NumPut("uint", value, this, 40)
     }
@@ -68,7 +64,7 @@ class SCM_PD_DEVICE_INFO extends Win32Struct {
     /**
      * @type {Integer}
      */
-    SlotNumber {
+    TotalMemorySizeInBytes {
         get => NumGet(this, 48, "uint")
         set => NumPut("uint", value, this, 48)
     }
@@ -76,25 +72,33 @@ class SCM_PD_DEVICE_INFO extends Win32Struct {
     /**
      * @type {Integer}
      */
+    SlotNumber {
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
+    }
+
+    /**
+     * @type {Integer}
+     */
     DeviceHandle {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
      * @type {Integer}
      */
     PhysicalId {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
+        get => NumGet(this, 64, "ushort")
+        set => NumPut("ushort", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     NumberOfFormatInterfaceCodes {
-        get => NumGet(this, 58, "char")
-        set => NumPut("char", value, this, 58)
+        get => NumGet(this, 66, "char")
+        set => NumPut("char", value, this, 66)
     }
 
     /**
@@ -103,7 +107,7 @@ class SCM_PD_DEVICE_INFO extends Win32Struct {
     FormatInterfaceCodes {
         get {
             if(!this.HasProp("__FormatInterfaceCodesProxyArray"))
-                this.__FormatInterfaceCodesProxyArray := Win32FixedArray(this.ptr + 60, 8, Primitive, "ushort")
+                this.__FormatInterfaceCodesProxyArray := Win32FixedArray(this.ptr + 68, 8, Primitive, "ushort")
             return this.__FormatInterfaceCodesProxyArray
         }
     }
@@ -112,22 +116,6 @@ class SCM_PD_DEVICE_INFO extends Win32Struct {
      * @type {Integer}
      */
     VendorId {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ProductId {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SubsystemDeviceId {
         get => NumGet(this, 84, "uint")
         set => NumPut("uint", value, this, 84)
     }
@@ -135,7 +123,7 @@ class SCM_PD_DEVICE_INFO extends Win32Struct {
     /**
      * @type {Integer}
      */
-    SubsystemVendorId {
+    ProductId {
         get => NumGet(this, 88, "uint")
         set => NumPut("uint", value, this, 88)
     }
@@ -143,31 +131,15 @@ class SCM_PD_DEVICE_INFO extends Win32Struct {
     /**
      * @type {Integer}
      */
-    ManufacturingLocation {
-        get => NumGet(this, 92, "char")
-        set => NumPut("char", value, this, 92)
+    SubsystemDeviceId {
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
      * @type {Integer}
      */
-    ManufacturingWeek {
-        get => NumGet(this, 93, "char")
-        set => NumPut("char", value, this, 93)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ManufacturingYear {
-        get => NumGet(this, 94, "char")
-        set => NumPut("char", value, this, 94)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SerialNumber4Byte {
+    SubsystemVendorId {
         get => NumGet(this, 96, "uint")
         set => NumPut("uint", value, this, 96)
     }
@@ -175,16 +147,48 @@ class SCM_PD_DEVICE_INFO extends Win32Struct {
     /**
      * @type {Integer}
      */
+    ManufacturingLocation {
+        get => NumGet(this, 100, "char")
+        set => NumPut("char", value, this, 100)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ManufacturingWeek {
+        get => NumGet(this, 101, "char")
+        set => NumPut("char", value, this, 101)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ManufacturingYear {
+        get => NumGet(this, 102, "char")
+        set => NumPut("char", value, this, 102)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SerialNumber4Byte {
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
+    }
+
+    /**
+     * @type {Integer}
+     */
     SerialNumberLengthInChars {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 
     /**
      * @type {String}
      */
     SerialNumber {
-        get => StrGet(this.ptr + 104, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 104, 0, "UTF-8")
+        get => StrGet(this.ptr + 112, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 112, 0, "UTF-8")
     }
 }

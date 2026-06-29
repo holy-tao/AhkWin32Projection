@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_C_QOS_CAPABILITIES.ahk
-#Include .\RPC_C_QOS_IDENTITY.ahk
 #Include ..\Com\RPC_C_IMP_LEVEL.ahk
+#Include .\RPC_C_QOS_IDENTITY.ahk
+#Include .\RPC_C_QOS_CAPABILITIES.ahk
 
 /**
  * The RPC_SECURITY_QOS structure defines security quality-of-service settings on a binding handle. See Remarks for version availability on Windows editions.

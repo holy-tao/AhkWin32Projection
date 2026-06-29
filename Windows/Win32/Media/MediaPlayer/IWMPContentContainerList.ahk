@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWMPContentContainer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WMPTransactionType.ahk
 
 /**
  * Note  This section describes functionality designed for use by online stores.

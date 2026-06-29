@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
 #Include .\HIC.ahk
+#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
 
 /**
  * The ICDRAWSUGGEST structure contains compression parameters used with the ICM_DRAW_SUGGESTFORMAT message to suggest an appropriate input format.

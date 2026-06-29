@@ -4,6 +4,7 @@
 #Include ..\Com\IDispatch.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IRDPSRAPIApplication.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Manages the application list.

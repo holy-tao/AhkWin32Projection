@@ -441,8 +441,7 @@ class WindowsConnectNow {
     static PKEY_WCN_DeviceType_Category {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{88190b8b-4684-11da-a26a-0002b3988e81}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88190b8b-4684-11da-a26a-0002b3988e81}").CopyTo(value.fmtid.ptr)
             value.pid := 16
             return value
         }
@@ -454,8 +453,7 @@ class WindowsConnectNow {
     static PKEY_WCN_DeviceType_SubCategoryOUI {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{88190b8b-4684-11da-a26a-0002b3988e81}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88190b8b-4684-11da-a26a-0002b3988e81}").CopyTo(value.fmtid.ptr)
             value.pid := 17
             return value
         }
@@ -467,8 +465,7 @@ class WindowsConnectNow {
     static PKEY_WCN_DeviceType_SubCategory {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{88190b8b-4684-11da-a26a-0002b3988e81}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88190b8b-4684-11da-a26a-0002b3988e81}").CopyTo(value.fmtid.ptr)
             value.pid := 18
             return value
         }
@@ -480,8 +477,7 @@ class WindowsConnectNow {
     static PKEY_WCN_SSID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{88190b8b-4684-11da-a26a-0002b3988e81}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88190b8b-4684-11da-a26a-0002b3988e81}").CopyTo(value.fmtid.ptr)
             value.pid := 32
             return value
         }

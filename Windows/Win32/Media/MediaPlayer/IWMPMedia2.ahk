@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMPMedia.ahk
 #Include .\IWMPErrorItem.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMPMedia.ahk
 
 /**
  * The IWMPMedia2 interface provides a method that supplements the IWMPMedia interface.

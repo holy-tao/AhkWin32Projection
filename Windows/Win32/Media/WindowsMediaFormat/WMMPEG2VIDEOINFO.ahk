@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WMVIDEOINFOHEADER2.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * The WMMPEG2VIDEOINFO structure describes an MPEG-2 video stream.

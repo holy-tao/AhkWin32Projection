@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The FUSION_INSTALL_REFERENCE structure contains information about the application which references the side-by-side assembly.
@@ -7,7 +9,7 @@
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
 class FUSION_INSTALL_REFERENCE extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -31,11 +33,14 @@ class FUSION_INSTALL_REFERENCE extends Win32Struct {
 
     /**
      * The application  that uses the side-by-side assembly.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidScheme {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidScheme"))
+                this.__guidScheme := Guid(8, this)
+            return this.__guidScheme
+        }
     }
 
     /**
@@ -43,8 +48,8 @@ class FUSION_INSTALL_REFERENCE extends Win32Struct {
      * @type {PWSTR}
      */
     szIdentifier {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -52,12 +57,12 @@ class FUSION_INSTALL_REFERENCE extends Win32Struct {
      * @type {PWSTR}
      */
     szNonCannonicalData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 32
+        this.cbSize := 40
     }
 }

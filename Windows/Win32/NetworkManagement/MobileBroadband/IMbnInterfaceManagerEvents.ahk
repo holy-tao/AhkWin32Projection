@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMbnInterface.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This notification interface signals an application about the arrival and removal of devices in the system.

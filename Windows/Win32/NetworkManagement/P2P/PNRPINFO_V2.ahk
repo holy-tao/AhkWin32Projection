@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PNRP_RESOLVE_CRITERIA.ahk
-#Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR.ahk
 #Include .\PNRP_REGISTERED_ID_STATE.ahk
-#Include .\PNRP_EXTENDED_PAYLOAD_TYPE.ahk
 #Include ..\..\System\Com\BLOB.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR.ahk
+#Include .\PNRP_RESOLVE_CRITERIA.ahk
+#Include .\PNRP_EXTENDED_PAYLOAD_TYPE.ahk
+#Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
 
 /**
  * The PNRPINFO_V1 structure is pointed to by the lpBlob member of the WSAQUERYSET structure.P

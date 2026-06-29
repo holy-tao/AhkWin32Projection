@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The DNS_SRV_DATA structure represents a DNS service (SRV) record as specified in RFC 2782. (ANSI)

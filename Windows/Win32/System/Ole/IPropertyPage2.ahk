@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IPropertyPage.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * An extension to IPropertyPage to support initial selection of a property on a page.

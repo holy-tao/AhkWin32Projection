@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RIO_BUFFERID.ahk
 
 /**
  * Specifies a portion of a registered buffer used for sending or receiving network data with the Winsock registered I/O extensions.

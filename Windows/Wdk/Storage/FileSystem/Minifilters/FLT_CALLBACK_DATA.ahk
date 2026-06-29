@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\FLT_IO_PARAMETER_BLOCK.ahk
+#Include ..\..\..\Foundation\PETHREAD.ahk
 #Include .\FLT_TAG_DATA_BUFFER.ahk
 
 /**

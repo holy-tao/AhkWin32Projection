@@ -1,10 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IImageList.ahk
-#Include .\IConsoleVerb.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\IConsoleVerb.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IToolbar.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IHeaderCtrl.ahk
+#Include ..\Com\IDataObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IImageList.ahk
 
 /**
  * Enables communication with the console.

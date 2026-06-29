@@ -1,14 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Variant\VARENUM.ahk
-#Include ..\..\System\Com\CY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\..\System\Ole\IRecordInfo.ahk
+#Include ..\..\System\Variant\VARENUM.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\CY.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * The TF_PROPERTYVAL structure contains property value data. This structure is used with the IEnumTfPropertyValue::Next method.
@@ -16,17 +20,20 @@
  * @namespace Windows.Win32.UI.TextServices
  */
 class TF_PROPERTYVAL extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
     /**
      * A <b>GUID</b> that identifies the property type. This can be a custom identifier or one of the <a href="https://docs.microsoft.com/windows/desktop/TSF/predefined-properties">predefined property identifiers</a>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guidId"))
+                this.__guidId := Guid(0, this)
+            return this.__guidId
+        }
     }
 
     /**
@@ -36,7 +43,7 @@ class TF_PROPERTYVAL extends Win32Struct {
     varValue {
         get {
             if(!this.HasProp("__varValue"))
-                this.__varValue := VARIANT(8, this)
+                this.__varValue := VARIANT(16, this)
             return this.__varValue
         }
     }

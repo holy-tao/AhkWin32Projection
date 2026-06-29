@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WINHTTP_CREDS_AUTHSCHEME.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains user credential information used for server and proxy authentication. (WINHTTP_CREDS)

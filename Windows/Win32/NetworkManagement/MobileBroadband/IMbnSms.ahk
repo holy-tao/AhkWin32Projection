@@ -1,9 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MBN_SMS_CDMA_ENCODING.ahk
+#Include .\MBN_SMS_FILTER.ahk
 #Include .\IMbnSmsConfiguration.ahk
+#Include .\MBN_SMS_FORMAT.ahk
+#Include .\MBN_SMS_CDMA_LANG.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\MBN_SMS_STATUS_INFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * SMS interface for sending and receiving messages as well as controlling the messaging configuration.

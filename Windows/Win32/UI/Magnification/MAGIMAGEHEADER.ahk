@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Describes an image format.
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.UI.Magnification
  */
 class MAGIMAGEHEADER extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -37,11 +38,14 @@ class MAGIMAGEHEADER extends Win32Struct {
      * Type: <b>WICPixelFormatGUID</b>
      * 
      * A WICPixelFormatGUID (declared in wincodec.h) that specifies the pixel format of the image. For a list of available pixel formats, see the <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-native-pixel-formats">Native Pixel Formats</a> topic.
-     * @type {Pointer}
+     * @type {Guid}
      */
     format {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__format"))
+                this.__format := Guid(8, this)
+            return this.__format
+        }
     }
 
     /**
@@ -51,8 +55,8 @@ class MAGIMAGEHEADER extends Win32Struct {
      * @type {Integer}
      */
     stride {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -62,8 +66,8 @@ class MAGIMAGEHEADER extends Win32Struct {
      * @type {Integer}
      */
     offset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -73,12 +77,12 @@ class MAGIMAGEHEADER extends Win32Struct {
      * @type {Pointer}
      */
     cbSize {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 32
+        this.cbSize := 40
     }
 }

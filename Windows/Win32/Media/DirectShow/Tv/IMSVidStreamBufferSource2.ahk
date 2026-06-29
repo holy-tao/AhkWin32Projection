@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidStreamBufferSource.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IMSVidStreamBufferSource.ahk
 
 /**
  * The IMSVidStreamBufferSource2 interface represents the Stream Buffer Source filter within the Video Control.

@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\DEVICEDUMP_SUBSECTION_POINTER.ahk
 #Include .\DEVICEDUMP_STRUCTURE_VERSION.ahk
 #Include .\DEVICEDUMP_SECTION_HEADER.ahk
-#Include .\DEVICEDUMP_SUBSECTION_POINTER.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
 class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct {
-    static sizeof => 304
+    static sizeof => 300
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DEVICEDUMP_STRUCTURE_VERSION}
@@ -29,7 +30,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct {
     SectionHeader {
         get {
             if(!this.HasProp("__SectionHeader"))
-                this.__SectionHeader := DEVICEDUMP_SECTION_HEADER(16, this)
+                this.__SectionHeader := DEVICEDUMP_SECTION_HEADER(12, this)
             return this.__SectionHeader
         }
     }

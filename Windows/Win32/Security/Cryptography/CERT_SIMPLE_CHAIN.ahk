@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_TRUST_STATUS.ahk
-#Include .\CERT_CHAIN_ELEMENT.ahk
 #Include .\CERT_TRUST_LIST_INFO.ahk
+#Include .\CERT_CHAIN_ELEMENT.ahk
+#Include .\CERT_TRUST_STATUS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The CERT_SIMPLE_CHAIN structure contains an array of chain elements and a summary trust status for the chain that the array represents.

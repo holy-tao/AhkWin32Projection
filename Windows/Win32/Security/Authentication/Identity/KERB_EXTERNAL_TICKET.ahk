@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_EXTERNAL_NAME.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include .\KERB_CRYPTO_KEY.ahk
 #Include .\KERB_CRYPTO_KEY_TYPE.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\LSA_UNICODE_STRING.ahk
+#Include .\KERB_EXTERNAL_NAME.ahk
 #Include .\KERB_TICKET_FLAGS.ahk
+#Include .\KERB_CRYPTO_KEY.ahk
 
 /**
  * Contains information about an external ticket.

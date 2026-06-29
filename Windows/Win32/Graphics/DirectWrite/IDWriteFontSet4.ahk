@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_FONT_STRETCH.ahk
+#Include .\DWRITE_FONT_AXIS_VALUE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DWRITE_FONT_WEIGHT.ahk
+#Include .\DWRITE_FONT_SIMULATIONS.ahk
 #Include .\IDWriteFontSet3.ahk
+#Include .\DWRITE_FONT_STYLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a font set. (IDWriteFontSet4)

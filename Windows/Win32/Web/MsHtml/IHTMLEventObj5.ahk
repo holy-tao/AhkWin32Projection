@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -84,7 +86,7 @@ class IHTMLEventObj5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_url() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -106,7 +108,7 @@ class IHTMLEventObj5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_data() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -137,7 +139,7 @@ class IHTMLEventObj5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_origin() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", p, "HRESULT")
         return p
     }

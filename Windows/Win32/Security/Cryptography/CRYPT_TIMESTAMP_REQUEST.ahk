@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_TIMESTAMP_VERSION.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CERT_EXTENSION.ahk
 

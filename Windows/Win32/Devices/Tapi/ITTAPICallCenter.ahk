@@ -4,6 +4,7 @@
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IEnumAgentHandler.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITTAPICallCenter interface (tapi3cc.h) provides an entry point into call center controls.

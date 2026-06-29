@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDI_COLOR_SPACE_TYPE.ahk
 #Include .\D3DDDI_ROTATION.ahk
 #Include .\D3DKMT_MULTIPLANE_OVERLAY_BLEND.ahk
-#Include ..\..\..\Win32\Foundation\RECT.ahk
-#Include .\D3DDDI_COLOR_SPACE_TYPE.ahk
 #Include .\DXGKMT_MULTIPLANE_OVERLAY_STRETCH_QUALITY.ahk
+#Include ..\..\..\Win32\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

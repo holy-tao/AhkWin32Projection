@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\INTERNET_PER_CONN_OPTIONA.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains the list of options for a particular Internet connection. (ANSI)

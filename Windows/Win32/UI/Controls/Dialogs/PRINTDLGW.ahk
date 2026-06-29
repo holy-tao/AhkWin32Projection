@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\HGLOBAL.ahk
-#Include ..\..\..\Graphics\Gdi\HDC.ahk
 #Include .\PRINTDLGEX_FLAGS.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 
 /**
  * Contains information that the PrintDlg function uses to initialize the Print Dialog Box. After the user closes the dialog box, the system uses this structure to return information about the user's selections. (Unicode)

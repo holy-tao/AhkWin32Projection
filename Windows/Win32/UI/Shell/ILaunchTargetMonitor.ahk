@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Gdi\HMONITOR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * . (ILaunchTargetMonitor)

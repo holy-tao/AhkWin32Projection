@@ -1,19 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGAnimatedLength.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISVGRect.ahk
-#Include .\ISVGViewSpec.ahk
-#Include .\ISVGPoint.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\ISVGNumber.ahk
-#Include .\ISVGLength.ahk
-#Include .\ISVGAngle.ahk
-#Include .\ISVGMatrix.ahk
 #Include .\ISVGTransform.ahk
+#Include .\ISVGAngle.ahk
+#Include .\ISVGElement.ahk
+#Include .\ISVGNumber.ahk
+#Include .\ISVGAnimatedLength.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\ISVGLength.ahk
+#Include .\ISVGMatrix.ahk
 #Include .\IHTMLElement.ahk
+#Include .\ISVGViewSpec.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\ISVGRect.ahk
+#Include .\ISVGPoint.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -251,7 +254,7 @@ class ISVGSVGElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_contentScriptType() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", p, "HRESULT")
         return p
     }
@@ -273,7 +276,7 @@ class ISVGSVGElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_contentStyleType() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", p, "HRESULT")
         return p
     }

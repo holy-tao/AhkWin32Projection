@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
 class BOOTDISK_INFORMATION_EX extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -42,34 +44,40 @@ class BOOTDISK_INFORMATION_EX extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     BootDeviceGuid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__BootDeviceGuid"))
+                this.__BootDeviceGuid := Guid(24, this)
+            return this.__BootDeviceGuid
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     SystemDeviceGuid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__SystemDeviceGuid"))
+                this.__SystemDeviceGuid := Guid(40, this)
+            return this.__SystemDeviceGuid
+        }
     }
 
     /**
      * @type {BOOLEAN}
      */
     BootDeviceIsGpt {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
+        get => NumGet(this, 56, "char")
+        set => NumPut("char", value, this, 56)
     }
 
     /**
      * @type {BOOLEAN}
      */
     SystemDeviceIsGpt {
-        get => NumGet(this, 41, "char")
-        set => NumPut("char", value, this, 41)
+        get => NumGet(this, 57, "char")
+        set => NumPut("char", value, this, 57)
     }
 }

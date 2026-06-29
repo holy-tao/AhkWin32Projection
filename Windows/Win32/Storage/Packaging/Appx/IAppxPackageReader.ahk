@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IAppxBlockMapReader.ahk
+#Include .\APPX_FOOTPRINT_FILE_TYPE.ahk
 #Include .\IAppxFile.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\IAppxFilesEnumerator.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAppxManifestReader.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IAppxBlockMapReader.ahk
 
 /**
  * Provides a read-only object model for app packages.

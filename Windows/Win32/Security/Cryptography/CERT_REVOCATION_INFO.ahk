@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\CERT_REVOCATION_CRL_INFO.ahk
 
 /**

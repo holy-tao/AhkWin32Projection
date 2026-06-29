@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The CS_DES structure is used for specifying a resource list that describes device class-specific resource usage for a device instance. For more information about resource lists, see Hardware Resources.
@@ -11,9 +12,9 @@
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
 class CS_DES extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of elements in the byte array specified by <b>CSD_Signature</b>.
@@ -53,11 +54,14 @@ class CS_DES extends Win32Struct {
 
     /**
      * A globally unique identifier (GUID) identifying a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-setup-classes">device setup class</a>. If both <b>CSD_SignatureLength</b> and <b>CSD_LegacyDataSize</b> are zero, the GUID is null.
-     * @type {Pointer}
+     * @type {Guid}
      */
     CSD_ClassGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__CSD_ClassGuid"))
+                this.__CSD_ClassGuid := Guid(16, this)
+            return this.__CSD_ClassGuid
+        }
     }
 
     /**
@@ -67,7 +71,7 @@ class CS_DES extends Win32Struct {
     CSD_Signature {
         get {
             if(!this.HasProp("__CSD_SignatureProxyArray"))
-                this.__CSD_SignatureProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
+                this.__CSD_SignatureProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
             return this.__CSD_SignatureProxyArray
         }
     }

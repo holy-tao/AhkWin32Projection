@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\GPMEntryType.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\IGPMMapEntry.ahk
 #Include .\IGPMResult.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include .\IGPMMapEntryCollection.ahk
+#Include .\IGPMMapEntry.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IGPMMigrationTable interface provides an interface to a migration table.

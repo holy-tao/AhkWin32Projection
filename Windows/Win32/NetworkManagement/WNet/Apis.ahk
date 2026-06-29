@@ -1,5 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\NETWORK_NAME_FORMAT_FLAGS.ahk
+#Include .\NETRESOURCEA.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\CONNECTDLGSTRUCTW.ahk
+#Include .\CONNECTDLGSTRUCTA.ahk
+#Include .\UNC_INFO_LEVEL.ahk
+#Include ..\..\Foundation\WIN32_ERROR.ahk
+#Include .\NET_RESOURCE_TYPE.ahk
+#Include .\DISCDLGSTRUCTA.ahk
+#Include .\NETRESOURCEW.ahk
+#Include .\NET_CONNECT_FLAGS.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\NETINFOSTRUCT.ahk
+#Include .\NET_RESOURCE_SCOPE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\NETCONNECTINFOSTRUCT.ahk
+#Include .\WNET_OPEN_ENUM_USAGE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DISCDLGSTRUCTW.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WNet

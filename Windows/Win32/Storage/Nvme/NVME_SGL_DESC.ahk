@@ -9,7 +9,7 @@ class NVME_SGL_DESC extends Win32Struct {
 
     static packingSize => 1
 
-    class _Identifier_e__Union extends Win32Struct {
+    class _Identifier extends Win32Struct {
         static sizeof => 1
         static packingSize => 1
 
@@ -61,12 +61,12 @@ class NVME_SGL_DESC extends Win32Struct {
     }
 
     /**
-     * @type {_Identifier_e__Union}
+     * @type {_Identifier}
      */
     Identifier {
         get {
             if(!this.HasProp("__Identifier"))
-                this.__Identifier := NVME_SGL_DESC._Identifier_e__Union(15, this)
+                this.__Identifier := NVME_SGL_DESC._Identifier(15, this)
             return this.__Identifier
         }
     }

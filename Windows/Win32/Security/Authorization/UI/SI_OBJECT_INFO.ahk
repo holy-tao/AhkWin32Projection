@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SI_OBJECT_INFO_FLAGS.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\SI_OBJECT_INFO_FLAGS.ahk
 
 /**
  * Used to initialize the access control editor.
@@ -9,7 +11,7 @@
  * @namespace Windows.Win32.Security.Authorization.UI
  */
 class SI_OBJECT_INFO extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -65,10 +67,13 @@ class SI_OBJECT_INFO extends Win32Struct {
     /**
      * A 
      * GUID for the object. This member is ignored unless the SI_OBJECT_GUID flag is set in <b>dwFlags</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidObjectType {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__guidObjectType"))
+                this.__guidObjectType := Guid(40, this)
+            return this.__guidObjectType
+        }
     }
 }

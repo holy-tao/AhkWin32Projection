@@ -141,8 +141,7 @@ class Ioctl {
     static DEVPKEY_Storage_Portable {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -154,8 +153,7 @@ class Ioctl {
     static DEVPKEY_Storage_Removable_Media {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -167,8 +165,7 @@ class Ioctl {
     static DEVPKEY_Storage_System_Critical {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -180,8 +177,7 @@ class Ioctl {
     static DEVPKEY_Storage_Disk_Number {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -193,8 +189,7 @@ class Ioctl {
     static DEVPKEY_Storage_Partition_Number {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -206,8 +201,7 @@ class Ioctl {
     static DEVPKEY_Storage_Mbr_Type {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -219,8 +213,7 @@ class Ioctl {
     static DEVPKEY_Storage_Gpt_Type {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -232,8 +225,7 @@ class Ioctl {
     static DEVPKEY_Storage_Gpt_Name {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d1ebee8-0803-4774-9842-b77db50265e9}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }

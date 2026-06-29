@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAutomationTextRange.ahk
+#Include .\IUIAutomationElement.ahk
 #Include .\IUIAutomationTextRangeArray.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\SupportedTextSelection.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to a control that contains text.

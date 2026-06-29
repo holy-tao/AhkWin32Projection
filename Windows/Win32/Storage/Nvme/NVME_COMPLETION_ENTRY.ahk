@@ -12,7 +12,7 @@ class NVME_COMPLETION_ENTRY extends Win32Struct {
 
     static packingSize => 4
 
-    class _DW2_e__Union extends Win32Struct {
+    class _DW2 extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -41,7 +41,7 @@ class NVME_COMPLETION_ENTRY extends Win32Struct {
         }
     }
 
-    class _DW3_e__Union extends Win32Struct {
+    class _DW3 extends Win32Struct {
         static sizeof => 8
         static packingSize => 4
 
@@ -94,24 +94,24 @@ class NVME_COMPLETION_ENTRY extends Win32Struct {
 
     /**
      * A union that contains the information in Dword 2.
-     * @type {_DW2_e__Union}
+     * @type {_DW2}
      */
     DW2 {
         get {
             if(!this.HasProp("__DW2"))
-                this.__DW2 := NVME_COMPLETION_ENTRY._DW2_e__Union(8, this)
+                this.__DW2 := NVME_COMPLETION_ENTRY._DW2(8, this)
             return this.__DW2
         }
     }
 
     /**
      * A union that contains the information in Dword 3.
-     * @type {_DW3_e__Union}
+     * @type {_DW3}
      */
     DW3 {
         get {
             if(!this.HasProp("__DW3"))
-                this.__DW3 := NVME_COMPLETION_ENTRY._DW3_e__Union(12, this)
+                this.__DW3 := NVME_COMPLETION_ENTRY._DW3(12, this)
             return this.__DW3
         }
     }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Win32\Graphics\DirectDraw\IDirectDrawSurface.ahk
 #Include ..\..\..\Win32\Graphics\DirectDraw\DDRAWI_DDRAWSURFACE_LCL.ahk
+#Include ..\..\..\Win32\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

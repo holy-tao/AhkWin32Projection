@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IConnectionPointContainer.ahk
-#Include .\IDiskQuotaUser.ahk
 #Include .\IEnumDiskQuotaUsers.ahk
+#Include ..\..\System\Com\IConnectionPointContainer.ahk
+#Include .\DISKQUOTA_USERNAME_RESOLVE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Security\PSID.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\IDiskQuotaUserBatch.ahk
+#Include .\IDiskQuotaUser.ahk
 
 /**
  * Controls the disk quota facilities of a single NTFS file system volume.

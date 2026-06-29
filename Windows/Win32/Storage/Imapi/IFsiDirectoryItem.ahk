@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsiItem.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Ole\IEnumVARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IEnumFsiItems.ahk
 
 /**

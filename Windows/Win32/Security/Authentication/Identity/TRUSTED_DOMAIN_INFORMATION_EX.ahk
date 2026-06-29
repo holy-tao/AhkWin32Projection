@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\PSID.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include .\TRUSTED_DOMAIN_TRUST_DIRECTION.ahk
-#Include .\TRUSTED_DOMAIN_TRUST_TYPE.ahk
 #Include .\TRUSTED_DOMAIN_TRUST_ATTRIBUTES.ahk
+#Include .\TRUSTED_DOMAIN_TRUST_TYPE.ahk
 
 /**
  * Used to retrieve extended information about a trusted domain.

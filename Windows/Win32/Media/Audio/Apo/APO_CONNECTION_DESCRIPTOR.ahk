@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\APO_CONNECTION_BUFFER_TYPE.ahk
 #Include .\IAudioMediaType.ahk
+#Include .\APO_CONNECTION_BUFFER_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.Apo

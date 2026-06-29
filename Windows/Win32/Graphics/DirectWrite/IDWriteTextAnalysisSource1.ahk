@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_VERTICAL_GLYPH_ORIENTATION.ahk
 #Include .\IDWriteTextAnalysisSource.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The interface you implement to provide needed information to the text analyzer, like the text and associated text properties.

@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\HINSTANCE.ahk
 #Include .\CERT_VIEWPROPERTIES_STRUCT_FLAGS.ahk
+#Include ..\..\..\Foundation\HINSTANCE.ahk
 #Include ..\CERT_CONTEXT.ahk
-#Include ..\HCERTSTORE.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\UI\Controls\PROPSHEETPAGEA.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\HCERTSTORE.ahk
 
 /**
  * The CERT_VIEWPROPERTIES_STRUCT structure defines information used when the CertViewProperties function is called to display a certificate's properties. (ANSI)

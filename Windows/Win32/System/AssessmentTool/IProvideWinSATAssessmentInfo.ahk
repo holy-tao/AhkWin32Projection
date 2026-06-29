@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Gets summary information for a subcomponent of the assessment, for example, its score.
@@ -77,7 +78,7 @@ class IProvideWinSATAssessmentInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatassessmentinfo-get_title
      */
     get_Title() {
-        title := BSTR()
+        title := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", title, "HRESULT")
         return title
     }
@@ -90,7 +91,7 @@ class IProvideWinSATAssessmentInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatassessmentinfo-get_description
      */
     get_Description() {
-        description := BSTR()
+        description := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", description, "HRESULT")
         return description
     }

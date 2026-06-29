@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IHTMLCanvasElement.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\ICanvasTextMetrics.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\ICanvasImageData.ahk
 #Include .\ICanvasGradient.ahk
 #Include .\ICanvasPattern.ahk
-#Include .\ICanvasTextMetrics.ahk
-#Include .\ICanvasImageData.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -369,7 +372,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {BSTR} 
      */
     get_globalCompositeOperation() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", p, "HRESULT")
         return p
     }
@@ -470,7 +473,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {BSTR} 
      */
     get_lineCap() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(27, this, "ptr", p, "HRESULT")
         return p
     }
@@ -492,7 +495,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {BSTR} 
      */
     get_lineJoin() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(29, this, "ptr", p, "HRESULT")
         return p
     }
@@ -571,7 +574,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {BSTR} 
      */
     get_shadowColor() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(37, this, "ptr", p, "HRESULT")
         return p
     }
@@ -837,7 +840,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {BSTR} 
      */
     get_font() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(59, this, "ptr", p, "HRESULT")
         return p
     }
@@ -859,7 +862,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {BSTR} 
      */
     get_textAlign() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(61, this, "ptr", p, "HRESULT")
         return p
     }
@@ -881,7 +884,7 @@ class ICanvasRenderingContext2D extends IDispatch {
      * @returns {BSTR} 
      */
     get_textBaseline() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(63, this, "ptr", p, "HRESULT")
         return p
     }

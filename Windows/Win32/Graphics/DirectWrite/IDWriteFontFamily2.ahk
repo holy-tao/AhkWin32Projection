@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_FONT_AXIS_VALUE.ahk
 #Include .\IDWriteFontFamily1.ahk
 #Include .\IDWriteFontList2.ahk
 #Include .\IDWriteFontSet1.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a family of related fonts. **IDWriteFontFamily2** adds new facilities, including retrieving fonts by font axis values.

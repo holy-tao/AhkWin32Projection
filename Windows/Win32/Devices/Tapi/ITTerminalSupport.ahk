@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\TERMINAL_DIRECTION.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumTerminal.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumTerminalClass.ahk
 #Include .\ITTerminal.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITTerminalSupport interface is exposed on an Address object only if an MSP exists. The methods of this interface allow an application to discover available terminals and/or create one, and get pointers to required Terminal objects.

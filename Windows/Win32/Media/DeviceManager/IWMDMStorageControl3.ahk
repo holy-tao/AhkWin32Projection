@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMDMOperation.ahk
+#Include .\IWMDMStorage.ahk
+#Include .\IWMDMMetaData.ahk
+#Include .\IWMDMProgress.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWMDMStorageControl2.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWMDMStorageControl3 interface extends IWMDMStorageControl2 by providing an Insert method that accepts an IWMDMMetaData interface pointer.

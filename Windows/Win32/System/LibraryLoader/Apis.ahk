@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\Foundation\HRSRC.ahk
-#Include ..\..\Foundation\HMODULE.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\LOAD_LIBRARY_FLAGS.ahk
+#Include ..\..\Foundation\HMODULE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRSRC.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.LibraryLoader

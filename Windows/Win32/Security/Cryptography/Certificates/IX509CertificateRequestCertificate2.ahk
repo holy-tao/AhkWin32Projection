@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509CertificateRequestCertificate.ahk
 #Include .\IX509EnrollmentPolicyServer.ahk
+#Include .\IX509PrivateKey.ahk
 #Include .\IX509CertificateTemplate.ahk
+#Include .\IX509CertificateRequestCertificate.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\X509CertificateEnrollmentContext.ahk
 
 /**
  * The IX509CertificateRequestCertificate2 interface represents a request object for a self-generated certificate, enabling you to create a certificate directly without going through a registration or certification authority.

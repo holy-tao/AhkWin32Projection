@@ -1,10 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IRemoteDebugApplication.ahk
-#Include .\IDebugApplicationThread.ahk
+#Include .\IActiveScriptSite.ahk
+#Include .\IDebugStackFrameSniffer.ahk
 #Include .\IDebugAsyncOperation.ahk
+#Include .\IDebugThreadCall32.ahk
+#Include .\IRemoteDebugApplicationThread.ahk
+#Include .\BREAKREASON.ahk
+#Include .\ERRORRESUMEACTION.ahk
+#Include .\IActiveScriptErrorDebug.ahk
+#Include .\IDebugApplicationThread.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\IRemoteDebugApplication.ahk
 #Include .\IDebugApplicationNode.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
+#Include .\IProvideExpressionContexts.ahk
+#Include .\IDebugSyncOperation.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include .\BREAKRESUMEACTION.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -31,15 +46,9 @@ class IDebugApplication32 extends IRemoteDebugApplication {
     static VTableNames => ["SetName", "StepOutComplete", "DebugOutput", "StartDebugSession", "HandleBreakPoint", "Close", "GetBreakFlags", "GetCurrentThread", "CreateAsyncDebugOperation", "AddStackFrameSniffer", "RemoveStackFrameSniffer", "QueryCurrentThreadIsDebuggerThread", "SynchronousCallInDebuggerThread", "CreateApplicationNode", "FireDebuggerEvent", "HandleRuntimeError", "FCanJitDebug", "FIsAutoJitDebugEnabled", "AddGlobalExpressionContextProvider", "RemoveGlobalExpressionContextProvider"]
 
     /**
-     * Sets the read mode and the blocking mode of the specified named pipe. If the specified handle is to the client end of a named pipe and if the named pipe server process is on a remote computer, the function can also be used to control local buffering.
-     * @remarks
-     * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {PWSTR} pstrName 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-setnamedpipehandlestate
+     * @param {PWSTR} pstrName 
+     * @returns {HRESULT} 
      */
     SetName(pstrName) {
         pstrName := pstrName is String ? StrPtr(pstrName) : pstrName
@@ -89,15 +98,8 @@ class IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(19, this, "HRESULT")

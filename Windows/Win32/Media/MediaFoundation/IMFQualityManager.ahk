@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFSample.ahk
+#Include .\IMFPresentationClock.ahk
+#Include .\IMFTopologyNode.ahk
+#Include .\IMFTopology.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFMediaEvent.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Adjusts playback quality. This interface is exposed by the quality manager.

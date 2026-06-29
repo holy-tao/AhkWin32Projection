@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MCI_DGV_SETVIDEO_PARMSW (Unicode) structure contains parameters for the MCI_SETVIDEO command for digital-video devices.

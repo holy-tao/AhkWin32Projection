@@ -4,8 +4,6 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
- * The provider will perform the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">Hash-Based Message Authentication Code</a> (HMAC) algorithm with the specified hash algorithm. This flag is only used by hash algorithm providers.
- * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider
  * @namespace Windows.Win32.Security.Cryptography
  */
 class BCRYPT_ALG_HANDLE extends Win32Handle {

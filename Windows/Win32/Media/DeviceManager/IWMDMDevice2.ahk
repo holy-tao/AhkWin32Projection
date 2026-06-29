@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMDMDevice.ahk
+#Include ..\..\System\Ole\ISpecifyPropertyPages.ahk
 #Include .\IWMDMStorage.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IWMDMDevice.ahk
+#Include ..\MediaFoundation\VIDEOINFOHEADER.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\WMFILECAPABILITIES.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMDMDevice2 interface extends IWMDMDevice by making it possible to get the video formats supported by a device, find storage from its name, and use property pages.

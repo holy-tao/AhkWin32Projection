@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Storage\FileSystem\STORAGE_BUS_TYPE.ahk
 #Include .\DEVICE_MEDIA_INFO.ahk
 #Include .\STORAGE_MEDIA_TYPE.ahk
-#Include ..\..\Storage\FileSystem\STORAGE_BUS_TYPE.ahk
 
 /**
  * Contains information about the media types supported by a device.

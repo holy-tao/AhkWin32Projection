@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk
 #Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_OS.ahk
 #Include .\MINIDUMP_LOCATION_DESCRIPTOR.ahk
+#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk
+#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk
 
 /**
  * Contains information for a specific module.

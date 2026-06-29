@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISensor.ahk
+#Include .\ISensorDataReport.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SensorState.ahk
+#Include ..\PortableDevices\IPortableDeviceValues.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The callback interface you must implement if you want to receive sensor events.

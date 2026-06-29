@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DHCP_POL_COND_ARRAY.ahk
 #Include .\DHCP_POL_EXPR_ARRAY.ahk
 #Include .\DHCP_IP_RANGE_ARRAY.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DHCP_POLICY structure defines a DHCP server policy.

@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IInkRecognizerContext.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\InkRecognizerCapabilities.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the ability to process ink, or handwriting, and translate the stroke into text or gesture. The recognizer creates an InkRecognizerContext object, which is used to perform the actual handwriting recognition.
@@ -90,7 +92,7 @@ class IInkRecognizer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer-get_name
      */
     get_Name() {
-        Name := BSTR()
+        Name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", Name, "HRESULT")
         return Name
     }
@@ -101,7 +103,7 @@ class IInkRecognizer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer-get_vendor
      */
     get_Vendor() {
-        Vendor := BSTR()
+        Vendor := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", Vendor, "HRESULT")
         return Vendor
     }

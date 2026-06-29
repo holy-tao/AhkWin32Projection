@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\COR_FIELD_OFFSET.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods for importing and manipulating existing metadata from a portable executable (PE) file or other source, such as a type library or a stand-alone, run-time metadata binary.
@@ -680,20 +685,13 @@ class IMetaDataImport extends IUnknown {
     }
 
     /**
-     * Gets a pointer to the MemberRef token for the member reference that is enclosed by the specified Type and that has the specified name and metadata signature.
-     * @remarks
-     * You specify the member using its enclosing class or interface (<i>tkTypeRef</i>), its name (<i>szName</i>), and optionally its signature (<i>pvSigBlob</i>).
      * 
-     * The signature passed to <b>FindMemberRef</b> must have been generated in the current scope, because signatures are bound to a particular scope. A signature can embed a token that identifies the enclosing class or value type. The token is an index into the local TypeDef table. You cannot build a run-time signature outside the context of the current scope and use that signature as input to <b>FindMemberRef</b>.
-     * 
-     * <b>FindMemberRef</b> finds only member references that were defined directly in the class or interface; it does not find inherited member references.
      * @param {Integer} td 
-     * @param {PWSTR} szName The name of the member reference to search for.
-     * @param {Pointer<Integer>} pvSigBlob A pointer to the binary metadata signature of the member reference.
-     * @param {Integer} cbSigBlob The size in bytes of <i>pvSigBlob</i>.
+     * @param {PWSTR} szName 
+     * @param {Pointer<Integer>} pvSigBlob 
+     * @param {Integer} cbSigBlob 
      * @param {Pointer<Integer>} pmb 
-     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-findmemberref
+     * @returns {HRESULT} 
      */
     FindMember(td, szName, pvSigBlob, cbSigBlob, pmb) {
         szName := szName is String ? StrPtr(szName) : szName

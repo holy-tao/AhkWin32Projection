@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDXGIAdapter3.ahk
 #Include .\DXGI_ADAPTER_DESC3.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface represents a display subsystem, and extends this family of interfaces to expose a method to check for an adapter's compatibility with Arbitrary Code Guard (ACG).

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\STORAGE_ZONE_TYPES.ahk
 #Include .\STORAGE_ZONED_DEVICE_TYPES.ahk
 #Include .\STORAGE_ZONE_GROUP.ahk
-#Include .\STORAGE_ZONE_TYPES.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
@@ -12,7 +13,7 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct {
 
     static packingSize => 8
 
-    class _ZoneAttributes_e__Union extends Win32Struct {
+    class _ZoneAttributes extends Win32Struct {
         static sizeof => 8
         static packingSize => 4
 
@@ -75,7 +76,7 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct {
         SequentialRequiredZone {
             get {
                 if(!this.HasProp("__SequentialRequiredZone"))
-                    this.__SequentialRequiredZone := STORAGE_ZONED_DEVICE_DESCRIPTOR._ZoneAttributes_e__Union._SequentialRequiredZone(0, this)
+                    this.__SequentialRequiredZone := STORAGE_ZONED_DEVICE_DESCRIPTOR._ZoneAttributes._SequentialRequiredZone(0, this)
                 return this.__SequentialRequiredZone
             }
         }
@@ -86,7 +87,7 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct {
         SequentialPreferredZone {
             get {
                 if(!this.HasProp("__SequentialPreferredZone"))
-                    this.__SequentialPreferredZone := STORAGE_ZONED_DEVICE_DESCRIPTOR._ZoneAttributes_e__Union._SequentialPreferredZone(0, this)
+                    this.__SequentialPreferredZone := STORAGE_ZONED_DEVICE_DESCRIPTOR._ZoneAttributes._SequentialPreferredZone(0, this)
                 return this.__SequentialPreferredZone
             }
         }
@@ -125,12 +126,12 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {_ZoneAttributes_e__Union}
+     * @type {_ZoneAttributes}
      */
     ZoneAttributes {
         get {
             if(!this.HasProp("__ZoneAttributes"))
-                this.__ZoneAttributes := STORAGE_ZONED_DEVICE_DESCRIPTOR._ZoneAttributes_e__Union(16, this)
+                this.__ZoneAttributes := STORAGE_ZONED_DEVICE_DESCRIPTOR._ZoneAttributes(16, this)
             return this.__ZoneAttributes
         }
     }

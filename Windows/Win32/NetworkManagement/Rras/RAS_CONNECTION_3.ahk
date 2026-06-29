@@ -1,17 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\ROUTER_INTERFACE_TYPE.ahk
 #Include .\PPP_INFO_3.ahk
-#Include .\PPP_NBFCP_INFO.ahk
-#Include .\PPP_IPCP_INFO2.ahk
-#Include .\PPP_IPV6_CP_INFO.ahk
-#Include .\PPP_CCP_INFO.ahk
-#Include .\PPP_LCP_INFO.ahk
-#Include .\PPP_LCP.ahk
-#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
-#Include .\RAS_QUARANTINE_STATE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\PPP_IPCP_INFO2.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\RAS_QUARANTINE_STATE.ahk
+#Include .\PPP_IPV6_CP_INFO.ahk
+#Include .\PPP_NBFCP_INFO.ahk
+#Include .\PPP_CCP_INFO.ahk
+#Include .\ROUTER_INTERFACE_TYPE.ahk
+#Include .\PPP_LCP_INFO.ahk
+#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
+#Include .\PPP_LCP.ahk
 
 /**
  * The RAS_CONNECTION_3 structure contains information for the connection, including the Globally Unique Identifier (GUID) that identifies the connection and the quarantine state of the connection.
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
 class RAS_CONNECTION_3 extends Win32Struct {
-    static sizeof => 784
+    static sizeof => 792
 
     static packingSize => 8
 
@@ -73,11 +74,14 @@ class RAS_CONNECTION_3 extends Win32Struct {
 
     /**
      * A GUID  that identifies the connection. For incoming connections, this GUID is valid only as long as the connection is active.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 536, "ptr")
-        set => NumPut("ptr", value, this, 536)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(536, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -88,7 +92,7 @@ class RAS_CONNECTION_3 extends Win32Struct {
     PppInfo3 {
         get {
             if(!this.HasProp("__PppInfo3"))
-                this.__PppInfo3 := PPP_INFO_3(544, this)
+                this.__PppInfo3 := PPP_INFO_3(552, this)
             return this.__PppInfo3
         }
     }
@@ -98,8 +102,8 @@ class RAS_CONNECTION_3 extends Win32Struct {
      * @type {RAS_QUARANTINE_STATE}
      */
     rasQuarState {
-        get => NumGet(this, 772, "int")
-        set => NumPut("int", value, this, 772)
+        get => NumGet(this, 780, "int")
+        set => NumPut("int", value, this, 780)
     }
 
     /**
@@ -109,7 +113,7 @@ class RAS_CONNECTION_3 extends Win32Struct {
     timer {
         get {
             if(!this.HasProp("__timer"))
-                this.__timer := FILETIME(776, this)
+                this.__timer := FILETIME(784, this)
             return this.__timer
         }
     }

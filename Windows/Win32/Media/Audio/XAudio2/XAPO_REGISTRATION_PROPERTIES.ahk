@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * Describes general characteristics of an XAPO. Used with IXAPO::GetRegistrationProperties, CXAPOParametersBase::CXAPOParametersBase, and CXAPOBase::CXAPOBase.
@@ -11,17 +12,20 @@
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
 class XAPO_REGISTRATION_PROPERTIES extends Win32Struct {
-    static sizeof => 1064
+    static sizeof => 1068
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * COM class ID for use with the CoCreateInstance function.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(0, this)
+            return this.__clsid
+        }
     }
 
     /**
@@ -29,8 +33,8 @@ class XAPO_REGISTRATION_PROPERTIES extends Win32Struct {
      * @type {String}
      */
     FriendlyName {
-        get => StrGet(this.ptr + 8, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 255, "UTF-16")
+        get => StrGet(this.ptr + 16, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 16, 255, "UTF-16")
     }
 
     /**
@@ -38,8 +42,8 @@ class XAPO_REGISTRATION_PROPERTIES extends Win32Struct {
      * @type {String}
      */
     CopyrightInfo {
-        get => StrGet(this.ptr + 520, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 520, 255, "UTF-16")
+        get => StrGet(this.ptr + 528, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 528, 255, "UTF-16")
     }
 
     /**
@@ -47,8 +51,8 @@ class XAPO_REGISTRATION_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     MajorVersion {
-        get => NumGet(this, 1032, "uint")
-        set => NumPut("uint", value, this, 1032)
+        get => NumGet(this, 1040, "uint")
+        set => NumPut("uint", value, this, 1040)
     }
 
     /**
@@ -56,8 +60,8 @@ class XAPO_REGISTRATION_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     MinorVersion {
-        get => NumGet(this, 1036, "uint")
-        set => NumPut("uint", value, this, 1036)
+        get => NumGet(this, 1044, "uint")
+        set => NumPut("uint", value, this, 1044)
     }
 
     /**
@@ -123,8 +127,8 @@ class XAPO_REGISTRATION_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 1040, "uint")
-        set => NumPut("uint", value, this, 1040)
+        get => NumGet(this, 1048, "uint")
+        set => NumPut("uint", value, this, 1048)
     }
 
     /**
@@ -132,8 +136,8 @@ class XAPO_REGISTRATION_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     MinInputBufferCount {
-        get => NumGet(this, 1044, "uint")
-        set => NumPut("uint", value, this, 1044)
+        get => NumGet(this, 1052, "uint")
+        set => NumPut("uint", value, this, 1052)
     }
 
     /**
@@ -144,8 +148,8 @@ class XAPO_REGISTRATION_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     MaxInputBufferCount {
-        get => NumGet(this, 1048, "uint")
-        set => NumPut("uint", value, this, 1048)
+        get => NumGet(this, 1056, "uint")
+        set => NumPut("uint", value, this, 1056)
     }
 
     /**
@@ -153,8 +157,8 @@ class XAPO_REGISTRATION_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     MinOutputBufferCount {
-        get => NumGet(this, 1052, "uint")
-        set => NumPut("uint", value, this, 1052)
+        get => NumGet(this, 1060, "uint")
+        set => NumPut("uint", value, this, 1060)
     }
 
     /**
@@ -165,7 +169,7 @@ class XAPO_REGISTRATION_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     MaxOutputBufferCount {
-        get => NumGet(this, 1056, "uint")
-        set => NumPut("uint", value, this, 1056)
+        get => NumGet(this, 1064, "uint")
+        set => NumPut("uint", value, this, 1064)
     }
 }

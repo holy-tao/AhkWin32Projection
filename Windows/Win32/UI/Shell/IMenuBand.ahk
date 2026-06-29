@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\WindowsAndMessaging\MSG.ahk
 
 /**
  * Exposes methods that allow a Component Object Model (COM) object to receive and translate appropriate messages.

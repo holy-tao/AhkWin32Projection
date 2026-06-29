@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CTL_USAGE.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CERT_INFO.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * A member of the CTL_FIND_SUBJECT_PARA structure and it is used by CertFindCTLInStore.

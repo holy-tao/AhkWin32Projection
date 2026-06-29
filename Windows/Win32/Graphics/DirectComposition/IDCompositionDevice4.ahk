@@ -2,7 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDCompositionDevice3.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDCompositionTexture.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition

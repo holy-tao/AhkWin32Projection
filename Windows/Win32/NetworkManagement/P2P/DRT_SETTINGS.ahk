@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DRT_SECURITY_PROVIDER.ahk
 #Include .\DRT_BOOTSTRAP_PROVIDER.ahk
 #Include .\DRT_SECURITY_MODE.ahk

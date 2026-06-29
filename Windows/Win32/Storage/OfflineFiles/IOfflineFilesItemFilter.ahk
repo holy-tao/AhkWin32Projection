@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\OFFLINEFILES_ITEM_TIME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\OFFLINEFILES_COMPARE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

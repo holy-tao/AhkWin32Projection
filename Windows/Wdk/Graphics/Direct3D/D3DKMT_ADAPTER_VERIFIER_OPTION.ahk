@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_ADAPTER_VERIFIER_OPTION_TYPE.ahk
 #Include .\D3DKMT_VERIFIER_OPTION_MODE.ahk
+#Include .\D3DKMT_ADAPTER_VERIFIER_OPTION_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

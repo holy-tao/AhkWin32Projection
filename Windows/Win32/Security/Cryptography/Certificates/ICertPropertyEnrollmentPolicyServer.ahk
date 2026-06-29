@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertProperty.ahk
+#Include .\PolicyServerUrlFlags.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\X509EnrollmentAuthFlags.ahk
+#Include .\EnrollmentPolicyServerPropertyFlags.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ICertProperty.ahk
 
 /**
  * Represents an external certificate property that contains information about a certificate enrollment policy (CEP) server and a certificate enrollment server (CES).
@@ -79,7 +83,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getpolicyserverurl
      */
     GetPolicyServerUrl() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -92,7 +96,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getpolicyserverid
      */
     GetPolicyServerId() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -103,7 +107,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getenrollmentserverurl
      */
     GetEnrollmentServerUrl() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -116,7 +120,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getrequestidstring
      */
     GetRequestIdString() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", pValue, "HRESULT")
         return pValue
     }

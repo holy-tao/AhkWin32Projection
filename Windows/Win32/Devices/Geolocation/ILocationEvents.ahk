@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\LOCATION_REPORT_STATUS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ILocationReport.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * ILocationEvents provides callback methods that you must implement if you want to receive event notifications.

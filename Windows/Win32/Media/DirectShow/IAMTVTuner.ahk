@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IAMTuner.ahk
+#Include .\TunerInputType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IAMTVTuner interface controls a TV tuner.

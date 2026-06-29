@@ -1,10 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\ICspAlgorithms.ahk
+#Include .\X509ProviderType.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IObjectId.ahk
+#Include .\X509KeySpec.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\AlgorithmOperationFlags.ahk
 #Include .\ICspStatus.ahk
+#Include .\ICspAlgorithms.ahk
 
 /**
  * Provides access to general information about a cryptographic provider.
@@ -471,7 +477,7 @@ class ICspInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_name
      */
     get_Name() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -721,7 +727,7 @@ class ICspInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-getdefaultsecuritydescriptor
      */
     GetDefaultSecurityDescriptor(MachineContext) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(21, this, "short", MachineContext, "ptr", pValue, "HRESULT")
         return pValue
     }

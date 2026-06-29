@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1Image.ahk
+#Include Common\D2D_RECT_F.ahk
+#Include .\D2D1_INTERPOLATION_MODE.ahk
 #Include .\ID2D1Brush.ahk
+#Include .\D2D1_EXTEND_MODE.ahk
 
 /**
  * Represents a brush based on an ID2D1Image.

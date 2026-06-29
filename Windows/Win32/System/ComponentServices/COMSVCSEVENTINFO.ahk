@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Represents contextual information about an event, such as the time it was generated and which process server and COM+ application generated it.
@@ -7,7 +9,7 @@
  * @namespace Windows.Win32.System.ComponentServices
  */
 class COMSVCSEVENTINFO extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -58,11 +60,14 @@ class COMSVCSEVENTINFO extends Win32Struct {
 
     /**
      * The applications globally unique identifier (GUID) for the first component instantiated in <b>dwPid</b>. If you are subscribing to an administration interface or event and the event is not generated from a COM+ application, this member is set to zero.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidApp {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__guidApp"))
+                this.__guidApp := Guid(32, this)
+            return this.__guidApp
+        }
     }
 
     /**
@@ -70,12 +75,12 @@ class COMSVCSEVENTINFO extends Win32Struct {
      * @type {PWSTR}
      */
     sMachineName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 48
+        this.cbSize := 56
     }
 }

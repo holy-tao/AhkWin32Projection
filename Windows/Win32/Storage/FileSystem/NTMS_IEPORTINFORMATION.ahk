@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The NTMS_IEPORTINFORMATION structure defines properties specific to an insert/eject port object.
@@ -11,9 +12,9 @@
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class NTMS_IEPORTINFORMATION extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Library port number.
@@ -51,10 +52,13 @@ class NTMS_IEPORTINFORMATION extends Win32Struct {
 
     /**
      * Library that contains the port.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Library {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__Library"))
+                this.__Library := Guid(16, this)
+            return this.__Library
+        }
     }
 }

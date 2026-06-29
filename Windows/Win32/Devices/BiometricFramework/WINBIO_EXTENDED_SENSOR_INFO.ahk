@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Contains information about the capabilities and enrollment requirements of the sensor adapter for a biometric unit.
@@ -13,7 +13,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct {
 
     static packingSize => 4
 
-    class _Specific_e__Union extends Win32Struct {
+    class _Specific extends Win32Struct {
         static sizeof => 1072
         static packingSize => 4
 
@@ -86,7 +86,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct {
             HardwareInfo {
                 get {
                     if(!this.HasProp("__HardwareInfo"))
-                        this.__HardwareInfo := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union._FacialFeatures._HardwareInfo(28, this)
+                        this.__HardwareInfo := WINBIO_EXTENDED_SENSOR_INFO._Specific._FacialFeatures._HardwareInfo(28, this)
                     return this.__HardwareInfo
                 }
             }
@@ -167,7 +167,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct {
         FacialFeatures {
             get {
                 if(!this.HasProp("__FacialFeatures"))
-                    this.__FacialFeatures := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union._FacialFeatures(0, this)
+                    this.__FacialFeatures := WINBIO_EXTENDED_SENSOR_INFO._Specific._FacialFeatures(0, this)
                 return this.__FacialFeatures
             }
         }
@@ -178,7 +178,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct {
         Fingerprint {
             get {
                 if(!this.HasProp("__Fingerprint"))
-                    this.__Fingerprint := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union._Fingerprint(0, this)
+                    this.__Fingerprint := WINBIO_EXTENDED_SENSOR_INFO._Specific._Fingerprint(0, this)
                 return this.__Fingerprint
             }
         }
@@ -189,7 +189,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct {
         Iris {
             get {
                 if(!this.HasProp("__Iris"))
-                    this.__Iris := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union._Iris(0, this)
+                    this.__Iris := WINBIO_EXTENDED_SENSOR_INFO._Specific._Iris(0, this)
                 return this.__Iris
             }
         }
@@ -200,7 +200,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct {
         Voice {
             get {
                 if(!this.HasProp("__Voice"))
-                    this.__Voice := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union._Voice(0, this)
+                    this.__Voice := WINBIO_EXTENDED_SENSOR_INFO._Specific._Voice(0, this)
                 return this.__Voice
             }
         }
@@ -226,12 +226,12 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct {
 
     /**
      * Information about the capabilities and enrollment requirements of the sensor adapter for a biometric unit related to a specific biometric factor.
-     * @type {_Specific_e__Union}
+     * @type {_Specific}
      */
     Specific {
         get {
             if(!this.HasProp("__Specific"))
-                this.__Specific := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union(8, this)
+                this.__Specific := WINBIO_EXTENDED_SENSOR_INFO._Specific(8, this)
             return this.__Specific
         }
     }

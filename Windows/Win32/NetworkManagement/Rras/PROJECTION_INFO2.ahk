@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PPP_PROJECTION_INFO2.ahk
-#Include .\PPP_LCP.ahk
-#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
 #Include .\IKEV2_PROJECTION_INFO2.ahk
+#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
+#Include .\PPP_LCP.ahk
+#Include .\PPP_PROJECTION_INFO2.ahk
 
 /**
  * Used in the RAS_CONNECTION_4 structure as a placeholder for the PPP_PROJECTION_INFO2 and IKEV2_PROJECTION_INFO2 structures.

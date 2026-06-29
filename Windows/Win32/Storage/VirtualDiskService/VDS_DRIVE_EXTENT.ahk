@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The VDS_DRIVE_EXTENT structure (vdshwprv.h) defines the properties of a drive extent.
@@ -15,26 +17,32 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_DRIVE_EXTENT extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 48
 
     static packingSize => 8
 
     /**
      * The <b>VDS_OBJECT_ID</b> of the drive.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(0, this)
+            return this.__id
+        }
     }
 
     /**
      * The <b>VDS_OBJECT_ID</b> of the LUN that is associated with the drive extent.
-     * @type {Pointer}
+     * @type {Guid}
      */
     LunId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__LunId"))
+                this.__LunId := Guid(16, this)
+            return this.__LunId
+        }
     }
 
     /**
@@ -42,8 +50,8 @@ class VDS_DRIVE_EXTENT extends Win32Struct {
      * @type {Integer}
      */
     ullSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -51,7 +59,7 @@ class VDS_DRIVE_EXTENT extends Win32Struct {
      * @type {BOOL}
      */
     bUsed {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_CAP_STYLE.ahk
 #Include .\D2D1_LINE_JOIN.ahk
-#Include .\D2D1_DASH_STYLE.ahk
 #Include .\D2D1_STROKE_TRANSFORM_TYPE.ahk
+#Include .\D2D1_DASH_STYLE.ahk
+#Include .\D2D1_CAP_STYLE.ahk
 
 /**
  * Describes the stroke that outlines a shape. (D2D1_STROKE_STYLE_PROPERTIES1)

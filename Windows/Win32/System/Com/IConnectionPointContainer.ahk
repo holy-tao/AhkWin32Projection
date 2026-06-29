@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include .\IEnumConnectionPoints.ahk
 #Include .\IConnectionPoint.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IEnumConnectionPoints.ahk
+#Include .\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Supports connection points for connectable objects. (IConnectionPointContainer)

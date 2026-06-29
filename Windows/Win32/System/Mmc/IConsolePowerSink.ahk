@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IConsolePowerSink interface monitors and responds to power management messages.

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Do not use. Contains the input information to pass to WABOpen.
@@ -8,7 +10,7 @@
  * @namespace Windows.Win32.System.AddressBook
  */
 class WAB_PARAM extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -63,15 +65,18 @@ class WAB_PARAM extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * Value of type <b>GUID</b> that specifies the GUID that identifies the calling application's property sheet extensions. The GUID can be used to determine whether the extension property sheets are displayed or not. Available only on Internet Explorer 5 or later.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidPSExt {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__guidPSExt"))
+                this.__guidPSExt := Guid(28, this)
+            return this.__guidPSExt
+        }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 40
+        this.cbSize := 48
     }
 }

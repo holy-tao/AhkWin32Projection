@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables two threads to share the same Microsoft Direct3D 11 device.
@@ -146,7 +149,7 @@ class IMFDXGIDeviceManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-opendevicehandle
      */
     OpenDeviceHandle() {
-        phDevice := HANDLE()
+        phDevice := HANDLE({Value: 0}, True)
         result := ComCall(6, this, "ptr", phDevice, "HRESULT")
         return phDevice
     }

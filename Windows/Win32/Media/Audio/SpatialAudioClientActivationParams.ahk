@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Represents optional activation parameters for a spatial audio render stream. Pass this structure to ActivateAudioInterfaceAsync when activating an ISpatialAudioClient interface.
@@ -30,57 +31,63 @@
  * @namespace Windows.Win32.Media.Audio
  */
 class SpatialAudioClientActivationParams extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An app-defined context identifier, used for event logging.
-     * @type {Pointer}
+     * @type {Guid}
      */
     tracingContextId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__tracingContextId"))
+                this.__tracingContextId := Guid(0, this)
+            return this.__tracingContextId
+        }
     }
 
     /**
      * An identifier for the client app, used for event logging.
-     * @type {Pointer}
+     * @type {Guid}
      */
     appId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__appId"))
+                this.__appId := Guid(16, this)
+            return this.__appId
+        }
     }
 
     /**
      * @type {Integer}
      */
     majorVersion {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     minorVersion1 {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
      * @type {Integer}
      */
     minorVersion2 {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     minorVersion3 {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 }

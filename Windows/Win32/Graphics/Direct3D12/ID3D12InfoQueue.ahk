@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_MESSAGE_CATEGORY.ahk
+#Include .\D3D12_MESSAGE_SEVERITY.ahk
+#Include .\D3D12_MESSAGE_ID.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_INFO_QUEUE_FILTER.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

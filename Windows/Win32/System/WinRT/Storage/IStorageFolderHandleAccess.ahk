@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\HANDLE_ACCESS_OPTIONS.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\HANDLE_SHARING_OPTIONS.ahk
+#Include .\HANDLE_CREATION_OPTIONS.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include .\IOplockBreakingHandler.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\HANDLE_OPTIONS.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to the operating system handle of a storage folder.
@@ -44,7 +51,7 @@ class IStorageFolderHandleAccess extends IUnknown {
     Create(fileName, creationOptions, accessOptions, sharingOptions, options, oplockBreakingHandler) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        interopHandle := HANDLE()
+        interopHandle := HANDLE({Value: 0}, True)
         result := ComCall(3, this, "ptr", fileName, "int", creationOptions, "int", accessOptions, "int", sharingOptions, "uint", options, "ptr", oplockBreakingHandler, "ptr", interopHandle, "HRESULT")
         return interopHandle
     }

@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 #Include .\IEmptyVolumeCache.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\EMPTY_VOLUME_CACHE_FLAGS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends IEmptyVolumeCache. This interface defines one additional method, InitializeEx, that provides better localization support than IEmptyVolumeCache::Initialize.

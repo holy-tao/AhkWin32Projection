@@ -1,12 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\ITACDGroup.ahk
 #Include .\IEnumAgentSession.ahk
-#Include .\ITAgentSession.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\CY.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ITAddress.ahk
+#Include .\ITAgentSession.ahk
+#Include .\AGENT_STATE.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\CY.ahk
 
 /**
  * The ITAgent interface (tapi3cc.h) handles Agent objects, which receive and process incoming calls and make outgoing calls to customers or prospects.
@@ -193,7 +197,7 @@ class ITAgent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_id
      */
     get_ID() {
-        ppID := BSTR()
+        ppID := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", ppID, "HRESULT")
         return ppID
     }
@@ -207,7 +211,7 @@ class ITAgent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_user
      */
     get_User() {
-        ppUser := BSTR()
+        ppUser := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", ppUser, "HRESULT")
         return ppUser
     }

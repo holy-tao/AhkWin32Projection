@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\DEVICE_OBJECT.ahk
-#Include .\VPB.ahk
-#Include .\SECTION_OBJECT_POINTERS.ahk
-#Include .\FILE_OBJECT.ahk
 #Include .\IO_COMPLETION_CONTEXT.ahk
+#Include ..\..\Win32\Foundation\BOOLEAN.ahk
+#Include .\FILE_OBJECT.ahk
+#Include .\SECTION_OBJECT_POINTERS.ahk
+#Include .\VPB.ahk
+#Include ..\..\Win32\Foundation\NTSTATUS.ahk
+#Include .\DEVICE_OBJECT.ahk
 
 /**
- * Contains an object identifier and user-defined metadata associated with the object identifier.
- * @remarks
- * Object identifiers are used  to track  files and directories. They are invisible to most applications and should never be modified by applications. Modifying an object identifier can result in the loss of data from portions of a file, up to and including entire volumes of data.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_objectid_buffer
  * @namespace Windows.Wdk.Foundation
  */
 class FILE_OBJECT extends Win32Struct {

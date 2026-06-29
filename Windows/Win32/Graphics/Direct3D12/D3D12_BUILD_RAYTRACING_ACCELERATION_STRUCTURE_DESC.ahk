@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS.ahk
-#Include .\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE.ahk
-#Include .\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS.ahk
-#Include .\D3D12_ELEMENTS_LAYOUT.ahk
 #Include .\D3D12_RAYTRACING_GEOMETRY_DESC.ahk
 #Include .\D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC.ahk
+#Include .\D3D12_ELEMENTS_LAYOUT.ahk
+#Include .\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS.ahk
+#Include .\D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS.ahk
+#Include .\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE.ahk
 
 /**
  * Describes a raytracing acceleration structure. Pass this structure into ID3D12GraphicsCommandList4::BuildRaytracingAccelerationStructure to describe the acceleration structure to be built.

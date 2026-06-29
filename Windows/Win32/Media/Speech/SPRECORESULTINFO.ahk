@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPRESULTTYPE.ahk
-#Include .\SPGRAMMARHANDLE.ahk
-#Include .\ISpPhraseBuilder.ahk
 #Include .\SPPHRASEALT.ahk
+#Include .\SPRESULTTYPE.ahk
+#Include .\ISpPhraseBuilder.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\SPGRAMMARHANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

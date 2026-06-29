@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The DIHIDFFINITINFO structure is used by DirectInput to provide information to a HID force-feedback driver about the device it is being asked to control.
@@ -7,7 +9,7 @@
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
 class DIHIDFFINITINFO extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -31,10 +33,13 @@ class DIHIDFFINITINFO extends Win32Struct {
 
     /**
      * Specifies a device instance GUID for this device.
-     * @type {Pointer}
+     * @type {Guid}
      */
     GuidInstance {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__GuidInstance"))
+                this.__GuidInstance := Guid(16, this)
+            return this.__GuidInstance
+        }
     }
 }

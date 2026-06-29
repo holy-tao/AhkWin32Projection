@@ -1,10 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFCdmSuspendNotify.ahk
+#Include .\IMFPMPHostApp.ahk
+#Include .\IMFContentDecryptionModuleSessionCallbacks.ahk
+#Include .\IMFAsyncResult.ahk
 #Include .\IMFContentDecryptionModuleSession.ahk
+#Include .\IMFContentEnabler.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IMFCdmSuspendNotify.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMFTrustedInput.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MF_MEDIAKEYSESSION_TYPE.ahk
 
 /**
  * Represents a Content Decryption Module (CDM) for a DRM key system.

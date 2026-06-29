@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\DVTARGETDEVICE.ahk
 #Include .\IViewObject.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include ..\Com\DVASPECT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * An extension to the IViewObject interface which returns the size of the drawing for a given view of an object. You can prevent the object from being run if it isn't already running by calling this method instead of IOleObject::GetExtent.

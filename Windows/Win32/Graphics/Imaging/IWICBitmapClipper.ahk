@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WICRect.ahk
 #Include .\IWICBitmapSource.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that produce a clipped version of the input bitmap for a specified rectangular region of interest.

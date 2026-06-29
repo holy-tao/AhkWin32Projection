@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\FDICREATE_CPU_TYPE.ahk
+#Include .\CCAB.ahk
+#Include .\ERF.ahk
+#Include .\FDICABINETINFO.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Cabinets

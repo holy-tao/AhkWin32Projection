@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SpatialAudioHrtfEnvironmentType.ahk
+#Include .\SpatialAudioHrtfDirectivityUnion.ahk
 #Include .\ISpatialAudioObjectBase.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SpatialAudioHrtfDistanceDecay.ahk
 
 /**
  * Represents an object that provides audio data to be rendered from a position in 3D space, relative to the user, a head-relative transfer function (HRTF).

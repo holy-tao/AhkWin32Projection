@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_PHY_TYPE.ahk
-#Include .\WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO.ahk
 #Include .\WLAN_RATE_SET.ahk
+#Include .\WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO.ahk
+#Include .\DOT11_PHY_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

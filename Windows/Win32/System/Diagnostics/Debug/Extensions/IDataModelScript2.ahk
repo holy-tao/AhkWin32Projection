@@ -3,6 +3,8 @@
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include .\IDataModelScript.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -33,7 +35,7 @@ class IDataModelScript2 extends IDataModelScript {
      * @returns {BSTR} 
      */
     GetScriptFullFilePathName() {
-        scriptFullPathName := BSTR()
+        scriptFullPathName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", scriptFullPathName, "HRESULT")
         return scriptFullPathName
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\OPM_OMAC.ahk
 
 /**
@@ -19,9 +20,9 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class OPM_CONFIGURE_PARAMETERS extends Win32Struct {
-    static sizeof => 4088
+    static sizeof => 4096
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/ksopmapi/ns-ksopmapi-opm_omac">OPM_MAC</a> structure. Fill in this structure with the Message Authentication Code (MAC) of the command data. Use AES-based one-key CBC MAC (OMAC) to calculate this value.
@@ -37,11 +38,14 @@ class OPM_CONFIGURE_PARAMETERS extends Win32Struct {
 
     /**
      * A GUID that specifies the command. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/opm-commands">OPM Commands</a>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidSetting {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__guidSetting"))
+                this.__guidSetting := Guid(16, this)
+            return this.__guidSetting
+        }
     }
 
     /**
@@ -53,8 +57,8 @@ class OPM_CONFIGURE_PARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     ulSequenceNumber {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -62,8 +66,8 @@ class OPM_CONFIGURE_PARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     cbParametersSize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -73,7 +77,7 @@ class OPM_CONFIGURE_PARAMETERS extends Win32Struct {
     abParameters {
         get {
             if(!this.HasProp("__abParametersProxyArray"))
-                this.__abParametersProxyArray := Win32FixedArray(this.ptr + 32, 4056, Primitive, "char")
+                this.__abParametersProxyArray := Win32FixedArray(this.ptr + 40, 4056, Primitive, "char")
             return this.__abParametersProxyArray
         }
     }

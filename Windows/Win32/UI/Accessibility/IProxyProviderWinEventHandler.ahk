@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IProxyProviderWinEventSink.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes a method that is implemented by proxy providers to handle WinEvents.

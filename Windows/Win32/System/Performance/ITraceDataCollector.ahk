@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDataCollector.ahk
+#Include .\StreamMode.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\ITraceDataProviderCollection.ahk
+#Include .\IDataCollector.ahk
+#Include .\ClockType.ahk
 
 /**
  * Collects trace events from registered providers.This interface defines the trace session.
@@ -718,7 +722,7 @@ class ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_sessionname
      */
     get_SessionName() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(65, this, "ptr", name, "HRESULT")
         return name
     }

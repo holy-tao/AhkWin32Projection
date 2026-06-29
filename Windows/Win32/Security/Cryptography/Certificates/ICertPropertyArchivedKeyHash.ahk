@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertProperty.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ICertProperty.ahk
 
 /**
  * Represents a SHA-1 hash of an encrypted private key submitted to a certification authority for archival.
@@ -76,7 +78,7 @@ class ICertPropertyArchivedKeyHash extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyarchivedkeyhash-get_archivedkeyhash
      */
     get_ArchivedKeyHash(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(15, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }

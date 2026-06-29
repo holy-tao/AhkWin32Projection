@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Describes a sensor profile ID.
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class SENSORPROFILEID extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/medfound/sensor-profile-guids">Sensor Profile GUID</a> that describes the type of sensor profile.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Type {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__Type"))
+                this.__Type := Guid(0, this)
+            return this.__Type
+        }
     }
 
     /**
@@ -25,8 +29,8 @@ class SENSORPROFILEID extends Win32Struct {
      * @type {Integer}
      */
     Index {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -34,7 +38,7 @@ class SENSORPROFILEID extends Win32Struct {
      * @type {Integer}
      */
     Unused {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 }

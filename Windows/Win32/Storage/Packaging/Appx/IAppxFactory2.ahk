@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IAppxContentGroupMapReader.ahk
-#Include .\IAppxSourceContentGroupMapReader.ahk
+#Include ..\..\..\System\Com\IStream.ahk
 #Include .\IAppxContentGroupMapWriter.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IAppxSourceContentGroupMapReader.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IAppxContentGroupMapReader.ahk
 
 /**
  * Creates objects for reading and writing app packages. (IAppxFactory2)

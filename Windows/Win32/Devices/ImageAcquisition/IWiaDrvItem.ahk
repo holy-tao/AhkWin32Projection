@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -51,7 +52,7 @@ class IWiaDrvItem extends IUnknown {
      * @returns {BSTR} 
      */
     GetFullItemName() {
-        __MIDL__IWiaDrvItem0002 := BSTR()
+        __MIDL__IWiaDrvItem0002 := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", __MIDL__IWiaDrvItem0002, "HRESULT")
         return __MIDL__IWiaDrvItem0002
     }
@@ -61,7 +62,7 @@ class IWiaDrvItem extends IUnknown {
      * @returns {BSTR} 
      */
     GetItemName() {
-        __MIDL__IWiaDrvItem0003 := BSTR()
+        __MIDL__IWiaDrvItem0003 := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", __MIDL__IWiaDrvItem0003, "HRESULT")
         return __MIDL__IWiaDrvItem0003
     }
@@ -153,7 +154,7 @@ class IWiaDrvItem extends IUnknown {
      * @returns {BSTR} 
      */
     DumpItemData() {
-        __MIDL__IWiaDrvItem0015 := BSTR()
+        __MIDL__IWiaDrvItem0015 := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", __MIDL__IWiaDrvItem0015, "HRESULT")
         return __MIDL__IWiaDrvItem0015
     }

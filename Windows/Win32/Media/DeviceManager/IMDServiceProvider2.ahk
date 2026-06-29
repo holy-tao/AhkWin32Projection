@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMDSPDevice.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IMDServiceProvider.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMDServiceProvider2 interface extends the IMDServiceProvider interface by providing a way of obtaining IMDSPDevice object(s) for a given device path name. The device path name comes from the Plug and Play (PnP) subsystem.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains a validated, canonical, UTF-16 Unicode-encoded URL request string together with pointers into it and element lengths.

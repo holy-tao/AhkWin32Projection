@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\IRemoteDesktopClientSettings.ahk
 #Include .\IRemoteDesktopClientActions.ahk
 #Include .\IRemoteDesktopClientTouchPointer.ahk
+#Include .\IRemoteDesktopClientSettings.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods and properties used to configure and use the Remote Desktop Protocol (RDP) app container client control.

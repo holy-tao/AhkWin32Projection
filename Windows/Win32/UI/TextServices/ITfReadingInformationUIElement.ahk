@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfUIElement.ahk
-#Include .\ITfContext.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITfContext.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\ITfUIElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfCandidateListUIElement interface is implemented by a text service that has a UI for reading information UI at the near caret.
@@ -114,7 +116,7 @@ class ITfReadingInformationUIElement extends ITfUIElement {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadinginformationuielement-getstring
      */
     GetString() {
-        _pstr := BSTR()
+        _pstr := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", _pstr, "HRESULT")
         return _pstr
     }

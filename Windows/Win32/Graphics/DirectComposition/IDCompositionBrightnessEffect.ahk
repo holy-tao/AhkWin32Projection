@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDCompositionFilterEffect.ahk
+#Include .\IDCompositionAnimation.ahk
+#Include ..\Direct2D\Common\D2D_VECTOR_2F.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The brightness effect controls the brightness of the image.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Specifies a counted array of UUID or GUID types used to receive an array of CLSIDs for the property pages that the object wants to display.

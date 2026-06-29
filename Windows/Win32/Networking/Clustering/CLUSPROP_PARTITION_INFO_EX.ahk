@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_VALUE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\CLUSPROP_SYNTAX.ahk
 #Include .\CLUS_PARTITION_INFO_EX.ahk
+#Include .\CLUSPROP_VALUE.ahk
 
 /**
  * The CLUSPROP_PARTITION_INFO_EX structure contains information relevant to storage class resources.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  */
 class CLUSPROP_PARTITION_INFO_EX extends Win32Struct {
-    static sizeof => 1168
+    static sizeof => 1176
 
     static packingSize => 8
 

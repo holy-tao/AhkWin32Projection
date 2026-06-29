@@ -9,7 +9,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct {
 
     static packingSize => 8
 
-    class _SecondaryStatus_e__Union extends Win32Struct {
+    class _SecondaryStatus extends Win32Struct {
         static sizeof => 2
         static packingSize => 2
 
@@ -130,7 +130,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct {
         }
     }
 
-    class _BridgeStatus_e__Union extends Win32Struct {
+    class _BridgeStatus extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -269,7 +269,7 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct {
         }
     }
 
-    class _EccControlStatus_e__Union extends Win32Struct {
+    class _EccControlStatus extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -426,23 +426,23 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct {
     }
 
     /**
-     * @type {_SecondaryStatus_e__Union}
+     * @type {_SecondaryStatus}
      */
     SecondaryStatus {
         get {
             if(!this.HasProp("__SecondaryStatus"))
-                this.__SecondaryStatus := PCIX_BRIDGE_CAPABILITY._SecondaryStatus_e__Union(8, this)
+                this.__SecondaryStatus := PCIX_BRIDGE_CAPABILITY._SecondaryStatus(8, this)
             return this.__SecondaryStatus
         }
     }
 
     /**
-     * @type {_BridgeStatus_e__Union}
+     * @type {_BridgeStatus}
      */
     BridgeStatus {
         get {
             if(!this.HasProp("__BridgeStatus"))
-                this.__BridgeStatus := PCIX_BRIDGE_CAPABILITY._BridgeStatus_e__Union(12, this)
+                this.__BridgeStatus := PCIX_BRIDGE_CAPABILITY._BridgeStatus(12, this)
             return this.__BridgeStatus
         }
     }
@@ -480,12 +480,12 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct {
     }
 
     /**
-     * @type {_EccControlStatus_e__Union}
+     * @type {_EccControlStatus}
      */
     EccControlStatus {
         get {
             if(!this.HasProp("__EccControlStatus"))
-                this.__EccControlStatus := PCIX_BRIDGE_CAPABILITY._EccControlStatus_e__Union(24, this)
+                this.__EccControlStatus := PCIX_BRIDGE_CAPABILITY._EccControlStatus(24, this)
             return this.__EccControlStatus
         }
     }

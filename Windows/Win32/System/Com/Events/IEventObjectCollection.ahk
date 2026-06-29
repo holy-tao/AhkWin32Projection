@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\IDispatch.ahk
-#Include ..\IUnknown.ahk
-#Include ..\..\Variant\VARIANT.ahk
 #Include .\IEnumEventObject.ahk
+#Include ..\..\Variant\VARIANT.ahk
+#Include ..\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Manages objects in an event objects collection.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DNS_SERVER_PROPERTY_TYPE.ahk
 #Include .\DNS_SERVER_PROPERTY_TYPES.ahk
-#Include .\DNS_DOH_SERVER_SETTINGS.ahk
 #Include .\DNS_DOT_SERVER_SETTINGS.ahk
+#Include .\DNS_DOH_SERVER_SETTINGS.ahk
+#Include .\DNS_SERVER_PROPERTY_TYPE.ahk
 
 /**
  * Describes a DNS server property, which is set in the [**DNS_INTERFACE_SETTINGS3**](/windows/win32/api/netioapi/ns-netioapi-dns_interface_settings3) structure, and configured through the [**SetInterfaceDnsSettings**](/windows/win32/api/netioapi/nf-netioapi-setinterfacednssettings) function.

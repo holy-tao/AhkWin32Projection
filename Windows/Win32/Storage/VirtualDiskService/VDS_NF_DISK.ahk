@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * A disk was inserted, or a RAID controller surfaced a LUN that is local to the host.
- * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_disk_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_NF_DISK extends Win32Enum {

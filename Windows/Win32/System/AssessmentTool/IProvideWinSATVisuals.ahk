@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include .\WINSAT_BITMAP_SIZE.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\WINSAT_ASSESSMENT_STATE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Retrieves elements that can be used in a user interface to graphically represent the WinSAT assessment.
@@ -41,7 +44,7 @@ class IProvideWinSATVisuals extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatvisuals-get_bitmap
      */
     get_Bitmap(bitmapSize, state, rating) {
-        pBitmap := HBITMAP()
+        pBitmap := HBITMAP({Value: 0}, True)
         result := ComCall(3, this, "int", bitmapSize, "int", state, "float", rating, "ptr", pBitmap, "HRESULT")
         return pBitmap
     }

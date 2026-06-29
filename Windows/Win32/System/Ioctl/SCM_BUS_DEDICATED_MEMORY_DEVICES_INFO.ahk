@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
 class SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 

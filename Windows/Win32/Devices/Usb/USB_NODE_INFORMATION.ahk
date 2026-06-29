@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_HUB_NODE.ahk
 #Include .\USB_HUB_INFORMATION.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\USB_HUB_NODE.ahk
 #Include .\USB_HUB_DESCRIPTOR.ahk
 #Include .\USB_MI_PARENT_INFORMATION.ahk
 
@@ -13,7 +14,7 @@ class USB_NODE_INFORMATION extends Win32Struct {
 
     static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 76
         static packingSize => 4
 
@@ -49,12 +50,12 @@ class USB_NODE_INFORMATION extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := USB_NODE_INFORMATION._u_e__Union(4, this)
+                this.__u := USB_NODE_INFORMATION._u(4, this)
             return this.__u
         }
     }

@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
 #Include .\D3D_OMAC.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE.ahk
 
 /**
@@ -13,7 +15,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
 class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -34,8 +36,8 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extend
      * @type {Integer}
      */
     ProcessIndex {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -43,8 +45,8 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extend
      * @type {D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE}
      */
     ProcessIdentifer {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -54,7 +56,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extend
     ProcessHandle {
         get {
             if(!this.HasProp("__ProcessHandle"))
-                this.__ProcessHandle := HANDLE(48, this)
+                this.__ProcessHandle := HANDLE(56, this)
             return this.__ProcessHandle
         }
     }

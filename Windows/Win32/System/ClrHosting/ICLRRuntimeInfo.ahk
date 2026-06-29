@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\HMODULE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -202,7 +208,7 @@ class ICLRRuntimeInfo extends IUnknown {
     LoadLibraryA(pwzDllName) {
         pwzDllName := pwzDllName is String ? StrPtr(pwzDllName) : pwzDllName
 
-        phndModule := HMODULE()
+        phndModule := HMODULE({Value: 0}, True)
         result := ComCall(7, this, "ptr", pwzDllName, "ptr", phndModule, "HRESULT")
         return phndModule
     }

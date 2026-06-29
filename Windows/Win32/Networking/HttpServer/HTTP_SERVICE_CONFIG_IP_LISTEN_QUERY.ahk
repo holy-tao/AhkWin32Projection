@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\WinSock\SOCKADDR_STORAGE.ahk
 #Include ..\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\WinSock\SOCKADDR_STORAGE.ahk
 
 /**
  * Used by HttpQueryServiceConfiguration to return a list of the Internet Protocol (IP) addresses to which the HTTP service binds.

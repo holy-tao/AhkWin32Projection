@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSJACK_SINK_CONNECTIONTYPE.ahk
 #Include ..\..\Foundation\LUID.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The KSJACK_SINK_INFORMATION structure stores information about an audio jack sink.

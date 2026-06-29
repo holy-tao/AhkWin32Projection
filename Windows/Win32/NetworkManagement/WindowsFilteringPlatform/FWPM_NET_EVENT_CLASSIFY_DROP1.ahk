@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information that describes a layer drop failure. (FWPM_NET_EVENT_CLASSIFY_DROP1)

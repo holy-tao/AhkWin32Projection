@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains information about an IPv4 interface on the local computer.
@@ -13,9 +14,9 @@
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
 class IP_INTERFACE_NAME_INFO_W2KSP1 extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>ULONG</b>
@@ -289,21 +290,27 @@ class IP_INTERFACE_NAME_INFO_W2KSP1 extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * The GUID that identifies the underlying device for the interface. This member can be a zero GUID.
-     * @type {Pointer}
+     * @type {Guid}
      */
     DeviceGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__DeviceGuid"))
+                this.__DeviceGuid := Guid(12, this)
+            return this.__DeviceGuid
+        }
     }
 
     /**
      * Type: <b>GUID</b>
      * 
      * The GUID that identifies the interface mapped to the device. Optional. This member can be a zero GUID.
-     * @type {Pointer}
+     * @type {Guid}
      */
     InterfaceGuid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__InterfaceGuid"))
+                this.__InterfaceGuid := Guid(28, this)
+            return this.__InterfaceGuid
+        }
     }
 }

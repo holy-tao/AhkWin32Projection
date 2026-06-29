@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CREATE_VIRTUAL_DISK_VERSION.ahk
-#Include .\OPEN_VIRTUAL_DISK_FLAG.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VIRTUAL_STORAGE_TYPE.ahk
+#Include .\OPEN_VIRTUAL_DISK_FLAG.ahk
+#Include .\CREATE_VIRTUAL_DISK_VERSION.ahk
 
 /**
  * Contains virtual hard disk (VHD) creation parameters, providing control over, and information about, the newly created virtual disk.
@@ -10,7 +12,7 @@
  * @namespace Windows.Win32.Storage.Vhd
  */
 class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
-    static sizeof => 144
+    static sizeof => 184
 
     static packingSize => 8
 
@@ -54,29 +56,24 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
     }
 
     class _Version1 extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 48
         static packingSize => 8
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         UniqueId {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__UniqueId"))
+                    this.__UniqueId := Guid(0, this)
+                return this.__UniqueId
+            }
         }
 
         /**
          * @type {Integer}
          */
         MaximumSize {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        BlockSizeInBytes {
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
@@ -84,151 +81,55 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
         /**
          * @type {Integer}
          */
+        BlockSizeInBytes {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+
+        /**
+         * @type {Integer}
+         */
         SectorSizeInBytes {
-            get => NumGet(this, 20, "uint")
-            set => NumPut("uint", value, this, 20)
+            get => NumGet(this, 28, "uint")
+            set => NumPut("uint", value, this, 28)
         }
 
         /**
          * @type {PWSTR}
          */
         ParentPath {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
         }
 
         /**
          * @type {PWSTR}
          */
         SourcePath {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
+            get => NumGet(this, 40, "ptr")
+            set => NumPut("ptr", value, this, 40)
         }
     }
 
     class _Version2 extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
-
-        /**
-         * @type {Pointer}
-         */
-        UniqueId {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        MaximumSize {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        BlockSizeInBytes {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        SectorSizeInBytes {
-            get => NumGet(this, 20, "uint")
-            set => NumPut("uint", value, this, 20)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        PhysicalSectorSizeInBytes {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        ParentPath {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        SourcePath {
-            get => NumGet(this, 40, "ptr")
-            set => NumPut("ptr", value, this, 40)
-        }
-
-        /**
-         * @type {OPEN_VIRTUAL_DISK_FLAG}
-         */
-        OpenFlags {
-            get => NumGet(this, 48, "int")
-            set => NumPut("int", value, this, 48)
-        }
-
-        /**
-         * @type {VIRTUAL_STORAGE_TYPE}
-         */
-        ParentVirtualStorageType {
-            get {
-                if(!this.HasProp("__ParentVirtualStorageType"))
-                    this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(56, this)
-                return this.__ParentVirtualStorageType
-            }
-        }
-
-        /**
-         * @type {VIRTUAL_STORAGE_TYPE}
-         */
-        SourceVirtualStorageType {
-            get {
-                if(!this.HasProp("__SourceVirtualStorageType"))
-                    this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(72, this)
-                return this.__SourceVirtualStorageType
-            }
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        ResiliencyGuid {
-            get => NumGet(this, 88, "ptr")
-            set => NumPut("ptr", value, this, 88)
-        }
-    }
-
-    class _Version3 extends Win32Struct {
         static sizeof => 120
         static packingSize => 8
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         UniqueId {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__UniqueId"))
+                    this.__UniqueId := Guid(0, this)
+                return this.__UniqueId
+            }
         }
 
         /**
          * @type {Integer}
          */
         MaximumSize {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        BlockSizeInBytes {
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
@@ -236,41 +137,49 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
         /**
          * @type {Integer}
          */
+        BlockSizeInBytes {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+
+        /**
+         * @type {Integer}
+         */
         SectorSizeInBytes {
-            get => NumGet(this, 20, "uint")
-            set => NumPut("uint", value, this, 20)
+            get => NumGet(this, 28, "uint")
+            set => NumPut("uint", value, this, 28)
         }
 
         /**
          * @type {Integer}
          */
         PhysicalSectorSizeInBytes {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
+            get => NumGet(this, 32, "uint")
+            set => NumPut("uint", value, this, 32)
         }
 
         /**
          * @type {PWSTR}
          */
         ParentPath {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
+            get => NumGet(this, 40, "ptr")
+            set => NumPut("ptr", value, this, 40)
         }
 
         /**
          * @type {PWSTR}
          */
         SourcePath {
-            get => NumGet(this, 40, "ptr")
-            set => NumPut("ptr", value, this, 40)
+            get => NumGet(this, 48, "ptr")
+            set => NumPut("ptr", value, this, 48)
         }
 
         /**
          * @type {OPEN_VIRTUAL_DISK_FLAG}
          */
         OpenFlags {
-            get => NumGet(this, 48, "int")
-            set => NumPut("int", value, this, 48)
+            get => NumGet(this, 56, "int")
+            set => NumPut("int", value, this, 56)
         }
 
         /**
@@ -279,7 +188,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
         ParentVirtualStorageType {
             get {
                 if(!this.HasProp("__ParentVirtualStorageType"))
-                    this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(56, this)
+                    this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(60, this)
                 return this.__ParentVirtualStorageType
             }
         }
@@ -290,25 +199,133 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
         SourceVirtualStorageType {
             get {
                 if(!this.HasProp("__SourceVirtualStorageType"))
-                    this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(72, this)
+                    this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(80, this)
                 return this.__SourceVirtualStorageType
             }
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         ResiliencyGuid {
-            get => NumGet(this, 88, "ptr")
-            set => NumPut("ptr", value, this, 88)
+            get {
+                if(!this.HasProp("__ResiliencyGuid"))
+                    this.__ResiliencyGuid := Guid(100, this)
+                return this.__ResiliencyGuid
+            }
+        }
+    }
+
+    class _Version3 extends Win32Struct {
+        static sizeof => 152
+        static packingSize => 8
+
+        /**
+         * @type {Guid}
+         */
+        UniqueId {
+            get {
+                if(!this.HasProp("__UniqueId"))
+                    this.__UniqueId := Guid(0, this)
+                return this.__UniqueId
+            }
+        }
+
+        /**
+         * @type {Integer}
+         */
+        MaximumSize {
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
+        }
+
+        /**
+         * @type {Integer}
+         */
+        BlockSizeInBytes {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+
+        /**
+         * @type {Integer}
+         */
+        SectorSizeInBytes {
+            get => NumGet(this, 28, "uint")
+            set => NumPut("uint", value, this, 28)
+        }
+
+        /**
+         * @type {Integer}
+         */
+        PhysicalSectorSizeInBytes {
+            get => NumGet(this, 32, "uint")
+            set => NumPut("uint", value, this, 32)
+        }
+
+        /**
+         * @type {PWSTR}
+         */
+        ParentPath {
+            get => NumGet(this, 40, "ptr")
+            set => NumPut("ptr", value, this, 40)
+        }
+
+        /**
+         * @type {PWSTR}
+         */
+        SourcePath {
+            get => NumGet(this, 48, "ptr")
+            set => NumPut("ptr", value, this, 48)
+        }
+
+        /**
+         * @type {OPEN_VIRTUAL_DISK_FLAG}
+         */
+        OpenFlags {
+            get => NumGet(this, 56, "int")
+            set => NumPut("int", value, this, 56)
+        }
+
+        /**
+         * @type {VIRTUAL_STORAGE_TYPE}
+         */
+        ParentVirtualStorageType {
+            get {
+                if(!this.HasProp("__ParentVirtualStorageType"))
+                    this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(60, this)
+                return this.__ParentVirtualStorageType
+            }
+        }
+
+        /**
+         * @type {VIRTUAL_STORAGE_TYPE}
+         */
+        SourceVirtualStorageType {
+            get {
+                if(!this.HasProp("__SourceVirtualStorageType"))
+                    this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(80, this)
+                return this.__SourceVirtualStorageType
+            }
+        }
+
+        /**
+         * @type {Guid}
+         */
+        ResiliencyGuid {
+            get {
+                if(!this.HasProp("__ResiliencyGuid"))
+                    this.__ResiliencyGuid := Guid(100, this)
+                return this.__ResiliencyGuid
+            }
         }
 
         /**
          * @type {PWSTR}
          */
         SourceLimitPath {
-            get => NumGet(this, 96, "ptr")
-            set => NumPut("ptr", value, this, 96)
+            get => NumGet(this, 120, "ptr")
+            set => NumPut("ptr", value, this, 120)
         }
 
         /**
@@ -317,36 +334,31 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
         BackingStorageType {
             get {
                 if(!this.HasProp("__BackingStorageType"))
-                    this.__BackingStorageType := VIRTUAL_STORAGE_TYPE(104, this)
+                    this.__BackingStorageType := VIRTUAL_STORAGE_TYPE(128, this)
                 return this.__BackingStorageType
             }
         }
     }
 
     class _Version4 extends Win32Struct {
-        static sizeof => 136
+        static sizeof => 176
         static packingSize => 8
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         UniqueId {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__UniqueId"))
+                    this.__UniqueId := Guid(0, this)
+                return this.__UniqueId
+            }
         }
 
         /**
          * @type {Integer}
          */
         MaximumSize {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        BlockSizeInBytes {
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
@@ -354,41 +366,49 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
         /**
          * @type {Integer}
          */
+        BlockSizeInBytes {
+            get => NumGet(this, 24, "uint")
+            set => NumPut("uint", value, this, 24)
+        }
+
+        /**
+         * @type {Integer}
+         */
         SectorSizeInBytes {
-            get => NumGet(this, 20, "uint")
-            set => NumPut("uint", value, this, 20)
+            get => NumGet(this, 28, "uint")
+            set => NumPut("uint", value, this, 28)
         }
 
         /**
          * @type {Integer}
          */
         PhysicalSectorSizeInBytes {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
+            get => NumGet(this, 32, "uint")
+            set => NumPut("uint", value, this, 32)
         }
 
         /**
          * @type {PWSTR}
          */
         ParentPath {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
+            get => NumGet(this, 40, "ptr")
+            set => NumPut("ptr", value, this, 40)
         }
 
         /**
          * @type {PWSTR}
          */
         SourcePath {
-            get => NumGet(this, 40, "ptr")
-            set => NumPut("ptr", value, this, 40)
+            get => NumGet(this, 48, "ptr")
+            set => NumPut("ptr", value, this, 48)
         }
 
         /**
          * @type {OPEN_VIRTUAL_DISK_FLAG}
          */
         OpenFlags {
-            get => NumGet(this, 48, "int")
-            set => NumPut("int", value, this, 48)
+            get => NumGet(this, 56, "int")
+            set => NumPut("int", value, this, 56)
         }
 
         /**
@@ -397,7 +417,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
         ParentVirtualStorageType {
             get {
                 if(!this.HasProp("__ParentVirtualStorageType"))
-                    this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(56, this)
+                    this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(60, this)
                 return this.__ParentVirtualStorageType
             }
         }
@@ -408,25 +428,28 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
         SourceVirtualStorageType {
             get {
                 if(!this.HasProp("__SourceVirtualStorageType"))
-                    this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(72, this)
+                    this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(80, this)
                 return this.__SourceVirtualStorageType
             }
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         ResiliencyGuid {
-            get => NumGet(this, 88, "ptr")
-            set => NumPut("ptr", value, this, 88)
+            get {
+                if(!this.HasProp("__ResiliencyGuid"))
+                    this.__ResiliencyGuid := Guid(100, this)
+                return this.__ResiliencyGuid
+            }
         }
 
         /**
          * @type {PWSTR}
          */
         SourceLimitPath {
-            get => NumGet(this, 96, "ptr")
-            set => NumPut("ptr", value, this, 96)
+            get => NumGet(this, 120, "ptr")
+            set => NumPut("ptr", value, this, 120)
         }
 
         /**
@@ -435,25 +458,28 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
         BackingStorageType {
             get {
                 if(!this.HasProp("__BackingStorageType"))
-                    this.__BackingStorageType := VIRTUAL_STORAGE_TYPE(104, this)
+                    this.__BackingStorageType := VIRTUAL_STORAGE_TYPE(128, this)
                 return this.__BackingStorageType
             }
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         PmemAddressAbstractionType {
-            get => NumGet(this, 120, "ptr")
-            set => NumPut("ptr", value, this, 120)
+            get {
+                if(!this.HasProp("__PmemAddressAbstractionType"))
+                    this.__PmemAddressAbstractionType := Guid(148, this)
+                return this.__PmemAddressAbstractionType
+            }
         }
 
         /**
          * @type {Integer}
          */
         DataAlignment {
-            get => NumGet(this, 128, "uint")
-            set => NumPut("uint", value, this, 128)
+            get => NumGet(this, 168, "uint")
+            set => NumPut("uint", value, this, 168)
         }
     }
 

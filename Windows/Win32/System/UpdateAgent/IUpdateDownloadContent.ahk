@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the download content of an update. (IUpdateDownloadContent)
@@ -43,7 +44,7 @@ class IUpdateDownloadContent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloadcontent-get_downloadurl
      */
     get_DownloadUrl() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", retval, "HRESULT")
         return retval
     }

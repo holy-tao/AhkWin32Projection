@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\COR_PRF_GC_ROOT_FLAGS.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\COR_PRF_GC_ROOT_KIND.ahk
 #Include .\ICorProfilerCallback.ahk
+#Include .\COR_PRF_GC_REASON.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

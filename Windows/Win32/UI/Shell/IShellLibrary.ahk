@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Include .\DEFAULTSAVEFOLDERTYPE.ahk
 #Include .\IShellItem.ahk
+#Include .\LIBRARYFOLDERFILTER.ahk
+#Include .\LIBRARYOPTIONFLAGS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\LIBRARYSAVEFLAGS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods for creating and managing libraries.

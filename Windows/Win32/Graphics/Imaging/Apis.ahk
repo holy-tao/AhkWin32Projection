@@ -2,7 +2,14 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWICBitmapSource.ahk
+#Include .\WICSectionAccessLevel.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\IWICMetadataWriter.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWICBitmap.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging

@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IUIAutomationElementArray.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IAccessible.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAutomationElementArray.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods and properties that enable Microsoft UI Automation clients to retrieve UI information from Microsoft Active Accessibility (MSAA) servers.
@@ -226,7 +228,7 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentname
      */
     get_CurrentName() {
-        pszName := BSTR()
+        pszName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pszName, "HRESULT")
         return pszName
     }
@@ -237,7 +239,7 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentvalue
      */
     get_CurrentValue() {
-        pszValue := BSTR()
+        pszValue := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pszValue, "HRESULT")
         return pszValue
     }
@@ -248,7 +250,7 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentdescription
      */
     get_CurrentDescription() {
-        pszDescription := BSTR()
+        pszDescription := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pszDescription, "HRESULT")
         return pszDescription
     }
@@ -279,7 +281,7 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currenthelp
      */
     get_CurrentHelp() {
-        pszHelp := BSTR()
+        pszHelp := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pszHelp, "HRESULT")
         return pszHelp
     }
@@ -290,7 +292,7 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentkeyboardshortcut
      */
     get_CurrentKeyboardShortcut() {
-        pszKeyboardShortcut := BSTR()
+        pszKeyboardShortcut := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pszKeyboardShortcut, "HRESULT")
         return pszKeyboardShortcut
     }
@@ -313,7 +315,7 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentdefaultaction
      */
     get_CurrentDefaultAction() {
-        pszDefaultAction := BSTR()
+        pszDefaultAction := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pszDefaultAction, "HRESULT")
         return pszDefaultAction
     }
@@ -336,7 +338,7 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedname
      */
     get_CachedName() {
-        pszName := BSTR()
+        pszName := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pszName, "HRESULT")
         return pszName
     }
@@ -347,7 +349,7 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedvalue
      */
     get_CachedValue() {
-        pszValue := BSTR()
+        pszValue := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", pszValue, "HRESULT")
         return pszValue
     }
@@ -358,7 +360,7 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cacheddescription
      */
     get_CachedDescription() {
-        pszDescription := BSTR()
+        pszDescription := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", pszDescription, "HRESULT")
         return pszDescription
     }
@@ -389,7 +391,7 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedhelp
      */
     get_CachedHelp() {
-        pszHelp := BSTR()
+        pszHelp := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", pszHelp, "HRESULT")
         return pszHelp
     }
@@ -400,7 +402,7 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedkeyboardshortcut
      */
     get_CachedKeyboardShortcut() {
-        pszKeyboardShortcut := BSTR()
+        pszKeyboardShortcut := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", pszKeyboardShortcut, "HRESULT")
         return pszKeyboardShortcut
     }
@@ -423,7 +425,7 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cacheddefaultaction
      */
     get_CachedDefaultAction() {
-        pszDefaultAction := BSTR()
+        pszDefaultAction := BSTR({Value: 0}, True)
         result := ComCall(25, this, "ptr", pszDefaultAction, "HRESULT")
         return pszDefaultAction
     }

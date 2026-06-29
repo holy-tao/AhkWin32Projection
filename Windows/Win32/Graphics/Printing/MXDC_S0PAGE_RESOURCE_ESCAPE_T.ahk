@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MXDC_ESCAPE_HEADER_T.ahk
 #Include .\MXDC_XPS_S0PAGE_RESOURCE_T.ahk
+#Include .\MXDC_ESCAPE_HEADER_T.ahk
 
 /**
  * The MXDC\_S0PAGE\_RESOURCE\_ESCAPE\_T structure is an MXDC\_ESCAPE\_HEADER\_T structure concatenated with an MXDC\_XPS\_S0PAGE\_RESOURCE\_T structure.

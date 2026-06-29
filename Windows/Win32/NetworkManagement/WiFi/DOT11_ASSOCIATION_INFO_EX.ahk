@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_ASSOCIATION_STATE.ahk
 #Include .\DOT11_POWER_MODE.ahk
+#Include .\DOT11_ASSOCIATION_STATE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

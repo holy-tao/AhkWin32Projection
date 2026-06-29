@@ -1,7 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_HEAP_FLAGS.ahk
+#Include .\D3D12_RESOURCE_STATES.ahk
+#Include .\ID3D12ProtectedResourceSession.ahk
+#Include .\D3D12_CPU_DESCRIPTOR_HANDLE.ahk
+#Include .\ID3D12Heap.ahk
+#Include .\D3D12_PLACED_SUBRESOURCE_FOOTPRINT.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\ID3D12Device7.ahk
+#Include .\D3D12_CLEAR_VALUE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_RESOURCE_ALLOCATION_INFO1.ahk
+#Include .\ID3D12Resource.ahk
+#Include .\D3D12_RESOURCE_ALLOCATION_INFO.ahk
+#Include .\D3D12_RESOURCE_DESC1.ahk
+#Include .\D3D12_HEAP_PROPERTIES.ahk
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device7](../d3d12/nn-d3d12-id3d12device7.md).

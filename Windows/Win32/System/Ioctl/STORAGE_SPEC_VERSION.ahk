@@ -11,7 +11,7 @@ class STORAGE_SPEC_VERSION extends Win32Struct {
 
     static packingSize => 4
 
-    class _MinorVersion_e__Union extends Win32Struct {
+    class _MinorVersion extends Win32Struct {
         static sizeof => 2
         static packingSize => 2
 
@@ -41,12 +41,12 @@ class STORAGE_SPEC_VERSION extends Win32Struct {
     }
 
     /**
-     * @type {_MinorVersion_e__Union}
+     * @type {_MinorVersion}
      */
     MinorVersion {
         get {
             if(!this.HasProp("__MinorVersion"))
-                this.__MinorVersion := STORAGE_SPEC_VERSION._MinorVersion_e__Union(0, this)
+                this.__MinorVersion := STORAGE_SPEC_VERSION._MinorVersion(0, this)
             return this.__MinorVersion
         }
     }

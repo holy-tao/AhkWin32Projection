@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 #Include .\IDebugHostContextExtension.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 #Include .\IDebugHostContext.ahk
 
 /**

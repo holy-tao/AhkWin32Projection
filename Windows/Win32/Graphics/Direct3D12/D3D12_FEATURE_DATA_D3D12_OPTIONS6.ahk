@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_VARIABLE_SHADING_RATE_TIER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Indicates the level of support that the adapter provides for variable-rate shading (VRS), and indicates whether or not background processing is supported.

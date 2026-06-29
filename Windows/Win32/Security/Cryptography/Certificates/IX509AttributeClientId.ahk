@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509Attribute.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509Attribute.ahk
+#Include .\RequestClientInfoClientId.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an attribute that can be used to identify the client that generated a certificate request.
@@ -174,7 +177,7 @@ class IX509AttributeClientId extends IX509Attribute {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_machinednsname
      */
     get_MachineDnsName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -199,7 +202,7 @@ class IX509AttributeClientId extends IX509Attribute {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_usersamname
      */
     get_UserSamName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -224,7 +227,7 @@ class IX509AttributeClientId extends IX509Attribute {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_processname
      */
     get_ProcessName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pValue, "HRESULT")
         return pValue
     }

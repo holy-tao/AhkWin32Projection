@@ -1,9 +1,34 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\OFFER_PRIORITY.ahk
+#Include .\PROCESS_HEAP_ENTRY.ahk
+#Include .\PAGE_PROTECTION_FLAGS.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\MEMORY_MAPPED_VIEW_ADDRESS.ahk
+#Include .\MEMORY_RESOURCE_NOTIFICATION_TYPE.ahk
+#Include .\WIN32_MEMORY_PARTITION_INFORMATION_CLASS.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
+#Include .\HEAP_INFORMATION_CLASS.ahk
+#Include .\CFG_CALL_TARGET_INFO.ahk
+#Include .\WIN32_MEMORY_INFORMATION_CLASS.ahk
+#Include .\SETPROCESSWORKINGSETSIZEEX_FLAGS.ahk
+#Include .\FILE_MAP.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\MEMORY_MAPPED_VIEW_ADDRESS.ahk
+#Include .\WIN32_MEMORY_RANGE_ENTRY.ahk
+#Include .\HEAP_FLAGS.ahk
+#Include .\MEM_EXTENDED_PARAMETER.ahk
+#Include .\UNMAP_VIEW_OF_FILE_FLAGS.ahk
+#Include .\VIRTUAL_FREE_TYPE.ahk
 #Include ..\..\Foundation\HLOCAL.ahk
+#Include .\VIRTUAL_ALLOCATION_TYPE.ahk
+#Include .\LOCAL_ALLOC_FLAGS.ahk
+#Include .\GLOBAL_ALLOC_FLAGS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT.ahk
+#Include .\HEAP_SUMMARY.ahk
 
 /**
  * @namespace Windows.Win32.System.Memory

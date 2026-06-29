@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\IMbnVendorSpecificOperation.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This notification interface signals an application of the completion status of vendor-specific operations and other vendor-specific changes in the device state.

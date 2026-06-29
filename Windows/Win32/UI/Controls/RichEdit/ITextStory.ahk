@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITextRange2.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ITextRange2.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITextStory interface methods are used to access shared data from multiple stories, which is stored in the parent ITextServices instance.
@@ -161,7 +162,7 @@ class ITextStory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-gettext
      */
     GetText(Flags) {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(11, this, "int", Flags, "ptr", pbstr, "HRESULT")
         return pbstr
     }

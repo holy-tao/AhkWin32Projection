@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRichChunk.ahk
+#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IPersistStream.ahk
+#Include Common\CONDITION_OPERATION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include Common\CONDITION_TYPE.ahk
 
 /**
  * Provides methods for retrieving information about a search condition.

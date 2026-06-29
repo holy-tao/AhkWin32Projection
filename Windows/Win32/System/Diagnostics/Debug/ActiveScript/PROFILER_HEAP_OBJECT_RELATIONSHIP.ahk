@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\PROFILER_RELATIONSHIP_INFO.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include .\PROFILER_RELATIONSHIP_INFO.ahk
 #Include .\PROFILER_PROPERTY_TYPE_SUBSTRING_INFO.ahk
 
 /**

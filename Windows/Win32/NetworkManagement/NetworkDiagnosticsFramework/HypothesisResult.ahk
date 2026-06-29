@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DIAGNOSIS_STATUS.ahk
 #Include .\HYPOTHESIS.ahk
 #Include .\HELPER_ATTRIBUTE.ahk
-#Include .\DIAGNOSIS_STATUS.ahk
 
 /**
  * Contains information about a hypothesis returned from a helper class.

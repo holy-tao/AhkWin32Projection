@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\PolicyServerUrlFlags.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\X509EnrollmentAuthFlags.ahk
+#Include .\PolicyServerUrlPropertyID.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\X509CertificateEnrollmentContext.ahk
 
 /**
  * The IX509PolicyServerUrl interface can be used to set or retrieve property values associated with the certificate enrollment policy (CEP) server and to update associated registry values.
@@ -107,7 +113,7 @@ class IX509PolicyServerUrl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-get_url
      */
     get_Url() {
-        ppValue := BSTR()
+        ppValue := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", ppValue, "HRESULT")
         return ppValue
     }
@@ -220,7 +226,7 @@ class IX509PolicyServerUrl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-getstringproperty
      */
     GetStringProperty(propertyId) {
-        ppValue := BSTR()
+        ppValue := BSTR({Value: 0}, True)
         result := ComCall(18, this, "int", propertyId, "ptr", ppValue, "HRESULT")
         return ppValue
     }

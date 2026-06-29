@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PROCESSOR_CACHE_TYPE.ahk
 #Include .\GROUP_AFFINITY.ahk
+#Include .\PROCESSOR_CACHE_TYPE.ahk
 
 /**
  * Describes cache attributes. This structure is used with the GetLogicalProcessorInformationEx function.

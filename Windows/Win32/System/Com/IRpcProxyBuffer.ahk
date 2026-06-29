@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUnknown.ahk
+#Include .\IRpcChannelBuffer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IRpcProxyBuffer (objidlbase.h) interface controls the RPC proxy used to marshal data between COM components.

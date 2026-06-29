@@ -1,9 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IDirectMusicDownloadedInstrument.ahk
 #Include ..\..\IReferenceClock.ahk
+#Include .\IDirectMusicBuffer.ahk
+#Include ..\WAVEFORMATEX.ahk
+#Include .\IDirectMusicDownloadedInstrument.ahk
+#Include ..\DirectSound\IDirectSound.ahk
+#Include .\DMUS_PORTCAPS.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\IDirectMusicInstrument.ahk
+#Include ..\..\..\System\IO\OVERLAPPED.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\DirectSound\IDirectSoundBuffer.ahk
+#Include .\DMUS_NOTERANGE.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\DMUS_SYNTHSTATS.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
@@ -52,12 +64,9 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * The ReadBlobFromFile function reads a BLOB in a file.
-     * @param {IDirectMusicBuffer} pBuffer 
-     * @returns {HRESULT} If the function is successful, the return value is NMERR\_SUCCESS.
      * 
-     * If the function is unsuccessful, the return value is a NMERR value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
+     * @param {IDirectMusicBuffer} pBuffer 
+     * @returns {HRESULT} 
      */
     Read(pBuffer) {
         result := ComCall(5, this, "ptr", pBuffer, "HRESULT")
@@ -106,9 +115,8 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * Learn more about: CompactGrbit enumeration
+     * 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/compactgrbit-enumeration
      */
     Compact() {
         result := ComCall(10, this, "HRESULT")
@@ -282,24 +290,9 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * The ActivateActCtx function activates the specified activation context.
-     * @remarks
-     * The <i>lpCookie</i> parameter is later passed to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-deactivateactctx">DeactivateActCtx</a>, which verifies the pairing of calls to 
-     * <b>ActivateActCtx</b> and 
-     * <b>DeactivateActCtx</b> and ensures that the appropriate activation context is being deactivated. This is done because the deactivation of activation contexts must occur in the reverse order of activation.
      * 
-     * The activation of activation contexts can be understood as pushing an activation context onto a stack of activation contexts. The activation context you activate through this function  redirects any binding to DLLs, window classes, COM servers, type libraries, and mutexes for any side-by-side APIs you call.
-     * 
-     * The top item of an activation context stack is the active, default-activation context of the current thread. If a null activation context handle is pushed onto the stack, thereby activating it, the default settings in the original manifest override all activation contexts that are lower on the stack.
      * @param {BOOL} fActive 
-     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
-     * 
-     * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-activateactctx
+     * @returns {HRESULT} 
      */
     Activate(fActive) {
         result := ComCall(15, this, "int", fActive, "HRESULT")
@@ -344,12 +337,11 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetFormatProp
+     * 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
      * @param {Pointer<Integer>} pdwWaveFormatExSize 
      * @param {Pointer<Integer>} pdwBufferSize 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecprops-getformatprop
      */
     GetFormat(pWaveFormatEx, pdwWaveFormatExSize, pdwBufferSize) {
         pdwWaveFormatExSizeMarshal := pdwWaveFormatExSize is VarRef ? "uint*" : "ptr"

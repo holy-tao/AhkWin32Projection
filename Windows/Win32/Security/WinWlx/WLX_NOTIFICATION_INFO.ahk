@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\System\StationsAndDesktops\HDESK.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * This structure stores information about a Winlogon event.

@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IAdvancedMediaCaptureSettings.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables advanced media capture.

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
+#Include .\IMFMediaType.ahk
 #Include .\IMFVideoSampleAllocator.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Allocates video samples that contain Microsoft Direct3D 11 texture surfaces.

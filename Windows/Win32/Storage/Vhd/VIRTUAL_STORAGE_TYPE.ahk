@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains the type and provider (vendor) of the virtual storage device.
@@ -7,9 +8,9 @@
  * @namespace Windows.Win32.Storage.Vhd
  */
 class VIRTUAL_STORAGE_TYPE extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Device type identifier.
@@ -77,10 +78,13 @@ class VIRTUAL_STORAGE_TYPE extends Win32Struct {
 
     /**
      * Vendor-unique identifier.
-     * @type {Pointer}
+     * @type {Guid}
      */
     VendorId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__VendorId"))
+                this.__VendorId := Guid(4, this)
+            return this.__VendorId
+        }
     }
 }

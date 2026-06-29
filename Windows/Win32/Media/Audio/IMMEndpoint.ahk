@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\EDataFlow.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMMEndpoint interface represents an audio endpoint device.

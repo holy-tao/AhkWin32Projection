@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * The EVENT_TRACE_HEADER structure contains standard event tracing information common to all events written by TraceEvent.
@@ -31,7 +32,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
 class EVENT_TRACE_HEADER extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -160,11 +161,14 @@ class EVENT_TRACE_HEADER extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Guid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__Guid"))
+                this.__Guid := Guid(24, this)
+            return this.__Guid
+        }
     }
 
     /**
@@ -179,39 +183,39 @@ class EVENT_TRACE_HEADER extends Win32Struct {
      * @type {Integer}
      */
     KernelTime {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     UserTime {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
      * @type {Integer}
      */
     ProcessorTime {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     ClientContext {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

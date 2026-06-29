@@ -4,8 +4,6 @@
 #Include ..\..\..\Win32Handle.ahk
 
 /**
- * Frees resources on the server side when called by RPC stub files. (BSTR_UserFree)
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_userfree
  * @namespace Windows.Win32.Foundation
  */
 class BSTR extends Win32Handle {
@@ -63,6 +61,7 @@ class BSTR extends Win32Handle {
     ToString(){
         return StrGet(this.value, this.length, "UTF-16")
     }
+    
 
     Free(){
         Foundation.SysFreeString(this.Value)

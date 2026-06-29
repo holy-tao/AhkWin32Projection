@@ -1,17 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IUpdateCollection.ahk
-#Include .\ICategoryCollection.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\IUpdateIdentity.ahk
-#Include .\IImageInformation.ahk
-#Include .\IInstallationBehavior.ahk
-#Include .\IStringCollection.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
+#Include .\IInstallationBehavior.ahk
+#Include .\IImageInformation.ahk
 #Include .\IUpdateDownloadContentCollection.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IUpdateCollection.ahk
+#Include .\IUpdateIdentity.ahk
+#Include .\DeploymentAction.ahk
+#Include .\DownloadPriority.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\UpdateType.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IStringCollection.ahk
+#Include .\ICategoryCollection.ahk
 
 /**
  * Contains the properties and methods that are available to an update. (IUpdate)
@@ -346,7 +351,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_title
      */
     get_Title() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -442,7 +447,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_description
      */
     get_Description() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -467,7 +472,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_eulatext
      */
     get_EulaText() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -498,7 +503,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_handlerid
      */
     get_HandlerID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -737,7 +742,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_msrcseverity
      */
     get_MsrcSeverity() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(34, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -818,7 +823,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_releasenotes
      */
     get_ReleaseNotes() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(38, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -853,7 +858,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_supporturl
      */
     get_SupportUrl() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(41, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -878,7 +883,7 @@ class IUpdate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_uninstallationnotes
      */
     get_UninstallationNotes() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(43, this, "ptr", retval, "HRESULT")
         return retval
     }

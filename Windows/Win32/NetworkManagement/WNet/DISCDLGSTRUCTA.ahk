@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\DISCDLGSTRUCT_FLAGS.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Used in the WNetDisconnectDialog1 function. The structure contains required information for the disconnect attempt. (ANSI)

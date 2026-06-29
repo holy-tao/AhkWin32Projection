@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITCallInfo.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\TAPI_GATHERTERM.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITDigitsGatheredEvent interface exposes methods that allow an application to retrieve data when the TAPI Server sends an event indicating that the Server has gathered digits required by the application.
@@ -83,7 +85,7 @@ class ITDigitsGatheredEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitsgatheredevent-get_digits
      */
     get_Digits() {
-        ppDigits := BSTR()
+        ppDigits := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", ppDigits, "HRESULT")
         return ppDigits
     }

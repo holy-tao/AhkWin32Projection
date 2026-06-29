@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SERVICE_CONFIG_SSL_SNI_KEY.ahk
-#Include ..\WinSock\SOCKADDR_STORAGE.ahk
-#Include ..\WinSock\ADDRESS_FAMILY.ahk
 #Include .\HTTP_SERVICE_CONFIG_SSL_PARAM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\HTTP_SERVICE_CONFIG_SSL_SNI_KEY.ahk
+#Include ..\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\WinSock\SOCKADDR_STORAGE.ahk
 
 /**
  * Used to add a new Secure Sockets Layer (SSL) Server Name Indication (SNI) certificate record to the SSL SNI store or retrieve an existing record from it.
@@ -11,7 +13,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  */
 class HTTP_SERVICE_CONFIG_SSL_SNI_SET extends Win32Struct {
-    static sizeof => 208
+    static sizeof => 216
 
     static packingSize => 8
 

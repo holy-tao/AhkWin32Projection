@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\ITTAPIObjectEvent.ahk
 #Include .\ITPhone.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITTAPIObjectEvent2 interface is an extension of the ITTAPIObjectEvent interface. ITTAPIObjectEvent2 exposes an additional method that returns a pointer to an ITPhone interface on the phone object that caused the TAPI object event.

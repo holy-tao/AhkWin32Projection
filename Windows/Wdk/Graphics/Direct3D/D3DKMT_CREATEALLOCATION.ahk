@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDI_ALLOCATIONINFO2.ahk
 #Include .\D3DKMT_CREATESTANDARDALLOCATION.ahk
 #Include .\D3DDDI_ALLOCATIONINFO.ahk
-#Include .\D3DDDI_ALLOCATIONINFO2.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
 
 /**

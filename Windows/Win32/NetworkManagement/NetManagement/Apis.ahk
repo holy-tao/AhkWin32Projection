@@ -1,8 +1,28 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\Security\PSID.ahk
+#Include .\NETSETUP_NAME_TYPE.ahk
+#Include .\HLOG.ahk
+#Include .\DSREG_JOIN_INFO.ahk
+#Include .\NETSETUP_JOIN_STATUS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\FORCE_LEVEL_FLAGS.ahk
+#Include .\NETSETUP_PROVISION.ahk
+#Include .\NET_USER_ENUM_FILTER_FLAGS.ahk
+#Include .\NETSETUP_PROVISIONING_PARAMS.ahk
+#Include .\NET_SERVER_TYPE.ahk
+#Include .\NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS.ahk
+#Include .\MSA_INFO_ACCOUNT_TYPE.ahk
+#Include .\NET_REQUEST_PROVISION_OPTIONS.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\NET_VALIDATE_PASSWORD_TYPE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include .\NET_JOIN_DOMAIN_JOIN_OPTIONS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\NET_COMPUTER_NAME_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement

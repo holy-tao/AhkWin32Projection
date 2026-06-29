@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IUrlAccessor.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends functionality of the IUrlAccessor interface.

@@ -1,7 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include .\CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE.ahk
+#Include .\CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE.ahk
+#Include .\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk
+#Include .\CREDENTIAL_PROVIDER_STATUS_ICON.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\CREDENTIAL_PROVIDER_FIELD_STATE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ICredentialProviderCredentialEvents.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
@@ -176,7 +186,7 @@ class ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getbitmapvalue
      */
     GetBitmapValue(dwFieldID) {
-        phbmp := HBITMAP()
+        phbmp := HBITMAP({Value: 0}, True)
         result := ComCall(9, this, "uint", dwFieldID, "ptr", phbmp, "HRESULT")
         return phbmp
     }

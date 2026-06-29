@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IX509CertificateTemplate.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IObjectId.ahk
+#Include .\IX509CertificateTemplate.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IX509CertificateTemplates interface defines the following methods and properties that manage a collection of IX509CertificateTemplate objects.

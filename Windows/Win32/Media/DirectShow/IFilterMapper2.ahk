@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\REGPINMEDIUM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IMoniker.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\REGFILTER2.ahk
 #Include ..\..\System\Com\IEnumMoniker.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Registers and unregisters filters, and locates filters in the registry.

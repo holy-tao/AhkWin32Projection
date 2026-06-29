@@ -4,6 +4,9 @@
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IDOMNodeIterator.ahk
 #Include .\IDOMTreeWalker.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

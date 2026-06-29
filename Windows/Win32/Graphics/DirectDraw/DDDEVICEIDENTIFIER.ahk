@@ -1,24 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
- * The DDDEVICEIDENTIFIER2 structure is passed to the IDirectDraw7::GetDeviceIdentifier method to obtain information about a device.
- * @remarks
- * The values in <b>szDriver</b> and <b>szDescription</b> are for presentation to the user only. They should not be used to identify particular drivers because different strings might be associated with the same device, or the same driver from different vendors might be described differently.
- * 
- * 
- * 
- * The <b>dwVendorId</b>, <b>dwDeviceId</b>, <b>dwSubSysId</b>, and <b>dwRevision</b> members can be used to identify particular chipsets, but use extreme caution.
- * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-dddeviceidentifier2
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
 class DDDEVICEIDENTIFIER extends Win32Struct {
-    static sizeof => 1056
+    static sizeof => 1064
 
     static packingSize => 8
 
     /**
-     * Name of the driver.
      * @type {String}
      */
     szDriver {
@@ -27,7 +19,6 @@ class DDDEVICEIDENTIFIER extends Win32Struct {
     }
 
     /**
-     * Description of the driver.
      * @type {String}
      */
     szDescription {
@@ -36,19 +27,6 @@ class DDDEVICEIDENTIFIER extends Win32Struct {
     }
 
     /**
-     * Version of the driver. It is valid to do less than and greater than comparisons on all 64 bits. Caution should be exercised if you use this element to identify problematic drivers; instead, use the <b>guidDeviceIdentifier</b> member for this purpose.
-     * 
-     * The data takes the following form:
-     * 
-     * 
-     * ```
-     * 
-     * wProduct = HIWORD(liDriverVersion.HighPart)
-     * wVersion = LOWORD(liDriverVersion.HighPart)
-     * wSubVersion = HIWORD(liDriverVersion.LowPart)
-     * wBuild = LOWORD(liDriverVersion.LowPart)
-     * 
-     * ```
      * @type {Integer}
      */
     liDriverVersion {
@@ -57,7 +35,6 @@ class DDDEVICEIDENTIFIER extends Win32Struct {
     }
 
     /**
-     * Identifier of the manufacturer. Can be 0 if unknown.
      * @type {Integer}
      */
     dwVendorId {
@@ -66,7 +43,6 @@ class DDDEVICEIDENTIFIER extends Win32Struct {
     }
 
     /**
-     * Identifier of the type of chipset. Can be 0 if unknown.
      * @type {Integer}
      */
     dwDeviceId {
@@ -75,7 +51,6 @@ class DDDEVICEIDENTIFIER extends Win32Struct {
     }
 
     /**
-     * Identifier of the subsystem. Typically, this means the particular board. Can be 0 if unknown.
      * @type {Integer}
      */
     dwSubSysId {
@@ -84,7 +59,6 @@ class DDDEVICEIDENTIFIER extends Win32Struct {
     }
 
     /**
-     * Identifier of the revision level of the chipset. Can be 0 if unknown.
      * @type {Integer}
      */
     dwRevision {
@@ -93,11 +67,13 @@ class DDDEVICEIDENTIFIER extends Win32Struct {
     }
 
     /**
-     * Unique identifier for the driver and chipset pair. Use this value if you want to track changes to the driver or chipset to reprofile the graphics subsystem. It can also be used to identify particular problematic drivers.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidDeviceIdentifier {
-        get => NumGet(this, 1048, "ptr")
-        set => NumPut("ptr", value, this, 1048)
+        get {
+            if(!this.HasProp("__guidDeviceIdentifier"))
+                this.__guidDeviceIdentifier := Guid(1048, this)
+            return this.__guidDeviceIdentifier
+        }
     }
 }

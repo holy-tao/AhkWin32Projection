@@ -1,44 +1,48 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
 class PBDA_TAG_ATTRIBUTE extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     TableUUId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__TableUUId"))
+                this.__TableUUId := Guid(0, this)
+            return this.__TableUUId
+        }
     }
 
     /**
      * @type {Integer}
      */
     TableId {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     VersionNo {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
+        get => NumGet(this, 18, "ushort")
+        set => NumPut("ushort", value, this, 18)
     }
 
     /**
      * @type {Integer}
      */
     TableDataSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -47,7 +51,7 @@ class PBDA_TAG_ATTRIBUTE extends Win32Struct {
     TableData {
         get {
             if(!this.HasProp("__TableDataProxyArray"))
-                this.__TableDataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__TableDataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
             return this.__TableDataProxyArray
         }
     }

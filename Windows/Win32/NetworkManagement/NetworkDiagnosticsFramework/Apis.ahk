@@ -1,5 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Networking\WinSock\SOCKET_ADDRESS_LIST.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\RepairInfoEx.ahk
+#Include .\RootCauseInfo.ahk
+#Include ..\..\Networking\WinSock\SOCKET.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Security\SID.ahk
+#Include .\HELPER_ATTRIBUTE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework

@@ -11,7 +11,7 @@ class DVD_COPY_PROTECT_KEY extends Win32Struct {
 
     static packingSize => 4
 
-    class _Parameters_e__Union extends Win32Struct {
+    class _Parameters extends Win32Struct {
         static sizeof => 8
         static packingSize => 1
 
@@ -68,12 +68,12 @@ class DVD_COPY_PROTECT_KEY extends Win32Struct {
     }
 
     /**
-     * @type {_Parameters_e__Union}
+     * @type {_Parameters}
      */
     Parameters {
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := DVD_COPY_PROTECT_KEY._Parameters_e__Union(16, this)
+                this.__Parameters := DVD_COPY_PROTECT_KEY._Parameters(16, this)
             return this.__Parameters
         }
     }

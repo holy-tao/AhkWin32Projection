@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_ZONE_EXTENDED_REPORT_ZONE_DESC.ahk
 #Include .\NVME_ZONE_DESCRIPTOR.ahk
 #Include .\NVME_ZONE_DESCRIPTOR_EXTENSION.ahk
+#Include .\NVME_ZONE_EXTENDED_REPORT_ZONE_DESC.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Nvme

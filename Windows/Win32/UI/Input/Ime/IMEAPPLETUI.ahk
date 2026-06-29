@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * Used by IImePadApplet::CreateUI to specify applet window style.

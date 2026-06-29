@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\ITuneRequest.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITuneRequestInfo interface is implemented on the BDA MPEG2 Transport Information Filter (TIF) and is used by the Network Provider.

@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include .\IWMOutputMediaProps.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WMT_ATTR_DATATYPE.ahk
+#Include .\WMT_STREAM_SELECTION.ahk
+#Include .\INSSBuffer.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMSyncReader interface provides the ability to read ASF files using synchronous calls.

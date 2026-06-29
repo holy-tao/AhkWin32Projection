@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides detailed contextual error information.
@@ -56,7 +57,7 @@ class IErrorInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-getsource
      */
     GetSource() {
-        pBstrSource := BSTR()
+        pBstrSource := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", pBstrSource, "HRESULT")
         return pBstrSource
     }
@@ -69,7 +70,7 @@ class IErrorInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-getdescription
      */
     GetDescription() {
-        pBstrDescription := BSTR()
+        pBstrDescription := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", pBstrDescription, "HRESULT")
         return pBstrDescription
     }
@@ -82,7 +83,7 @@ class IErrorInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-gethelpfile
      */
     GetHelpFile() {
-        pBstrHelpFile := BSTR()
+        pBstrHelpFile := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", pBstrHelpFile, "HRESULT")
         return pBstrHelpFile
     }

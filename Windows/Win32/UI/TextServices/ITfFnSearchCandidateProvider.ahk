@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITfFunction.ahk
 #Include .\ITfCandidateList.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables an integrated search experience in an Input Method Editor (IME).

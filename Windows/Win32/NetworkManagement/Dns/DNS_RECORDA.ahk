@@ -1,37 +1,39 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DNS_RECORDA.ahk
-#Include .\DNS_RECORD_FLAGS.ahk
-#Include .\DNS_A_DATA.ahk
-#Include .\DNS_SOA_DATAA.ahk
-#Include .\DNS_PTR_DATAA.ahk
-#Include .\DNS_MINFO_DATAA.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\DNS_MX_DATAA.ahk
-#Include .\DNS_TXT_DATAA.ahk
-#Include .\DNS_NULL_DATA.ahk
-#Include .\DNS_WKS_DATA.ahk
-#Include .\DNS_AAAA_DATA.ahk
-#Include .\IP6_ADDRESS.ahk
-#Include .\DNS_KEY_DATA.ahk
-#Include .\DNS_SIG_DATAA.ahk
-#Include .\DNS_ATMA_DATA.ahk
-#Include .\DNS_NXT_DATAA.ahk
-#Include .\DNS_SRV_DATAA.ahk
-#Include .\DNS_NAPTR_DATAA.ahk
-#Include .\DNS_OPT_DATA.ahk
-#Include .\DNS_DS_DATA.ahk
-#Include .\DNS_NSEC_DATAA.ahk
-#Include .\DNS_TKEY_DATAA.ahk
-#Include .\DNS_TSIG_DATAA.ahk
-#Include .\DNS_WINS_DATA.ahk
-#Include .\DNS_WINSR_DATAA.ahk
-#Include .\DNS_DHCID_DATA.ahk
-#Include .\DNS_NSEC3_DATA.ahk
-#Include .\DNS_NSEC3PARAM_DATA.ahk
-#Include .\DNS_TLSA_DATA.ahk
-#Include .\DNS_SVCB_DATA.ahk
 #Include .\DNS_SVCB_PARAM.ahk
+#Include .\DNS_WKS_DATA.ahk
+#Include .\DNS_DHCID_DATA.ahk
+#Include .\DNS_SRV_DATAA.ahk
+#Include .\DNS_WINS_DATA.ahk
+#Include .\DNS_TKEY_DATAA.ahk
+#Include .\DNS_NSEC_DATAA.ahk
+#Include .\DNS_SVCB_DATA.ahk
+#Include .\DNS_NSEC3_DATA.ahk
+#Include .\DNS_RECORD_FLAGS.ahk
+#Include .\IP6_ADDRESS.ahk
+#Include .\DNS_SOA_DATAA.ahk
+#Include .\DNS_OPT_DATA.ahk
+#Include .\DNS_NSEC3PARAM_DATA.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DNS_NULL_DATA.ahk
 #Include .\DNS_UNKNOWN_DATA.ahk
+#Include .\DNS_TLSA_DATA.ahk
+#Include .\DNS_KEY_DATA.ahk
+#Include .\DNS_RECORDA.ahk
+#Include .\DNS_TSIG_DATAA.ahk
+#Include .\DNS_AAAA_DATA.ahk
+#Include .\DNS_SIG_DATAA.ahk
+#Include .\DNS_WINSR_DATAA.ahk
+#Include .\DNS_PTR_DATAA.ahk
+#Include .\DNS_A_DATA.ahk
+#Include .\DNS_NAPTR_DATAA.ahk
+#Include .\DNS_MINFO_DATAA.ahk
+#Include .\DNS_NXT_DATAA.ahk
+#Include .\DNS_TXT_DATAA.ahk
+#Include .\DNS_DS_DATA.ahk
+#Include .\DNS_ATMA_DATA.ahk
 
 /**
  * Stores a DNS resource record (RR). (ANSI)
@@ -55,7 +57,7 @@ class DNS_RECORDA extends Win32Struct {
 
     static packingSize => 8
 
-    class _Flags_e__Union extends Win32Struct {
+    class _Flags extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -79,7 +81,7 @@ class DNS_RECORDA extends Win32Struct {
         }
     }
 
-    class _Data_e__Union extends Win32Struct {
+    class _Data extends Win32Struct {
         static sizeof => 64
         static packingSize => 8
 
@@ -637,12 +639,12 @@ class DNS_RECORDA extends Win32Struct {
     }
 
     /**
-     * @type {_Flags_e__Union}
+     * @type {_Flags}
      */
     Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := DNS_RECORDA._Flags_e__Union(20, this)
+                this.__Flags := DNS_RECORDA._Flags(20, this)
             return this.__Flags
         }
     }
@@ -667,12 +669,12 @@ class DNS_RECORDA extends Win32Struct {
 
     /**
      * The DNS RR data type is determined by <b>wType</b> and is one of the following members:
-     * @type {_Data_e__Union}
+     * @type {_Data}
      */
     Data {
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := DNS_RECORDA._Data_e__Union(32, this)
+                this.__Data := DNS_RECORDA._Data(32, this)
             return this.__Data
         }
     }

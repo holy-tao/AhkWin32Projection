@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1PathGeometry.ahk
+#Include Common\D2D_MATRIX_3X2_F.ahk
 #Include .\D2D1_POINT_DESCRIPTION.ahk
+#Include .\ID2D1PathGeometry.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ID2D1PathGeometry1 interface adds functionality to ID2D1PathGeometry. In particular, it provides the path geometry-specific ComputePointAndSegmentAtLength method.

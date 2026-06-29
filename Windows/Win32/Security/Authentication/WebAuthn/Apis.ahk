@@ -1,5 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\WEBAUTHN_GET_CREDENTIALS_OPTIONS.ahk
+#Include .\WEBAUTHN_ASSERTION.ahk
+#Include .\WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS.ahk
+#Include .\WEBAUTHN_CREDENTIAL_DETAILS_LIST.ahk
+#Include .\WEBAUTHN_CREDENTIAL_ATTESTATION.ahk
+#Include .\WEBAUTHN_AUTHENTICATOR_DETAILS_OPTIONS.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include .\WEBAUTHN_AUTHENTICATOR_DETAILS_LIST.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\WEBAUTHN_COSE_CREDENTIAL_PARAMETERS.ahk
+#Include .\WEBAUTHN_USER_ENTITY_INFORMATION.ahk
+#Include .\WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\WEBAUTHN_RP_ENTITY_INFORMATION.ahk
+#Include .\WEBAUTHN_CLIENT_DATA.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn

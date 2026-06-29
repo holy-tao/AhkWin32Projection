@@ -1,6 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WINBIO_BSP_SCHEMA.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\WINBIO_CREDENTIAL_TYPE.ahk
+#Include .\WINBIO_SETTING_SOURCE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\WINBIO_STORAGE_SCHEMA.ahk
+#Include .\WINBIO_BIR.ahk
+#Include .\WINBIO_CREDENTIAL_STATE.ahk
+#Include .\WINBIO_POOL.ahk
+#Include .\WINBIO_IDENTITY.ahk
+#Include .\WINBIO_CREDENTIAL_FORMAT.ahk
+#Include .\WINBIO_COMPONENT.ahk
+#Include .\WINBIO_ASYNC_NOTIFICATION_METHOD.ahk
+#Include .\WINBIO_UNIT_SCHEMA.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\CSVFS_DISK_CONNECTIVITY.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
 class CSV_QUERY_MDS_PATH_V2 extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -59,25 +60,20 @@ class CSV_QUERY_MDS_PATH_V2 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     VolumeId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__VolumeId"))
+                this.__VolumeId := Guid(28, this)
+            return this.__VolumeId
+        }
     }
 
     /**
      * @type {Integer}
      */
     IpAddressOffset {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    IpAddressLength {
         get => NumGet(this, 44, "uint")
         set => NumPut("uint", value, this, 44)
     }
@@ -85,7 +81,7 @@ class CSV_QUERY_MDS_PATH_V2 extends Win32Struct {
     /**
      * @type {Integer}
      */
-    PathOffset {
+    IpAddressLength {
         get => NumGet(this, 48, "uint")
         set => NumPut("uint", value, this, 48)
     }
@@ -93,8 +89,16 @@ class CSV_QUERY_MDS_PATH_V2 extends Win32Struct {
     /**
      * @type {Integer}
      */
-    PathLength {
+    PathOffset {
         get => NumGet(this, 52, "uint")
         set => NumPut("uint", value, this, 52)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PathLength {
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 }

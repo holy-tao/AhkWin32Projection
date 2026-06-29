@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\HCRYPTPROV_LEGACY.ahk
-#Include .\CMSG_KEY_AGREE_OPTION.ahk
 #Include .\CERT_ID.ahk
+#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CMSG_KEY_AGREE_OPTION.ahk
 
 /**
  * Contains information about a message recipient that is using key agreement key management.

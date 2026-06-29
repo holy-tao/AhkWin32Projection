@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\WDSTRANSPORT_NAMESPACE_TYPE.ahk
 #Include .\IWdsTransportCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a namespace on a WDS transport server.
@@ -145,7 +148,7 @@ class IWdsTransportNamespace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_name
      */
     get_Name() {
-        pbszName := BSTR()
+        pbszName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbszName, "HRESULT")
         return pbszName
     }
@@ -174,7 +177,7 @@ class IWdsTransportNamespace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_friendlyname
      */
     get_FriendlyName() {
-        pbszFriendlyName := BSTR()
+        pbszFriendlyName := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbszFriendlyName, "HRESULT")
         return pbszFriendlyName
     }
@@ -203,7 +206,7 @@ class IWdsTransportNamespace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_description
      */
     get_Description() {
-        pbszDescription := BSTR()
+        pbszDescription := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbszDescription, "HRESULT")
         return pbszDescription
     }
@@ -227,7 +230,7 @@ class IWdsTransportNamespace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_contentprovider
      */
     get_ContentProvider() {
-        pbszContentProvider := BSTR()
+        pbszContentProvider := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbszContentProvider, "HRESULT")
         return pbszContentProvider
     }
@@ -251,7 +254,7 @@ class IWdsTransportNamespace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_configuration
      */
     get_Configuration() {
-        pbszConfiguration := BSTR()
+        pbszConfiguration := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pbszConfiguration, "HRESULT")
         return pbszConfiguration
     }

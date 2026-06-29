@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMAPIProp.ahk
+#Include .\IMessage.ahk
+#Include .\IMAPIAdviseSink.ahk
 #Include .\IMAPITable.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ENTRYID.ahk
+#Include .\NOTIFICATION.ahk
+#Include .\IMAPIProp.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * Describes the properties and vtable order of members for IMsgStore IMAPIProp, which provides access to message store information and to messages and folders.

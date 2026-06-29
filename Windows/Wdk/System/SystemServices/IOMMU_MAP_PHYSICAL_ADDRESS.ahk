@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IOMMU_MAP_PHYSICAL_ADDRESS_TYPE.ahk
 #Include ..\..\Foundation\MDL.ahk
+#Include .\IOMMU_MAP_PHYSICAL_ADDRESS_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

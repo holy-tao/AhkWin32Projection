@@ -180,7 +180,7 @@ class D3D12_STATE_SUBOBJECT_TYPE extends Win32Enum {
     /**
      * @type {Integer (Int32)}
      */
-    static D3D12_STATE_SUBOBJECT_TYPE_COMPILER_EXISITING_COLLECTION => 33
+    static D3D12_STATE_SUBOBJECT_TYPE_COMPILER_EXISTING_COLLECTION => 33
 
     /**
      * @type {Integer (Int32)}

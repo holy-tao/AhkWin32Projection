@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\OBJECT_ATTRIBUTES.ahk
+#Include .\SECTION_INHERIT.ahk
+#Include ..\..\..\Win32\Foundation\HANDLE.ahk
 #Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
 
 /**

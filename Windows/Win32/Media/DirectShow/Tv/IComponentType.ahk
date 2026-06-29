@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\MediaFoundation\AM_MEDIA_TYPE.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\ComponentCategory.ahk
 
 /**
  * The IComponentType interface is implemented on ComponentType objects, and contains methods for setting and retrieving various properties for a Component.
@@ -131,7 +133,7 @@ class IComponentType extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediamajortype
      */
     get_MediaMajorType() {
-        MediaMajorType := BSTR()
+        MediaMajorType := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", MediaMajorType, "HRESULT")
         return MediaMajorType
     }
@@ -181,7 +183,7 @@ class IComponentType extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediasubtype
      */
     get_MediaSubType() {
-        MediaSubType := BSTR()
+        MediaSubType := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", MediaSubType, "HRESULT")
         return MediaSubType
     }
@@ -231,7 +233,7 @@ class IComponentType extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediaformattype
      */
     get_MediaFormatType() {
-        MediaFormatType := BSTR()
+        MediaFormatType := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", MediaFormatType, "HRESULT")
         return MediaFormatType
     }

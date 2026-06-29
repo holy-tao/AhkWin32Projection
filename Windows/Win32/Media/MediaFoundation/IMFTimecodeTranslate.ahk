@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\IMFAsyncResult.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFAsyncCallback.ahk
 
 /**
  * Converts between Society of Motion Picture and Television Engineers (SMPTE) time codes and 100-nanosecond time units.

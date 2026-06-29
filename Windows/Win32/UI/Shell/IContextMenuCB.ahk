@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\IShellFolder.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\System\Com\IDataObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes a method that enables the callback of a context menu. For example, to add a shield icon to a menuItem that requires elevation.

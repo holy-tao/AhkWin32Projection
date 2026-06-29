@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_METADATA_SECTION_LIST.ahk
 #Include .\WSD_METADATA_SECTION.ahk
+#Include .\WSD_METADATA_SECTION_LIST.ahk
 
 /**
  * Represents a node in a single-linked list of metadata sections.

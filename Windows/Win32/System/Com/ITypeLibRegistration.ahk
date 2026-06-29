@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -30,9 +31,8 @@ class ITypeLibRegistration extends IUnknown {
     static VTableNames => ["GetGuid", "GetVersion", "GetLcid", "GetWin32Path", "GetWin64Path", "GetDisplayName", "GetFlags", "GetHelpDir"]
 
     /**
-     * Retrieves the guide used for boxed, lined, or freeform input.
+     * 
      * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getguide
      */
     GetGuid() {
         pGuid := Guid()
@@ -52,7 +52,7 @@ class ITypeLibRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion() {
-        pVersion := BSTR()
+        pVersion := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", pVersion, "HRESULT")
         return pVersion
     }
@@ -71,7 +71,7 @@ class ITypeLibRegistration extends IUnknown {
      * @returns {BSTR} 
      */
     GetWin32Path() {
-        pWin32Path := BSTR()
+        pWin32Path := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", pWin32Path, "HRESULT")
         return pWin32Path
     }
@@ -81,7 +81,7 @@ class ITypeLibRegistration extends IUnknown {
      * @returns {BSTR} 
      */
     GetWin64Path() {
-        pWin64Path := BSTR()
+        pWin64Path := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pWin64Path, "HRESULT")
         return pWin64Path
     }
@@ -91,7 +91,7 @@ class ITypeLibRegistration extends IUnknown {
      * @returns {BSTR} 
      */
     GetDisplayName() {
-        pDisplayName := BSTR()
+        pDisplayName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pDisplayName, "HRESULT")
         return pDisplayName
     }
@@ -110,7 +110,7 @@ class ITypeLibRegistration extends IUnknown {
      * @returns {BSTR} 
      */
     GetHelpDir() {
-        pHelpDir := BSTR()
+        pHelpDir := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pHelpDir, "HRESULT")
         return pHelpDir
     }

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMTileBrush.ahk
-#Include .\IXpsOMImageResource.ahk
 #Include .\IXpsOMColorProfileResource.ahk
+#Include .\IXpsOMImageResource.ahk
+#Include .\IXpsOMTileBrush.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A brush that uses a raster image as a source.

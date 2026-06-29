@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_SAMPLER_DESC2.ahk
 #Include .\ID3D12Device10.ahk
+#Include .\D3D12_CPU_DESCRIPTOR_HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

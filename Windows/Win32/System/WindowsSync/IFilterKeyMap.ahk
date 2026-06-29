@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\ISyncFilter.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
@@ -29,16 +30,9 @@ class IFilterKeyMap extends IUnknown {
     static VTableNames => ["GetCount", "AddFilter", "GetFilter", "Serialize"]
 
     /**
-     * Retrieves the number of tagged elements in a given color profile.
-     * @remarks
-     * This function will fail if *hProfile* is not a valid ICC profile.
      * 
-     * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
      * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} If this function succeeds, the return value is **TRUE**.
-     * 
-     * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcountcolorprofileelements
+     * @returns {HRESULT} 
      */
     GetCount(pdwCount) {
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"

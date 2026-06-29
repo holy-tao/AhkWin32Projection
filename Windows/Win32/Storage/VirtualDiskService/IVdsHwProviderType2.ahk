@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\VDS_HWPROVIDER_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IVdsHwProviderType2 interface (vdshwprv.h) is not implemented. Use IVdsHwProviderType interface (vds.h) instead.

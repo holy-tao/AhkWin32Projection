@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\VIRTUAL_KEY.ahk
+#Include .\HARDWAREINPUT.ahk
 #Include .\INPUT_TYPE.ahk
-#Include .\MOUSEINPUT.ahk
 #Include .\MOUSE_EVENT_FLAGS.ahk
 #Include .\KEYBDINPUT.ahk
-#Include .\VIRTUAL_KEY.ahk
+#Include .\MOUSEINPUT.ahk
 #Include .\KEYBD_EVENT_FLAGS.ahk
-#Include .\HARDWAREINPUT.ahk
 
 /**
  * Used by SendInput to store information for synthesizing input events such as keystrokes, mouse movement, and mouse clicks.

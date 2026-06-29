@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_AUTHENTICATED_QUERY_OUTPUT.ahk
-#Include .\D3D11_OMAC.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3D11_BUS_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_AUTHENTICATED_QUERY_OUTPUT.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D11_OMAC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the response to a D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_ATTRIBUTES query.
@@ -11,7 +14,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
 class D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_OUTPUT extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -32,8 +35,8 @@ class D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_OUTPUT extends Win32Struct {
      * @type {D3D11_BUS_TYPE}
      */
     BusType {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -41,8 +44,8 @@ class D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_OUTPUT extends Win32Struct {
      * @type {BOOL}
      */
     AccessibleInContiguousBlocks {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -50,7 +53,7 @@ class D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_OUTPUT extends Win32Struct {
      * @type {BOOL}
      */
     AccessibleInNonContiguousBlocks {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

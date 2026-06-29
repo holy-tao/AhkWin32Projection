@@ -1,11 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IRTCSession.ahk
+#Include .\RTC_AUDIO_DEVICE.ahk
+#Include .\RTC_VIDEO_DEVICE.ahk
+#Include .\IRTCProfile.ahk
+#Include .\RTC_DTMF.ahk
+#Include .\RTC_T120_APPLET.ahk
+#Include .\RTC_SESSION_TYPE.ahk
+#Include .\RTC_LISTEN_MODE.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\RTC_RING_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\..\Media\DirectShow\IVideoWindow.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRTCSession.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Media\DirectShow\IVideoWindow.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -356,7 +366,7 @@ class IRTCClient extends IUnknown {
      * @returns {BSTR} 
      */
     get_PreferredAudioDevice(enDevice) {
-        pbstrDeviceName := BSTR()
+        pbstrDeviceName := BSTR({Value: 0}, True)
         result := ComCall(21, this, "int", enDevice, "ptr", pbstrDeviceName, "HRESULT")
         return pbstrDeviceName
     }
@@ -418,7 +428,7 @@ class IRTCClient extends IUnknown {
      * @returns {BSTR} 
      */
     get_PreferredVideoDevice() {
-        pbstrDeviceName := BSTR()
+        pbstrDeviceName := BSTR({Value: 0}, True)
         result := ComCall(27, this, "ptr", pbstrDeviceName, "HRESULT")
         return pbstrDeviceName
     }
@@ -513,7 +523,7 @@ class IRTCClient extends IUnknown {
      * @returns {BSTR} 
      */
     get_LocalUserURI() {
-        pbstrUserURI := BSTR()
+        pbstrUserURI := BSTR({Value: 0}, True)
         result := ComCall(37, this, "ptr", pbstrUserURI, "HRESULT")
         return pbstrUserURI
     }
@@ -535,7 +545,7 @@ class IRTCClient extends IUnknown {
      * @returns {BSTR} 
      */
     get_LocalUserName() {
-        pbstrUserName := BSTR()
+        pbstrUserName := BSTR({Value: 0}, True)
         result := ComCall(39, this, "ptr", pbstrUserName, "HRESULT")
         return pbstrUserName
     }

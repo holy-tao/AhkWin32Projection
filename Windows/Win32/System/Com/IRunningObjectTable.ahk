@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Include .\IMoniker.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\IEnumMoniker.ahk
+#Include .\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ROT_FLAGS.ahk
 
 /**
  * Manages access to the running object table (ROT), a globally accessible look-up table on each workstation.

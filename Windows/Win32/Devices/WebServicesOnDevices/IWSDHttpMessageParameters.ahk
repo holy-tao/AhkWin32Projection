@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWSDMessageParameters.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWSDMessageParameters.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to the HTTP headers used when transmitting messages via SOAP-over-HTTP.

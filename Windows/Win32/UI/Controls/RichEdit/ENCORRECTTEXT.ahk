@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\NMHDR.ahk
 #Include ..\..\..\Foundation\HWND.ahk
-#Include .\CHARRANGE.ahk
+#Include ..\NMHDR.ahk
 #Include .\RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE.ahk
+#Include .\CHARRANGE.ahk
 
 /**
  * Contains information about the selected text to be corrected.

@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
+#Include ..\IErrorLog.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\Variant\VARIANT.ahk
+#Include ..\IUnknown.ahk
+#Include .\PROPBAG2.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
- * Windows Imaging Component (WIC) proxy function for IPropertyBag2::Write.
- * @see https://learn.microsoft.com/windows/win32/wic/-wic-codec-ipropertybag2-write-proxy
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
 class IPropertyBag2 extends IUnknown {
@@ -31,13 +33,12 @@ class IPropertyBag2 extends IUnknown {
     static VTableNames => ["Read", "Write", "CountProperties", "GetPropertyInfo", "LoadObject"]
 
     /**
-     * The ReadBlobFromFile function reads a BLOB in a file.
+     * 
      * @param {Integer} cProperties 
      * @param {Pointer<PROPBAG2>} pPropBag 
      * @param {IErrorLog} pErrLog 
      * @param {Pointer<HRESULT>} phrError 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
      */
     Read(cProperties, pPropBag, pErrLog, phrError) {
         phrErrorMarshal := phrError is VarRef ? "int*" : "ptr"
@@ -48,15 +49,11 @@ class IPropertyBag2 extends IUnknown {
     }
 
     /**
-     * The WriteBackRootHintDatafile method writes the RootHints back to the DNS Cache file.
+     * 
      * @param {Integer} cProperties 
      * @param {Pointer<PROPBAG2>} pPropBag 
      * @param {Pointer<VARIANT>} pvarValue 
-     * @returns {HRESULT} This method has no parameters.
-     * 
-     * 
-     * This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-roothints-writebackroothintdatafile
+     * @returns {HRESULT} 
      */
     Write(cProperties, pPropBag, pvarValue) {
         result := ComCall(4, this, "uint", cProperties, "ptr", pPropBag, "ptr", pvarValue, "HRESULT")

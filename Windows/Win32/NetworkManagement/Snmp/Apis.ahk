@@ -1,5 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\SNMP_LOG.ahk
+#Include .\SnmpVarBind.ahk
+#Include .\SNMP_ERROR.ahk
+#Include .\smiVALUE.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\smiOID.ahk
+#Include .\SNMP_API_TRANSLATE_MODE.ahk
+#Include .\SnmpVarBindList.ahk
+#Include .\AsnObjectIdentifier.ahk
+#Include .\SNMP_PDU_TYPE.ahk
+#Include .\SNMP_GENERICTRAP.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\SNMP_ERROR_STATUS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\smiVENDORINFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\AsnAny.ahk
+#Include .\SNMP_STATUS.ahk
+#Include .\smiOCTETS.ahk
+#Include .\AsnOctetString.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Snmp

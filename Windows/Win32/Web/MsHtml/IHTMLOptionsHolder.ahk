@@ -1,13 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLObjectElement.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLDocument2.ahk
-#Include .\IHTMLFontNamesCollection.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLWindow2.ahk
 #Include .\IHTMLFontSizesCollection.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IHTMLWindow2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IHTMLFontNamesCollection.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -237,7 +240,7 @@ class IHTMLOptionsHolder extends IDispatch {
      * @returns {BSTR} 
      */
     get_errorMessage() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", p, "HRESULT")
         return p
     }
@@ -287,7 +290,7 @@ class IHTMLOptionsHolder extends IDispatch {
      * @returns {BSTR} 
      */
     get_findText() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", p, "HRESULT")
         return p
     }
@@ -332,7 +335,7 @@ class IHTMLOptionsHolder extends IDispatch {
      * @returns {BSTR} 
      */
     openfiledlg(initFile, initDir, filter, title) {
-        _pathName := BSTR()
+        _pathName := BSTR({Value: 0}, True)
         result := ComCall(27, this, "ptr", initFile, "ptr", initDir, "ptr", filter, "ptr", title, "ptr", _pathName, "HRESULT")
         return _pathName
     }
@@ -346,7 +349,7 @@ class IHTMLOptionsHolder extends IDispatch {
      * @returns {BSTR} 
      */
     savefiledlg(initFile, initDir, filter, title) {
-        _pathName := BSTR()
+        _pathName := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", initFile, "ptr", initDir, "ptr", filter, "ptr", title, "ptr", _pathName, "HRESULT")
         return _pathName
     }
@@ -397,7 +400,7 @@ class IHTMLOptionsHolder extends IDispatch {
      * @returns {BSTR} 
      */
     get_secureConnectionInfo() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(33, this, "ptr", p, "HRESULT")
         return p
     }

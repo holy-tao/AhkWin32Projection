@@ -1,59 +1,72 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSCOMPONENTID extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 72
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Manufacturer {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__Manufacturer"))
+                this.__Manufacturer := Guid(0, this)
+            return this.__Manufacturer
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Product {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__Product"))
+                this.__Product := Guid(16, this)
+            return this.__Product
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Component {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__Component"))
+                this.__Component := Guid(32, this)
+            return this.__Component
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Name {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__Name"))
+                this.__Name := Guid(48, this)
+            return this.__Name
+        }
     }
 
     /**
      * @type {Integer}
      */
     Version {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     Revision {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 }

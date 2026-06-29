@@ -9,7 +9,7 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct {
 
     static packingSize => 8
 
-    class _StackSpecific_e__Union extends Win32Struct {
+    class _StackSpecific extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -58,7 +58,7 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct {
         ExternalStack {
             get {
                 if(!this.HasProp("__ExternalStack"))
-                    this.__ExternalStack := DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._StackSpecific_e__Union._ExternalStack(0, this)
+                    this.__ExternalStack := DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._StackSpecific._ExternalStack(0, this)
                 return this.__ExternalStack
             }
         }
@@ -69,7 +69,7 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct {
         AtaPort {
             get {
                 if(!this.HasProp("__AtaPort"))
-                    this.__AtaPort := DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._StackSpecific_e__Union._AtaPort(0, this)
+                    this.__AtaPort := DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._StackSpecific._AtaPort(0, this)
                 return this.__AtaPort
             }
         }
@@ -80,7 +80,7 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct {
         StorPort {
             get {
                 if(!this.HasProp("__StorPort"))
-                    this.__StorPort := DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._StackSpecific_e__Union._StorPort(0, this)
+                    this.__StorPort := DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._StackSpecific._StorPort(0, this)
                 return this.__StorPort
             }
         }
@@ -141,12 +141,12 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct {
     }
 
     /**
-     * @type {_StackSpecific_e__Union}
+     * @type {_StackSpecific}
      */
     StackSpecific {
         get {
             if(!this.HasProp("__StackSpecific"))
-                this.__StackSpecific := DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._StackSpecific_e__Union(56, this)
+                this.__StackSpecific := DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._StackSpecific(56, this)
             return this.__StackSpecific
         }
     }

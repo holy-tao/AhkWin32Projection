@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_CONSERVATIVE_RASTERIZATION_TIER.ahk
 #Include .\D3D12_SHADER_MIN_PRECISION_SUPPORT.ahk
 #Include .\D3D12_TILED_RESOURCES_TIER.ahk
-#Include .\D3D12_RESOURCE_BINDING_TIER.ahk
-#Include .\D3D12_CONSERVATIVE_RASTERIZATION_TIER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_CROSS_NODE_SHARING_TIER.ahk
+#Include .\D3D12_RESOURCE_BINDING_TIER.ahk
 #Include .\D3D12_RESOURCE_HEAP_TIER.ahk
 
 /**

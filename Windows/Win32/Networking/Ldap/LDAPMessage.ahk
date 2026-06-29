@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LDAPMessage.ahk
 #Include .\LDAP.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\LDAPMessage.ahk
 
 /**
  * Used by an LDAP function to return results and error data.

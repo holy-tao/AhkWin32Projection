@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * This feature is currently in preview.

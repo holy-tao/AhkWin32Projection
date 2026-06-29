@@ -1,10 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteFontFile.ahk
-#Include .\DWRITE_GLYPH_METRICS.ahk
 #Include .\DWRITE_FONT_METRICS.ahk
+#Include .\DWRITE_GLYPH_OFFSET.ahk
+#Include .\DWRITE_MEASURING_MODE.ahk
+#Include .\IDWriteRenderingParams.ahk
+#Include .\DWRITE_FONT_FACE_TYPE.ahk
+#Include ..\Direct2D\Common\ID2D1SimplifiedGeometrySink.ahk
+#Include .\DWRITE_GLYPH_METRICS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DWRITE_RENDERING_MODE.ahk
+#Include .\DWRITE_MATRIX.ahk
+#Include .\IDWriteFontFile.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DWRITE_FONT_SIMULATIONS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * This interface exposes various font data such as metrics, names, and glyph outlines. It contains font face type, appropriate file references, and face identification data.

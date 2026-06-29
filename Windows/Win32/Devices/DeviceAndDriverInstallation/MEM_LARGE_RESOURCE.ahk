@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MEM_LARGE_DES.ahk
 #Include .\MEM_LARGE_RANGE.ahk
+#Include .\MEM_LARGE_DES.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation

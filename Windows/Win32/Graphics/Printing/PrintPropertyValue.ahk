@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\EPrintPropertyType.ahk
 
 /**
@@ -10,7 +11,7 @@ class PrintPropertyValue extends Win32Struct {
 
     static packingSize => 8
 
-    class _value_e__Union extends Win32Struct {
+    class _value extends Win32Struct {
         static sizeof => 16
         static packingSize => 8
 
@@ -73,7 +74,7 @@ class PrintPropertyValue extends Win32Struct {
         propertyBlob {
             get {
                 if(!this.HasProp("__propertyBlob"))
-                    this.__propertyBlob := PrintPropertyValue._value_e__Union._propertyBlob(0, this)
+                    this.__propertyBlob := PrintPropertyValue._value._propertyBlob(0, this)
                 return this.__propertyBlob
             }
         }
@@ -88,12 +89,12 @@ class PrintPropertyValue extends Win32Struct {
     }
 
     /**
-     * @type {_value_e__Union}
+     * @type {_value}
      */
     value {
         get {
             if(!this.HasProp("__value"))
-                this.__value := PrintPropertyValue._value_e__Union(8, this)
+                this.__value := PrintPropertyValue._value(8, this)
             return this.__value
         }
     }

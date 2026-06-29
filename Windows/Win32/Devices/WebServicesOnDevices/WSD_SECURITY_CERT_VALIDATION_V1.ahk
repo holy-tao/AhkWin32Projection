@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
 #Include ..\..\Security\Cryptography\HCERTSTORE.ahk
+#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
 
 /**
  * Represents the criteria for matching client certificates against those of an HTTPS server.W

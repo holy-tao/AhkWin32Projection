@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Graphics\Direct3D12\D3D12_COMMAND_LIST_SUPPORT_FLAGS.ahk
 
 /**
@@ -10,17 +12,20 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class D3D12_VIDEO_EXTENSION_COMMAND_INFO extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
     /**
      * The unique identifier for the video extension command.
-     * @type {Pointer}
+     * @type {Guid}
      */
     CommandId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__CommandId"))
+                this.__CommandId := Guid(0, this)
+            return this.__CommandId
+        }
     }
 
     /**
@@ -28,8 +33,8 @@ class D3D12_VIDEO_EXTENSION_COMMAND_INFO extends Win32Struct {
      * @type {PWSTR}
      */
     Name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -37,7 +42,7 @@ class D3D12_VIDEO_EXTENSION_COMMAND_INFO extends Win32Struct {
      * @type {D3D12_COMMAND_LIST_SUPPORT_FLAGS}
      */
     CommandListSupportFlags {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

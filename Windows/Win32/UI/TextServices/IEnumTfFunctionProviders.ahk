@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITfFunctionProvider.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IEnumTfFunctionProviders interface is implemented by the TSF manager to provide an enumeration of function provider objects.

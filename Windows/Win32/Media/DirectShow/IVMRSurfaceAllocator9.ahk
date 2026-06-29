@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VMR9AllocationInfo.ahk
+#Include .\IVMRSurfaceAllocatorNotify9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IVMRSurfaceAllocator9 interface is implemented by the default allocator-presenter for the Video Mixing Renderer Filter 9 (VMR-9).

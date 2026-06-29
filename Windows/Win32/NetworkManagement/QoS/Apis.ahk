@@ -1,6 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\System\IO\OVERLAPPED.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\QOS_VERSION.ahk
+#Include .\QOS_QUERY_FLOW.ahk
+#Include .\TCI_CLIENT_FUNC_LIST.ahk
+#Include .\TC_IFC_DESCRIPTOR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\TC_GEN_FILTER.ahk
+#Include .\ENUMERATION_BUFFER.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\QOS_NOTIFY_FLOW.ahk
+#Include .\QOS_SET_FLOW.ahk
+#Include .\QOS_TRAFFIC_TYPE.ahk
+#Include .\TC_GEN_FLOW.ahk
+#Include ..\..\Networking\WinSock\SOCKET.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS

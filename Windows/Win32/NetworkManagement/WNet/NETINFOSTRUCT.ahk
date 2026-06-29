@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\WIN32_ERROR.ahk
 #Include .\NETINFOSTRUCT_CHARACTERISTICS.ahk
+#Include ..\..\Foundation\WIN32_ERROR.ahk
 
 /**
  * Contains information describing the network provider returned by the WNetGetNetworkInformation function.

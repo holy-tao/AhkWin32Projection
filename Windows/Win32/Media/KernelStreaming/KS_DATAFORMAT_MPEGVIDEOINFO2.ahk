@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSDATAFORMAT.ahk
-#Include .\KS_MPEGVIDEOINFO2.ahk
 #Include .\KS_VIDEOINFOHEADER2.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\KSDATAFORMAT.ahk
 #Include .\KS_BITMAPINFOHEADER.ahk
+#Include .\KS_MPEGVIDEOINFO2.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KS_DATAFORMAT_MPEGVIDEOINFO2 extends Win32Struct {
-    static sizeof => 184
+    static sizeof => 208
 
     static packingSize => 8
 
@@ -31,7 +32,7 @@ class KS_DATAFORMAT_MPEGVIDEOINFO2 extends Win32Struct {
     MpegVideoInfoHeader2 {
         get {
             if(!this.HasProp("__MpegVideoInfoHeader2"))
-                this.__MpegVideoInfoHeader2 := KS_MPEGVIDEOINFO2(48, this)
+                this.__MpegVideoInfoHeader2 := KS_MPEGVIDEOINFO2(72, this)
             return this.__MpegVideoInfoHeader2
         }
     }

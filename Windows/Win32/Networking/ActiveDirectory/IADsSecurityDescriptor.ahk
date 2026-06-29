@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to properties on an ADSI security descriptor object.
@@ -157,7 +159,7 @@ class IADsSecurityDescriptor extends IDispatch {
      * @returns {BSTR} 
      */
     get_Owner() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -198,7 +200,7 @@ class IADsSecurityDescriptor extends IDispatch {
      * @returns {BSTR} 
      */
     get_Group() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", retval, "HRESULT")
         return retval
     }

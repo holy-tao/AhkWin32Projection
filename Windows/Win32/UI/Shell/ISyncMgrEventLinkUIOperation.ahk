@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ISyncMgrUIOperation.ahk
+#Include .\ISyncMgrEvent.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides a method that is called when event links are clicked in the sync results folder.

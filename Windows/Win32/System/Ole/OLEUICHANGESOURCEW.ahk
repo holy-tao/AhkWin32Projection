@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CHANGE_SOURCE_FLAGS.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\HRSRC.ahk
-#Include ..\..\UI\Controls\Dialogs\OPENFILENAMEW.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\CHANGE_SOURCE_FLAGS.ahk
 #Include .\IOleUILinkContainerW.ahk
+#Include ..\..\UI\Controls\Dialogs\OPENFILENAMEW.ahk
+#Include ..\..\Foundation\HRSRC.ahk
 
 /**
  * Contains information that is used to initialize the standard Change Source dialog box. (Unicode)

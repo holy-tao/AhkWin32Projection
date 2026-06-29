@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -68,16 +69,12 @@ class IHTMLStorage extends IDispatch {
     }
 
     /**
-     * Synthesizes a keystroke.
-     * @remarks
-     * An application can simulate a press of the PRINTSCRN key in order to obtain a screen snapshot and save it to the clipboard. To do this, call <b>keybd_event</b> with the 
-     * 				<i>bVk</i> parameter set to <b>VK_SNAPSHOT</b>.
+     * 
      * @param {Integer} lIndex 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-keybd_event
      */
     key(lIndex) {
-        __MIDL__IHTMLStorage0000 := BSTR()
+        __MIDL__IHTMLStorage0000 := BSTR({Value: 0}, True)
         result := ComCall(9, this, "int", lIndex, "ptr", __MIDL__IHTMLStorage0000, "HRESULT")
         return __MIDL__IHTMLStorage0000
     }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IShellDispatch5.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IShellDispatch5 object.

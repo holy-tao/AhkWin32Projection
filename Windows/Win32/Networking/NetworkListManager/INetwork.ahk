@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include .\IEnumNetworkConnections.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\NLM_CONNECTIVITY.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\NLM_DOMAIN_TYPE.ahk
+#Include .\NLM_NETWORK_CATEGORY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The INetwork interface represents a network on the local machine. It can also represent a collection of network connections with a similar network signature.
@@ -177,7 +182,7 @@ class INetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getname
      */
     GetName() {
-        pszNetworkName := BSTR()
+        pszNetworkName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pszNetworkName, "HRESULT")
         return pszNetworkName
     }
@@ -232,7 +237,7 @@ class INetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getdescription
      */
     GetDescription() {
-        pszDescription := BSTR()
+        pszDescription := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pszDescription, "HRESULT")
         return pszDescription
     }

@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\FAX_PROVIDER_STATUS_ENUM.ahk
 
 /**
  * The IFaxInboundRoutingExtension interface defines a configuration object used by a fax client application to retrieve information about a fax routing extension registered with the fax service.
@@ -122,7 +125,7 @@ class IFaxInboundRoutingExtension extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_friendlyname
      */
     get_FriendlyName() {
-        pbstrFriendlyName := BSTR()
+        pbstrFriendlyName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrFriendlyName, "HRESULT")
         return pbstrFriendlyName
     }
@@ -135,7 +138,7 @@ class IFaxInboundRoutingExtension extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_imagename
      */
     get_ImageName() {
-        pbstrImageName := BSTR()
+        pbstrImageName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrImageName, "HRESULT")
         return pbstrImageName
     }
@@ -146,7 +149,7 @@ class IFaxInboundRoutingExtension extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_uniquename
      */
     get_UniqueName() {
-        pbstrUniqueName := BSTR()
+        pbstrUniqueName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrUniqueName, "HRESULT")
         return pbstrUniqueName
     }

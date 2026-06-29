@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\PSID.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The GROUP_INFO_3 structure contains information about a global group, including name, security identifier (SID), and resource attributes.

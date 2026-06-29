@@ -1,8 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DVD_RELATIVE_BUTTON.ahk
+#Include .\DVD_MENU_ID.ahk
 #Include .\IDvdCmd.ahk
+#Include .\DVD_HMSF_TIMECODE.ahk
+#Include .\DVD_OPTION_FLAG.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include .\DVD_AUDIO_LANG_EXT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IDvdState.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DVD_SUBPICTURE_LANG_EXT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDvdControl2 interface navigates and plays DVD-Video titles.

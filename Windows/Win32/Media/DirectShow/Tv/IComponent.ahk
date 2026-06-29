@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IComponentType.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\ComponentStatus.ahk
+#Include .\IComponentType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IComponent interface a base class for all derived interfaces such as IMPEG2Component and it describes the general characteristics of a component, which is an elementary stream within the program stream.
@@ -154,7 +156,7 @@ class IComponent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-get_description
      */
     get_Description() {
-        Description := BSTR()
+        Description := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", Description, "HRESULT")
         return Description
     }

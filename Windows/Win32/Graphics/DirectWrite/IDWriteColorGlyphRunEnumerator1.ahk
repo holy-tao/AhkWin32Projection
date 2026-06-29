@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDWriteColorGlyphRunEnumerator.ahk
+#Include .\DWRITE_COLOR_GLYPH_RUN1.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enumerator for an ordered collection of color glyph runs.

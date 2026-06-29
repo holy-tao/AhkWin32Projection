@@ -1,6 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWSDAddress.ahk
+#Include .\IWSDDeviceHostNotify.ahk
+#Include .\WSD_HOST_METADATA.ahk
+#Include .\WSDXML_NAME.ahk
+#Include .\WSD_PORT_TYPE.ahk
+#Include .\WSDXML_ELEMENT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WSD_THIS_DEVICE_METADATA.ahk
+#Include .\WSD_METADATA_SECTION_LIST.ahk
+#Include .\WSD_OPERATION.ahk
+#Include .\IWSDXMLContext.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\WSD_THIS_MODEL_METADATA.ahk
+#Include .\WSD_URI_LIST.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

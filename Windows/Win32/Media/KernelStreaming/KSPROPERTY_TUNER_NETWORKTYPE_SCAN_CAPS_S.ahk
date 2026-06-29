@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\KSIDENTIFIER.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSPROPERTY_TUNER_NETWORKTYPE_SCAN_CAPS_S extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -22,26 +23,29 @@ class KSPROPERTY_TUNER_NETWORKTYPE_SCAN_CAPS_S extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     NetworkType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__NetworkType"))
+                this.__NetworkType := Guid(24, this)
+            return this.__NetworkType
+        }
     }
 
     /**
      * @type {Integer}
      */
     BufferSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     NetworkTunerCapabilities {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_ADDRESS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\PEER_CREDENTIAL_INFO.ahk
+#Include .\PEER_ADDRESS.ahk
 
 /**
  * The PEER_MEMBER structure contains information that describes a member of a peer group.

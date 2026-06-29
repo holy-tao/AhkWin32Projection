@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\Diagnostics\Debug\ARM64_NT_NEON128.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\Diagnostics\Debug\CONTEXT_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Diagnostics\Debug\EXCEPTION_RECORD.ahk
 #Include ..\Diagnostics\Debug\CONTEXT.ahk
-#Include ..\Diagnostics\Debug\CONTEXT_FLAGS.ahk
-#Include ..\Diagnostics\Debug\ARM64_NT_NEON128.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the exception information that you use to determine whether you want to claim the crash.

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SCESVC_INFO_TYPE.ahk
+#Include .\ISceSvcAttachmentPersistInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ISceSvcAttachmentData interface retrieves configuration and analysis data about a specified security service from the Security Configuration snap-ins.

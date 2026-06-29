@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\HrtfDirectivity.ahk
 #Include .\HrtfDirectivityType.ahk
+#Include .\HrtfDirectivity.ahk
 
 /**
  * Describes a cardioid directivity pattern.

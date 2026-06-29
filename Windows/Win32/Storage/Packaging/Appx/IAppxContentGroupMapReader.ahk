@@ -2,8 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IAppxContentGroup.ahk
 #Include .\IAppxContentGroupsEnumerator.ahk
+#Include .\IAppxContentGroup.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Gets information about a content group map.

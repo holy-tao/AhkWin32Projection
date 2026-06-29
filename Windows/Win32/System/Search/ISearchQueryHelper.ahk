@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SEARCH_COLUMN_PROPERTIES.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\SEARCH_TERM_EXPANSION.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\SEARCH_QUERY_SYNTAX.ahk
 
 /**
  * Provides methods for building a query from user input, converting a query to Windows Search SQL, and obtaining a connection string to initialize a connection to the Window Search index.

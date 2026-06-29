@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_OPTIONAL_HEADER_MAGIC.ahk
+#Include .\IMAGE_DATA_DIRECTORY.ahk
 #Include .\IMAGE_SUBSYSTEM.ahk
 #Include .\IMAGE_DLL_CHARACTERISTICS.ahk
-#Include .\IMAGE_DATA_DIRECTORY.ahk
+#Include .\IMAGE_OPTIONAL_HEADER_MAGIC.ahk
 
 /**
  * Represents the optional header format. (32 bit)

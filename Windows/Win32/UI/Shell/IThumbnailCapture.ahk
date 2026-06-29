@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes a method that obtains a thumbnail representation of an HTML wallpaper.
@@ -44,7 +46,7 @@ class IThumbnailCapture extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-ithumbnailcapture-capturethumbnail
      */
     CaptureThumbnail(pMaxSize, pHTMLDoc2) {
-        phbmThumbnail := HBITMAP()
+        phbmThumbnail := HBITMAP({Value: 0}, True)
         result := ComCall(3, this, "ptr", pMaxSize, "ptr", pHTMLDoc2, "ptr", phbmThumbnail, "HRESULT")
         return phbmThumbnail
     }

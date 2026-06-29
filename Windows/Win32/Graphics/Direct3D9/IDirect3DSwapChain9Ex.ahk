@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDirect3DSwapChain9.ahk
+#Include .\D3DDISPLAYMODEEX.ahk
+#Include .\D3DDISPLAYROTATION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3DPRESENTSTATS.ahk
 
 /**
  * Applications use the methods of the IDirect3DSwapChain9Ex interface to manipulate a swap chain.

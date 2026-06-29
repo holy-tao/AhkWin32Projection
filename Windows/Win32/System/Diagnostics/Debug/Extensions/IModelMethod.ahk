@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IKeyStore.ahk
+#Include .\IModelObject.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -28,14 +31,13 @@ class IModelMethod extends IUnknown {
     static VTableNames => ["Call"]
 
     /**
-     * A shader that is invoked from another shader with the CallShader intrinsic.
+     * 
      * @param {IModelObject} pContextObject 
      * @param {Integer} argCount 
      * @param {Pointer<IModelObject>} ppArguments 
      * @param {Pointer<IModelObject>} ppResult 
      * @param {Pointer<IKeyStore>} ppMetadata 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/direct3d12/callable-shader
      */
     Call(pContextObject, argCount, ppArguments, ppResult, ppMetadata) {
         result := ComCall(3, this, "ptr", pContextObject, "uint", argCount, "ptr*", ppArguments, "ptr*", ppResult, "ptr*", ppMetadata, "HRESULT")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\TXFS_RMF_LAGS.ahk
 
 /**
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.System.Ioctl
  */
 class TXFS_QUERY_RM_INFORMATION extends Win32Struct {
-    static sizeof => 168
+    static sizeof => 176
 
     static packingSize => 8
 
@@ -314,11 +315,14 @@ class TXFS_QUERY_RM_INFORMATION extends Win32Struct {
 
     /**
      * The <b>GUID</b> that indicates the name of this RM.
-     * @type {Pointer}
+     * @type {Guid}
      */
     RMName {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
+        get {
+            if(!this.HasProp("__RMName"))
+                this.__RMName := Guid(152, this)
+            return this.__RMName
+        }
     }
 
     /**
@@ -327,7 +331,7 @@ class TXFS_QUERY_RM_INFORMATION extends Win32Struct {
      * @type {Integer}
      */
     TmLogPathOffset {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
+        get => NumGet(this, 168, "uint")
+        set => NumPut("uint", value, this, 168)
     }
 }

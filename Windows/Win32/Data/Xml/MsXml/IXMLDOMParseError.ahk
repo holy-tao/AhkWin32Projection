@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -91,7 +92,7 @@ class IXMLDOMParseError extends IDispatch {
      * @returns {BSTR} 
      */
     get_url() {
-        urlString := BSTR()
+        urlString := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", urlString, "HRESULT")
         return urlString
     }
@@ -101,7 +102,7 @@ class IXMLDOMParseError extends IDispatch {
      * @returns {BSTR} 
      */
     get_reason() {
-        reasonString := BSTR()
+        reasonString := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", reasonString, "HRESULT")
         return reasonString
     }
@@ -111,7 +112,7 @@ class IXMLDOMParseError extends IDispatch {
      * @returns {BSTR} 
      */
     get_srcText() {
-        sourceString := BSTR()
+        sourceString := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", sourceString, "HRESULT")
         return sourceString
     }

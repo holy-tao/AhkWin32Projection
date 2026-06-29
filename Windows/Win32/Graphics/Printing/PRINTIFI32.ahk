@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Gdi\PAN_MIDLINE.ahk
 #Include ..\..\Foundation\POINTL.ahk
-#Include ..\..\Foundation\RECTL.ahk
-#Include ..\Gdi\PANOSE.ahk
 #Include ..\Gdi\PAN_FAMILY_TYPE.ahk
-#Include ..\Gdi\PAN_SERIF_STYLE.ahk
+#Include ..\Gdi\PAN_STROKE_VARIATION.ahk
 #Include ..\Gdi\PAN_WEIGHT.ahk
 #Include ..\Gdi\PAN_PROPORTION.ahk
-#Include ..\Gdi\PAN_CONTRAST.ahk
-#Include ..\Gdi\PAN_STROKE_VARIATION.ahk
-#Include ..\Gdi\PAN_ARM_STYLE.ahk
-#Include ..\Gdi\PAN_LETT_FORM.ahk
-#Include ..\Gdi\PAN_MIDLINE.ahk
 #Include ..\Gdi\PAN_XHEIGHT.ahk
+#Include ..\Gdi\PAN_LETT_FORM.ahk
+#Include ..\Gdi\PANOSE.ahk
+#Include ..\Gdi\PAN_SERIF_STYLE.ahk
+#Include ..\..\Foundation\RECTL.ahk
+#Include ..\Gdi\PAN_CONTRAST.ahk
+#Include ..\Gdi\PAN_ARM_STYLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

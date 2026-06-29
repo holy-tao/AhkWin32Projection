@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -13,17 +14,20 @@
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  */
 class CorrelationId extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A globally unique identifier (GUID) that identifies a SoH  exchange.
-     * @type {Pointer}
+     * @type {Guid}
      */
     connId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__connId"))
+                this.__connId := Guid(0, this)
+            return this.__connId
+        }
     }
 
     /**
@@ -33,7 +37,7 @@ class CorrelationId extends Win32Struct {
     timeStamp {
         get {
             if(!this.HasProp("__timeStamp"))
-                this.__timeStamp := FILETIME(8, this)
+                this.__timeStamp := FILETIME(16, this)
             return this.__timeStamp
         }
     }

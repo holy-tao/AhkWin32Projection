@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\MediaFoundation\AM_MEDIA_TYPE.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Describes a stream captured by a tuner.
@@ -9,7 +11,7 @@
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
 class DVR_STREAM_DESC extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 144
 
     static packingSize => 8
 
@@ -59,20 +61,26 @@ class DVR_STREAM_DESC extends Win32Struct {
 
     /**
      * Specifies the GUID corresponding to the media subtype.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidSubMediaType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__guidSubMediaType"))
+                this.__guidSubMediaType := Guid(20, this)
+            return this.__guidSubMediaType
+        }
     }
 
     /**
      * Specifies the GUID corresponding to the major media type of the stream.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidFormatType {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__guidFormatType"))
+                this.__guidFormatType := Guid(36, this)
+            return this.__guidFormatType
+        }
     }
 
     /**
@@ -82,7 +90,7 @@ class DVR_STREAM_DESC extends Win32Struct {
     MediaType {
         get {
             if(!this.HasProp("__MediaType"))
-                this.__MediaType := AM_MEDIA_TYPE(40, this)
+                this.__MediaType := AM_MEDIA_TYPE(56, this)
             return this.__MediaType
         }
     }

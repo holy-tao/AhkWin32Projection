@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTS_CACHE_STATS_UN.ahk
 #Include .\WTS_PROTOCOL_CACHE.ahk
+#Include .\WTS_CACHE_STATS_UN.ahk
 
 /**
  * Contains protocol cache statistics.

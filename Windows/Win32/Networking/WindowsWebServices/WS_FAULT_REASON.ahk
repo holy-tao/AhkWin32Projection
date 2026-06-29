@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_STRING.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains an explanation of the fault.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\KSIDENTIFIER.ahk
 #Include .\KS_AMVPSIZE.ahk
 
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSVPSIZE_PROP extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -28,7 +29,7 @@ class KSVPSIZE_PROP extends Win32Struct {
     Size {
         get {
             if(!this.HasProp("__Size"))
-                this.__Size := KS_AMVPSIZE(16, this)
+                this.__Size := KS_AMVPSIZE(24, this)
             return this.__Size
         }
     }

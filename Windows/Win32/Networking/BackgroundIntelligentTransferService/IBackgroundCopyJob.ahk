@@ -1,12 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumBackgroundCopyFiles.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\BG_JOB_PROGRESS.ahk
 #Include .\BG_JOB_TIMES.ahk
+#Include .\BG_JOB_PROGRESS.ahk
+#Include .\BG_JOB_PRIORITY.ahk
+#Include .\BG_JOB_TYPE.ahk
 #Include .\IBackgroundCopyError.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\BG_JOB_STATE.ahk
+#Include .\BG_JOB_PROXY_USAGE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\BG_FILE_INFO.ahk
 #Include ..\..\System\Com\Apis.ahk
 
 /**

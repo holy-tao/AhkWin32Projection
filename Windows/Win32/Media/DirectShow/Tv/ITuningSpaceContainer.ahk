@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
-#Include .\ITuningSpace.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\ITuningSpaces.ahk
+#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IEnumTuningSpaces.ahk
+#Include .\ITuningSpace.ahk
 
 /**
  * The ITuningSpaceContainer interface is implemented on the SystemTuningSpaces object.

@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IAudioFormatEnumerator.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\AudioObjectType.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\WAVEFORMATEX.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ISpatialAudioClient interface enables a client to create audio streams that emit audio from a position in 3D space.

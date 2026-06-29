@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPrintSchemaTicket.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IPrintSchemaParameterInitializer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPrintSchemaTicket.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

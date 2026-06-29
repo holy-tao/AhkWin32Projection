@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
 #Include .\INET_FIREWALL_AC_CHANGE_TYPE.ahk
-#Include .\INET_FIREWALL_AC_CREATION_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Security\SID.ahk
 #Include .\INET_FIREWALL_AC_CAPABILITIES.ahk
-#Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
+#Include .\INET_FIREWALL_AC_CREATION_TYPE.ahk
 #Include .\INET_FIREWALL_AC_BINARIES.ahk
 
 /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a workstation environment, including platform-specific information, the names of the domain and the local computer, and information concerning the operating system.

@@ -1,19 +1,46 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\IDataAdviseHolder.ahk
-#Include .\IMoniker.ahk
-#Include .\IBindCtx.ahk
-#Include .\IRunningObjectTable.ahk
 #Include .\IBindStatusCallback.ahk
+#Include .\RPC_C_IMP_LEVEL.ahk
+#Include .\IInitializeSpy.ahk
+#Include .\QUERYCONTEXT.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\CLSCTX.ahk
+#Include .\IRunningObjectTable.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\BIND_OPTS.ahk
+#Include .\COSERVERINFO.ahk
+#Include .\COMSD.ahk
 #Include .\IMalloc.ahk
+#Include .\IChannelHook.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 #Include .\CO_MTA_USAGE_COOKIE.ahk
-#Include .\IUnknown.ahk
-#Include .\CO_DEVICE_CATALOG_COOKIE.ahk
-#Include .\IUri.ahk
-#Include .\IUriBuilder.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\MULTI_QI.ahk
 #Include .\IErrorInfo.ahk
+#Include .\IDataAdviseHolder.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\uCLSSPEC.ahk
+#Include .\URI_CREATE_FLAGS.ahk
+#Include .\RPC_C_AUTHN_LEVEL.ahk
+#Include .\IUriBuilder.ahk
+#Include .\IUnknown.ahk
+#Include .\IActivationFilter.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SOLE_AUTHENTICATION_SERVICE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IMallocSpy.ahk
+#Include .\ISurrogate.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\IUri.ahk
+#Include .\APTTYPE.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include .\APTTYPEQUALIFIER.ahk
+#Include .\CO_DEVICE_CATALOG_COOKIE.ahk
+#Include .\IBindCtx.ahk
+#Include .\IMoniker.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -1871,7 +1898,7 @@ class Com {
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coincrementmtausage
      */
     static CoIncrementMTAUsage() {
-        pCookie := CO_MTA_USAGE_COOKIE()
+        pCookie := CO_MTA_USAGE_COOKIE({Value: 0}, True)
         result := DllCall("OLE32.dll\CoIncrementMTAUsage", "ptr", pCookie, "HRESULT")
         return pCookie
     }
@@ -3903,7 +3930,7 @@ class Com {
     static CoRegisterDeviceCatalog(deviceInstanceId) {
         deviceInstanceId := deviceInstanceId is String ? StrPtr(deviceInstanceId) : deviceInstanceId
 
-        cookie := CO_DEVICE_CATALOG_COOKIE()
+        cookie := CO_DEVICE_CATALOG_COOKIE({Value: 0}, True)
         result := DllCall("OLE32.dll\CoRegisterDeviceCatalog", "ptr", deviceInstanceId, "ptr", cookie, "HRESULT")
         return cookie
     }

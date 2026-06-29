@@ -1,22 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\MINIDUMP_MODULE_CALLBACK.ahk
 #Include .\MINIDUMP_THREAD_CALLBACK.ahk
+#Include .\MINIDUMP_INCLUDE_THREAD_CALLBACK.ahk
+#Include .\MINIDUMP_READ_MEMORY_FAILURE_CALLBACK.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\MINIDUMP_VM_PRE_READ_CALLBACK.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\CONTEXT.ahk
+#Include .\MINIDUMP_VM_QUERY_CALLBACK.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\MINIDUMP_VM_POST_READ_CALLBACK.ahk
+#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk
+#Include .\MINIDUMP_INCLUDE_MODULE_CALLBACK.ahk
 #Include .\CONTEXT_FLAGS.ahk
 #Include .\ARM64_NT_NEON128.ahk
 #Include .\MINIDUMP_THREAD_EX_CALLBACK.ahk
-#Include .\MINIDUMP_MODULE_CALLBACK.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk
 #Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_OS.ahk
-#Include .\MINIDUMP_INCLUDE_THREAD_CALLBACK.ahk
-#Include .\MINIDUMP_INCLUDE_MODULE_CALLBACK.ahk
 #Include .\MINIDUMP_IO_CALLBACK.ahk
-#Include .\MINIDUMP_READ_MEMORY_FAILURE_CALLBACK.ahk
-#Include .\MINIDUMP_VM_QUERY_CALLBACK.ahk
-#Include .\MINIDUMP_VM_PRE_READ_CALLBACK.ahk
-#Include .\MINIDUMP_VM_POST_READ_CALLBACK.ahk
+#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk
 
 /**
  * Contains information used by the MiniDumpCallback function.

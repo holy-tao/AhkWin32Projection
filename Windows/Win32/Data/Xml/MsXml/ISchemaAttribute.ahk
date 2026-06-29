@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ISchemaItem.ahk
-#Include .\ISchemaType.ahk
-#Include .\ISchemaComplexType.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ISchemaItem.ahk
+#Include .\SCHEMAUSE.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\ISchemaType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ISchemaComplexType.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -95,7 +98,7 @@ class ISchemaAttribute extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_defaultValue() {
-        defaultValue := BSTR()
+        defaultValue := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", defaultValue, "HRESULT")
         return defaultValue
     }
@@ -105,7 +108,7 @@ class ISchemaAttribute extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_fixedValue() {
-        fixedValue := BSTR()
+        fixedValue := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", fixedValue, "HRESULT")
         return fixedValue
     }

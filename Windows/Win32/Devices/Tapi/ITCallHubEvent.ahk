@@ -2,8 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITCallHub.ahk
 #Include .\ITCallInfo.ahk
+#Include .\CALLHUB_EVENT.ahk
+#Include .\ITCallHub.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITCallHubEvent interface contains methods that retrieve the description of CallHub events.

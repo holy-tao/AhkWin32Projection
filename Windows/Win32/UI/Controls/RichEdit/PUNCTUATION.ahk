@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about the punctuation used in a rich edit control.

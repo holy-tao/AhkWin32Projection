@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_CHANNEL_PROPERTIES.ahk
-#Include .\WS_CHANNEL_PROPERTY.ahk
-#Include .\WS_SECURITY_PROPERTIES.ahk
-#Include .\WS_SECURITY_PROPERTY.ahk
-#Include .\WS_SSL_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
-#Include .\WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION.ahk
-#Include .\WS_MESSAGE_SECURITY_USAGE.ahk
 #Include .\WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION.ahk
 #Include .\WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION.ahk
+#Include .\WS_SECURITY_PROPERTIES.ahk
+#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
+#Include .\WS_SECURITY_PROPERTY.ahk
+#Include .\WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION.ahk
+#Include .\WS_CHANNEL_PROPERTIES.ahk
+#Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
+#Include .\WS_CHANNEL_PROPERTY.ahk
+#Include .\WS_SSL_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION.ahk
+#Include .\WS_MESSAGE_SECURITY_USAGE.ahk
 
 /**
  * Describes the policy specifying security context message binding over http channel binding, with SSL transport security. The bootstrap channel uses http channel binding with SSL transport security and username/password message security.

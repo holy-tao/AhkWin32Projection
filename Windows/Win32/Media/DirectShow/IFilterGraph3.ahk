@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IBaseFilter.ahk
 #Include .\IFilterGraph2.ahk
+#Include ..\IReferenceClock.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFilterGraph3 interface extends the IFilterGraph2 interface, which contains methods for building filter graphs.The Filter Graph Manager implements this interface.

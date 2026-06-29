@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IEnumUnknown.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ENUM_CONTROLS_WHICH_FLAGS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to all the controls on a Visual Basic container.

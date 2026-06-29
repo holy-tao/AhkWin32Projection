@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\DL_EUI48.ahk
-#Include ..\..\Networking\WinSock\DL_OUI.ahk
-#Include ..\..\Networking\WinSock\DL_EI48.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include .\WNV_IP_ADDRESS.ahk
 #Include ..\..\Networking\WinSock\IN_ADDR.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Include ..\..\Networking\WinSock\DL_EUI48.ahk
 #Include .\WNV_CA_NOTIFICATION_TYPE.ahk
+#Include ..\..\Networking\WinSock\DL_EI48.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\..\Networking\WinSock\DL_OUI.ahk
+#Include .\WNV_IP_ADDRESS.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization

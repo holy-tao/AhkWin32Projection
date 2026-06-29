@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\DML_TENSOR_DESC.ahk
-#Include .\DML_SIZE_2D.ahk
 #Include .\DML_INTERPOLATION_MODE.ahk
+#Include .\DML_SIZE_2D.ahk
 
 /**
  * Upsamples the input image, writing the result into the output tensor. The order of the dimensions should be NCHW (BatchSize, ChannelCount, Height, Width) or NCDHW (BatchSize, ChannelCount, Depth, Height, Width), but strides can be used if the data is stored in a different format.

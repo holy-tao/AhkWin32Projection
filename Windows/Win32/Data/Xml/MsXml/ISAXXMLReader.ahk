@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\ISAXEntityResolver.ahk
 #Include .\ISAXContentHandler.ahk
 #Include .\ISAXDTDHandler.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\ISAXEntityResolver.ahk
 #Include .\ISAXErrorHandler.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

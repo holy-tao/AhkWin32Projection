@@ -1,9 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteInlineObject.ahk
+#Include .\DWRITE_FONT_STRETCH.ahk
+#Include .\DWRITE_READING_DIRECTION.ahk
+#Include .\DWRITE_FONT_WEIGHT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IDWriteFontCollection.ahk
+#Include .\DWRITE_FLOW_DIRECTION.ahk
+#Include .\DWRITE_PARAGRAPH_ALIGNMENT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DWRITE_FONT_STYLE.ahk
+#Include .\DWRITE_TRIMMING.ahk
+#Include .\DWRITE_TEXT_ALIGNMENT.ahk
+#Include .\DWRITE_WORD_WRAPPING.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDWriteInlineObject.ahk
+#Include .\DWRITE_LINE_SPACING_METHOD.ahk
 
 /**
  * The IDWriteTextFormat interface describes the font and paragraph properties used to format text, and it describes locale information.

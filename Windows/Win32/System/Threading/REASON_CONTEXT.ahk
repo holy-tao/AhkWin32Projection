@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\POWER_REQUEST_CONTEXT_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HMODULE.ahk
+#Include .\POWER_REQUEST_CONTEXT_FLAGS.ahk
 
 /**
  * Contains information about a power request. This structure is used by the PowerCreateRequest and SetWaitableTimerEx functions.
@@ -15,7 +16,7 @@ class REASON_CONTEXT extends Win32Struct {
 
     static packingSize => 8
 
-    class _Reason_e__Union extends Win32Struct {
+    class _Reason extends Win32Struct {
         static sizeof => 24
         static packingSize => 8
 
@@ -65,7 +66,7 @@ class REASON_CONTEXT extends Win32Struct {
         Detailed {
             get {
                 if(!this.HasProp("__Detailed"))
-                    this.__Detailed := REASON_CONTEXT._Reason_e__Union._Detailed(0, this)
+                    this.__Detailed := REASON_CONTEXT._Reason._Detailed(0, this)
                 return this.__Detailed
             }
         }
@@ -99,12 +100,12 @@ class REASON_CONTEXT extends Win32Struct {
 
     /**
      * A union that consists of either a <b>Detailed</b> structure or a string.
-     * @type {_Reason_e__Union}
+     * @type {_Reason}
      */
     Reason {
         get {
             if(!this.HasProp("__Reason"))
-                this.__Reason := REASON_CONTEXT._Reason_e__Union(8, this)
+                this.__Reason := REASON_CONTEXT._Reason(8, this)
             return this.__Reason
         }
     }

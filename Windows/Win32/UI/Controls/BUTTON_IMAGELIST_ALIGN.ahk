@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Align the image with the bottom margin
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-button_imagelist
  * @namespace Windows.Win32.UI.Controls
  */
 class BUTTON_IMAGELIST_ALIGN extends Win32Enum {

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SdpQueryUuid.ahk
-#Include .\SdpQueryUuidUnion.ahk
 #Include .\SdpAttributeRange.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\SdpQueryUuidUnion.ahk
 
 /**
  * The BTH_QUERY_SERVICE structure is used to query a Bluetooth service.
@@ -15,9 +16,9 @@
  * @namespace Windows.Win32.Devices.Bluetooth
  */
 class BTH_QUERY_SERVICE extends Win32Struct {
-    static sizeof => 304
+    static sizeof => 352
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type of service to perform. Choose from the following:
@@ -60,8 +61,8 @@ class BTH_QUERY_SERVICE extends Win32Struct {
      * @type {Integer}
      */
     numRange {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
+        get => NumGet(this, 344, "uint")
+        set => NumPut("uint", value, this, 344)
     }
 
     /**
@@ -72,7 +73,7 @@ class BTH_QUERY_SERVICE extends Win32Struct {
     pRange {
         get {
             if(!this.HasProp("__pRangeProxyArray"))
-                this.__pRangeProxyArray := Win32FixedArray(this.ptr + 300, 1, SdpAttributeRange, "")
+                this.__pRangeProxyArray := Win32FixedArray(this.ptr + 348, 1, SdpAttributeRange, "")
             return this.__pRangeProxyArray
         }
     }

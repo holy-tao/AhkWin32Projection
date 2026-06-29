@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * Specifies a Unicode or ANSI character and its attributes. This structure is used by console functions to read from and write to a console screen buffer.
@@ -11,7 +12,7 @@ class CHAR_INFO extends Win32Struct {
 
     static packingSize => 2
 
-    class _Char_e__Union extends Win32Struct {
+    class _Char extends Win32Struct {
         static sizeof => 2
         static packingSize => 2
 
@@ -34,12 +35,12 @@ class CHAR_INFO extends Win32Struct {
 
     /**
      * A union of the following members.
-     * @type {_Char_e__Union}
+     * @type {_Char}
      */
     Char {
         get {
             if(!this.HasProp("__Char"))
-                this.__Char := CHAR_INFO._Char_e__Union(0, this)
+                this.__Char := CHAR_INFO._Char(0, this)
             return this.__Char
         }
     }

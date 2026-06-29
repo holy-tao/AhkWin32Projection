@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_DRED_ALLOCATION_TYPE.ahk
 #Include .\D3D12_DRED_ALLOCATION_NODE1.ahk
+#Include .\D3D12_DRED_ALLOCATION_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

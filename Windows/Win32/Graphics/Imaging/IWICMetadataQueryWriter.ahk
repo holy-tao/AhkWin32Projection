@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IWICMetadataQueryReader.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods for setting or removing metadata blocks and items to an encoder or its image frames using a metadata query expression.

@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IHTMLDOMAttribute2.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLAttributeCollection3.ahk
 
 /**
@@ -323,7 +325,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_role() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -345,7 +347,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaBusy() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", p, "HRESULT")
         return p
     }
@@ -367,7 +369,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaChecked() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", p, "HRESULT")
         return p
     }
@@ -389,7 +391,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaDisabled() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", p, "HRESULT")
         return p
     }
@@ -411,7 +413,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaExpanded() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", p, "HRESULT")
         return p
     }
@@ -433,7 +435,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaHaspopup() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", p, "HRESULT")
         return p
     }
@@ -455,7 +457,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaHidden() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", p, "HRESULT")
         return p
     }
@@ -477,7 +479,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaInvalid() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", p, "HRESULT")
         return p
     }
@@ -499,7 +501,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaMultiselectable() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", p, "HRESULT")
         return p
     }
@@ -521,7 +523,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaPressed() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", p, "HRESULT")
         return p
     }
@@ -543,7 +545,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaReadonly() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(32, this, "ptr", p, "HRESULT")
         return p
     }
@@ -565,7 +567,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaRequired() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(34, this, "ptr", p, "HRESULT")
         return p
     }
@@ -587,7 +589,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaSecret() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(36, this, "ptr", p, "HRESULT")
         return p
     }
@@ -609,7 +611,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaSelected() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(38, this, "ptr", p, "HRESULT")
         return p
     }
@@ -678,7 +680,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaValuenow() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(44, this, "ptr", p, "HRESULT")
         return p
     }
@@ -757,7 +759,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaValuemin() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(52, this, "ptr", p, "HRESULT")
         return p
     }
@@ -779,7 +781,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaValuemax() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(54, this, "ptr", p, "HRESULT")
         return p
     }
@@ -801,7 +803,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaControls() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(56, this, "ptr", p, "HRESULT")
         return p
     }
@@ -823,7 +825,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaDescribedby() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(58, this, "ptr", p, "HRESULT")
         return p
     }
@@ -845,7 +847,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaFlowto() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(60, this, "ptr", p, "HRESULT")
         return p
     }
@@ -867,7 +869,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaLabelledby() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(62, this, "ptr", p, "HRESULT")
         return p
     }
@@ -889,7 +891,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaActivedescendant() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(64, this, "ptr", p, "HRESULT")
         return p
     }
@@ -911,7 +913,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaOwns() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(66, this, "ptr", p, "HRESULT")
         return p
     }
@@ -942,7 +944,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaLive() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(69, this, "ptr", p, "HRESULT")
         return p
     }
@@ -964,7 +966,7 @@ class IHTMLElement5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_ariaRelevant() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(71, this, "ptr", p, "HRESULT")
         return p
     }

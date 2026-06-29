@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MPR_VPN_TS_TYPE.ahk
 #Include .\VPN_TS_IP_ADDRESS.ahk
 #Include ..\..\Networking\WinSock\IN_ADDR.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Include .\MPR_VPN_TS_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_SURFACE_GLOBAL.ahk
-#Include .\DDSCAPS.ahk
-#Include .\DDCOLORKEY.ahk
-#Include .\DD_SURFACE_MORE.ahk
 #Include .\DD_ATTACHLIST.ahk
+#Include .\DD_SURFACE_GLOBAL.ahk
+#Include .\DDCOLORKEY.ahk
+#Include .\DDSCAPS.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\DD_SURFACE_MORE.ahk
 
 /**
  * The DD_SURFACE_LOCAL structure contains surface-related data that is unique to an individual surface object.

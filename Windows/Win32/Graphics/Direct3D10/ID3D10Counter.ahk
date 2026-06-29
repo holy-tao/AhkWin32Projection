@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D10Asynchronous.ahk
+#Include .\D3D10_COUNTER_DESC.ahk
 
 /**
  * This interface encapsulates methods for measuring GPU performance. (ID3D10Counter)

@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Include .\TASKPAGE.ahk
 #Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the methods to access the property sheet settings of a task.
@@ -48,7 +51,7 @@ class IProvideTaskPage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-iprovidetaskpage-getpage
      */
     GetPage(tpType, fPersistChanges) {
-        phPage := HPROPSHEETPAGE()
+        phPage := HPROPSHEETPAGE({Value: 0}, True)
         result := ComCall(3, this, "int", tpType, "int", fPersistChanges, "ptr", phPage, "HRESULT")
         return phPage
     }

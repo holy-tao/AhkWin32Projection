@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DRM_PLAY_OPL.ahk
+#Include .\DRM_COPY_OPL.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\IWMDRMReader.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMDRMReader2 interface provides methods for examining the rights granted by DRM version 10 licenses.An IWMDRMReader2 interface exists for every instance of the reader object.

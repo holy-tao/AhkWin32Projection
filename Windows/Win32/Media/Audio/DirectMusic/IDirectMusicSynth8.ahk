@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DMUS_VOICE_STATE.ahk
 #Include .\IDirectMusicSynth.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * IDirectMusicSynth8is unsupported and may be altered or unavailable in the future.

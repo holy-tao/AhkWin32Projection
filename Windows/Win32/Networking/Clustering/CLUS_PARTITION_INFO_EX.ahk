@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Describes a storage class resource volume and file system.
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  */
 class CLUS_PARTITION_INFO_EX extends Win32Struct {
-    static sizeof => 1152
+    static sizeof => 1160
 
     static packingSize => 8
 
@@ -116,10 +117,13 @@ class CLUS_PARTITION_INFO_EX extends Win32Struct {
 
     /**
      * The globally unique identifier associated with the volume.
-     * @type {Pointer}
+     * @type {Guid}
      */
     VolumeGuid {
-        get => NumGet(this, 1144, "ptr")
-        set => NumPut("ptr", value, this, 1144)
+        get {
+            if(!this.HasProp("__VolumeGuid"))
+                this.__VolumeGuid := Guid(1144, this)
+            return this.__VolumeGuid
+        }
     }
 }

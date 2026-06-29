@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IAzClientContext.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Inherits from the IAzClientContext interface and implements new methods that manipulate the client context.
@@ -144,7 +145,7 @@ class IAzClientContext2 extends IAzClientContext {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext2-get_ldapquerydn
      */
     get_LDAPQueryDN() {
-        pbstrLDAPQueryDN := BSTR()
+        pbstrLDAPQueryDN := BSTR({Value: 0}, True)
         result := ComCall(25, this, "ptr", pbstrLDAPQueryDN, "HRESULT")
         return pbstrLDAPQueryDN
     }

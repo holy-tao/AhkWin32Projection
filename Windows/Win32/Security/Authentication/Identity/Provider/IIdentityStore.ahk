@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\..\System\Com\IEnumUnknown.ahk
+#Include ..\..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDENTITY_TYPE.ahk
+#Include ..\..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods to enumerate and manage identities and identity providers.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_DESCRIPTOR_RANGE_TYPE.ahk
 #Include .\D3D12_DESCRIPTOR_RANGE_FLAGS.ahk
+#Include .\D3D12_DESCRIPTOR_RANGE_TYPE.ahk
 
 /**
  * Describes a descriptor range, with flags to determine their volatility.

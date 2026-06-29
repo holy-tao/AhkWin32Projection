@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IInstallationProgress.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains information about the change in the progress of an asynchronous installation or uninstallation at the time the callback was made.

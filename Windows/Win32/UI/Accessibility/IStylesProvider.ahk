@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\UIA_STYLE_ID.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to the visual styles associated with the content of a document.
@@ -108,7 +110,7 @@ class IStylesProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-istylesprovider-get_stylename
      */
     get_StyleName() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -129,7 +131,7 @@ class IStylesProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-istylesprovider-get_fillpatternstyle
      */
     get_FillPatternStyle() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -140,7 +142,7 @@ class IStylesProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-istylesprovider-get_shape
      */
     get_Shape() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -163,7 +165,7 @@ class IStylesProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-istylesprovider-get_extendedproperties
      */
     get_ExtendedProperties() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", retVal, "HRESULT")
         return retVal
     }

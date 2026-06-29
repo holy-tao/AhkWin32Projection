@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IWdsTransportContent.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWdsTransportCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an active transport session on the WDS transport server.
@@ -106,7 +107,7 @@ class IWdsTransportSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsession-get_networkinterfacename
      */
     get_NetworkInterfaceName() {
-        pbszNetworkInterfaceName := BSTR()
+        pbszNetworkInterfaceName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbszNetworkInterfaceName, "HRESULT")
         return pbszNetworkInterfaceName
     }
@@ -117,7 +118,7 @@ class IWdsTransportSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsession-get_networkinterfaceaddress
      */
     get_NetworkInterfaceAddress() {
-        pbszNetworkInterfaceAddress := BSTR()
+        pbszNetworkInterfaceAddress := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbszNetworkInterfaceAddress, "HRESULT")
         return pbszNetworkInterfaceAddress
     }

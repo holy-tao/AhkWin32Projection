@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\Com\ITypeInfo.ahk
 #Include ..\..\Storage\IndexServer\DBID.ahk
 
@@ -8,7 +10,7 @@
  * @architecture X64, Arm64
  */
 class DBCOLUMNINFO extends Win32Struct {
-    static sizeof => 72
+    static sizeof => 80
 
     static packingSize => 8
 

@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFace6.ahk
 #Include .\IDWritePaintReader.ahk
+#Include .\DWRITE_PAINT_FEATURE_LEVEL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDWriteFontFace6.ahk
+#Include .\DWRITE_GLYPH_IMAGE_FORMATS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite

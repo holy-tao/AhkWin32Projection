@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IMDSPStorage.ahk
+#Include ..\MediaFoundation\VIDEOINFOHEADER.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMDSPStorage2 interface extends IMDSPStorage by providing methods for getting and setting extended attributes and making it possible to get a pointer to a storage medium from its name.

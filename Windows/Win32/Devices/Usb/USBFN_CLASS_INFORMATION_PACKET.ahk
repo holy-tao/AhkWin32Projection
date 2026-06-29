@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBFN_CLASS_INTERFACE.ahk
-#Include .\USBFN_PIPE_INFORMATION.ahk
 #Include .\USB_ENDPOINT_DESCRIPTOR.ahk
+#Include .\USBFN_CLASS_INTERFACE.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\USBFN_PIPE_INFORMATION.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

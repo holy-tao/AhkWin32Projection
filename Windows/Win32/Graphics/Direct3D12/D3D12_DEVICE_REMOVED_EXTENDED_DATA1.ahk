@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT.ahk
 #Include .\D3D12_AUTO_BREADCRUMB_NODE.ahk
 #Include .\D3D12_DRED_PAGE_FAULT_OUTPUT.ahk
 #Include .\D3D12_DRED_ALLOCATION_NODE.ahk
+#Include .\D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents Device Removed Extended Data (DRED) version 1.1 data.

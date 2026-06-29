@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include .\IEntity.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ISchemaLocalizerSupport.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ITokenCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides a schema repository that can be browsed.

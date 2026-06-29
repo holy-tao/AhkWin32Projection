@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\NMHDR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information used with the RBN_AUTOBREAK notification code.

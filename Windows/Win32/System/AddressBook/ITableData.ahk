@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Include .\SSortOrderSet.ahk
 #Include .\IMAPITable.ahk
+#Include .\SRow.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\SPropValue.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SRowSet.ahk
 
 /**
  * Provides utility methods for working with tables. MAPI provides objects that implement ITableData to help service providers perform table maintenance.

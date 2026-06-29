@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\UIA_EVENT_ID.ahk
+#Include .\UIA_PROPERTY_ID.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\StructureChangeType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IRawElementProviderSimple.ahk
 
 /**
  * Exposes methods used by proxy providers to raise events.

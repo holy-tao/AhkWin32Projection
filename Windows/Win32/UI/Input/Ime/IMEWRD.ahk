@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\IMEUCT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains data about a word in the Word data of the Microsoft IME dictionary.

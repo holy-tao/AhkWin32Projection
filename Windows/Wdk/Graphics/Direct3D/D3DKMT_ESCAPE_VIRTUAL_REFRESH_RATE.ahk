@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
 #Include .\D3DKMT_ESCAPE_VIRTUAL_REFRESH_RATE_TYPE.ahk
 
 /**

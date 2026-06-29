@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_GPU_PREFERENCE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IDXGIFactory5.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface enables a single method that enumerates graphics adapters based on a given GPU preference.

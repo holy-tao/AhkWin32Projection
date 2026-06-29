@@ -1,7 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SPropProblemArray.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\MAPINAMEID.ahk
+#Include .\SPropTagArray.ahk
+#Include .\SPropValue.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMAPIProgress.ahk
+#Include .\MAPIERROR.ahk
 
 /**
  * IMAPIPropIUnknown enables clients, service providers, and MAPI to work with properties. All objects that support properties implement this interface.

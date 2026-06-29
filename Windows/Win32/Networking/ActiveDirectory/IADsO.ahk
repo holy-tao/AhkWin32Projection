@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IADs.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IADsO interface is a dual interface that inherits from IADs.
@@ -84,7 +85,7 @@ class IADsO extends IADs {
      * @returns {BSTR} 
      */
     get_Description() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -106,7 +107,7 @@ class IADsO extends IADs {
      * @returns {BSTR} 
      */
     get_LocalityName() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -128,7 +129,7 @@ class IADsO extends IADs {
      * @returns {BSTR} 
      */
     get_PostalAddress() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -150,7 +151,7 @@ class IADsO extends IADs {
      * @returns {BSTR} 
      */
     get_TelephoneNumber() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -172,7 +173,7 @@ class IADsO extends IADs {
      * @returns {BSTR} 
      */
     get_FaxNumber() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", retval, "HRESULT")
         return retval
     }

@@ -1,9 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IFhScopeIterator.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFhTarget.ahk
+#Include .\FH_PROTECTED_ITEM_CATEGORY.ahk
+#Include .\FH_DEVICE_VALIDATION_RESULT.ahk
+#Include .\FH_BACKUP_STATUS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\FH_LOCAL_POLICY_TYPE.ahk
+#Include .\IFhScopeIterator.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFhConfigMgr interface allows client applications to read and modify the File History configuration for the user account under which the methods of this interface are called.

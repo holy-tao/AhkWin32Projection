@@ -1,10 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellItem.ahk
+#Include PropertiesSystem\GETPROPERTYSTOREFLAGS.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\System\Com\IBindCtx.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IShellItem.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends IShellItem with methods that retrieve various property values of the item. IShellItem and IShellItem2 are the preferred representations of items in any new code.

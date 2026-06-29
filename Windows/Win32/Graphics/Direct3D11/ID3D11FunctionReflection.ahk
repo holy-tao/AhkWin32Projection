@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11FunctionParameterReflection.ahk
 #Include .\D3D11_FUNCTION_DESC.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\ID3D11ShaderReflectionVariable.ahk
+#Include .\ID3D11ShaderReflectionConstantBuffer.ahk
 #Include .\D3D11_SHADER_INPUT_BIND_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A function-reflection interface accesses function info. (ID3D11FunctionReflection)

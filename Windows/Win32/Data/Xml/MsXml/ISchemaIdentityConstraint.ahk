@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ISchemaItem.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ISchemaItem.ahk
 #Include .\ISchemaStringCollection.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -55,7 +56,7 @@ class ISchemaIdentityConstraint extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_selector() {
-        selector := BSTR()
+        selector := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", selector, "HRESULT")
         return selector
     }

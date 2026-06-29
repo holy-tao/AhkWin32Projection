@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKET_ADDRESS.ahk
 #Include .\SOCKADDR.ahk
+#Include .\SOCKET_ADDRESS.ahk
 
 /**
  * The SOCKET_ADDRESS_LIST structure defines a variable-sized list of transport addresses.

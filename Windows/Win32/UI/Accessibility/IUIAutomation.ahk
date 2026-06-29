@@ -1,16 +1,32 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\PropertyConditionFlags.ahk
+#Include .\UIA_PROPERTY_ID.ahk
+#Include .\IUIAutomationEventHandler.ahk
+#Include .\IAccessible.ahk
+#Include .\IUIAutomationCacheRequest.ahk
+#Include .\TreeScope.ahk
+#Include .\IUIAutomationPropertyChangedEventHandler.ahk
+#Include .\IUIAutomationStructureChangedEventHandler.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include .\IUIAutomationProxyFactoryMapping.ahk
+#Include .\UIA_EVENT_ID.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IUIAutomationFocusChangedEventHandler.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IUIAutomationElement.ahk
 #Include .\IUIAutomationTreeWalker.ahk
-#Include .\IUIAutomationCondition.ahk
-#Include .\IUIAutomationCacheRequest.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\IUIAutomationProxyFactoryEntry.ahk
-#Include .\IUIAutomationProxyFactoryMapping.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\UIA_PATTERN_ID.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAutomationProxyFactory.ahk
+#Include .\IUIAutomationCondition.ahk
 
 /**
  * Exposes methods that enable Microsoft UI Automation client applications to discover, access, and filter UI Automation elements.
@@ -980,7 +996,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-getpropertyprogrammaticname
      */
     GetPropertyProgrammaticName(_property) {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(49, this, "int", _property, "ptr", name, "HRESULT")
         return name
     }
@@ -1000,7 +1016,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-getpatternprogrammaticname
      */
     GetPatternProgrammaticName(pattern) {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(50, this, "int", pattern, "ptr", name, "HRESULT")
         return name
     }

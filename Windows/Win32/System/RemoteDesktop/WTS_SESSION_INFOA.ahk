@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WTS_CONNECTSTATE_CLASS.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about a client session on a Remote Desktop Session Host (RD Session Host) server. (ANSI)

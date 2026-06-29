@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D10_INPUT_CLASSIFICATION.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * A description of a single element for the input-assembler stage. (D3D10_INPUT_ELEMENT_DESC)

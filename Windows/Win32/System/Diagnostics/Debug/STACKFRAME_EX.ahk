@@ -3,6 +3,7 @@
 #Include .\ADDRESS64.ahk
 #Include .\ADDRESS_MODE.ahk
 #Include .\KDHELP64.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Represents an extended stack frame.

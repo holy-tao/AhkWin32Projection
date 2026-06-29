@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\LVITEMA.ahk
 #Include .\LIST_VIEW_ITEM_FLAGS.ahk
-#Include .\LIST_VIEW_ITEM_STATE_FLAGS.ahk
+#Include .\NMHDR.ahk
+#Include .\LVITEMA.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\LIST_VIEW_ITEM_STATE_FLAGS.ahk
 
 /**
  * Contains information about an LVN_GETDISPINFO or LVN_SETDISPINFO notification code. This structure is the same as the LV_DISPINFO structure, but has been renamed to fit standard naming conventions. (ANSI)

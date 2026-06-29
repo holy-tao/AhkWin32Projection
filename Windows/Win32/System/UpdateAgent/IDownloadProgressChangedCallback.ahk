@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IDownloadProgressChangedCallbackArgs.ahk
+#Include .\IDownloadJob.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Handles the notification that indicates a change in the progress of an asynchronous download operation.

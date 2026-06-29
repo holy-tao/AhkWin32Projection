@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Defines the properties of a clock.
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class MFCLOCK_PROPERTIES extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -22,11 +23,14 @@ class MFCLOCK_PROPERTIES extends Win32Struct {
 
     /**
      * The unique identifier of the underlying device that provides the time. If two clocks have the same unique identifier, they are based on the same device. If the underlying device is not shared between two clocks, the value can be <b>GUID_NULL</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidClockId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidClockId"))
+                this.__guidClockId := Guid(8, this)
+            return this.__guidClockId
+        }
     }
 
     /**
@@ -34,8 +38,8 @@ class MFCLOCK_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     dwClockFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -43,8 +47,8 @@ class MFCLOCK_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     qwClockFrequency {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -52,8 +56,8 @@ class MFCLOCK_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     dwClockTolerance {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -108,7 +112,7 @@ class MFCLOCK_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     dwClockJitter {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

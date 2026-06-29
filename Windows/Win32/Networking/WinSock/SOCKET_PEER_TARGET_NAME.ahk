@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SOCKET_SECURITY_PROTOCOL.ahk
-#Include .\SOCKADDR_STORAGE.ahk
 #Include .\ADDRESS_FAMILY.ahk
+#Include .\SOCKADDR_STORAGE.ahk
 
 /**
  * Contains the IP address and name for a peer target and the type of security protocol to be used on a socket.

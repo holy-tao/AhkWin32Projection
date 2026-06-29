@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
-#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
-#Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
-#Include .\D3D12_VIDEO_SAMPLE.ahk
-#Include .\D3D12_VIDEO_FORMAT.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
-#Include .\D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAGS.ahk
 #Include .\D3D12_VIDEO_SCALE_SUPPORT.ahk
+#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
 #Include .\D3D12_VIDEO_SIZE_RANGE.ahk
+#Include .\D3D12_VIDEO_SAMPLE.ahk
+#Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_VIDEO_FORMAT.ahk
+#Include .\D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAGS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
 #Include .\D3D12_VIDEO_SCALE_SUPPORT_FLAGS.ahk
 
 /**
@@ -23,7 +24,7 @@
 class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT extends Win32Struct {
     static sizeof => 88
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * For single GPU operation, set this to zero. If there are multiple GPU nodes, set a bit to identify the node (the device's physical adapter) to which the command queue applies. Each bit in the mask corresponds to a single node. Only 1 bit may be set.
@@ -41,7 +42,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT extends Win32Struct {
     Configuration {
         get {
             if(!this.HasProp("__Configuration"))
-                this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(8, this)
+                this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(4, this)
             return this.__Configuration
         }
     }
@@ -53,7 +54,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT extends Win32Struct {
     DecodeSample {
         get {
             if(!this.HasProp("__DecodeSample"))
-                this.__DecodeSample := D3D12_VIDEO_SAMPLE(24, this)
+                this.__DecodeSample := D3D12_VIDEO_SAMPLE(28, this)
             return this.__DecodeSample
         }
     }
@@ -65,7 +66,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT extends Win32Struct {
     OutputFormat {
         get {
             if(!this.HasProp("__OutputFormat"))
-                this.__OutputFormat := D3D12_VIDEO_FORMAT(40, this)
+                this.__OutputFormat := D3D12_VIDEO_FORMAT(44, this)
             return this.__OutputFormat
         }
     }
@@ -77,7 +78,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT extends Win32Struct {
     FrameRate {
         get {
             if(!this.HasProp("__FrameRate"))
-                this.__FrameRate := DXGI_RATIONAL(48, this)
+                this.__FrameRate := DXGI_RATIONAL(52, this)
             return this.__FrameRate
         }
     }
@@ -87,8 +88,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT extends Win32Struct {
      * @type {Integer}
      */
     BitRate {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -96,8 +97,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT extends Win32Struct {
      * @type {D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAGS}
      */
     SupportFlags {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
     /**
@@ -107,7 +108,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT extends Win32Struct {
     ScaleSupport {
         get {
             if(!this.HasProp("__ScaleSupport"))
-                this.__ScaleSupport := D3D12_VIDEO_SCALE_SUPPORT(64, this)
+                this.__ScaleSupport := D3D12_VIDEO_SCALE_SUPPORT(68, this)
             return this.__ScaleSupport
         }
     }

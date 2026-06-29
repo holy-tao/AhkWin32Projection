@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IInspectable.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables classes to be activated by the Windows Runtime.

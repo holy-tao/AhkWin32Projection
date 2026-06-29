@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The VDS_PARTITION_NOTIFICATION structure (vdshwprv.h) defines the details of partition events.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_PARTITION_NOTIFICATION extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -75,11 +76,14 @@ class VDS_PARTITION_NOTIFICATION extends Win32Struct {
 
     /**
      * The GUID of the disk containing the partition that triggered the event.
-     * @type {Pointer}
+     * @type {Guid}
      */
     diskId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__diskId"))
+                this.__diskId := Guid(4, this)
+            return this.__diskId
+        }
     }
 
     /**
@@ -87,7 +91,7 @@ class VDS_PARTITION_NOTIFICATION extends Win32Struct {
      * @type {Integer}
      */
     ullOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

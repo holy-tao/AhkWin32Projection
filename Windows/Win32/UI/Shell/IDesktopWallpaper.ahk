@@ -1,9 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include .\IShellItemArray.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include .\DESKTOP_SLIDESHOW_DIRECTION.ahk
+#Include .\DESKTOP_SLIDESHOW_STATE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DESKTOP_WALLPAPER_POSITION.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DESKTOP_SLIDESHOW_OPTIONS.ahk
 
 /**
  * . (IDesktopWallpaper)

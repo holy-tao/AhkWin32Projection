@@ -2,7 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFSourceReader.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IMFTransform.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFMediaType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IMFSourceReader interface.

@@ -4,6 +4,7 @@
 #Include ..\Com\IDispatch.ahk
 #Include .\IUpdateService.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a list of IUpdateService interfaces.

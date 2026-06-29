@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
@@ -56,7 +57,7 @@ class IUIAutomationClientInfo extends IUnknown {
      * @returns {BSTR} 
      */
     get_ProcessName() {
-        processName := BSTR()
+        processName := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", processName, "HRESULT")
         return processName
     }

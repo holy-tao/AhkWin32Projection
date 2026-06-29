@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_CONTROLLER_PROP.ahk
-#Include .\IVdsSubSystem.ahk
-#Include .\VDS_PORT_PROP.ahk
+#Include .\VDS_CONTROLLER_STATUS.ahk
 #Include .\IEnumVdsObject.ahk
+#Include .\IVdsSubSystem.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\VDS_PORT_PROP.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\VDS_CONTROLLER_PROP.ahk
 
 /**
  * The IVdsController (vdshwprv.h) interface provides methods for performing query and configuration operations on a controller.

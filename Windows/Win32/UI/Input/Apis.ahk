@@ -1,5 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\RAWINPUTDEVICELIST.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\HRAWINPUT.ahk
+#Include .\INPUT_MESSAGE_SOURCE.ahk
+#Include .\RAWINPUTDEVICE.ahk
+#Include .\RAW_INPUT_DEVICE_INFO_COMMAND.ahk
+#Include .\RAW_INPUT_DATA_COMMAND_FLAGS.ahk
+#Include .\RAWINPUT.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input

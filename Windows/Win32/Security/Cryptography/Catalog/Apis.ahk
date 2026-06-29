@@ -1,6 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\CRYPTCATATTRIBUTE.ahk
+#Include .\CATALOG_INFO.ahk
+#Include .\CRYPTCAT_OPEN_FLAGS.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\CRYPTCAT_VERSION.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\CRYPTCATMEMBER.ahk
+#Include ..\CERT_STRONG_SIGN_PARA.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\CRYPTCATSTORE.ahk
+#Include .\CRYPTCATCDF.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Catalog
@@ -908,14 +919,11 @@ class Catalog {
     }
 
     /**
-     * Enumerates the individual file members in the CatalogFiles section of a catalog definition file (CDF).
-     * @remarks
-     * You typically call this function in a loop to enumerate all of the catalog file members in a CDF. Before entering the loop, set *pwszPrevCDFTag* to **NULL**. The function returns a pointer to the first member. Set *pwszPrevCDFTag* to the return value of the function for subsequent iterations of the loop.
-     * @param {Pointer<CRYPTCATCDF>} pCDF A pointer to a [**CRYPTCATCDF**](/windows/win32/api/mscat/ns-mscat-cryptcatcdf) structure.
+     * 
+     * @param {Pointer<CRYPTCATCDF>} pCDF 
      * @param {Pointer<CRYPTCATMEMBER>} pPrevMember 
-     * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError A pointer to a user-defined function to handle file parse errors.
-     * @returns {Pointer<CRYPTCATMEMBER>} Upon success, this function returns a pointer to a **null**-terminated string that identifies a file member in the **CatalogFiles** section of a CDF. The **CryptCATCDFEnumMembersByCDFTagEx** function returns a **NULL** pointer if it fails.
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/cryptcatcdfenummembersbycdftagex
+     * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError 
+     * @returns {Pointer<CRYPTCATMEMBER>} 
      */
     static CryptCATCDFEnumMembers(pCDF, pPrevMember, pfnParseError) {
         result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembers", "ptr", pCDF, "ptr", pPrevMember, "ptr", pfnParseError, "ptr")
@@ -923,15 +931,12 @@ class Catalog {
     }
 
     /**
-     * Enumerates the attributes of member files in the CatalogFiles section of a catalog definition file (CDF).
-     * @remarks
-     * You typically call this function in a loop to enumerate all of the catalog file member attributes in a CDF. Before entering the loop, set *pPrevAttr* to **NULL**. The function returns a pointer to the first attribute. Set *pPrevAttr* to the return value of the function for subsequent iterations of the loop.
-     * @param {Pointer<CRYPTCATCDF>} pCDF A pointer to a [**CRYPTCATCDF**](/windows/win32/api/mscat/ns-mscat-cryptcatcdf) structure.
-     * @param {Pointer<CRYPTCATMEMBER>} pMember A pointer to a [**CRYPTCATMEMBER**](/windows/win32/api/mscat/ns-mscat-cryptcatmember) structure that contains the member information.
-     * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr A pointer to a [**CRYPTCATATTRIBUTE**](/windows/win32/api/mscat/ns-mscat-cryptcatattribute) structure for a file member attribute in the CDF pointed to by *pCDF*.
-     * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError A pointer to a user-defined function to handle file parse errors.
-     * @returns {Pointer<CRYPTCATATTRIBUTE>} Upon success, this function returns a pointer to a [**CRYPTCATATTRIBUTE**](/windows/win32/api/mscat/ns-mscat-cryptcatattribute) structure. The **CryptCATCDFEnumAttributesWithCDFTag** function returns a **NULL** pointer if it fails.
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/cryptcatcdfenumattributeswithcdftag
+     * 
+     * @param {Pointer<CRYPTCATCDF>} pCDF 
+     * @param {Pointer<CRYPTCATMEMBER>} pMember 
+     * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr 
+     * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError 
+     * @returns {Pointer<CRYPTCATATTRIBUTE>} 
      */
     static CryptCATCDFEnumAttributes(pCDF, pMember, pPrevAttr, pfnParseError) {
         result := DllCall("WINTRUST.dll\CryptCATCDFEnumAttributes", "ptr", pCDF, "ptr", pMember, "ptr", pPrevAttr, "ptr", pfnParseError, "ptr")

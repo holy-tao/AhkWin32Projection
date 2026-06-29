@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include .\IDataModelManager.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\IDebugHost.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
 class OPLOCK_KEY_CONTEXT extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,26 +27,32 @@ class OPLOCK_KEY_CONTEXT extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ParentOplockKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ParentOplockKey"))
+                this.__ParentOplockKey := Guid(4, this)
+            return this.__ParentOplockKey
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     TargetOplockKey {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__TargetOplockKey"))
+                this.__TargetOplockKey := Guid(20, this)
+            return this.__TargetOplockKey
+        }
     }
 
     /**
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

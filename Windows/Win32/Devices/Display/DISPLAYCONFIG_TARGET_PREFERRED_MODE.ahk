@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
-#Include .\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk
-#Include ..\..\Foundation\LUID.ahk
-#Include .\DISPLAYCONFIG_TARGET_MODE.ahk
 #Include .\DISPLAYCONFIG_VIDEO_SIGNAL_INFO.ahk
+#Include ..\..\Foundation\LUID.ahk
 #Include .\DISPLAYCONFIG_RATIONAL.ahk
-#Include .\DISPLAYCONFIG_2DREGION.ahk
+#Include .\DISPLAYCONFIG_TARGET_MODE.ahk
 #Include .\DISPLAYCONFIG_SCANLINE_ORDERING.ahk
+#Include .\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk
+#Include .\DISPLAYCONFIG_2DREGION.ahk
+#Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
 
 /**
  * The DISPLAYCONFIG_TARGET_PREFERRED_MODE structure contains information about the preferred mode of a display.

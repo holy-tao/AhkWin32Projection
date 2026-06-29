@@ -1,26 +1,32 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DCOMPOSITION_FRAME_STATISTICS.ahk
-#Include .\IDCompositionTarget.ahk
-#Include .\IDCompositionVisual.ahk
-#Include .\IDCompositionSurface.ahk
 #Include .\IDCompositionVirtualSurface.ahk
-#Include .\IDCompositionTranslateTransform.ahk
-#Include .\IDCompositionScaleTransform.ahk
-#Include .\IDCompositionRotateTransform.ahk
-#Include .\IDCompositionSkewTransform.ahk
-#Include .\IDCompositionMatrixTransform.ahk
+#Include .\DCOMPOSITION_FRAME_STATISTICS.ahk
 #Include .\IDCompositionTransform.ahk
-#Include .\IDCompositionTranslateTransform3D.ahk
-#Include .\IDCompositionScaleTransform3D.ahk
+#Include .\IDCompositionRotateTransform.ahk
+#Include .\IDCompositionScaleTransform.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Dxgi\Common\DXGI_ALPHA_MODE.ahk
+#Include .\IDCompositionRectangleClip.ahk
 #Include .\IDCompositionRotateTransform3D.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\IDCompositionSurface.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IDCompositionTarget.ahk
+#Include .\IDCompositionAnimation.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IDCompositionScaleTransform3D.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDCompositionMatrixTransform3D.ahk
 #Include .\IDCompositionTransform3D.ahk
+#Include .\IDCompositionTranslateTransform3D.ahk
+#Include .\IDCompositionSkewTransform.ahk
+#Include .\IDCompositionMatrixTransform.ahk
+#Include .\IDCompositionVisual.ahk
 #Include .\IDCompositionEffectGroup.ahk
-#Include .\IDCompositionRectangleClip.ahk
-#Include .\IDCompositionAnimation.ahk
+#Include .\IDCompositionTranslateTransform.ahk
 
 /**
  * Serves as a factory for all other Microsoft DirectComposition objects and provides methods to control transactional composition. (IDCompositionDevice)

@@ -1,20 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISClusProperties.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\ISClusResPossibleOwnerNodes.ahk
-#Include .\ISClusResDependencies.ahk
 #Include .\ISClusResDependents.ahk
-#Include .\ISClusResGroup.ahk
-#Include .\ISClusNode.ahk
-#Include .\ISCluster.ahk
-#Include .\ISClusDisk.ahk
-#Include .\ISClusRegistryKeys.ahk
 #Include .\ISClusCryptoKeys.ahk
+#Include .\CLUSTER_RESOURCE_CLASS.ahk
+#Include .\ISClusResPossibleOwnerNodes.ahk
+#Include .\ISClusNode.ahk
 #Include .\ISClusResType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISClusRegistryKeys.ahk
+#Include .\ISCluster.ahk
+#Include .\ISClusProperties.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\ISClusResDependencies.ahk
+#Include .\CLUS_FLAGS.ahk
+#Include .\CLUSTER_RESOURCE_STATE.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\ISClusDisk.ahk
+#Include .\ISClusResGroup.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -239,7 +244,7 @@ class ISClusResource extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -288,17 +293,8 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete() {
         result := ComCall(17, this, "HRESULT")
@@ -306,16 +302,8 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * Initiates a resource failure.
-     * @remarks
-     * The resource identified by <i>hResource</i> is treated as inoperable, causing the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> to initiate the same  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/failover">failover</a> process that would result if the resource had actually failed. Applications call the  <b>FailClusterResource</b> function to test their policies for restarting resources and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">groups</a>.
      * 
-     * Do not call  <b>FailClusterResource</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @returns {HRESULT} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
-     * 
-     * If the operation fails, 
-     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-failclusterresource
+     * @returns {HRESULT} 
      */
     Fail() {
         result := ComCall(18, this, "HRESULT")
@@ -323,18 +311,9 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * Brings a group online. (OnlineClusterGroup)
-     * @remarks
-     * If the group cannot be brought online on the node identified by the <i>hDestinationNode</i> parameter, the  <b>OnlineClusterGroup</b> function fails.
      * 
-     * If the <i>hDestinationNode</i> parameter is set to <b>NULL</b>,  <b>OnlineClusterGroup</b> brings the group online on the current node.
-     * 
-     * Do not call  <b>OnlineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * 
-     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {Integer} nTimeout 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-onlineclustergroup
      */
     Online(nTimeout) {
         pvarPending := VARIANT()
@@ -343,12 +322,9 @@ class ISClusResource extends IDispatch {
     }
 
     /**
-     * Takes a group offline.
-     * @remarks
-     * Do not call  <b>OfflineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
      * @param {Integer} nTimeout 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-offlineclustergroup
      */
     Offline(nTimeout) {
         pvarPending := VARIANT()
@@ -503,7 +479,7 @@ class ISClusResource extends IDispatch {
      * @returns {BSTR} 
      */
     get_TypeName() {
-        pbstrTypeName := BSTR()
+        pbstrTypeName := BSTR({Value: 0}, True)
         result := ComCall(35, this, "ptr", pbstrTypeName, "HRESULT")
         return pbstrTypeName
     }

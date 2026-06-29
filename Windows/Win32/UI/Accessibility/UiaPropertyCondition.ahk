@@ -1,17 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ConditionType.ahk
-#Include .\UIA_PROPERTY_ID.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\System\Variant\VARENUM.ahk
+#Include ..\..\Foundation\CHAR.ahk
 #Include ..\..\System\Com\CY.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
+#Include .\ConditionType.ahk
 #Include ..\..\System\Ole\IRecordInfo.ahk
+#Include ..\..\Foundation\DECIMAL.ahk
 #Include .\PropertyConditionFlags.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\UIA_PROPERTY_ID.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 
 /**
  * Note  This structure is deprecated.  Contains information about a condition used to find UI Automation elements that have a matching property.

@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IPrintSchemaElement.ahk
+#Include .\IPrintSchemaCapabilities.ahk
 #Include .\IPrintSchemaFeature.ahk
 #Include .\IPrintSchemaAsyncOperation.ahk
-#Include .\IPrintSchemaCapabilities.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -51,11 +53,10 @@ class IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * This function is intended for infrastructure use only. (GetFeatureEnabledState)
+     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaFeature} 
-     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-getfeatureenabledstate
      */
     GetFeature(bstrName, bstrNamespaceUri) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -94,11 +95,8 @@ class IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * Retrieves the length of a monitor's capabilities string.
-     * @remarks
-     * This function usually returns quickly, but sometimes it can take several seconds to complete.
+     * 
      * @returns {IPrintSchemaCapabilities} 
-     * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength
      */
     GetCapabilities() {
         result := ComCall(15, this, "ptr*", &ppCapabilities := 0, "HRESULT")

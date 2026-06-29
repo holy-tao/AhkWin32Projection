@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\Direct3D11\ID3D11Device.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Direct3D11\ID3D11DeviceContext.ahk
+#Include ..\Direct3D\D3D_FEATURE_LEVEL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D11on12

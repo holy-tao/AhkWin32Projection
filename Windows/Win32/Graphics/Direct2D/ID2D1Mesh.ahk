@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1Resource.ahk
 #Include .\ID2D1TessellationSink.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a set of vertices that form a list of triangles.

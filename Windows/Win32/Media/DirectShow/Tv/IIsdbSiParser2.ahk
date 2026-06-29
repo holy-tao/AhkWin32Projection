@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IISDB_EMM.ahk
+#Include .\IISDB_LDT.ahk
 #Include .\IDvbSiParser2.ahk
 #Include .\IISDB_SDT.ahk
-#Include .\IISDB_BIT.ahk
-#Include .\IISDB_NBIT.ahk
-#Include .\IISDB_LDT.ahk
 #Include .\IISDB_SDTT.ahk
+#Include .\IISDB_NBIT.ahk
 #Include .\IISDB_CDT.ahk
-#Include .\IISDB_EMM.ahk
+#Include .\IISDB_BIT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Implements methods that retrieve program specific information (PSI) tables and service information tables from an Integrated Services Digital Broadcast (ISDB) transport stream.

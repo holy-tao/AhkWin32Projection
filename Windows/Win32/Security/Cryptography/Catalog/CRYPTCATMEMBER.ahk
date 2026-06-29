@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\Sip\SIP_INDIRECT_DATA.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\CRYPT_INTEGER_BLOB.ahk
 
@@ -10,7 +12,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Catalog
  */
 class CRYPTCATMEMBER extends Win32Struct {
-    static sizeof => 96
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -43,11 +45,14 @@ class CRYPTCATMEMBER extends Win32Struct {
 
     /**
      * <b>GUID</b> that identifies the subject type.
-     * @type {Pointer}
+     * @type {Guid}
      */
     gSubjectType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__gSubjectType"))
+                this.__gSubjectType := Guid(24, this)
+            return this.__gSubjectType
+        }
     }
 
     /**
@@ -55,8 +60,8 @@ class CRYPTCATMEMBER extends Win32Struct {
      * @type {Integer}
      */
     fdwMemberFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -64,8 +69,8 @@ class CRYPTCATMEMBER extends Win32Struct {
      * @type {Pointer<SIP_INDIRECT_DATA>}
      */
     pIndirectData {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -73,8 +78,8 @@ class CRYPTCATMEMBER extends Win32Struct {
      * @type {Integer}
      */
     dwCertVersion {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -82,8 +87,8 @@ class CRYPTCATMEMBER extends Win32Struct {
      * @type {Integer}
      */
     dwReserved {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -93,7 +98,7 @@ class CRYPTCATMEMBER extends Win32Struct {
     hReserved {
         get {
             if(!this.HasProp("__hReserved"))
-                this.__hReserved := HANDLE(56, this)
+                this.__hReserved := HANDLE(64, this)
             return this.__hReserved
         }
     }
@@ -105,7 +110,7 @@ class CRYPTCATMEMBER extends Win32Struct {
     sEncodedIndirectData {
         get {
             if(!this.HasProp("__sEncodedIndirectData"))
-                this.__sEncodedIndirectData := CRYPT_INTEGER_BLOB(64, this)
+                this.__sEncodedIndirectData := CRYPT_INTEGER_BLOB(72, this)
             return this.__sEncodedIndirectData
         }
     }
@@ -117,7 +122,7 @@ class CRYPTCATMEMBER extends Win32Struct {
     sEncodedMemberInfo {
         get {
             if(!this.HasProp("__sEncodedMemberInfo"))
-                this.__sEncodedMemberInfo := CRYPT_INTEGER_BLOB(80, this)
+                this.__sEncodedMemberInfo := CRYPT_INTEGER_BLOB(88, this)
             return this.__sEncodedMemberInfo
         }
     }

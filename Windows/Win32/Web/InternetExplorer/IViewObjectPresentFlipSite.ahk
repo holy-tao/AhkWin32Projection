@@ -1,11 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISurfacePresenterFlip.ahk
 #Include ..\..\Foundation\LUID.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include .\ISurfacePresenterFlip.ahk
+#Include ..\MsHtml\VIEW_OBJECT_ALPHA_MODE.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer

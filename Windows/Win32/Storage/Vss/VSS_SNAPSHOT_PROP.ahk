@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VSS_SNAPSHOT_STATE.ahk
 
 /**
@@ -27,28 +28,34 @@
  * @namespace Windows.Win32.Storage.Vss
  */
 class VSS_SNAPSHOT_PROP extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 128
 
     static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/VSS/volume-shadow-copy-api-data-types">VSS_ID</a> (GUID) uniquely 
      *       identifying the shadow copy identifier.
-     * @type {Pointer}
+     * @type {Guid}
      */
     m_SnapshotId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__m_SnapshotId"))
+                this.__m_SnapshotId := Guid(0, this)
+            return this.__m_SnapshotId
+        }
     }
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/VSS/volume-shadow-copy-api-data-types">VSS_ID</a> (GUID) 
      *       uniquely identifying the shadow copy set containing the shadow copy.
-     * @type {Pointer}
+     * @type {Guid}
      */
     m_SnapshotSetId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__m_SnapshotSetId"))
+                this.__m_SnapshotSetId := Guid(16, this)
+            return this.__m_SnapshotSetId
+        }
     }
 
     /**
@@ -62,8 +69,8 @@ class VSS_SNAPSHOT_PROP extends Win32Struct {
      * @type {Integer}
      */
     m_lSnapshotsCount {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -76,8 +83,8 @@ class VSS_SNAPSHOT_PROP extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     m_pwszSnapshotDeviceObject {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -85,8 +92,8 @@ class VSS_SNAPSHOT_PROP extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     m_pwszOriginalVolumeName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -95,8 +102,8 @@ class VSS_SNAPSHOT_PROP extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     m_pwszOriginatingMachine {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -105,8 +112,8 @@ class VSS_SNAPSHOT_PROP extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     m_pwszServiceMachine {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -118,8 +125,8 @@ class VSS_SNAPSHOT_PROP extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     m_pwszExposedName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -130,18 +137,21 @@ class VSS_SNAPSHOT_PROP extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     m_pwszExposedPath {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/VSS/volume-shadow-copy-api-data-types">VSS_ID</a> (GUID) 
      *       uniquely identifying the provider used to create this shadow copy.
-     * @type {Pointer}
+     * @type {Guid}
      */
     m_ProviderId {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get {
+            if(!this.HasProp("__m_ProviderId"))
+                this.__m_ProviderId := Guid(88, this)
+            return this.__m_ProviderId
+        }
     }
 
     /**
@@ -151,8 +161,8 @@ class VSS_SNAPSHOT_PROP extends Win32Struct {
      * @type {Integer}
      */
     m_lSnapshotAttributes {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
+        get => NumGet(this, 104, "int")
+        set => NumPut("int", value, this, 104)
     }
 
     /**
@@ -162,8 +172,8 @@ class VSS_SNAPSHOT_PROP extends Win32Struct {
      * @type {Integer}
      */
     m_tsCreationTimestamp {
-        get => NumGet(this, 88, "int64")
-        set => NumPut("int64", value, this, 88)
+        get => NumGet(this, 112, "int64")
+        set => NumPut("int64", value, this, 112)
     }
 
     /**
@@ -172,7 +182,7 @@ class VSS_SNAPSHOT_PROP extends Win32Struct {
      * @type {VSS_SNAPSHOT_STATE}
      */
     m_eStatus {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
+        get => NumGet(this, 120, "int")
+        set => NumPut("int", value, this, 120)
     }
 }

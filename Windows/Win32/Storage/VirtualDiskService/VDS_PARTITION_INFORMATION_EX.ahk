@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\__VDS_PARTITION_STYLE.ahk
 #Include .\VDS_PARTITION_INFO_MBR.ahk
+#Include .\__VDS_PARTITION_STYLE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VDS_PARTITION_INFO_GPT.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * This structure is reserved for system use. (VDS_PARTITION_INFORMATION_EX)
@@ -10,7 +12,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_PARTITION_INFORMATION_EX extends Win32Struct {
-    static sizeof => 128
+    static sizeof => 144
 
     static packingSize => 8
 

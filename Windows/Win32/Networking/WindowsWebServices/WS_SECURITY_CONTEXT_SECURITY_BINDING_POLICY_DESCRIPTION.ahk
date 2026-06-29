@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION.ahk
+#Include .\WS_SECURITY_PROPERTIES.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTY.ahk
-#Include .\WS_MESSAGE_SECURITY_USAGE.ahk
-#Include .\WS_SECURITY_PROPERTIES.ahk
 #Include .\WS_SECURITY_PROPERTY.ahk
+#Include .\WS_MESSAGE_SECURITY_USAGE.ahk
+#Include .\WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION.ahk
 
 /**
  * This type description is used with template APIs to describe the security context related templates generated accordingly to input policy setting.

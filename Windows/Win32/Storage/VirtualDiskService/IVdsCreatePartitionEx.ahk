@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\CREATE_PARTITION_PARAMETERS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IVdsAsync.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Creates a partition on a basic disk.

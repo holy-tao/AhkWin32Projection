@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
 class DS_REPL_NEIGHBORW_BLOB extends Win32Struct {
-    static sizeof => 96
+    static sizeof => 128
 
     static packingSize => 8
 
@@ -68,38 +69,50 @@ class DS_REPL_NEIGHBORW_BLOB extends Win32Struct {
 
     /**
      * Contains the <b>objectGuid</b> of the naming context that corresponds to <b>pszNamingContext</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidNamingContextObjGuid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__uuidNamingContextObjGuid"))
+                this.__uuidNamingContextObjGuid := Guid(24, this)
+            return this.__uuidNamingContextObjGuid
+        }
     }
 
     /**
      * Contains the <b>objectGuid</b> of the <b>nTDSDSA</b> object that corresponds to <b>pszSourceDsaDN</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidSourceDsaObjGuid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__uuidSourceDsaObjGuid"))
+                this.__uuidSourceDsaObjGuid := Guid(40, this)
+            return this.__uuidSourceDsaObjGuid
+        }
     }
 
     /**
      * Contains the invocation identifier used by the source server as of the last replication attempt.
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidSourceDsaInvocationID {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__uuidSourceDsaInvocationID"))
+                this.__uuidSourceDsaInvocationID := Guid(56, this)
+            return this.__uuidSourceDsaInvocationID
+        }
     }
 
     /**
      * Contains the <b>objectGuid</b> of the inter-site transport object that corresponds to <b>pszAsyncIntersiteTransportDN</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidAsyncIntersiteTransportObjGuid {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get {
+            if(!this.HasProp("__uuidAsyncIntersiteTransportObjGuid"))
+                this.__uuidAsyncIntersiteTransportObjGuid := Guid(72, this)
+            return this.__uuidAsyncIntersiteTransportObjGuid
+        }
     }
 
     /**
@@ -107,8 +120,8 @@ class DS_REPL_NEIGHBORW_BLOB extends Win32Struct {
      * @type {Integer}
      */
     usnLastObjChangeSynced {
-        get => NumGet(this, 56, "int64")
-        set => NumPut("int64", value, this, 56)
+        get => NumGet(this, 88, "int64")
+        set => NumPut("int64", value, this, 88)
     }
 
     /**
@@ -116,8 +129,8 @@ class DS_REPL_NEIGHBORW_BLOB extends Win32Struct {
      * @type {Integer}
      */
     usnAttributeFilter {
-        get => NumGet(this, 64, "int64")
-        set => NumPut("int64", value, this, 64)
+        get => NumGet(this, 96, "int64")
+        set => NumPut("int64", value, this, 96)
     }
 
     /**
@@ -127,7 +140,7 @@ class DS_REPL_NEIGHBORW_BLOB extends Win32Struct {
     ftimeLastSyncSuccess {
         get {
             if(!this.HasProp("__ftimeLastSyncSuccess"))
-                this.__ftimeLastSyncSuccess := FILETIME(72, this)
+                this.__ftimeLastSyncSuccess := FILETIME(104, this)
             return this.__ftimeLastSyncSuccess
         }
     }
@@ -139,7 +152,7 @@ class DS_REPL_NEIGHBORW_BLOB extends Win32Struct {
     ftimeLastSyncAttempt {
         get {
             if(!this.HasProp("__ftimeLastSyncAttempt"))
-                this.__ftimeLastSyncAttempt := FILETIME(80, this)
+                this.__ftimeLastSyncAttempt := FILETIME(112, this)
             return this.__ftimeLastSyncAttempt
         }
     }
@@ -149,8 +162,8 @@ class DS_REPL_NEIGHBORW_BLOB extends Win32Struct {
      * @type {Integer}
      */
     dwLastSyncResult {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 120, "uint")
+        set => NumPut("uint", value, this, 120)
     }
 
     /**
@@ -158,7 +171,7 @@ class DS_REPL_NEIGHBORW_BLOB extends Win32Struct {
      * @type {Integer}
      */
     cNumConsecutiveSyncFailures {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
+        get => NumGet(this, 124, "uint")
+        set => NumPut("uint", value, this, 124)
     }
 }

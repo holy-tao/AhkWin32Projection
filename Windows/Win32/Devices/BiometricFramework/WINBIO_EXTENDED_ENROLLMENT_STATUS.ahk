@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains additional information about the status of an enrollment that is in progress.
@@ -9,28 +12,31 @@
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
 class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct {
-    static sizeof => 368
+    static sizeof => 376
 
     static packingSize => 8
 
-    class _Specific_e__Union extends Win32Struct {
-        static sizeof => 344
+    class _Specific extends Win32Struct {
+        static sizeof => 352
         static packingSize => 8
 
         class _FacialFeatures extends Win32Struct {
-            static sizeof => 344
-            static packingSize => 8
+            static sizeof => 348
+            static packingSize => 4
 
             class _OpaqueEngineData extends Win32Struct {
-                static sizeof => 320
-                static packingSize => 8
+                static sizeof => 328
+                static packingSize => 4
 
                 /**
-                 * @type {Pointer}
+                 * @type {Guid}
                  */
                 AdapterId {
-                    get => NumGet(this, 0, "ptr")
-                    set => NumPut("ptr", value, this, 0)
+                    get {
+                        if(!this.HasProp("__AdapterId"))
+                            this.__AdapterId := Guid(0, this)
+                        return this.__AdapterId
+                    }
                 }
 
                 /**
@@ -39,7 +45,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct {
                 Data {
                     get {
                         if(!this.HasProp("__DataProxyArray"))
-                            this.__DataProxyArray := Win32FixedArray(this.ptr + 8, 78, Primitive, "uint")
+                            this.__DataProxyArray := Win32FixedArray(this.ptr + 16, 78, Primitive, "uint")
                         return this.__DataProxyArray
                     }
                 }
@@ -70,7 +76,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct {
             OpaqueEngineData {
                 get {
                     if(!this.HasProp("__OpaqueEngineData"))
-                        this.__OpaqueEngineData := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific_e__Union._FacialFeatures._OpaqueEngineData(24, this)
+                        this.__OpaqueEngineData := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific._FacialFeatures._OpaqueEngineData(20, this)
                     return this.__OpaqueEngineData
                 }
             }
@@ -236,7 +242,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct {
             Point3D {
                 get {
                     if(!this.HasProp("__Point3D"))
-                        this.__Point3D := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific_e__Union._Iris._Point3D(64, this)
+                        this.__Point3D := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific._Iris._Point3D(64, this)
                     return this.__Point3D
                 }
             }
@@ -277,7 +283,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct {
         FacialFeatures {
             get {
                 if(!this.HasProp("__FacialFeatures"))
-                    this.__FacialFeatures := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific_e__Union._FacialFeatures(0, this)
+                    this.__FacialFeatures := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific._FacialFeatures(0, this)
                 return this.__FacialFeatures
             }
         }
@@ -288,7 +294,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct {
         Fingerprint {
             get {
                 if(!this.HasProp("__Fingerprint"))
-                    this.__Fingerprint := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific_e__Union._Fingerprint(0, this)
+                    this.__Fingerprint := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific._Fingerprint(0, this)
                 return this.__Fingerprint
             }
         }
@@ -299,7 +305,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct {
         Iris {
             get {
                 if(!this.HasProp("__Iris"))
-                    this.__Iris := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific_e__Union._Iris(0, this)
+                    this.__Iris := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific._Iris(0, this)
                 return this.__Iris
             }
         }
@@ -310,7 +316,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct {
         Voice {
             get {
                 if(!this.HasProp("__Voice"))
-                    this.__Voice := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific_e__Union._Voice(0, this)
+                    this.__Voice := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific._Voice(0, this)
                 return this.__Voice
             }
         }
@@ -372,12 +378,12 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct {
 
     /**
      * Information about the status of an enrollment that is in progress for a specific biometric factor.
-     * @type {_Specific_e__Union}
+     * @type {_Specific}
      */
     Specific {
         get {
             if(!this.HasProp("__Specific"))
-                this.__Specific := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific_e__Union(24, this)
+                this.__Specific := WINBIO_EXTENDED_ENROLLMENT_STATUS._Specific(24, this)
             return this.__Specific
         }
     }

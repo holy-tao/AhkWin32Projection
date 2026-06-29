@@ -1,6 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\SECTION.ahk
+#Include .\MPEG_CONTEXT.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\IMpeg2Data.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\MPEG2_FILTER.ahk
+#Include .\MPEG_PACKET_LIST.ahk
+#Include .\MPEG_REQUEST_TYPE.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**

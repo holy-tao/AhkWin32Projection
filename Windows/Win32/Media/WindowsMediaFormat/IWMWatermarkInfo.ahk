@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\WMT_WATERMARK_ENTRY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\WMT_WATERMARK_ENTRY_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMWatermarkInfo interface retrieves information about available watermarking systems.

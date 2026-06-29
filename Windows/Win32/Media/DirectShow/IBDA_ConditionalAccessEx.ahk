@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\BDA_CONDITIONALACCESS_MMICLOSEREASON.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\BDA_CONDITIONALACCESS_REQUESTTYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to a device's Conditional Access Service (CAS), which manages access to protected content.

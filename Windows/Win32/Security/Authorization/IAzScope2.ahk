@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IAzRoleDefinition.ahk
 #Include .\IAzScope.ahk
 #Include .\IAzRoleDefinitions.ahk
-#Include .\IAzRoleDefinition.ahk
-#Include .\IAzRoleAssignments.ahk
 #Include .\IAzRoleAssignment.ahk
+#Include .\IAzRoleAssignments.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IAzScope interface to manage IAzRoleAssignment and IAzRoleDefinition objects.

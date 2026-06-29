@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VDS_PROVIDER_TYPE.ahk
 
 /**
@@ -11,17 +13,20 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_PROVIDER_PROP extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 64
 
     static packingSize => 8
 
     /**
      * The GUID of the provider object.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(0, this)
+            return this.__id
+        }
     }
 
     /**
@@ -29,17 +34,20 @@ class VDS_PROVIDER_PROP extends Win32Struct {
      * @type {PWSTR}
      */
     pwszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * The version-specific GUID of the provider.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidVersionId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__guidVersionId"))
+                this.__guidVersionId := Guid(24, this)
+            return this.__guidVersionId
+        }
     }
 
     /**
@@ -47,8 +55,8 @@ class VDS_PROVIDER_PROP extends Win32Struct {
      * @type {PWSTR}
      */
     pwszVersion {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -57,8 +65,8 @@ class VDS_PROVIDER_PROP extends Win32Struct {
      * @type {VDS_PROVIDER_TYPE}
      */
     type {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -67,8 +75,8 @@ class VDS_PROVIDER_PROP extends Win32Struct {
      * @type {Integer}
      */
     ulFlags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -84,8 +92,8 @@ class VDS_PROVIDER_PROP extends Win32Struct {
      * @type {Integer}
      */
     ulStripeSizeFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -98,7 +106,7 @@ class VDS_PROVIDER_PROP extends Win32Struct {
      * @type {Integer}
      */
     sRebuildPriority {
-        get => NumGet(this, 44, "short")
-        set => NumPut("short", value, this, 44)
+        get => NumGet(this, 60, "short")
+        set => NumPut("short", value, this, 60)
     }
 }

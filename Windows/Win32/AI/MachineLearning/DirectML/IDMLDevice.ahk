@@ -1,7 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DML_EXECUTION_FLAGS.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\IDMLCompiledOperator.ahk
 #Include .\IDMLObject.ahk
+#Include .\IDMLPageable.ahk
+#Include .\IDMLOperator.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\DML_OPERATOR_DESC.ahk
+#Include .\DML_BINDING_TABLE_DESC.ahk
+#Include .\DML_FEATURE.ahk
 
 /**
  * Represents a DirectML device, which is used to create operators, binding tables, command recorders, and other objects. (IDMLDevice)

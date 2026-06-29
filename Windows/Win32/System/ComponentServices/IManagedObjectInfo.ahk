@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include .\IObjectControl.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IManagedPooledObj.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Describes the stub for a managed object.

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDirectInputDevice2A.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\DIFILEEFFECT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1Resource.ahk
+#Include .\D2D1_COLOR_SPACE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a color context that can be used with an ID2D1Bitmap1 object.

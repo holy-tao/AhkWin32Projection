@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTS_SOCKADDR.ahk
-#Include .\WTS_TIME_ZONE_INFORMATION.ahk
-#Include .\WTS_SYSTEMTIME.ahk
-#Include .\WRDS_LISTENER_SETTINGS.ahk
 #Include .\WRDS_LISTENER_SETTING_LEVEL.ahk
 #Include .\WRDS_LISTENER_SETTING.ahk
 #Include .\WRDS_LISTENER_SETTINGS_1.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\WTS_TIME_ZONE_INFORMATION.ahk
+#Include .\WTS_SYSTEMTIME.ahk
+#Include .\WTS_SOCKADDR.ahk
+#Include .\WRDS_LISTENER_SETTINGS.ahk
 
 /**
  * Contains connection setting information for a remote session. (WRDS_CONNECTION_SETTINGS_1)
@@ -14,7 +16,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  */
 class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct {
-    static sizeof => 3752
+    static sizeof => 3760
 
     static packingSize => 8
 
@@ -587,19 +589,22 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     EventLogActivityId {
-        get => NumGet(this, 3728, "ptr")
-        set => NumPut("ptr", value, this, 3728)
+        get {
+            if(!this.HasProp("__EventLogActivityId"))
+                this.__EventLogActivityId := Guid(3728, this)
+            return this.__EventLogActivityId
+        }
     }
 
     /**
      * @type {Integer}
      */
     ContextSize {
-        get => NumGet(this, 3736, "uint")
-        set => NumPut("uint", value, this, 3736)
+        get => NumGet(this, 3744, "uint")
+        set => NumPut("uint", value, this, 3744)
     }
 
     /**
@@ -607,7 +612,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     ContextData {
-        get => NumGet(this, 3744, "ptr")
-        set => NumPut("ptr", value, this, 3744)
+        get => NumGet(this, 3752, "ptr")
+        set => NumPut("ptr", value, this, 3752)
     }
 }

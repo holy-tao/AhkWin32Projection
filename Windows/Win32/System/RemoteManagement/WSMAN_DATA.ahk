@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSManDataType.ahk
-#Include .\WSMAN_DATA_TEXT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSMAN_DATA_BINARY.ahk
+#Include .\WSMAN_DATA_TEXT.ahk
+#Include .\WSManDataType.ahk
 
 /**
  * Contains inbound and outbound data used in the Windows Remote Management (WinRM) API.

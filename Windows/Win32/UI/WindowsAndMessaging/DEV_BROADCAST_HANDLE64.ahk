@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
 class DEV_BROADCAST_HANDLE64 extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -50,19 +51,22 @@ class DEV_BROADCAST_HANDLE64 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     dbch_eventguid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__dbch_eventguid"))
+                this.__dbch_eventguid := Guid(32, this)
+            return this.__dbch_eventguid
+        }
     }
 
     /**
      * @type {Integer}
      */
     dbch_nameoffset {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -71,7 +75,7 @@ class DEV_BROADCAST_HANDLE64 extends Win32Struct {
     dbch_data {
         get {
             if(!this.HasProp("__dbch_dataProxyArray"))
-                this.__dbch_dataProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
+                this.__dbch_dataProxyArray := Win32FixedArray(this.ptr + 52, 1, Primitive, "char")
             return this.__dbch_dataProxyArray
         }
     }

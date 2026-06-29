@@ -1,11 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\PHONE_BUTTON_FUNCTION.ahk
+#Include .\PHONE_HOOK_SWITCH_DEVICE.ahk
+#Include .\PHONE_LAMP_MODE.ahk
+#Include .\PHONECAPS_STRING.ahk
+#Include .\PHONE_PRIVILEGE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumAddress.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITAddress.ahk
+#Include .\PHONECAPS_BUFFER.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\PHONECAPS_LONG.ahk
+#Include .\PHONE_HOOK_SWITCH_STATE.ahk
+#Include .\PHONE_BUTTON_MODE.ahk
+#Include .\IEnumAddress.ahk
 #Include .\IEnumTerminal.ahk
+#Include .\PHONE_BUTTON_STATE.ahk
 
 /**
  * The ITPhone interface is the main interface for the new Phone objects in the TAPI 3.1 object model.
@@ -195,7 +207,7 @@ class ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_phonecapsstring
      */
     get_PhoneCapsString(pcsCap) {
-        ppCapability := BSTR()
+        ppCapability := BSTR({Value: 0}, True)
         result := ComCall(12, this, "int", pcsCap, "ptr", ppCapability, "HRESULT")
         return ppCapability
     }
@@ -326,7 +338,7 @@ class ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_buttontext
      */
     get_ButtonText(lButtonID) {
-        ppButtonText := BSTR()
+        ppButtonText := BSTR({Value: 0}, True)
         result := ComCall(19, this, "int", lButtonID, "ptr", ppButtonText, "HRESULT")
         return ppButtonText
     }
@@ -503,7 +515,7 @@ class ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_display
      */
     get_Display() {
-        pbstrDisplay := BSTR()
+        pbstrDisplay := BSTR({Value: 0}, True)
         result := ComCall(33, this, "ptr", pbstrDisplay, "HRESULT")
         return pbstrDisplay
     }

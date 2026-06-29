@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MFT_REGISTER_TYPE_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains parameters for the IMFLocalMFTRegistration::RegisterMFTs method.
@@ -8,26 +10,32 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class MFT_REGISTRATION_INFO extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 80
 
     static packingSize => 8
 
     /**
      * CLSID of the Media Foundation transform (MFT) to register.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(0, this)
+            return this.__clsid
+        }
     }
 
     /**
      * GUID that specifies the category of the MFT. For a list of MFT categories, see <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-category">MFT_CATEGORY</a>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidCategory {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidCategory"))
+                this.__guidCategory := Guid(16, this)
+            return this.__guidCategory
+        }
     }
 
     /**
@@ -35,8 +43,8 @@ class MFT_REGISTRATION_INFO extends Win32Struct {
      * @type {Integer}
      */
     uiFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -44,8 +52,8 @@ class MFT_REGISTRATION_INFO extends Win32Struct {
      * @type {PWSTR}
      */
     pszName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -53,8 +61,8 @@ class MFT_REGISTRATION_INFO extends Win32Struct {
      * @type {Integer}
      */
     cInTypes {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -62,8 +70,8 @@ class MFT_REGISTRATION_INFO extends Win32Struct {
      * @type {Pointer<MFT_REGISTER_TYPE_INFO>}
      */
     pInTypes {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -71,8 +79,8 @@ class MFT_REGISTRATION_INFO extends Win32Struct {
      * @type {Integer}
      */
     cOutTypes {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -80,7 +88,7 @@ class MFT_REGISTRATION_INFO extends Win32Struct {
      * @type {Pointer<MFT_REGISTER_TYPE_INFO>}
      */
     pOutTypes {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

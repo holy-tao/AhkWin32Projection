@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SYSKIND.ahk
 
 /**
@@ -8,17 +9,20 @@
  * @namespace Windows.Win32.System.Com
  */
 class TLIBATTR extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The globally unique identifier.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(0, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -26,8 +30,8 @@ class TLIBATTR extends Win32Struct {
      * @type {Integer}
      */
     lcid {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -35,8 +39,8 @@ class TLIBATTR extends Win32Struct {
      * @type {SYSKIND}
      */
     syskind {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -44,8 +48,8 @@ class TLIBATTR extends Win32Struct {
      * @type {Integer}
      */
     wMajorVerNum {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
+        get => NumGet(this, 24, "ushort")
+        set => NumPut("ushort", value, this, 24)
     }
 
     /**
@@ -53,8 +57,8 @@ class TLIBATTR extends Win32Struct {
      * @type {Integer}
      */
     wMinorVerNum {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+        get => NumGet(this, 26, "ushort")
+        set => NumPut("ushort", value, this, 26)
     }
 
     /**
@@ -62,7 +66,7 @@ class TLIBATTR extends Win32Struct {
      * @type {Integer}
      */
     wLibFlags {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
+        get => NumGet(this, 28, "ushort")
+        set => NumPut("ushort", value, this, 28)
     }
 }

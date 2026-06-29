@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IADsContainer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IADs.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used by an application or component to programmatically start a creation wizard for a specified object class.

@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\UpdateServiceRegistrationState.ahk
 #Include .\IUpdateService2.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains information about the registration state of a service.
@@ -76,7 +79,7 @@ class IUpdateServiceRegistration extends IDispatch {
      * @returns {BSTR} 
      */
     get_ServiceID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", retval, "HRESULT")
         return retval
     }

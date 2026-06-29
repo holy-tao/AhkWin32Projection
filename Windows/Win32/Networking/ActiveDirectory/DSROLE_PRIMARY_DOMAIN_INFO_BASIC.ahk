@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\DSROLE_MACHINE_ROLE.ahk
 
 /**
@@ -8,7 +10,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
 class DSROLE_PRIMARY_DOMAIN_INFO_BASIC extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -58,10 +60,13 @@ class DSROLE_PRIMARY_DOMAIN_INFO_BASIC extends Win32Struct {
 
     /**
      * Contains the domain identifier. This member is valid only if the <b>Flags</b> member contains the <b>DSROLE_PRIMARY_DOMAIN_GUID_PRESENT</b> flag.
-     * @type {Pointer}
+     * @type {Guid}
      */
     DomainGuid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__DomainGuid"))
+                this.__DomainGuid := Guid(32, this)
+            return this.__DomainGuid
+        }
     }
 }

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextPara.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\ITextPara.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Text Object Model (TOM) rich text-range attributes are accessed through a pair of dual interfaces, ITextFont and ITextPara. (ITextPara2)

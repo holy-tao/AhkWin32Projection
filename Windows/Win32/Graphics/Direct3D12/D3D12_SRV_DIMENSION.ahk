@@ -81,4 +81,9 @@ class D3D12_SRV_DIMENSION extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static D3D12_SRV_DIMENSION_RAYTRACING_ACCELERATION_STRUCTURE => 11
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_SRV_DIMENSION_BUFFER_BYTE_OFFSET => 12
 }

@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IWorkspaceClientExt.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IWorkspaceRegistration.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that add and remove references to custom clients in RemoteApp and Desktop Connection. (IWorkspaceRegistration2)

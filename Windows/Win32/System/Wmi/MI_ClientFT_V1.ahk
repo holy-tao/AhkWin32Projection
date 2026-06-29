@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_DestinationOptionsFT.ahk
+#Include .\MI_DeserializerFT.ahk
+#Include .\MI_SerializerFT.ahk
+#Include .\MI_HostedProviderFT.ahk
+#Include .\MI_OperationFT.ahk
+#Include .\MI_SubscriptionDeliveryOptionsFT.ahk
 #Include .\MI_ApplicationFT.ahk
 #Include .\MI_SessionFT.ahk
-#Include .\MI_OperationFT.ahk
-#Include .\MI_HostedProviderFT.ahk
-#Include .\MI_SerializerFT.ahk
-#Include .\MI_DeserializerFT.ahk
-#Include .\MI_SubscriptionDeliveryOptionsFT.ahk
-#Include .\MI_DestinationOptionsFT.ahk
-#Include .\MI_OperationOptionsFT.ahk
 #Include .\MI_UtilitiesFT.ahk
+#Include .\MI_OperationOptionsFT.ahk
 
 /**
  * Client function tables.

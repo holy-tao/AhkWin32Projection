@@ -12,7 +12,7 @@ class CLFS_MGMT_POLICY extends Win32Struct {
 
     static packingSize => 8
 
-    class _PolicyParameters_e__Union extends Win32Struct {
+    class _PolicyParameters extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -184,7 +184,7 @@ class CLFS_MGMT_POLICY extends Win32Struct {
         MaximumSize {
             get {
                 if(!this.HasProp("__MaximumSize"))
-                    this.__MaximumSize := CLFS_MGMT_POLICY._PolicyParameters_e__Union._MaximumSize(0, this)
+                    this.__MaximumSize := CLFS_MGMT_POLICY._PolicyParameters._MaximumSize(0, this)
                 return this.__MaximumSize
             }
         }
@@ -195,7 +195,7 @@ class CLFS_MGMT_POLICY extends Win32Struct {
         MinimumSize {
             get {
                 if(!this.HasProp("__MinimumSize"))
-                    this.__MinimumSize := CLFS_MGMT_POLICY._PolicyParameters_e__Union._MinimumSize(0, this)
+                    this.__MinimumSize := CLFS_MGMT_POLICY._PolicyParameters._MinimumSize(0, this)
                 return this.__MinimumSize
             }
         }
@@ -206,7 +206,7 @@ class CLFS_MGMT_POLICY extends Win32Struct {
         NewContainerSize {
             get {
                 if(!this.HasProp("__NewContainerSize"))
-                    this.__NewContainerSize := CLFS_MGMT_POLICY._PolicyParameters_e__Union._NewContainerSize(0, this)
+                    this.__NewContainerSize := CLFS_MGMT_POLICY._PolicyParameters._NewContainerSize(0, this)
                 return this.__NewContainerSize
             }
         }
@@ -217,7 +217,7 @@ class CLFS_MGMT_POLICY extends Win32Struct {
         GrowthRate {
             get {
                 if(!this.HasProp("__GrowthRate"))
-                    this.__GrowthRate := CLFS_MGMT_POLICY._PolicyParameters_e__Union._GrowthRate(0, this)
+                    this.__GrowthRate := CLFS_MGMT_POLICY._PolicyParameters._GrowthRate(0, this)
                 return this.__GrowthRate
             }
         }
@@ -228,7 +228,7 @@ class CLFS_MGMT_POLICY extends Win32Struct {
         LogTail {
             get {
                 if(!this.HasProp("__LogTail"))
-                    this.__LogTail := CLFS_MGMT_POLICY._PolicyParameters_e__Union._LogTail(0, this)
+                    this.__LogTail := CLFS_MGMT_POLICY._PolicyParameters._LogTail(0, this)
                 return this.__LogTail
             }
         }
@@ -239,7 +239,7 @@ class CLFS_MGMT_POLICY extends Win32Struct {
         AutoShrink {
             get {
                 if(!this.HasProp("__AutoShrink"))
-                    this.__AutoShrink := CLFS_MGMT_POLICY._PolicyParameters_e__Union._AutoShrink(0, this)
+                    this.__AutoShrink := CLFS_MGMT_POLICY._PolicyParameters._AutoShrink(0, this)
                 return this.__AutoShrink
             }
         }
@@ -250,7 +250,7 @@ class CLFS_MGMT_POLICY extends Win32Struct {
         AutoGrow {
             get {
                 if(!this.HasProp("__AutoGrow"))
-                    this.__AutoGrow := CLFS_MGMT_POLICY._PolicyParameters_e__Union._AutoGrow(0, this)
+                    this.__AutoGrow := CLFS_MGMT_POLICY._PolicyParameters._AutoGrow(0, this)
                 return this.__AutoGrow
             }
         }
@@ -261,7 +261,7 @@ class CLFS_MGMT_POLICY extends Win32Struct {
         NewContainerPrefix {
             get {
                 if(!this.HasProp("__NewContainerPrefix"))
-                    this.__NewContainerPrefix := CLFS_MGMT_POLICY._PolicyParameters_e__Union._NewContainerPrefix(0, this)
+                    this.__NewContainerPrefix := CLFS_MGMT_POLICY._PolicyParameters._NewContainerPrefix(0, this)
                 return this.__NewContainerPrefix
             }
         }
@@ -272,7 +272,7 @@ class CLFS_MGMT_POLICY extends Win32Struct {
         NewContainerSuffix {
             get {
                 if(!this.HasProp("__NewContainerSuffix"))
-                    this.__NewContainerSuffix := CLFS_MGMT_POLICY._PolicyParameters_e__Union._NewContainerSuffix(0, this)
+                    this.__NewContainerSuffix := CLFS_MGMT_POLICY._PolicyParameters._NewContainerSuffix(0, this)
                 return this.__NewContainerSuffix
             }
         }
@@ -283,7 +283,7 @@ class CLFS_MGMT_POLICY extends Win32Struct {
         NewContainerExtension {
             get {
                 if(!this.HasProp("__NewContainerExtension"))
-                    this.__NewContainerExtension := CLFS_MGMT_POLICY._PolicyParameters_e__Union._NewContainerExtension(0, this)
+                    this.__NewContainerExtension := CLFS_MGMT_POLICY._PolicyParameters._NewContainerExtension(0, this)
                 return this.__NewContainerExtension
             }
         }
@@ -329,12 +329,12 @@ class CLFS_MGMT_POLICY extends Win32Struct {
 
     /**
      * Specifies the specific policy this structure describes.
-     * @type {_PolicyParameters_e__Union}
+     * @type {_PolicyParameters}
      */
     PolicyParameters {
         get {
             if(!this.HasProp("__PolicyParameters"))
-                this.__PolicyParameters := CLFS_MGMT_POLICY._PolicyParameters_e__Union(16, this)
+                this.__PolicyParameters := CLFS_MGMT_POLICY._PolicyParameters(16, this)
             return this.__PolicyParameters
         }
     }

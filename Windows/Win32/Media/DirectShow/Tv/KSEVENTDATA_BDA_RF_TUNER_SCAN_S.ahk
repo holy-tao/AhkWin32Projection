@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\KernelStreaming\KSEVENTDATA.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\BDA_LockType.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv

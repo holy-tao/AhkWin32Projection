@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ADJACENT_DISPLAY_EDGES.ahk
+#Include .\NATIVE_DISPLAY_ORIENTATION.ahk
+#Include .\APPLICATION_VIEW_ORIENTATION.ahk
+#Include .\APPLICATION_VIEW_MIN_WIDTH.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IApplicationDesignModeSettings.ahk
 
 /**

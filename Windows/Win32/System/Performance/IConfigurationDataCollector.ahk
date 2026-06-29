@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDataCollector.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IDataCollector.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Collects computer settings at the time of collection.
@@ -433,7 +436,7 @@ class IConfigurationDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_systemstatefile
      */
     get_SystemStateFile() {
-        FileName := BSTR()
+        FileName := BSTR({Value: 0}, True)
         result := ComCall(48, this, "ptr", FileName, "HRESULT")
         return FileName
     }

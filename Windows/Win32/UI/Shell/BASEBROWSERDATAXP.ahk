@@ -1,15 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\ITravelLog.ahk
-#Include .\IHlinkFrame.ahk
-#Include .\IWebBrowser2.ahk
-#Include .\IExpDispSupportXP.ahk
-#Include .\IShellService.ahk
-#Include Common\ITEMIDLIST.ahk
 #Include ..\..\System\Ole\IOleCommandTarget.ahk
-#Include .\IShellView.ahk
+#Include .\IWebBrowser2.ahk
+#Include Common\ITEMIDLIST.ahk
 #Include .\IShellFolder.ahk
+#Include .\IExpDispSupportXP.ahk
+#Include .\ITravelLog.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IShellService.ahk
+#Include .\IShellView.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IHlinkFrame.ahk
 
 /**
  * The BASEBROWSERDATAXP structure contains protected members of the base class. (BASEBROWSERDATAXP structure)
@@ -17,7 +20,7 @@
  * @namespace Windows.Win32.UI.Shell
  */
 class BASEBROWSERDATAXP extends Win32Struct {
-    static sizeof => 192
+    static sizeof => 208
 
     static packingSize => 8
 
@@ -292,20 +295,26 @@ class BASEBROWSERDATAXP extends Win32Struct {
 
     /**
      * Type: <b>CLSID</b>
-     * @type {Pointer}
+     * @type {Guid}
      */
     _clsidView {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
+        get {
+            if(!this.HasProp("___clsidView"))
+                this.___clsidView := Guid(168, this)
+            return this.___clsidView
+        }
     }
 
     /**
      * Type: <b>CLSID</b>
-     * @type {Pointer}
+     * @type {Guid}
      */
     _clsidViewPending {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get {
+            if(!this.HasProp("___clsidViewPending"))
+                this.___clsidViewPending := Guid(184, this)
+            return this.___clsidViewPending
+        }
     }
 
     /**
@@ -315,7 +324,7 @@ class BASEBROWSERDATAXP extends Win32Struct {
     _hwndFrame {
         get {
             if(!this.HasProp("___hwndFrame"))
-                this.___hwndFrame := HWND(184, this)
+                this.___hwndFrame := HWND(200, this)
             return this.___hwndFrame
         }
     }

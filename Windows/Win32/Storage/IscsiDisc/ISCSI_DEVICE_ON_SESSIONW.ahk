@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SCSI_ADDRESS.ahk
 #Include ..\..\System\Ioctl\STORAGE_DEVICE_NUMBER.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\SCSI_ADDRESS.ahk
 
 /**
  * ISCSI_DEVICE_ON_SESSION structure specifies multiple methods for identifying a device associated with an iSCSI login session. (Unicode)
@@ -13,9 +14,9 @@
  * @charset Unicode
  */
 class ISCSI_DEVICE_ON_SESSIONW extends Win32Struct {
-    static sizeof => 2032
+    static sizeof => 2040
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A string that indicates the initiator name.
@@ -84,11 +85,14 @@ class ISCSI_DEVICE_ON_SESSIONW extends Win32Struct {
      * <td>Floppy</td>
      * </tr>
      * </table>
-     * @type {Pointer}
+     * @type {Guid}
      */
     DeviceInterfaceType {
-        get => NumGet(this, 968, "ptr")
-        set => NumPut("ptr", value, this, 968)
+        get {
+            if(!this.HasProp("__DeviceInterfaceType"))
+                this.__DeviceInterfaceType := Guid(968, this)
+            return this.__DeviceInterfaceType
+        }
     }
 
     /**
@@ -96,8 +100,8 @@ class ISCSI_DEVICE_ON_SESSIONW extends Win32Struct {
      * @type {String}
      */
     DeviceInterfaceName {
-        get => StrGet(this.ptr + 976, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 976, 259, "UTF-16")
+        get => StrGet(this.ptr + 984, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 984, 259, "UTF-16")
     }
 
     /**
@@ -105,8 +109,8 @@ class ISCSI_DEVICE_ON_SESSIONW extends Win32Struct {
      * @type {String}
      */
     LegacyName {
-        get => StrGet(this.ptr + 1496, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 1496, 259, "UTF-16")
+        get => StrGet(this.ptr + 1504, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 1504, 259, "UTF-16")
     }
 
     /**
@@ -116,7 +120,7 @@ class ISCSI_DEVICE_ON_SESSIONW extends Win32Struct {
     StorageDeviceNumber {
         get {
             if(!this.HasProp("__StorageDeviceNumber"))
-                this.__StorageDeviceNumber := STORAGE_DEVICE_NUMBER(2016, this)
+                this.__StorageDeviceNumber := STORAGE_DEVICE_NUMBER(2024, this)
             return this.__StorageDeviceNumber
         }
     }
@@ -126,7 +130,7 @@ class ISCSI_DEVICE_ON_SESSIONW extends Win32Struct {
      * @type {Integer}
      */
     DeviceInstance {
-        get => NumGet(this, 2028, "uint")
-        set => NumPut("uint", value, this, 2028)
+        get => NumGet(this, 2036, "uint")
+        set => NumPut("uint", value, this, 2036)
     }
 }

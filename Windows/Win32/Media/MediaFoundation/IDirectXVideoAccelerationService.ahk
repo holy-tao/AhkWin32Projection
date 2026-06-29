@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Direct3D9\D3DPOOL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
 
 /**
  * Provides DirectX Video Acceleration (DXVA) services from a Direct3D device.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SdpQueryUuidUnion.ahk
 
 /**
@@ -8,9 +9,9 @@
  * @namespace Windows.Win32.Devices.Bluetooth
  */
 class SdpQueryUuid extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Union containing the UUID on which to search.
@@ -36,7 +37,7 @@ class SdpQueryUuid extends Win32Struct {
      * @type {Integer}
      */
     uuidType {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
+        get => NumGet(this, 24, "ushort")
+        set => NumPut("ushort", value, this, 24)
     }
 }

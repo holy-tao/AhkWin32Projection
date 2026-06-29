@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\OpenServiceActivityContentType.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -38,7 +42,7 @@ class IOpenServiceActivityInput extends IUnknown {
         pwzVariableName := pwzVariableName is String ? StrPtr(pwzVariableName) : pwzVariableName
         pwzVariableType := pwzVariableType is String ? StrPtr(pwzVariableType) : pwzVariableType
 
-        pbstrVariableContent := BSTR()
+        pbstrVariableContent := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pwzVariableName, "ptr", pwzVariableType, "ptr", pbstrVariableContent, "HRESULT")
         return pbstrVariableContent
     }
@@ -58,12 +62,8 @@ class IOpenServiceActivityInput extends IUnknown {
     }
 
     /**
-     * The GetTypeByName function retrieves a service type GUID for a network service specified by name. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The nspapi.h header defines GetTypeByName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @returns {OpenServiceActivityContentType} 
-     * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-gettypebynamea
      */
     GetType() {
         result := ComCall(5, this, "int*", &pType := 0, "HRESULT")

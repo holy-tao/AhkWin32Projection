@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DIACTIONW.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\DIACTIONW.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @charset Unicode
  */
 class DIACTIONFORMATW extends Win32Struct {
-    static sizeof => 592
+    static sizeof => 600
 
     static packingSize => 8
 
@@ -54,43 +55,46 @@ class DIACTIONFORMATW extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidActionMap {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__guidActionMap"))
+                this.__guidActionMap := Guid(24, this)
+            return this.__guidActionMap
+        }
     }
 
     /**
      * @type {Integer}
      */
     dwGenre {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     dwBufferSize {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
      * @type {Integer}
      */
     lAxisMin {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     lAxisMax {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -99,7 +103,7 @@ class DIACTIONFORMATW extends Win32Struct {
     hInstString {
         get {
             if(!this.HasProp("__hInstString"))
-                this.__hInstString := HINSTANCE(48, this)
+                this.__hInstString := HINSTANCE(56, this)
             return this.__hInstString
         }
     }
@@ -110,7 +114,7 @@ class DIACTIONFORMATW extends Win32Struct {
     ftTimeStamp {
         get {
             if(!this.HasProp("__ftTimeStamp"))
-                this.__ftTimeStamp := FILETIME(56, this)
+                this.__ftTimeStamp := FILETIME(64, this)
             return this.__ftTimeStamp
         }
     }
@@ -119,15 +123,15 @@ class DIACTIONFORMATW extends Win32Struct {
      * @type {Integer}
      */
     dwCRC {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
      * @type {String}
      */
     tszActionMap {
-        get => StrGet(this.ptr + 68, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 68, 259, "UTF-16")
+        get => StrGet(this.ptr + 76, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 76, 259, "UTF-16")
     }
 }

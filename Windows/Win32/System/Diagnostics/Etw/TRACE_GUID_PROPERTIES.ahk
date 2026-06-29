@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Returned by EnumerateTraceGuids. Contains information about an event trace provider.
@@ -10,17 +12,20 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
 class TRACE_GUID_PROPERTIES extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Control GUID of the event trace provider.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__Guid"))
+                this.__Guid := Guid(0, this)
+            return this.__Guid
+        }
     }
 
     /**
@@ -28,8 +33,8 @@ class TRACE_GUID_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     GuidType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -37,8 +42,8 @@ class TRACE_GUID_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     LoggerId {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -47,8 +52,8 @@ class TRACE_GUID_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     EnableLevel {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -57,8 +62,8 @@ class TRACE_GUID_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     EnableFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -68,7 +73,7 @@ class TRACE_GUID_PROPERTIES extends Win32Struct {
      * @type {BOOLEAN}
      */
     IsEnable {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
+        get => NumGet(this, 32, "char")
+        set => NumPut("char", value, this, 32)
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Sent with a power setting event and contains data about the specific change.
@@ -7,18 +8,21 @@
  * @namespace Windows.Win32.System.Power
  */
 class POWERBROADCAST_SETTING extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Indicates the power setting for which this notification is being delivered. For more 
      *     info, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-setting-guids">Power Setting GUIDs</a>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     PowerSetting {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__PowerSetting"))
+                this.__PowerSetting := Guid(0, this)
+            return this.__PowerSetting
+        }
     }
 
     /**
@@ -26,8 +30,8 @@ class POWERBROADCAST_SETTING extends Win32Struct {
      * @type {Integer}
      */
     DataLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -37,7 +41,7 @@ class POWERBROADCAST_SETTING extends Win32Struct {
     Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
             return this.__DataProxyArray
         }
     }

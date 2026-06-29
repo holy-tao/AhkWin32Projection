@@ -1,13 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IFsrmRule.ahk
+#Include .\FsrmReportGenerationContext.ahk
+#Include .\IFsrmProperty.ahk
+#Include .\FsrmReportRunningStatus.ahk
+#Include .\FsrmRuleType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\FsrmPipelineModuleType.ahk
+#Include .\FsrmGetFilePropertyOptions.ahk
+#Include .\IFsrmPropertyDefinition.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmCollection.ahk
-#Include .\IFsrmPropertyDefinition.ahk
-#Include .\IFsrmRule.ahk
+#Include .\FsrmEnumOptions.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFsrmPipelineModuleDefinition.ahk
-#Include .\IFsrmProperty.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 
 /**
  * Manages file classification. Use this interface to define properties to use in classification, add classification rules for classifying files, define classification and storage modules, and enable classification reporting. (IFsrmClassificationManager)
@@ -236,7 +245,7 @@ class IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationreportmailto
      */
     get_ClassificationReportMailTo() {
-        mailTo := BSTR()
+        mailTo := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", mailTo, "HRESULT")
         return mailTo
     }
@@ -302,7 +311,7 @@ class IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationlastreportpathwithoutextension
      */
     get_ClassificationLastReportPathWithoutExtension() {
-        lastReportPath := BSTR()
+        lastReportPath := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", lastReportPath, "HRESULT")
         return lastReportPath
     }
@@ -317,7 +326,7 @@ class IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationlasterror
      */
     get_ClassificationLastError() {
-        lastError := BSTR()
+        lastError := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", lastError, "HRESULT")
         return lastError
     }

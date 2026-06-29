@@ -1,17 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\POINT.ahk
-#Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
-#Include ..\..\..\Graphics\Gdi\FONT_CHARSET.ahk
-#Include ..\..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk
-#Include ..\..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk
-#Include ..\..\..\Graphics\Gdi\FONT_QUALITY.ahk
+#Include .\HIMCC.ahk
 #Include ..\..\..\Graphics\Gdi\LOGFONTW.ahk
+#Include ..\..\..\Foundation\POINT.ahk
+#Include ..\..\..\Graphics\Gdi\FONT_QUALITY.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include .\CANDIDATEFORM.ahk
+#Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
 #Include .\COMPOSITIONFORM.ahk
 #Include ..\..\..\Foundation\RECT.ahk
-#Include .\CANDIDATEFORM.ahk
-#Include .\HIMCC.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk
+#Include ..\..\..\Graphics\Gdi\FONT_CHARSET.ahk
+#Include ..\..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -21,7 +22,7 @@ class INPUTCONTEXT extends Win32Struct {
 
     static packingSize => 8
 
-    class _lfFont_e__Union extends Win32Struct {
+    class _lfFont extends Win32Struct {
         static sizeof => 92
         static packingSize => 4
 
@@ -106,12 +107,12 @@ class INPUTCONTEXT extends Win32Struct {
     }
 
     /**
-     * @type {_lfFont_e__Union}
+     * @type {_lfFont}
      */
     lfFont {
         get {
             if(!this.HasProp("__lfFont"))
-                this.__lfFont := INPUTCONTEXT._lfFont_e__Union(36, this)
+                this.__lfFont := INPUTCONTEXT._lfFont(36, this)
             return this.__lfFont
         }
     }

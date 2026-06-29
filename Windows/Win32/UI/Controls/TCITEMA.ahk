@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include .\TCITEMHEADERA_MASK.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\TAB_CONTROL_ITEM_STATE.ahk
 
 /**

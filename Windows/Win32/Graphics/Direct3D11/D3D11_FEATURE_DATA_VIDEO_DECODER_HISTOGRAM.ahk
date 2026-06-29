@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_VIDEO_DECODER_DESC.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_FLAGS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D11_VIDEO_DECODER_DESC.ahk
 
 /**
  * Provides data for calls to ID3D11VideoDevice2::CheckFeatureSupport when the feature specified is D3D11_FEATURE_VIDEO_DECODER_HISTOGRAM.
@@ -12,7 +13,7 @@
 class D3D11_FEATURE_DATA_VIDEO_DECODER_HISTOGRAM extends Win32Struct {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A [D3D11_VIDEO_DECODER_DESC](../d3d11/ns-d3d11-d3d11_video_decoder_desc.md) structure containing the decoder description for the decoder to be used with decode histogram.
@@ -31,8 +32,8 @@ class D3D11_FEATURE_DATA_VIDEO_DECODER_HISTOGRAM extends Win32Struct {
      * @type {D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_FLAGS}
      */
     Components {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -40,8 +41,8 @@ class D3D11_FEATURE_DATA_VIDEO_DECODER_HISTOGRAM extends Win32Struct {
      * @type {Integer}
      */
     BinCount {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -49,7 +50,7 @@ class D3D11_FEATURE_DATA_VIDEO_DECODER_HISTOGRAM extends Win32Struct {
      * @type {Integer}
      */
     CounterBitDepth {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

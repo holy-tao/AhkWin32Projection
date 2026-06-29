@@ -1,10 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirectDrawClipper.ahk
-#Include .\IDirectDrawPalette.ahk
+#Include ..\Gdi\PALETTEENTRY.ahk
+#Include .\DDCAPS_DX7.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\IDirectDrawSurface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DDSCAPS.ahk
+#Include .\IDirectDrawClipper.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDirectDrawPalette.ahk
+#Include .\DDSURFACEDESC.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -31,9 +40,8 @@ class IDirectDraw2 extends IUnknown {
     static VTableNames => ["Compact", "CreateClipper", "CreatePalette", "CreateSurface", "DuplicateSurface", "EnumDisplayModes", "EnumSurfaces", "FlipToGDISurface", "GetCaps", "GetDisplayMode", "GetFourCCCodes", "GetGDISurface", "GetMonitorFrequency", "GetScanLine", "GetVerticalBlankStatus", "Initialize", "RestoreDisplayMode", "SetCooperativeLevel", "SetDisplayMode", "WaitForVerticalBlank", "GetAvailableVidMem"]
 
     /**
-     * Learn more about: CompactGrbit enumeration
+     * 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/compactgrbit-enumeration
      */
     Compact() {
         result := ComCall(3, this, "HRESULT")

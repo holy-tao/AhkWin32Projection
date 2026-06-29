@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDWriteFontSetBuilder.ahk
+#Include .\IDWriteFontFile.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains methods for building a font set. (IDWriteFontSetBuilder1)

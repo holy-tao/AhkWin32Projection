@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LUID.ahk
-#Include .\DXGI_GRAPHICS_PREEMPTION_GRANULARITY.ahk
 #Include .\DXGI_COMPUTE_PREEMPTION_GRANULARITY.ahk
+#Include .\DXGI_GRAPHICS_PREEMPTION_GRANULARITY.ahk
+#Include ..\..\Foundation\LUID.ahk
 
 /**
  * Describes an adapter (or video card) that uses Microsoft DirectX Graphics Infrastructure (DXGI) 1.2.

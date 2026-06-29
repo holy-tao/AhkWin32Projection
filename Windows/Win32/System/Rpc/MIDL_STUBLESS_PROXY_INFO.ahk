@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MIDL_STUB_DESC.ahk
-#Include .\RPC_SYNTAX_IDENTIFIER.ahk
 #Include .\MIDL_SYNTAX_INFO.ahk
+#Include .\RPC_SYNTAX_IDENTIFIER.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc

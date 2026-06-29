@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include .\MFVideoNormalizedRect.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Specifies how the enhanced video renderer (EVR) alpha-blends a bitmap with the video.

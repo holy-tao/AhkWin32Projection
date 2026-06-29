@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -28,10 +30,9 @@ class IGetSession extends IUnknown {
     static VTableNames => ["GetSession"]
 
     /**
-     * Reserved for future use. Do not use this function. (GetSessionCompartmentId)
+     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getsessioncompartmentid
      */
     GetSession(riid) {
         result := ComCall(3, this, "ptr", riid, "ptr*", &ppSession := 0, "HRESULT")

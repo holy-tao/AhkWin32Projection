@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLStorage.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -75,7 +77,7 @@ class IDOMStorageEvent extends IDispatch {
      * @returns {BSTR} 
      */
     get_key() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", p, "HRESULT")
         return p
     }
@@ -85,7 +87,7 @@ class IDOMStorageEvent extends IDispatch {
      * @returns {BSTR} 
      */
     get_oldValue() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -95,7 +97,7 @@ class IDOMStorageEvent extends IDispatch {
      * @returns {BSTR} 
      */
     get_newValue() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", p, "HRESULT")
         return p
     }
@@ -105,7 +107,7 @@ class IDOMStorageEvent extends IDispatch {
      * @returns {BSTR} 
      */
     get_url() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }

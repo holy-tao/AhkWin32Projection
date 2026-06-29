@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_SUBRESOURCE_FOOTPRINT.ahk
 #Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_SUBRESOURCE_FOOTPRINT.ahk
 
 /**
  * Describes the footprint of a placed subresource, including the offset and the D3D12_SUBRESOURCE_FOOTPRINT.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\TXF_ID.ahk
 
 /**
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class TXF_LOG_RECORD_AFFECTED_FILE extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -53,11 +54,14 @@ class TXF_LOG_RECORD_AFFECTED_FILE extends Win32Struct {
 
     /**
      * The KTM transaction GUID for this update.
-     * @type {Pointer}
+     * @type {Guid}
      */
     KtmGuid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__KtmGuid"))
+                this.__KtmGuid := Guid(32, this)
+            return this.__KtmGuid
+        }
     }
 
     /**
@@ -65,8 +69,8 @@ class TXF_LOG_RECORD_AFFECTED_FILE extends Win32Struct {
      * @type {Integer}
      */
     FileNameLength {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -74,7 +78,7 @@ class TXF_LOG_RECORD_AFFECTED_FILE extends Win32Struct {
      * @type {Integer}
      */
     FileNameByteOffsetInStructure {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 }

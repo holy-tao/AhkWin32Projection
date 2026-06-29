@@ -1,11 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\IRegisteredTaskCollection.ahk
 #Include .\ITaskFolderCollection.ahk
 #Include .\IRegisteredTask.ahk
-#Include .\IRegisteredTaskCollection.ahk
+#Include .\TASK_LOGON_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\ITaskDefinition.ahk
 
 /**
  * Provides the methods that are used to register (create) tasks in the folder, remove tasks from the folder, and create or remove subfolders from the folder.
@@ -53,7 +57,7 @@ class ITaskFolder extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-get_name
      */
     get_Name() {
-        pName := BSTR()
+        pName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pName, "HRESULT")
         return pName
     }
@@ -64,7 +68,7 @@ class ITaskFolder extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-get_path
      */
     get_Path() {
-        pPath := BSTR()
+        pPath := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pPath, "HRESULT")
         return pPath
     }
@@ -628,7 +632,7 @@ class ITaskFolder extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-getsecuritydescriptor
      */
     GetSecurityDescriptor(securityInformation) {
-        pSddl := BSTR()
+        pSddl := BSTR({Value: 0}, True)
         result := ComCall(18, this, "int", securityInformation, "ptr", pSddl, "HRESULT")
         return pSddl
     }

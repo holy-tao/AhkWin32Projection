@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPDESTROW.ahk
-#Include .\MIB_IPFORWARDROW.ahk
 #Include .\MIB_IPFORWARD_TYPE.ahk
+#Include .\MIB_IPFORWARDROW.ahk
+#Include .\MIB_IPDESTROW.ahk
 #Include ..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk
 
 /**

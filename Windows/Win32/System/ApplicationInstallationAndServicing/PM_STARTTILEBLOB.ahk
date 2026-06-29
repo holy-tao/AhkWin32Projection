@@ -2,14 +2,16 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\TILE_TEMPLATE_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\PM_STARTTILE_TYPE.ahk
 #Include .\PM_INVOCATIONINFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
 class PM_STARTTILEBLOB extends Win32Struct {
-    static sizeof => 208
+    static sizeof => 216
 
     static packingSize => 8
 
@@ -22,11 +24,14 @@ class PM_STARTTILEBLOB extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ProductID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ProductID"))
+                this.__ProductID := Guid(4, this)
+            return this.__ProductID
+        }
     }
 
     /**
@@ -35,7 +40,7 @@ class PM_STARTTILEBLOB extends Win32Struct {
     TileID {
         get {
             if(!this.HasProp("__TileID"))
-                this.__TileID := BSTR(16, this)
+                this.__TileID := BSTR(24, this)
             return this.__TileID
         }
     }
@@ -44,8 +49,8 @@ class PM_STARTTILEBLOB extends Win32Struct {
      * @type {TILE_TEMPLATE_TYPE}
      */
     TemplateType {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -54,7 +59,7 @@ class PM_STARTTILEBLOB extends Win32Struct {
     HubPosition {
         get {
             if(!this.HasProp("__HubPositionProxyArray"))
-                this.__HubPositionProxyArray := Win32FixedArray(this.ptr + 28, 32, Primitive, "uint")
+                this.__HubPositionProxyArray := Win32FixedArray(this.ptr + 36, 32, Primitive, "uint")
             return this.__HubPositionProxyArray
         }
     }
@@ -63,56 +68,56 @@ class PM_STARTTILEBLOB extends Win32Struct {
      * @type {Integer}
      */
     HubVisibilityBitmask {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
+        get => NumGet(this, 164, "uint")
+        set => NumPut("uint", value, this, 164)
     }
 
     /**
      * @type {BOOL}
      */
     IsDefault {
-        get => NumGet(this, 160, "int")
-        set => NumPut("int", value, this, 160)
+        get => NumGet(this, 168, "int")
+        set => NumPut("int", value, this, 168)
     }
 
     /**
      * @type {PM_STARTTILE_TYPE}
      */
     TileType {
-        get => NumGet(this, 164, "int")
-        set => NumPut("int", value, this, 164)
+        get => NumGet(this, 172, "int")
+        set => NumPut("int", value, this, 172)
     }
 
     /**
      * @type {Pointer<Integer>}
      */
     pbPropBlob {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
+        get => NumGet(this, 176, "ptr")
+        set => NumPut("ptr", value, this, 176)
     }
 
     /**
      * @type {Integer}
      */
     cbPropBlob {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
+        get => NumGet(this, 184, "uint")
+        set => NumPut("uint", value, this, 184)
     }
 
     /**
      * @type {BOOL}
      */
     IsRestoring {
-        get => NumGet(this, 180, "int")
-        set => NumPut("int", value, this, 180)
+        get => NumGet(this, 188, "int")
+        set => NumPut("int", value, this, 188)
     }
 
     /**
      * @type {BOOL}
      */
     IsModern {
-        get => NumGet(this, 184, "int")
-        set => NumPut("int", value, this, 184)
+        get => NumGet(this, 192, "int")
+        set => NumPut("int", value, this, 192)
     }
 
     /**
@@ -121,13 +126,13 @@ class PM_STARTTILEBLOB extends Win32Struct {
     InvocationInfo {
         get {
             if(!this.HasProp("__InvocationInfo"))
-                this.__InvocationInfo := PM_INVOCATIONINFO(192, this)
+                this.__InvocationInfo := PM_INVOCATIONINFO(200, this)
             return this.__InvocationInfo
         }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 208
+        this.cbSize := 216
     }
 }

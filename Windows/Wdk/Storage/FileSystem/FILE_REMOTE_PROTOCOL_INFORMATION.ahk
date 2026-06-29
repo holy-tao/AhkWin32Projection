@@ -25,7 +25,7 @@ class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct {
         }
     }
 
-    class _ProtocolSpecific_e__Union extends Win32Struct {
+    class _ProtocolSpecific extends Win32Struct {
         static sizeof => 64
         static packingSize => 4
 
@@ -100,7 +100,7 @@ class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct {
             Server {
                 get {
                     if(!this.HasProp("__Server"))
-                        this.__Server := FILE_REMOTE_PROTOCOL_INFORMATION._ProtocolSpecific_e__Union._Smb2._Server(0, this)
+                        this.__Server := FILE_REMOTE_PROTOCOL_INFORMATION._ProtocolSpecific._Smb2._Server(0, this)
                     return this.__Server
                 }
             }
@@ -111,7 +111,7 @@ class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct {
             Share {
                 get {
                     if(!this.HasProp("__Share"))
-                        this.__Share := FILE_REMOTE_PROTOCOL_INFORMATION._ProtocolSpecific_e__Union._Smb2._Share(4, this)
+                        this.__Share := FILE_REMOTE_PROTOCOL_INFORMATION._ProtocolSpecific._Smb2._Share(4, this)
                     return this.__Share
                 }
             }
@@ -123,7 +123,7 @@ class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct {
         Smb2 {
             get {
                 if(!this.HasProp("__Smb2"))
-                    this.__Smb2 := FILE_REMOTE_PROTOCOL_INFORMATION._ProtocolSpecific_e__Union._Smb2(0, this)
+                    this.__Smb2 := FILE_REMOTE_PROTOCOL_INFORMATION._ProtocolSpecific._Smb2(0, this)
                 return this.__Smb2
             }
         }
@@ -216,12 +216,12 @@ class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct {
     }
 
     /**
-     * @type {_ProtocolSpecific_e__Union}
+     * @type {_ProtocolSpecific}
      */
     ProtocolSpecific {
         get {
             if(!this.HasProp("__ProtocolSpecific"))
-                this.__ProtocolSpecific := FILE_REMOTE_PROTOCOL_INFORMATION._ProtocolSpecific_e__Union(52, this)
+                this.__ProtocolSpecific := FILE_REMOTE_PROTOCOL_INFORMATION._ProtocolSpecific(52, this)
             return this.__ProtocolSpecific
         }
     }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\ROUTER_INTERFACE_TYPE.ahk
 #Include .\RAS_FLAGS.ahk
+#Include .\ROUTER_INTERFACE_TYPE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The RAS_CONNECTION_0 structure contains general information regarding a specific connection, such as user name or domain. For more detailed information about a specific connection, such as bytes sent or received, see RAS_CONNECTION_1.

@@ -1,8 +1,50 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Object.ahk
+#Include .\D3D12_HEAP_FLAGS.ahk
+#Include ..\..\Foundation\LUID.ahk
+#Include .\D3D12_SHADER_RESOURCE_VIEW_DESC.ahk
+#Include .\D3D12_DESCRIPTOR_HEAP_DESC.ahk
+#Include .\D3D12_RESOURCE_STATES.ahk
+#Include .\D3D12_QUERY_HEAP_DESC.ahk
+#Include .\D3D12_COMPUTE_PIPELINE_STATE_DESC.ahk
+#Include .\D3D12_CPU_DESCRIPTOR_HANDLE.ahk
+#Include .\D3D12_GRAPHICS_PIPELINE_STATE_DESC.ahk
+#Include .\D3D12_FEATURE.ahk
+#Include .\ID3D12DeviceChild.ahk
+#Include .\ID3D12Heap.ahk
+#Include .\D3D12_PACKED_MIP_INFO.ahk
+#Include .\ID3D12Pageable.ahk
+#Include .\ID3D12CommandAllocator.ahk
+#Include .\D3D12_COMMAND_LIST_TYPE.ahk
+#Include .\D3D12_CONSTANT_BUFFER_VIEW_DESC.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\D3D12_PLACED_SUBRESOURCE_FOOTPRINT.ahk
+#Include .\D3D12_FENCE_FLAGS.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\D3D12_RENDER_TARGET_VIEW_DESC.ahk
+#Include .\ID3D12PipelineState.ahk
+#Include .\D3D12_COMMAND_SIGNATURE_DESC.ahk
+#Include .\D3D12_HEAP_DESC.ahk
+#Include .\D3D12_HEAP_TYPE.ahk
+#Include .\D3D12_CLEAR_VALUE.ahk
+#Include .\D3D12_SUBRESOURCE_TILING.ahk
+#Include .\D3D12_RESOURCE_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D12Resource.ahk
+#Include .\D3D12_DESCRIPTOR_HEAP_TYPE.ahk
+#Include .\D3D12_TILE_SHAPE.ahk
+#Include .\D3D12_SAMPLER_DESC.ahk
+#Include .\D3D12_DEPTH_STENCIL_VIEW_DESC.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D12_RESOURCE_ALLOCATION_INFO.ahk
+#Include .\D3D12_COMMAND_QUEUE_DESC.ahk
+#Include .\ID3D12Object.ahk
+#Include .\ID3D12RootSignature.ahk
+#Include .\D3D12_UNORDERED_ACCESS_VIEW_DESC.ahk
+#Include .\D3D12_HEAP_PROPERTIES.ahk
 
 /**
  * Represents a virtual adapter; it is used to create command allocators, command lists, command queues, fences, resources, pipeline state objects, heaps, root signatures, samplers, and many resource views.
@@ -884,7 +926,7 @@ class ID3D12Device extends ID3D12Object {
     CreateSharedHandle(pObject, pAttributes, Access, Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        pHandle := HANDLE()
+        pHandle := HANDLE({Value: 0}, True)
         result := ComCall(31, this, "ptr", pObject, "ptr", pAttributes, "uint", Access, "ptr", Name, "ptr", pHandle, "HRESULT")
         return pHandle
     }
@@ -956,7 +998,7 @@ class ID3D12Device extends ID3D12Object {
     OpenSharedHandleByName(Name, Access) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        pNTHandle := HANDLE()
+        pNTHandle := HANDLE({Value: 0}, True)
         result := ComCall(33, this, "ptr", Name, "uint", Access, "ptr", pNTHandle, "HRESULT")
         return pNTHandle
     }

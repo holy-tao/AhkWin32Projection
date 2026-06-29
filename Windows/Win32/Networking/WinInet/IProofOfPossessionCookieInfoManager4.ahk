@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\IInspectable.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ProofOfPossessionCookieInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Supports the creation of proof-of-possession cookies, for a WebAccount and a client id.

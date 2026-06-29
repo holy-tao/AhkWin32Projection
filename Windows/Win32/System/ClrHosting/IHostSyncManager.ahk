@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IHostCrst.ahk
 #Include .\IHostAutoEvent.ahk
-#Include .\IHostManualEvent.ahk
+#Include .\ICLRSyncManager.ahk
+#Include .\IHostCrst.ahk
 #Include .\IHostSemaphore.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IHostManualEvent.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Provides information about a call frame such as the method in the call frame, if it has in, out, or in/out parameters, the number of [in], [out], or [in, out] interfaces, the interface ID, the number of methods in the interface and the number of parameters in this method.
@@ -7,9 +9,9 @@
  * @namespace Windows.Win32.System.Com.CallObj
  */
 class CALLFRAMEINFO extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The method number within the interface in question.
@@ -94,11 +96,14 @@ class CALLFRAMEINFO extends Win32Struct {
 
     /**
      * The interface ID.
-     * @type {Pointer}
+     * @type {Guid}
      */
     iid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__iid"))
+                this.__iid := Guid(36, this)
+            return this.__iid
+        }
     }
 
     /**
@@ -106,8 +111,8 @@ class CALLFRAMEINFO extends Win32Struct {
      * @type {Integer}
      */
     cMethod {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -115,7 +120,7 @@ class CALLFRAMEINFO extends Win32Struct {
      * @type {Integer}
      */
     cParams {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 }

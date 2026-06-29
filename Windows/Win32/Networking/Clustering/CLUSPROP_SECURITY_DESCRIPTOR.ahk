@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_VALUE.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
-#Include ..\..\Security\SECURITY_DESCRIPTOR_RELATIVE.ahk
 #Include ..\..\Security\SECURITY_DESCRIPTOR_CONTROL.ahk
+#Include ..\..\Security\SECURITY_DESCRIPTOR_RELATIVE.ahk
+#Include .\CLUSPROP_SYNTAX.ahk
+#Include .\CLUSPROP_VALUE.ahk
 
 /**
  * Describes a security descriptor.

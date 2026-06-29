@@ -1,8 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\IO\OVERLAPPED.ahk
+#Include .\MQQUEUEPROPS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MQPRIVATEPROPS.ahk
+#Include .\MQMSGPROPS.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\MQCOLUMNSET.ahk
+#Include ..\..\Security\OBJECT_SECURITY_INFORMATION.ahk
 #Include ..\DistributedTransactionCoordinator\ITransaction.ahk
+#Include .\MQRESTRICTION.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\MQSORTSET.ahk
+#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\MQQMPROPS.ahk
+#Include .\MQMGMTPROPS.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
@@ -1104,7 +1119,7 @@ class MessageQueuing {
     static MQLocateBegin(lpwcsContext, pRestriction, pColumns, pSort) {
         lpwcsContext := lpwcsContext is String ? StrPtr(lpwcsContext) : lpwcsContext
 
-        phEnum := HANDLE()
+        phEnum := HANDLE({Value: 0}, True)
         result := DllCall("mqrt.dll\MQLocateBegin", "ptr", lpwcsContext, "ptr", pRestriction, "ptr", pColumns, "ptr", pSort, "ptr", phEnum, "HRESULT")
         return phEnum
     }
@@ -1204,7 +1219,7 @@ class MessageQueuing {
      * @returns {HANDLE} 
      */
     static MQCreateCursor(hQueue) {
-        phCursor := HANDLE()
+        phCursor := HANDLE({Value: 0}, True)
         result := DllCall("mqrt.dll\MQCreateCursor", "ptr", hQueue, "ptr", phCursor, "HRESULT")
         return phCursor
     }
@@ -1385,7 +1400,7 @@ class MessageQueuing {
      * @returns {HANDLE} 
      */
     static MQGetSecurityContext(lpCertBuffer, dwCertBufferLength) {
-        phSecurityContext := HANDLE()
+        phSecurityContext := HANDLE({Value: 0}, True)
         result := DllCall("mqrt.dll\MQGetSecurityContext", "ptr", lpCertBuffer, "uint", dwCertBufferLength, "ptr", phSecurityContext, "HRESULT")
         return phSecurityContext
     }
@@ -1397,7 +1412,7 @@ class MessageQueuing {
      * @returns {HANDLE} 
      */
     static MQGetSecurityContextEx(lpCertBuffer, dwCertBufferLength) {
-        phSecurityContext := HANDLE()
+        phSecurityContext := HANDLE({Value: 0}, True)
         result := DllCall("mqrt.dll\MQGetSecurityContextEx", "ptr", lpCertBuffer, "uint", dwCertBufferLength, "ptr", phSecurityContext, "HRESULT")
         return phSecurityContext
     }

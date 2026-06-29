@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\EMR.ahk
 #Include ..\..\Graphics\Gdi\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include .\LOGCOLORSPACEA.ahk
+#Include ..\..\Graphics\Gdi\CIEXYZ.ahk
 #Include .\LCSCSTYPE.ahk
 #Include ..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk
-#Include ..\..\Graphics\Gdi\CIEXYZ.ahk
+#Include .\LOGCOLORSPACEA.ahk
 
 /**
  * The EMRCREATECOLORSPACE structure contains members for the CreateColorSpace enhanced metafile record.

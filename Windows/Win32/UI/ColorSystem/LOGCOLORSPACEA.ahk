@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\CIEXYZ.ahk
 #Include .\LCSCSTYPE.ahk
 #Include ..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk
-#Include ..\..\Graphics\Gdi\CIEXYZ.ahk
 
 /**
  * The LOGCOLORSPACE structure contains information that defines a logical color space. (ANSI)

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains partition information specific to master boot record (MBR) disks.
@@ -7,9 +9,9 @@
  * @namespace Windows.Win32.System.Ioctl
  */
 class PARTITION_INFORMATION_MBR extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The type of partition. For a list of values, see 
@@ -51,10 +53,13 @@ class PARTITION_INFORMATION_MBR extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     PartitionId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__PartitionId"))
+                this.__PartitionId := Guid(8, this)
+            return this.__PartitionId
+        }
     }
 }

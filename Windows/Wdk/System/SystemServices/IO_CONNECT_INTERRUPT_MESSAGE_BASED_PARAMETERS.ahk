@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\DEVICE_OBJECT.ahk
 #Include .\IO_INTERRUPT_MESSAGE_INFO.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include ..\..\Foundation\PKINTERRUPT.ahk
+#Include ..\..\Foundation\DEVICE_OBJECT.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -11,7 +13,7 @@ class IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS extends Win32Struct {
 
     static packingSize => 8
 
-    class _ConnectionContext_e__Union extends Win32Struct {
+    class _ConnectionContext extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -49,12 +51,12 @@ class IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS extends Win32Struct {
     }
 
     /**
-     * @type {_ConnectionContext_e__Union}
+     * @type {_ConnectionContext}
      */
     ConnectionContext {
         get {
             if(!this.HasProp("__ConnectionContext"))
-                this.__ConnectionContext := IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS._ConnectionContext_e__Union(8, this)
+                this.__ConnectionContext := IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS._ConnectionContext(8, this)
             return this.__ConnectionContext
         }
     }

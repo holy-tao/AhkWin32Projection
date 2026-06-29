@@ -2,9 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include .\IUpdateCollection.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IDownloadProgress.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains properties and methods that are available to a download operation.

@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUpdateSession2.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IUpdateServiceManager2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IUpdateHistoryEntryCollection.ahk
+#Include .\IUpdateSession2.ahk
 
 /**
  * Represents a session in which the caller can perform operations that involve updates. For example, this interface represents sessions in which the caller performs a search, download, installation, or uninstallation operation. (IUpdateSession3)

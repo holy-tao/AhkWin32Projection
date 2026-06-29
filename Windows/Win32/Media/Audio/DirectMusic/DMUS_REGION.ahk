@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\RGNRANGE.ahk
-#Include .\WAVELINK.ahk
-#Include .\WSMPL.ahk
 #Include .\WLOOP.ahk
+#Include .\WSMPL.ahk
+#Include .\WAVELINK.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic

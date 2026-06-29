@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWP_BYTE_BLOB.ahk
 #Include .\IKEEXT_CERT_CONFIG_TYPE.ahk
 #Include .\IKEEXT_CERT_ROOT_CONFIG0.ahk
 #Include .\IKEEXT_CERT_AUTH.ahk
-#Include .\FWP_BYTE_BLOB.ahk
 
 /**
  * Is used to specify various parameters for authentication with certificates. (IKEEXT_CERTIFICATE_AUTHENTICATION1)

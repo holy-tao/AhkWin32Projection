@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains read/write configuration information for extended TCP statistics observed on the remote receiver for a TCP connection.

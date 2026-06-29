@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertProperty.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ICertProperty.ahk
 
 /**
  * Represents a certificate property that identifies a template that has been configured to enable autoenrollment of the certificate.
@@ -81,7 +82,7 @@ class ICertPropertyAutoEnroll extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyautoenroll-get_templatename
      */
     get_TemplateName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pValue, "HRESULT")
         return pValue
     }

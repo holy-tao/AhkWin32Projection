@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPSPEC.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPSPEC_KIND.ahk
 
@@ -9,17 +11,20 @@
  * @namespace Windows.Win32.Storage.IndexServer
  */
 class FULLPROPSPEC extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
     /**
      * The globally unique identifier (GUID) that identifies the property set.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidPropSet {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guidPropSet"))
+                this.__guidPropSet := Guid(0, this)
+            return this.__guidPropSet
+        }
     }
 
     /**
@@ -29,7 +34,7 @@ class FULLPROPSPEC extends Win32Struct {
     psProperty {
         get {
             if(!this.HasProp("__psProperty"))
-                this.__psProperty := PROPSPEC(8, this)
+                this.__psProperty := PROPSPEC(16, this)
             return this.__psProperty
         }
     }

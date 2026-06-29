@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\CERTTRANSBLOB.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -29,7 +31,7 @@ class ICertRequestD extends IUnknown {
     static VTableNames => ["Request", "GetCACert", "Ping"]
 
     /**
-     * Specifies the type of application that created a certificate request.
+     * 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwszAuthority 
      * @param {Pointer<Integer>} pdwRequestId 
@@ -40,7 +42,6 @@ class ICertRequestD extends IUnknown {
      * @param {Pointer<CERTTRANSBLOB>} pctbEncodedCert 
      * @param {Pointer<CERTTRANSBLOB>} pctbDispositionMessage 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-requestclientinfoclientid
      */
     Request(dwFlags, pwszAuthority, pdwRequestId, pdwDisposition, pwszAttributes, pctbRequest, pctbCertChain, pctbEncodedCert, pctbDispositionMessage) {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority

@@ -1,13 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
-#Include .\DXVAHD_VPDEVCAPS.ahk
-#Include .\DXVAHD_VPCAPS.ahk
 #Include .\DXVAHD_CUSTOM_RATE_DATA.ahk
+#Include ..\..\Graphics\Direct3D9\D3DPOOL.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\DXVAHD_VPCAPS.ahk
+#Include .\DXVAHD_SURFACE_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\DXVAHD_FILTER_RANGE_DATA.ahk
+#Include .\DXVAHD_VPDEVCAPS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDXVAHD_VideoProcessor.ahk
+#Include .\DXVAHD_FILTER.ahk
 
 /**
  * Represents a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.

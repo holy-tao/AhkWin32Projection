@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICEnroll2.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ICEnroll2.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * One of several interfaces that represent the Certificate Enrollment Control.
@@ -156,7 +158,7 @@ class ICEnroll3 extends ICEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-getalgname
      */
     GetAlgName(algID) {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(74, this, "int", algID, "ptr", pbstr, "HRESULT")
         return pbstr
     }

@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\RpcCallClientLocality.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\RpcCallType.ahk
 #Include .\RPC_CALL_LOCAL_ADDRESS_V1.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\RpcCallType.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
@@ -154,19 +156,22 @@ class RPC_CALL_ATTRIBUTES_V3_W extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     InterfaceUuid {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get {
+            if(!this.HasProp("__InterfaceUuid"))
+                this.__InterfaceUuid := Guid(92, this)
+            return this.__InterfaceUuid
+        }
     }
 
     /**
      * @type {Integer}
      */
     ClientIdentifierBufferLength {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 
     /**

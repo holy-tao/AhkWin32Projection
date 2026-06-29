@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\WindowsAndMessaging\HMENU.ahk
+#Include .\CMINVOKECOMMANDINFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that either create or merge a shortcut menu associated with a Shell object.

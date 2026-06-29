@@ -1,13 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_GLOBAL.ahk
-#Include .\DD_SURFACE_LOCAL.ahk
 #Include ..\..\Foundation\RECTL.ahk
-#Include .\DDBLTFX.ahk
-#Include .\IDirectDrawSurface.ahk
-#Include .\DDCOLORKEY.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include .\DDARGB.ahk
+#Include .\IDirectDrawSurface.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include .\DDCOLORKEY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DD_SURFACE_LOCAL.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DDBLTFX.ahk
 
 /**
  * The DD_BLTDATA structure contains the information relevant to the driver for doing bit block transfers.

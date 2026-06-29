@@ -4,6 +4,7 @@
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\ITfContext.ahk
 #Include .\IEnumTfContexts.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfDocumentMgr interface is implemented by the TSF manager and used by an application or text service to create and manage text contexts. To obtain an instance of this interface call ITfThreadMgr::CreateDocumentMgr.

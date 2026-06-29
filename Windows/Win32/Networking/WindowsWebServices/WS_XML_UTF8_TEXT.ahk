@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_XML_TEXT.ahk
+#Include .\WS_XML_DICTIONARY.ahk
 #Include .\WS_XML_TEXT_TYPE.ahk
 #Include .\WS_XML_STRING.ahk
-#Include .\WS_XML_DICTIONARY.ahk
 
 /**
  * Represents text encoded as UTF-8 bytes.

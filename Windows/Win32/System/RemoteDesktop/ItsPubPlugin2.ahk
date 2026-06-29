@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ItsPubPlugin.ahk
+#Include .\TSPUB_PLUGIN_PD_RESOLUTION_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\pluginResource2.ahk
+#Include .\TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE.ahk
+#Include .\ItsPubPlugin.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Specifies methods that provide information about resources available to users of RemoteApp and Desktop Connections.

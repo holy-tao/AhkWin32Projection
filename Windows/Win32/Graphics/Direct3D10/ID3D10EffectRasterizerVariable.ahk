@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10EffectVariable.ahk
 #Include .\ID3D10RasterizerState.ahk
 #Include .\D3D10_RASTERIZER_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D10EffectVariable.ahk
 
 /**
  * A rasterizer-variable interface accesses rasterizer state.

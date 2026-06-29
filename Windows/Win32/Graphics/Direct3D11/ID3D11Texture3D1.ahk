@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_TEXTURE3D_DESC1.ahk
 #Include .\ID3D11Texture3D.ahk
 
 /**

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Maintains the state that describes a particular client.
@@ -123,7 +124,7 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-getbusinessrulestring
      */
     GetBusinessRuleString() {
-        pbstrBusinessRuleString := BSTR()
+        pbstrBusinessRuleString := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrBusinessRuleString, "HRESULT")
         return pbstrBusinessRuleString
     }
@@ -138,7 +139,7 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_userdn
      */
     get_UserDn() {
-        pbstrProp := BSTR()
+        pbstrProp := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrProp, "HRESULT")
         return pbstrProp
     }
@@ -153,7 +154,7 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_usersamcompat
      */
     get_UserSamCompat() {
-        pbstrProp := BSTR()
+        pbstrProp := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbstrProp, "HRESULT")
         return pbstrProp
     }
@@ -168,7 +169,7 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_userdisplay
      */
     get_UserDisplay() {
-        pbstrProp := BSTR()
+        pbstrProp := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrProp, "HRESULT")
         return pbstrProp
     }
@@ -183,7 +184,7 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_userguid
      */
     get_UserGuid() {
-        pbstrProp := BSTR()
+        pbstrProp := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstrProp, "HRESULT")
         return pbstrProp
     }
@@ -198,7 +199,7 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_usercanonical
      */
     get_UserCanonical() {
-        pbstrProp := BSTR()
+        pbstrProp := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstrProp, "HRESULT")
         return pbstrProp
     }
@@ -213,7 +214,7 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_userupn
      */
     get_UserUpn() {
-        pbstrProp := BSTR()
+        pbstrProp := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pbstrProp, "HRESULT")
         return pbstrProp
     }
@@ -228,7 +229,7 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_userdnssamcompat
      */
     get_UserDnsSamCompat() {
-        pbstrProp := BSTR()
+        pbstrProp := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstrProp, "HRESULT")
         return pbstrProp
     }
@@ -367,7 +368,7 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_roleforaccesscheck
      */
     get_RoleForAccessCheck() {
-        pbstrProp := BSTR()
+        pbstrProp := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", pbstrProp, "HRESULT")
         return pbstrProp
     }

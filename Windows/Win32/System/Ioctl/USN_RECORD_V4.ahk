@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USN_RECORD_COMMON_HEADER.ahk
-#Include ..\..\Storage\FileSystem\FILE_ID_128.ahk
-#Include .\USN_SOURCE_INFO_ID.ahk
 #Include .\USN_RECORD_EXTENT.ahk
+#Include .\USN_SOURCE_INFO_ID.ahk
+#Include ..\..\Storage\FileSystem\FILE_ID_128.ahk
+#Include .\USN_RECORD_COMMON_HEADER.ahk
 
 /**
  * Contains the information for an update sequence number (USN) change journal version 4.0 record. The version 2.0 and 3.0 records are defined by the USN_RECORD_V2 (also called USN_RECORD) and USN_RECORD_V3 structures respectively.

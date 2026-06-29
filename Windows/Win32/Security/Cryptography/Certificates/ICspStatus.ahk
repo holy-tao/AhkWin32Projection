@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\ICspAlgorithm.ahk
-#Include .\ICspInformation.ahk
 #Include .\IX509EnrollmentStatus.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ICspInformation.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains information about a cryptographic provider/algorithm pair. (ICspStatus)
@@ -241,7 +242,7 @@ class ICspStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-get_displayname
      */
     get_DisplayName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pValue, "HRESULT")
         return pValue
     }

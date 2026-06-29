@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Resource statistics gathered by the D3DDEVINFO\_ResourceManager when using the asynchronous query mechanism.

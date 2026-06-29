@@ -3,8 +3,6 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
- * The HDC_UserFree function (oleidl.h) frees resources on the server side when called by RPC stub files.
- * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userfree
  * @namespace Windows.Win32.Graphics.Gdi
  */
 class HDC extends Win32Handle {

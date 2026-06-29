@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that supply version information for accessible elements.
@@ -98,7 +99,7 @@ class IVersionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iversioninfo-getcomponentdescription
      */
     GetComponentDescription(ulSub) {
-        pImplStr := BSTR()
+        pImplStr := BSTR({Value: 0}, True)
         result := ComCall(6, this, "uint", ulSub, "ptr", pImplStr, "HRESULT")
         return pImplStr
     }
@@ -114,7 +115,7 @@ class IVersionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iversioninfo-getinstancedescription
      */
     GetInstanceDescription(ulSub) {
-        pImplStr := BSTR()
+        pImplStr := BSTR({Value: 0}, True)
         result := ComCall(7, this, "uint", ulSub, "ptr", pImplStr, "HRESULT")
         return pImplStr
     }

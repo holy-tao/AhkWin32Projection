@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Media\Audio\WAVEFORMATEX.ahk
 
 /**
  * Provides information to the audio engine about an audio endpoint. This interface is implemented by an audio endpoint.

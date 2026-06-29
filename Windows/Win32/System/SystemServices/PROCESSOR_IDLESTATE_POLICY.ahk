@@ -10,7 +10,7 @@ class PROCESSOR_IDLESTATE_POLICY extends Win32Struct {
 
     static packingSize => 4
 
-    class _Flags_e__Union extends Win32Struct {
+    class _Flags extends Win32Struct {
         static sizeof => 2
         static packingSize => 2
 
@@ -60,12 +60,12 @@ class PROCESSOR_IDLESTATE_POLICY extends Win32Struct {
     }
 
     /**
-     * @type {_Flags_e__Union}
+     * @type {_Flags}
      */
     Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := PROCESSOR_IDLESTATE_POLICY._Flags_e__Union(2, this)
+                this.__Flags := PROCESSOR_IDLESTATE_POLICY._Flags(2, this)
             return this.__Flags
         }
     }

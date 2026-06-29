@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWCContextMenuCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Implement the IWEExtendContextMenu interface to extend a Failover Cluster Administrator context menu for a cluster object.

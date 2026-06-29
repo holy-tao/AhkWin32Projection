@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\PKU2U_LOGON_SUBMIT_TYPE.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
+#Include .\PKU2U_LOGON_SUBMIT_TYPE.ahk
 
 /**
  * Specifies a certificate used for S4U logon.

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ADSTYPE.ahk
 #Include .\ADSVALUE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\ADSTYPE.ahk
 
 /**
  * The ADS_SEARCH_COLUMN structure specifies the contents of a search column in the query returned from the directory service database.

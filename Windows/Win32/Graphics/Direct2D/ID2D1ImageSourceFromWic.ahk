@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include Common\D2D_RECT_U.ahk
 #Include .\ID2D1ImageSource.ahk
+#Include ..\Imaging\IWICBitmapSource.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Produces 2D pixel data that has been sourced from WIC.

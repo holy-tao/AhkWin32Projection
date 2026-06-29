@@ -1,7 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk
 #Include .\IDWriteTextRenderer.ahk
+#Include .\DWRITE_GLYPH_RUN_DESCRIPTION.ahk
+#Include .\DWRITE_UNDERLINE.ahk
+#Include .\DWRITE_MEASURING_MODE.ahk
+#Include .\DWRITE_GLYPH_RUN.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DWRITE_STRIKETHROUGH.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDWriteInlineObject.ahk
 
 /**
  * Represents a set of application-defined callbacks that perform rendering of text, inline objects, and decorations such as underlines. (IDWriteTextRenderer1)

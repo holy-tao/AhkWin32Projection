@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SP_CLASSINSTALL_HEADER.ahk
-#Include .\DI_FUNCTION.ahk
-#Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
+#Include .\DI_FUNCTION.ahk
+#Include .\SP_CLASSINSTALL_HEADER.ahk
 
 /**
  * An SP_NEWDEVICEWIZARD_DATA structure is used by installers to extend the operation of the hardware installation wizard by adding custom pages. It is used with DIF_NEWDEVICEWIZARD_XXX installation requests.

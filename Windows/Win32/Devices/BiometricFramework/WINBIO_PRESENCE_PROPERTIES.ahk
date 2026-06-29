@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Contains biometric values that the Windows Biometric Framework used to determine that an individual was present.
@@ -11,22 +12,25 @@
 class WINBIO_PRESENCE_PROPERTIES extends Win32Struct {
     static sizeof => 400
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _FacialFeatures extends Win32Struct {
-        static sizeof => 344
-        static packingSize => 8
+        static sizeof => 348
+        static packingSize => 4
 
         class _OpaqueEngineData extends Win32Struct {
-            static sizeof => 320
-            static packingSize => 8
+            static sizeof => 328
+            static packingSize => 4
 
             /**
-             * @type {Pointer}
+             * @type {Guid}
              */
             AdapterId {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
+                get {
+                    if(!this.HasProp("__AdapterId"))
+                        this.__AdapterId := Guid(0, this)
+                    return this.__AdapterId
+                }
             }
 
             /**
@@ -35,7 +39,7 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct {
             Data {
                 get {
                     if(!this.HasProp("__DataProxyArray"))
-                        this.__DataProxyArray := Win32FixedArray(this.ptr + 8, 78, Primitive, "uint")
+                        this.__DataProxyArray := Win32FixedArray(this.ptr + 16, 78, Primitive, "uint")
                     return this.__DataProxyArray
                 }
             }
@@ -66,7 +70,7 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct {
         OpaqueEngineData {
             get {
                 if(!this.HasProp("__OpaqueEngineData"))
-                    this.__OpaqueEngineData := WINBIO_PRESENCE_PROPERTIES._FacialFeatures._OpaqueEngineData(24, this)
+                    this.__OpaqueEngineData := WINBIO_PRESENCE_PROPERTIES._FacialFeatures._OpaqueEngineData(20, this)
                 return this.__OpaqueEngineData
             }
         }

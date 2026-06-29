@@ -2,14 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * If this flag is specified, the helper token is used
-  * 
-  * <ul>
-  * <li>To open the local file of an upload job</li>
-  * <li>To create or rename the temporary file of a download job</li>
-  * <li>To create or rename the reply file of an upload-reply job</li>
-  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nf-bits4_0-ibitstokenoptions-gethelpertokenflags
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
 class BG_TOKEN extends Win32Enum {

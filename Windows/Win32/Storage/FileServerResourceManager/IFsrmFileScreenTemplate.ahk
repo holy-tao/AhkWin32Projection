@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmFileScreenBase.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\FsrmTemplateApplyOptions.ahk
+#Include .\FsrmCommitOptions.ahk
 #Include .\IFsrmDerivedObjectsResult.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFsrmFileScreenBase.ahk
 
 /**
  * Used to configure templates from which new file screens can be derived.
@@ -49,7 +52,7 @@ class IFsrmFileScreenTemplate extends IFsrmFileScreenBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplate-get_name
      */
     get_Name() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", name, "HRESULT")
         return name
     }

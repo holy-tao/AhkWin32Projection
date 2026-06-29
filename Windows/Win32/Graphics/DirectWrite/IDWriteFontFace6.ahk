@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDWriteFontFace5.ahk
+#Include .\DWRITE_FONT_FAMILY_MODEL.ahk
 #Include .\IDWriteLocalizedStrings.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite

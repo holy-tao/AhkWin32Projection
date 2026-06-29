@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MBN_SMS_FORMAT.ahk
 
 /**
  * Provides access to the SMS configuration of a device.
@@ -75,7 +78,7 @@ class IMbnSmsConfiguration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-get_servicecenteraddress
      */
     get_ServiceCenterAddress() {
-        scAddress := BSTR()
+        scAddress := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", scAddress, "HRESULT")
         return scAddress
     }

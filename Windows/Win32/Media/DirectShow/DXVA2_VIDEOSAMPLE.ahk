@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\MediaFoundation\DXVA2_ExtendedFormat.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\MediaFoundation\DXVA2_AYUVSample8.ahk
 #Include ..\MediaFoundation\DXVA2_Fixed32.ahk
+#Include ..\MediaFoundation\DXVA2_AYUVSample8.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\MediaFoundation\DXVA2_ExtendedFormat.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow

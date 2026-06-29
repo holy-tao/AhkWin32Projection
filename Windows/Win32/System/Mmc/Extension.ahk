@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\Extensions.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a single certificate extension.
@@ -86,7 +88,7 @@ class Extension extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        Name := BSTR()
+        Name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", Name, "HRESULT")
         return Name
     }
@@ -96,7 +98,7 @@ class Extension extends IDispatch {
      * @returns {BSTR} 
      */
     get_Vendor() {
-        Vendor := BSTR()
+        Vendor := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", Vendor, "HRESULT")
         return Vendor
     }
@@ -106,7 +108,7 @@ class Extension extends IDispatch {
      * @returns {BSTR} 
      */
     get_Version() {
-        _Version := BSTR()
+        _Version := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", _Version, "HRESULT")
         return _Version
     }
@@ -125,7 +127,7 @@ class Extension extends IDispatch {
      * @returns {BSTR} 
      */
     get_SnapinCLSID() {
-        SnapinCLSID := BSTR()
+        SnapinCLSID := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", SnapinCLSID, "HRESULT")
         return SnapinCLSID
     }

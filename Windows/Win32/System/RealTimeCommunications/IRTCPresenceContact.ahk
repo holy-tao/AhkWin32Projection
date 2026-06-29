@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -65,7 +67,7 @@ class IRTCPresenceContact extends IUnknown {
      * @returns {BSTR} 
      */
     get_PresentityURI() {
-        pbstrPresentityURI := BSTR()
+        pbstrPresentityURI := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pbstrPresentityURI, "HRESULT")
         return pbstrPresentityURI
     }
@@ -87,7 +89,7 @@ class IRTCPresenceContact extends IUnknown {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -109,7 +111,7 @@ class IRTCPresenceContact extends IUnknown {
      * @returns {BSTR} 
      */
     get_Data() {
-        pbstrData := BSTR()
+        pbstrData := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrData, "HRESULT")
         return pbstrData
     }

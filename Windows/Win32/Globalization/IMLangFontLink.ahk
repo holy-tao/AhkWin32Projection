@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include ..\Graphics\Gdi\HDC.ahk
 #Include .\IMLangCodePages.ahk
 #Include ..\Graphics\Gdi\HFONT.ahk
+#Include ..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -53,7 +55,7 @@ class IMLangFontLink extends IMLangCodePages {
         _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
         hSrcFont := hSrcFont is Win32Handle ? NumGet(hSrcFont, "ptr") : hSrcFont
 
-        phDestFont := HFONT()
+        phDestFont := HFONT({Value: 0}, True)
         result := ComCall(8, this, "ptr", _hDC, "uint", dwCodePages, "ptr", hSrcFont, "ptr", phDestFont, "HRESULT")
         return phDestFont
     }

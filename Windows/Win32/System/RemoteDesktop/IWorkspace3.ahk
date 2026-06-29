@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWorkspace2.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWorkspace2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Exposes methods that provide information about a connection in RemoteApp and Desktop Connection, and adds the ability to retrieve or set a claims token.
@@ -44,7 +46,7 @@ class IWorkspace3 extends IWorkspace2 {
         bstrClaimsHint := bstrClaimsHint is String ? BSTR.Alloc(bstrClaimsHint).Value : bstrClaimsHint
         bstrUserHint := bstrUserHint is String ? BSTR.Alloc(bstrUserHint).Value : bstrUserHint
 
-        pbstrAccessToken := BSTR()
+        pbstrAccessToken := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", bstrClaimsHint, "ptr", bstrUserHint, "uint", claimCookie, "uint", hwndCredUiParent, "ptr", rectCredUiParent, "ptr", pbstrAccessToken, "HRESULT")
         return pbstrAccessToken
     }

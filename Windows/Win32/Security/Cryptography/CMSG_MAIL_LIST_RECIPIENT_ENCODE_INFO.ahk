@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\CRYPT_ATTRIBUTE_TYPE_VALUE.ahk
+#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * The CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO structure is used with previously distributed symmetric keys for decrypting the content key encryption key (KEK).

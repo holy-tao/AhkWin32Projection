@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The PERBANDINFO structure is used as input to a printer graphics DLL's DrvQueryPerBandInfo function.

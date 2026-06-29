@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IASDOMAINTYPE.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IASOSTYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IASDATASTORE.ahk
 
 /**
  * Use the ISdoMachine interface to attach to an SDO computer, obtain information about the SDO computer, and obtain interfaces to other SDO objects.
@@ -187,7 +192,7 @@ class ISdoMachine extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdomachine-getattachedcomputer
      */
     GetAttachedComputer() {
-        bstrComputerName := BSTR()
+        bstrComputerName := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", bstrComputerName, "HRESULT")
         return bstrComputerName
     }

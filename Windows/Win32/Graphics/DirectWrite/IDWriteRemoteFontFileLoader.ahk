@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFileLoader.ahk
-#Include .\IDWriteRemoteFontFileStream.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IDWriteFontFile.ahk
+#Include .\IDWriteRemoteFontFileStream.ahk
+#Include .\IDWriteFactory.ahk
+#Include .\IDWriteFontFileLoader.ahk
+#Include .\DWRITE_LOCALITY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a font file loader that can access remote (i.e., downloadable) fonts.

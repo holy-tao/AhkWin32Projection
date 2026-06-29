@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_HUB_CAP_FLAGS.ahk
-#Include .\USB_ID_STRING.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\USB_HUB_DEVICE_UXD_SETTINGS.ahk
+#Include .\USB_ID_STRING.ahk
+#Include .\USB_HUB_CAP_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
 class HUB_DEVICE_CONFIG_INFO extends Win32Struct {
-    static sizeof => 200
+    static sizeof => 208
 
     static packingSize => 8
 
@@ -89,7 +91,7 @@ class HUB_DEVICE_CONFIG_INFO extends Win32Struct {
     UxdSettings {
         get {
             if(!this.HasProp("__UxdSettings"))
-                this.__UxdSettings := USB_HUB_DEVICE_UXD_SETTINGS(144, this)
+                this.__UxdSettings := USB_HUB_DEVICE_UXD_SETTINGS(140, this)
             return this.__UxdSettings
         }
     }

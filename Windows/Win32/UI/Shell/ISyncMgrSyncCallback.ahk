@@ -1,8 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IEnumUnknown.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SYNCMGR_PROGRESS_STATUS.ahk
+#Include .\SYNCMGR_CANCEL_REQUEST.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IEnumString.ahk
+#Include .\SYNCMGR_EVENT_LEVEL.ahk
+#Include .\ISyncMgrSyncItem.ahk
+#Include .\SYNCMGR_EVENT_FLAGS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that allow a synchronization process to report progress and events to Sync Center, or to query whether the process has been canceled.

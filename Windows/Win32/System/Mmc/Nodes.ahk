@@ -4,6 +4,7 @@
 #Include ..\Com\IDispatch.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\Node.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Mmc

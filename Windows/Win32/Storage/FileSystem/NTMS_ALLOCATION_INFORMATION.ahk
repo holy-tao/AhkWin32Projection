@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The NTMS_ALLOCATION_INFORMATION structure contains information about the source media pool from which a medium was taken.
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class NTMS_ALLOCATION_INFORMATION extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -31,10 +32,13 @@ class NTMS_ALLOCATION_INFORMATION extends Win32Struct {
 
     /**
      * Unique identifier of the original source of the media.
-     * @type {Pointer}
+     * @type {Guid}
      */
     AllocatedFrom {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__AllocatedFrom"))
+                this.__AllocatedFrom := Guid(16, this)
+            return this.__AllocatedFrom
+        }
     }
 }

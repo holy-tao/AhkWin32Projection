@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IUIAutomationElement.ahk
+#Include .\UIA_ANNOTATIONTYPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to the properties of an annotation in a document.
@@ -119,7 +121,7 @@ class IUIAutomationAnnotationPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentannotationtypename
      */
     get_CurrentAnnotationTypeName() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -130,7 +132,7 @@ class IUIAutomationAnnotationPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentauthor
      */
     get_CurrentAuthor() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -141,7 +143,7 @@ class IUIAutomationAnnotationPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentdatetime
      */
     get_CurrentDateTime() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -174,7 +176,7 @@ class IUIAutomationAnnotationPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedannotationtypename
      */
     get_CachedAnnotationTypeName() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -185,7 +187,7 @@ class IUIAutomationAnnotationPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedauthor
      */
     get_CachedAuthor() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -196,7 +198,7 @@ class IUIAutomationAnnotationPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cacheddatetime
      */
     get_CachedDateTime() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", retVal, "HRESULT")
         return retVal
     }

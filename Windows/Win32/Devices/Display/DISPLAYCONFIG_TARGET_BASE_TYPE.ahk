@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY.ahk
 #Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
 #Include .\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk
 #Include ..\..\Foundation\LUID.ahk
-#Include .\DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY.ahk
 
 /**
  * Specifies base output technology info for a given target ID.

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes a set of retrieved data disks that can be used as source sites for replication.
@@ -7,17 +9,20 @@
  * @namespace Windows.Win32.Networking.Clustering
  */
 class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_SOURCE_DATADISKS extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The cluster resource identifier of the data disk.
-     * @type {Pointer}
+     * @type {Guid}
      */
     DataDiskGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__DataDiskGuid"))
+                this.__DataDiskGuid := Guid(0, this)
+            return this.__DataDiskGuid
+        }
     }
 
     /**
@@ -25,7 +30,7 @@ class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_SOURCE_DATADISKS extends Win32Struct {
      * @type {BOOLEAN}
      */
     IncludeAvailableStoargeDisks {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 }

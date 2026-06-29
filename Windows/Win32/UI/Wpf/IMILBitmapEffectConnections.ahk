@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMILBitmapEffectInputConnector.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMILBitmapEffectOutputConnector.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods used to retrieve input and output connectors exposed by the bitmap effect.

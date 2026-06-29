@@ -1,18 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\KS_VIDEOINFOHEADER.ahk
+#Include .\KS_BITMAPINFOHEADER.ahk
+#Include .\KS_MPEG1VIDEOINFO.ahk
+#Include ..\..\Foundation\SIZE.ahk
 #Include .\KSDATAFORMAT.ahk
 #Include .\KS_VIDEO_STREAM_CONFIG_CAPS.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include .\KS_MPEG1VIDEOINFO.ahk
-#Include .\KS_VIDEOINFOHEADER.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include .\KS_BITMAPINFOHEADER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KS_DATARANGE_MPEG1_VIDEO extends Win32Struct {
-    static sizeof => 288
+    static sizeof => 320
 
     static packingSize => 8
 
@@ -31,32 +33,32 @@ class KS_DATARANGE_MPEG1_VIDEO extends Win32Struct {
      * @type {BOOL}
      */
     bFixedSizeSamples {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 
     /**
      * @type {BOOL}
      */
     bTemporalCompression {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**
      * @type {Integer}
      */
     StreamDescriptionFlags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
      * @type {Integer}
      */
     MemoryAllocationFlags {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
@@ -65,7 +67,7 @@ class KS_DATARANGE_MPEG1_VIDEO extends Win32Struct {
     ConfigCaps {
         get {
             if(!this.HasProp("__ConfigCaps"))
-                this.__ConfigCaps := KS_VIDEO_STREAM_CONFIG_CAPS(64, this)
+                this.__ConfigCaps := KS_VIDEO_STREAM_CONFIG_CAPS(88, this)
             return this.__ConfigCaps
         }
     }
@@ -76,7 +78,7 @@ class KS_DATARANGE_MPEG1_VIDEO extends Win32Struct {
     VideoInfoHeader {
         get {
             if(!this.HasProp("__VideoInfoHeader"))
-                this.__VideoInfoHeader := KS_MPEG1VIDEOINFO(184, this)
+                this.__VideoInfoHeader := KS_MPEG1VIDEOINFO(216, this)
             return this.__VideoInfoHeader
         }
     }

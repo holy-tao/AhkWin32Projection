@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D12ShaderReflectionVariable.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_SHADER_BUFFER_DESC.ahk
 
 /**
  * This shader-reflection interface provides access to a constant buffer. (ID3D12ShaderReflectionConstantBuffer)

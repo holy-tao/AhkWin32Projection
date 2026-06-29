@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IPersist.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\System\Com\IPersist.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Implements methods for serializing tuning model objects. All serializable tuning model objects are required to implement this interface.

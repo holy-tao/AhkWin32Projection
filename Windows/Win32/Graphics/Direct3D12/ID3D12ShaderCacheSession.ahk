@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D12DeviceChild.ahk
+#Include .\D3D12_SHADER_CACHE_SESSION_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a shader cache session.

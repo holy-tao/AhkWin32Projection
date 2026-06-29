@@ -1,11 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\MFT_INPUT_STREAM_INFO.ahk
+#Include .\MFT_MESSAGE_TYPE.ahk
 #Include .\MFT_OUTPUT_STREAM_INFO.ahk
+#Include .\IMFMediaEvent.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMFAttributes.ahk
+#Include .\MFT_OUTPUT_DATA_BUFFER.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFMediaType.ahk
+#Include .\IMFSample.ahk
 
 /**
  * Implemented by all Media Foundation Transforms (MFTs).

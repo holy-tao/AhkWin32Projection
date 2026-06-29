@@ -2,7 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDirectInputDeviceA.ahk
+#Include .\DIEFFECT.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IDirectInputEffect.ahk
+#Include .\DIEFFECTINFOA.ahk
+#Include .\DIEFFESCAPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DIDEVICEOBJECTDATA.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice

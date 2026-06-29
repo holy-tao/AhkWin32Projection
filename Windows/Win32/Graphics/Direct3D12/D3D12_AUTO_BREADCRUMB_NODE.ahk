@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ID3D12GraphicsCommandList.ahk
-#Include .\ID3D12CommandQueue.ahk
-#Include .\D3D12_AUTO_BREADCRUMB_OP.ahk
 #Include .\D3D12_AUTO_BREADCRUMB_NODE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ID3D12CommandQueue.ahk
+#Include .\ID3D12GraphicsCommandList.ahk
+#Include .\D3D12_AUTO_BREADCRUMB_OP.ahk
 
 /**
  * Represents Device Removed Extended Data (DRED) auto-breadcrumb data as a node in a linked list.

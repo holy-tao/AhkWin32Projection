@@ -1,13 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\INSERT_OBJECT_FLAGS.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\HRSRC.ahk
-#Include ..\Com\FORMATETC.ahk
-#Include .\IOleClientSite.ahk
 #Include ..\Com\StructuredStorage\IStorage.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\Com\FORMATETC.ahk
+#Include .\IOleClientSite.ahk
+#Include ..\..\Foundation\HRSRC.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Insert Object dialog box, and space for the library to return information when the dialog box is dismissed. (ANSI)
@@ -19,7 +22,7 @@
  * @charset ANSI
  */
 class OLEUIINSERTOBJECTA extends Win32Struct {
-    static sizeof => 160
+    static sizeof => 176
 
     static packingSize => 8
 
@@ -267,11 +270,14 @@ class OLEUIINSERTOBJECTA extends Win32Struct {
 
     /**
      * CLSID for class of the object to be inserted. Filled on output.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(64, this)
+            return this.__clsid
+        }
     }
 
     /**
@@ -279,8 +285,8 @@ class OLEUIINSERTOBJECTA extends Win32Struct {
      * @type {PSTR}
      */
     lpszFile {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -288,8 +294,8 @@ class OLEUIINSERTOBJECTA extends Win32Struct {
      * @type {Integer}
      */
     cchFile {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
@@ -297,8 +303,8 @@ class OLEUIINSERTOBJECTA extends Win32Struct {
      * @type {Integer}
      */
     cClsidExclude {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
@@ -306,17 +312,20 @@ class OLEUIINSERTOBJECTA extends Win32Struct {
      * @type {Pointer<Guid>}
      */
     lpClsidExclude {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * Identifier of the requested interface. If <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuiinsertobjecta">OleUIInsertObject</a> creates the object, then it will return a pointer to this interface. This parameter is ignored if <b>OleUIInsertObject</b> does not create the object.
-     * @type {Pointer}
+     * @type {Guid}
      */
     iid {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get {
+            if(!this.HasProp("__iid"))
+                this.__iid := Guid(104, this)
+            return this.__iid
+        }
     }
 
     /**
@@ -324,8 +333,8 @@ class OLEUIINSERTOBJECTA extends Win32Struct {
      * @type {Integer}
      */
     oleRender {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 120, "uint")
+        set => NumPut("uint", value, this, 120)
     }
 
     /**
@@ -333,8 +342,8 @@ class OLEUIINSERTOBJECTA extends Win32Struct {
      * @type {Pointer<FORMATETC>}
      */
     lpFormatEtc {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
@@ -342,8 +351,8 @@ class OLEUIINSERTOBJECTA extends Win32Struct {
      * @type {IOleClientSite}
      */
     lpIOleClientSite {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
@@ -351,8 +360,8 @@ class OLEUIINSERTOBJECTA extends Win32Struct {
      * @type {IStorage}
      */
     lpIStorage {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
@@ -360,8 +369,8 @@ class OLEUIINSERTOBJECTA extends Win32Struct {
      * @type {Pointer<Pointer<Void>>}
      */
     ppvObj {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
@@ -369,8 +378,8 @@ class OLEUIINSERTOBJECTA extends Win32Struct {
      * @type {Integer}
      */
     sc {
-        get => NumGet(this, 144, "int")
-        set => NumPut("int", value, this, 144)
+        get => NumGet(this, 160, "int")
+        set => NumPut("int", value, this, 160)
     }
 
     /**
@@ -380,7 +389,7 @@ class OLEUIINSERTOBJECTA extends Win32Struct {
     hMetaPict {
         get {
             if(!this.HasProp("__hMetaPict"))
-                this.__hMetaPict := HGLOBAL(152, this)
+                this.__hMetaPict := HGLOBAL(168, this)
             return this.__hMetaPict
         }
     }

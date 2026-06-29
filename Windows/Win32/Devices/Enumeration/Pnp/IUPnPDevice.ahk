@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IUPnPDevices.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IUPnPServices.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IUPnPDevices.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IUPnPDevice interface enables an application to retrieve information about a specific device.
@@ -234,7 +236,7 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_uniquedevicename
      */
     get_UniqueDeviceName() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -248,7 +250,7 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_friendlyname
      */
     get_FriendlyName() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -259,7 +261,7 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_type
      */
     get_Type() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -273,7 +275,7 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_presentationurl
      */
     get_PresentationURL() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -284,7 +286,7 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_manufacturername
      */
     get_ManufacturerName() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -297,7 +299,7 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_manufacturerurl
      */
     get_ManufacturerURL() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -308,7 +310,7 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_modelname
      */
     get_ModelName() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -321,7 +323,7 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_modelnumber
      */
     get_ModelNumber() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -334,7 +336,7 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_description
      */
     get_Description() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -347,7 +349,7 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_modelurl
      */
     get_ModelURL() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -363,7 +365,7 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_upc
      */
     get_UPC() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -379,7 +381,7 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_serialnumber
      */
     get_SerialNumber() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -400,7 +402,7 @@ class IUPnPDevice extends IDispatch {
     IconURL(bstrEncodingFormat, lSizeX, lSizeY, lBitDepth) {
         bstrEncodingFormat := bstrEncodingFormat is String ? BSTR.Alloc(bstrEncodingFormat).Value : bstrEncodingFormat
 
-        pbstrIconURL := BSTR()
+        pbstrIconURL := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", bstrEncodingFormat, "int", lSizeX, "int", lSizeY, "int", lBitDepth, "ptr", pbstrIconURL, "HRESULT")
         return pbstrIconURL
     }

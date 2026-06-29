@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\MBN_VOICE_CALL_STATE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MBN_ACTIVATION_STATE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MBN_CONNECTION_MODE.ahk
 
 /**
  * Represents the network connectivity of a device.
@@ -54,7 +59,7 @@ class IMbnConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-get_connectionid
      */
     get_ConnectionID() {
-        ConnectionID := BSTR()
+        ConnectionID := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", ConnectionID, "HRESULT")
         return ConnectionID
     }
@@ -65,7 +70,7 @@ class IMbnConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-get_interfaceid
      */
     get_InterfaceID() {
-        InterfaceID := BSTR()
+        InterfaceID := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", InterfaceID, "HRESULT")
         return InterfaceID
     }

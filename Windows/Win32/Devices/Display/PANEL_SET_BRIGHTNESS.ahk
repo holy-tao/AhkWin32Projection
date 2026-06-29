@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BRIGHTNESS_INTERFACE_VERSION.ahk
-#Include .\PANEL_BRIGHTNESS_SENSOR_DATA.ahk
 #Include .\CHROMATICITY_COORDINATE.ahk
+#Include .\PANEL_BRIGHTNESS_SENSOR_DATA.ahk
+#Include .\BRIGHTNESS_INTERFACE_VERSION.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display

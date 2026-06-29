@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SRestriction.ahk
+#Include .\SSortOrderSet.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IMAPIAdviseSink.ahk
+#Include .\SPropTagArray.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SRowSet.ahk
+#Include .\MAPIERROR.ahk
 
 /**
  * Do not use. This interface is used for content tables of Windows Address Book (WAB) containers and distribution lists.

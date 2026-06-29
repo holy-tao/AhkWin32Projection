@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -28,9 +30,8 @@ class ITravelLogEntry extends IUnknown {
     static VTableNames => ["GetTitle", "GetURL"]
 
     /**
-     * Retrieves information about the specified title bar.
+     * 
      * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-gettitlebarinfo
      */
     GetTitle() {
         result := ComCall(3, this, "ptr*", &ppszTitle := 0, "HRESULT")

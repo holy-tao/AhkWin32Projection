@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SP_CLASSINSTALL_HEADER.ahk
-#Include .\DI_FUNCTION.ahk
-#Include .\SETUP_DI_STATE_CHANGE.ahk
 #Include .\SETUP_DI_PROPERTY_CHANGE_SCOPE.ahk
+#Include .\DI_FUNCTION.ahk
+#Include .\SP_CLASSINSTALL_HEADER.ahk
+#Include .\SETUP_DI_STATE_CHANGE.ahk
 
 /**
  * An SP_PROPCHANGE_PARAMS structure corresponds to a DIF_PROPERTYCHANGE installation request.

@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IMSMQQueueInfos4.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing

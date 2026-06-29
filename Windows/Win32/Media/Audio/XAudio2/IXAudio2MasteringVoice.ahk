@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IXAudio2Voice.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * A mastering voice is used to represent the audio output device.

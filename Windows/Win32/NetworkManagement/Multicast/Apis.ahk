@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\MCAST_SCOPE_ENTRY.ahk
+#Include .\MCAST_LEASE_RESPONSE.ahk
+#Include .\MCAST_SCOPE_CTX.ahk
+#Include .\MCAST_LEASE_REQUEST.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\MCAST_CLIENT_UID.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Multicast

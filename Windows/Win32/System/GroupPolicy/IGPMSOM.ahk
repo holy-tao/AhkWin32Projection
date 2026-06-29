@@ -1,11 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IGPMGPOLink.ahk
-#Include .\IGPMGPOLinksCollection.ahk
+#Include .\IGPMGPO.ahk
 #Include .\IGPMSecurityInfo.ahk
+#Include .\IGPMGPOLink.ahk
+#Include .\GPMSOMType.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IGPMGPOLinksCollection.ahk
 
 /**
  * The IGPMSOM interface contains methods that allow you to create and retrieve GPO links for a scope of management (SOM), and to set and retrieve security attributes and various properties for a SOM. A SOM can be a site, domain or OU.
@@ -92,7 +96,7 @@ class IGPMSOM extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -102,7 +106,7 @@ class IGPMSOM extends IDispatch {
      * @returns {BSTR} 
      */
     get_Path() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
         return pVal
     }

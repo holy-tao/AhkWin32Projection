@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\COLORSPACE_TRANSFORM_TYPE.ahk
-#Include .\GAMMA_RAMP_RGB256x3x16.ahk
-#Include .\GAMMA_RAMP_DXGI_1.ahk
-#Include .\GAMMA_RAMP_RGB.ahk
-#Include .\COLORSPACE_TRANSFORM_3x4.ahk
-#Include .\COLORSPACE_TRANSFORM_MATRIX_V2.ahk
 #Include .\COLORSPACE_TRANSFORM_STAGE_CONTROL.ahk
+#Include .\COLORSPACE_TRANSFORM_3x4.ahk
+#Include .\GAMMA_RAMP_DXGI_1.ahk
+#Include .\GAMMA_RAMP_RGB256x3x16.ahk
+#Include .\COLORSPACE_TRANSFORM_MATRIX_V2.ahk
+#Include .\GAMMA_RAMP_RGB.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -16,7 +16,7 @@ class COLORSPACE_TRANSFORM extends Win32Struct {
 
     static packingSize => 4
 
-    class _Data_e__Union extends Win32Struct {
+    class _Data extends Win32Struct {
         static sizeof => 98352
         static packingSize => 4
 
@@ -74,12 +74,12 @@ class COLORSPACE_TRANSFORM extends Win32Struct {
     }
 
     /**
-     * @type {_Data_e__Union}
+     * @type {_Data}
      */
     Data {
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := COLORSPACE_TRANSFORM._Data_e__Union(4, this)
+                this.__Data := COLORSPACE_TRANSFORM._Data(4, this)
             return this.__Data
         }
     }

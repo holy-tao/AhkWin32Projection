@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables clients to get pointers to other interfaces on a given object through the QueryInterface method, and manage the existence of the object through the AddRef and Release methods.
@@ -85,7 +87,7 @@ class IUnknown extends Win32ComInterface {
     /**
      * Determines whether or not this interface and some other interface refer to the
      * same underlying object by comparing the pointers retrieved from QueryInterface
-     * @param {IUnknown | ComObject} other the interface to compare this one to. If 
+     * @param {IUnknown | ComObject} other the interface to compare this one to. If
      *          other is a native AHK ComObject, its IUnknown pointer is retrieved via
      *          `ComObjQuery`
      * @returns 1 if this and other refer to the same object, 0 if they don't
@@ -98,7 +100,7 @@ class IUnknown extends Win32ComInterface {
         thisPtrBuf := Buffer(A_PtrSize)
         this.QueryInterface(IUnknown.IID, thisPtrBuf)
         thisPtr := NumGet(thisPtrBuf, "ptr")
-        
+    
         otherPtr := 0
     
         if(other is IUnknown){
@@ -118,4 +120,5 @@ class IUnknown extends Win32ComInterface {
             this.Release()
         }
     }
+    
 }

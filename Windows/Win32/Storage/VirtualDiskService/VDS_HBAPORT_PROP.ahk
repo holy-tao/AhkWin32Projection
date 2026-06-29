@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_WWN.ahk
-#Include .\VDS_HBAPORT_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VDS_HBAPORT_STATUS.ahk
+#Include .\VDS_HBAPORT_TYPE.ahk
+#Include .\VDS_WWN.ahk
 
 /**
  * The VDS_HBAPORT_PROP structure (vdshwprv.h) defines the properties of an HBA port.
@@ -10,18 +11,21 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_HBAPORT_PROP extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The GUID assigned to the HBA port. This ID is used by the VDS service only; hardware providers should 
      *       ignore this field.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(0, this)
+            return this.__id
+        }
     }
 
     /**
@@ -31,7 +35,7 @@ class VDS_HBAPORT_PROP extends Win32Struct {
     wwnNode {
         get {
             if(!this.HasProp("__wwnNode"))
-                this.__wwnNode := VDS_WWN(8, this)
+                this.__wwnNode := VDS_WWN(16, this)
             return this.__wwnNode
         }
     }
@@ -43,7 +47,7 @@ class VDS_HBAPORT_PROP extends Win32Struct {
     wwnPort {
         get {
             if(!this.HasProp("__wwnPort"))
-                this.__wwnPort := VDS_WWN(16, this)
+                this.__wwnPort := VDS_WWN(24, this)
             return this.__wwnPort
         }
     }
@@ -54,8 +58,8 @@ class VDS_HBAPORT_PROP extends Win32Struct {
      * @type {VDS_HBAPORT_TYPE}
      */
     type {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -64,8 +68,8 @@ class VDS_HBAPORT_PROP extends Win32Struct {
      * @type {VDS_HBAPORT_STATUS}
      */
     status {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -74,8 +78,8 @@ class VDS_HBAPORT_PROP extends Win32Struct {
      * @type {Integer}
      */
     ulPortSpeed {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -84,7 +88,7 @@ class VDS_HBAPORT_PROP extends Win32Struct {
      * @type {Integer}
      */
     ulSupportedPortSpeed {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

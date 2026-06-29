@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPortableDeviceContent.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IStream.ahk
+#Include .\IPortableDeviceContent.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPortableDeviceValues.ahk
 
 /**
  * Defines additional methods that provide access to content found on a device.

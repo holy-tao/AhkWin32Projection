@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\InkCursorButtonState.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents general information about a button on a tablet pointing and selecting device.
@@ -71,7 +73,7 @@ class IInkCursorButton extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursorbutton-get_name
      */
     get_Name() {
-        Name := BSTR()
+        Name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", Name, "HRESULT")
         return Name
     }
@@ -87,7 +89,7 @@ class IInkCursorButton extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursorbutton-get_id
      */
     get_Id() {
-        Id := BSTR()
+        Id := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", Id, "HRESULT")
         return Id
     }

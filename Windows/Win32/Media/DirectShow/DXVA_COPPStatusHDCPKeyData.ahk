@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains the result from an HDCP Key Data query in Certified Output Protection Protocol (COPP). This query returns the device's HDCP key selection vector (KSV).
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.Media.DirectShow
  */
 class DXVA_COPPStatusHDCPKeyData extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 72
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 128-bit random number that was passed by the application in the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-amcoppstatusinput">AMCOPPStatusInput</a> structure.
-     * @type {Pointer}
+     * @type {Guid}
      */
     rApp {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__rApp"))
+                this.__rApp := Guid(0, this)
+            return this.__rApp
+        }
     }
 
     /**
@@ -25,8 +29,8 @@ class DXVA_COPPStatusHDCPKeyData extends Win32Struct {
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -34,34 +38,43 @@ class DXVA_COPPStatusHDCPKeyData extends Win32Struct {
      * @type {Integer}
      */
     dwHDCPFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * Receives the HDCP key selection vector, B<sub>KSV</sub>, from the HDSCP device attached to the graphics adapter.
-     * @type {Pointer}
+     * @type {Guid}
      */
     BKey {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__BKey"))
+                this.__BKey := Guid(24, this)
+            return this.__BKey
+        }
     }
 
     /**
      * Reserved. Must be zero.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Reserved1 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__Reserved1"))
+                this.__Reserved1 := Guid(40, this)
+            return this.__Reserved1
+        }
     }
 
     /**
      * Reserved. Must be zero.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Reserved2 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__Reserved2"))
+                this.__Reserved2 := Guid(56, this)
+            return this.__Reserved2
+        }
     }
 }

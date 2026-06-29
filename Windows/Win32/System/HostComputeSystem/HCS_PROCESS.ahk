@@ -4,8 +4,6 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
- * HCS_PROCESS_INFORMATION
- * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HCS_PROCESS_INFORMATION
  * @namespace Windows.Win32.System.HostComputeSystem
  */
 class HCS_PROCESS extends Win32Handle {

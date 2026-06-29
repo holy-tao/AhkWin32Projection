@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the methods needed to configure the connection settings for the Remote Desktop Protocol (RDP) app container client control.
@@ -50,7 +51,7 @@ class IRemoteDesktopClientSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-retrievesettings
      */
     RetrieveSettings() {
-        rdpFileContents := BSTR()
+        rdpFileContents := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", rdpFileContents, "HRESULT")
         return rdpFileContents
     }

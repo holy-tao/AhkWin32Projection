@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITTAPI.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumPhone.ahk
 #Include .\ITCollection2.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ITTAPI.ahk
+#Include .\IEnumPhone.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITTAPI2 interface derives from the ITTAPI interface. It adds additional methods on the TAPI object to support phone devices.

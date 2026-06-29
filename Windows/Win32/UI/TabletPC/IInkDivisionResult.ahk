@@ -2,8 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkStrokes.ahk
 #Include .\IInkDivisionUnits.ahk
+#Include .\InkDivisionType.ahk
+#Include .\IInkStrokes.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the layout analysis of the collection of strokes contained by the InkDivider object.

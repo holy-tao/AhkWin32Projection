@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWdsTransportServer.ahk
 #Include .\IWdsTransportTftpManager.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface inherits from the IWdsTransportServer interface and extends it. It is available beginning with Windows Server 2012.

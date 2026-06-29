@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_PAINT_ATTRIBUTES.ahk
+#Include .\DWRITE_COLOR_F.ahk
+#Include ..\Direct2D\Common\D2D_RECT_F.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\Direct2D\Common\D2D1_GRADIENT_STOP.ahk
 #Include .\DWRITE_PAINT_COLOR.ahk
+#Include ..\Direct2D\Common\D2D1_GRADIENT_STOP.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite

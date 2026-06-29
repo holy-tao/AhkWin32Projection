@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IXpsOMBrush.ahk
 #Include .\IXpsOMColorProfileResource.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\XPS_COLOR.ahk
 
 /**
  * A single-color brush.

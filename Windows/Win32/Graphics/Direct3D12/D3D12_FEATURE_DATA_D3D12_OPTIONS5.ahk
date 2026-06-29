@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_RENDER_PASS_TIER.ahk
 #Include .\D3D12_RAYTRACING_TIER.ahk
+#Include .\D3D12_RENDER_PASS_TIER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Indicates the level of support that the adapter provides for render passes, ray tracing, and shader-resource view tier 3 tiled resources.

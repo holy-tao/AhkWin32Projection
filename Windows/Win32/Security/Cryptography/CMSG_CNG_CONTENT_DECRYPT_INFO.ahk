@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\NCRYPT_KEY_HANDLE.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\BCRYPT_KEY_HANDLE.ahk
+#Include .\NCRYPT_KEY_HANDLE.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Contains all the relevant information passed between CryptMsgControl and object identifier (OID) installable functions for the import and decryption of a Cryptography API:\_Next Generation (CNG) content encryption key (CEK).

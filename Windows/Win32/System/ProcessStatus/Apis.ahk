@@ -1,5 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\PERFORMANCE_INFORMATION.ahk
+#Include .\MODULEINFO.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\HMODULE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\ENUM_PROCESS_MODULES_EX_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.ProcessStatus

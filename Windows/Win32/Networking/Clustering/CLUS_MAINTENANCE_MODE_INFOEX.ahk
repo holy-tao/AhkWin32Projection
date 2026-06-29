@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MAINTENANCE_MODE_TYPE_ENUM.ahk
 #Include .\CLUSTER_RESOURCE_STATE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents the extended maintenance mode settings for a storage class resource.

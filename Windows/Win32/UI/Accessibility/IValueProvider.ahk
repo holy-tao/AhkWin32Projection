@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to controls that have an intrinsic value that does not span a range, and that can be represented as a string.
@@ -91,7 +94,7 @@ class IValueProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ivalueprovider-get_value
      */
     get_Value() {
-        pRetVal := BSTR()
+        pRetVal := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", pRetVal, "HRESULT")
         return pRetVal
     }

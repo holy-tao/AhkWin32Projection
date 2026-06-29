@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\ITextFont.ahk
-#Include .\ITextPara.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\tomConstants.ahk
+#Include .\ITextPara.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITextRange objects are powerful editing and data-binding tools that allow a program to select text in a story and then examine or change that text.
@@ -209,7 +211,7 @@ class ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-gettext
      */
     GetText() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }

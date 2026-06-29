@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * The REGISTERWORDW (Unicode) structure (immdev.h) contains reading information or a word to register.

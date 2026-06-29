@@ -1,13 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include .\IPortableDevicePropVariantCollection.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include .\IPortableDeviceKeyCollection.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IPortableDeviceValuesCollection.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IPortableDeviceValues interface holds a collection of PROPERTYKEY/PROPVARIANT pairs.

@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains trust information.
@@ -7,7 +11,7 @@
  * @namespace Windows.Win32.System.WindowsProgramming
  */
 class JAVA_TRUST extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -103,11 +107,14 @@ class JAVA_TRUST extends Win32Struct {
 
     /**
      * Reserved.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidZone {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get {
+            if(!this.HasProp("__guidZone"))
+                this.__guidZone := Guid(64, this)
+            return this.__guidZone
+        }
     }
 
     /**
@@ -115,12 +122,12 @@ class JAVA_TRUST extends Win32Struct {
      * @type {HRESULT}
      */
     hVerify {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 80
+        this.cbSize := 88
     }
 }

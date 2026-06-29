@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Ask+ item.
- * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-gopher_find_dataa
  * @namespace Windows.Win32.Networking.WinInet
  */
 class GOPHER_TYPE extends Win32Enum {

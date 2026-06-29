@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER.ahk
 #Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Include .\D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER.ahk
 
 /**
  * Represents output arguments for a call to ID3D12VideoEncodeCommandList2::ResolveEncoderOutputMetadata.

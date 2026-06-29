@@ -1,31 +1,32 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SAFEARR_BSTR.ahk
-#Include ..\Com\FLAGGED_WORD_BLOB.ahk
 #Include .\SAFEARR_UNKNOWN.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\SAFEARR_DISPATCH.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\SAFEARR_VARIANT.ahk
+#Include ..\Com\HYPER_SIZEDARR.ahk
 #Include .\_wireVARIANT.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SAFEARR_BRECORD.ahk
 #Include .\_wireBRECORD.ahk
-#Include .\SAFEARR_HAVEIID.ahk
+#Include .\SAFEARR_DISPATCH.ahk
 #Include ..\Com\BYTE_SIZEDARR.ahk
+#Include .\SAFEARR_BSTR.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\WORD_SIZEDARR.ahk
+#Include .\SAFEARR_VARIANT.ahk
+#Include .\SAFEARR_HAVEIID.ahk
+#Include ..\Com\FLAGGED_WORD_BLOB.ahk
 #Include ..\Com\DWORD_SIZEDARR.ahk
-#Include ..\Com\HYPER_SIZEDARR.ahk
 
 /**
  * @namespace Windows.Win32.System.Ole
  */
 class SAFEARRAYUNION extends Win32Struct {
-    static sizeof => 176
+    static sizeof => 184
 
     static packingSize => 8
 
     class _u extends Win32Struct {
-        static sizeof => 168
+        static sizeof => 176
         static packingSize => 8
 
         /**

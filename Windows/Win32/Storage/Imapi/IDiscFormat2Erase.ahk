@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDiscFormat2.ahk
-#Include .\IDiscRecorder2.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IMAPI_MEDIA_PHYSICAL_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDiscRecorder2.ahk
+#Include .\IDiscFormat2.ahk
 
 /**
  * Use this interface to erase data from a disc.
@@ -180,7 +183,7 @@ class IDiscFormat2Erase extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-get_clientname
      */
     get_ClientName() {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", value, "HRESULT")
         return value
     }

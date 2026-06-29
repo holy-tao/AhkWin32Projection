@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TDIENTITY_ENTITY_TYPE.ahk
 #Include .\TDIObjectID.ahk
 #Include .\TDIEntityID.ahk
-#Include .\TDIENTITY_ENTITY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming

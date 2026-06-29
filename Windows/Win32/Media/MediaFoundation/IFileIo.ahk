@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\FILE_ACCESSMODE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SEEK_ORIGIN.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\FILE_OPENMODE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -66,13 +72,9 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * Returns the length, in bytes, of a valid security identifier (SID).
-     * @param {Pointer<Integer>} pqwLength 
-     * @returns {HRESULT} If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is valid, the return value is the length, in bytes, of the <b>SID</b> structure.
      * 
-     * If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid, the return value is undefined. Before calling <b>GetLengthSid</b>, pass the SID to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the SID is valid.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getlengthsid
+     * @param {Pointer<Integer>} pqwLength 
+     * @returns {HRESULT} 
      */
     GetLength(pqwLength) {
         pqwLengthMarshal := pqwLength is VarRef ? "uint*" : "ptr"
@@ -92,12 +94,9 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * The GetCurrentPositionEx function retrieves the current position in logical coordinates.
-     * @param {Pointer<Integer>} pqwPosition 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcurrentpositionex
+     * @param {Pointer<Integer>} pqwPosition 
+     * @returns {HRESULT} 
      */
     GetCurrentPosition(pqwPosition) {
         pqwPositionMarshal := pqwPosition is VarRef ? "uint*" : "ptr"
@@ -129,14 +128,11 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * The ReadBlobFromFile function reads a BLOB in a file.
+     * 
      * @param {Pointer<Integer>} pbt 
      * @param {Integer} ul 
      * @param {Pointer<Integer>} pulRead 
-     * @returns {HRESULT} If the function is successful, the return value is NMERR\_SUCCESS.
-     * 
-     * If the function is unsuccessful, the return value is a NMERR value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
+     * @returns {HRESULT} 
      */
     Read(pbt, ul, pulRead) {
         pbtMarshal := pbt is VarRef ? "char*" : "ptr"
@@ -147,15 +143,11 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * The WriteBackRootHintDatafile method writes the RootHints back to the DNS Cache file.
+     * 
      * @param {Pointer<Integer>} pbt 
      * @param {Integer} ul 
      * @param {Pointer<Integer>} pulWritten 
-     * @returns {HRESULT} This method has no parameters.
-     * 
-     * 
-     * This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-roothints-writebackroothintdatafile
+     * @returns {HRESULT} 
      */
     Write(pbt, ul, pulWritten) {
         pbtMarshal := pbt is VarRef ? "char*" : "ptr"
@@ -166,19 +158,12 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * The Seekable attribute is a file-level attribute specifying whether an application can seek to points within the content.
-     * @remarks
-     * This is a coded attribute.
      * 
-     * This attribute cannot be duplicated at the file level. If this attribute is used for an individual stream, it will be treated as custom metadata and will not convey its normal meaning to the objects of the Windows Media Format SDK.
-     * 
-     * The value of this attribute for a file may vary depending upon the object exposing the [**IWMHeaderInfo**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo) or [**IWMHeaderInfo3**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo3) interface used to retrieve it. This is because the reader objects (both synchronous and asynchronous) perform a more thorough check than the metadata editor object does, to ascertain whether you can seek to a point in a file. The **Seekable** attribute value returned by a reader object is more accurate.
      * @param {SEEK_ORIGIN} eSeekOrigin 
      * @param {Integer} qwSeekOffset 
      * @param {Integer} dwSeekFlags 
      * @param {Pointer<Integer>} pqwCurrentPosition 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/seekable
      */
     Seek(eSeekOrigin, qwSeekOffset, dwSeekFlags, pqwCurrentPosition) {
         pqwCurrentPositionMarshal := pqwCurrentPosition is VarRef ? "uint*" : "ptr"
@@ -188,15 +173,8 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(12, this, "HRESULT")

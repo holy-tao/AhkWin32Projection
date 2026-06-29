@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDvbSiParser.ahk
 #Include .\IDVB_EIT2.ahk
+#Include .\IDvbSiParser.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IDvbSiParser2 interface retrieves program specific information (PSI) and service information (SI) tables from a DVB transport stream.

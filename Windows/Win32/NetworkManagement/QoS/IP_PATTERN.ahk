@@ -16,7 +16,7 @@ class IP_PATTERN extends Win32Struct {
 
     static packingSize => 4
 
-    class _S_un_e__Union extends Win32Struct {
+    class _S_un extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -76,7 +76,7 @@ class IP_PATTERN extends Win32Struct {
         S_un_ports {
             get {
                 if(!this.HasProp("__S_un_ports"))
-                    this.__S_un_ports := IP_PATTERN._S_un_e__Union._S_un_ports(0, this)
+                    this.__S_un_ports := IP_PATTERN._S_un._S_un_ports(0, this)
                 return this.__S_un_ports
             }
         }
@@ -87,7 +87,7 @@ class IP_PATTERN extends Win32Struct {
         S_un_icmp {
             get {
                 if(!this.HasProp("__S_un_icmp"))
-                    this.__S_un_icmp := IP_PATTERN._S_un_e__Union._S_un_icmp(0, this)
+                    this.__S_un_icmp := IP_PATTERN._S_un._S_un_icmp(0, this)
                 return this.__S_un_icmp
             }
         }
@@ -138,12 +138,12 @@ class IP_PATTERN extends Win32Struct {
     }
 
     /**
-     * @type {_S_un_e__Union}
+     * @type {_S_un}
      */
     S_un {
         get {
             if(!this.HasProp("__S_un"))
-                this.__S_un := IP_PATTERN._S_un_e__Union(16, this)
+                this.__S_un := IP_PATTERN._S_un(16, this)
             return this.__S_un
         }
     }

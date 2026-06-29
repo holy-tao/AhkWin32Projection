@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PROPERTY_METRICS.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\PROPERTY_UNITS.ahk
 
 /**
@@ -9,17 +10,20 @@
  * @namespace Windows.Win32.UI.TabletPC
  */
 class PACKET_PROPERTY extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The property. This value is not limited to the set of predefined GUIDs. An application or a device driver may define new GUIDs at any time.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(0, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -29,7 +33,7 @@ class PACKET_PROPERTY extends Win32Struct {
     PropertyMetrics {
         get {
             if(!this.HasProp("__PropertyMetrics"))
-                this.__PropertyMetrics := PROPERTY_METRICS(8, this)
+                this.__PropertyMetrics := PROPERTY_METRICS(16, this)
             return this.__PropertyMetrics
         }
     }

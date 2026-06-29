@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SComparePropsRestriction.ahk
-#Include .\SAndRestriction.ahk
-#Include .\SRestriction.ahk
-#Include .\SOrRestriction.ahk
-#Include .\SNotRestriction.ahk
-#Include .\SContentRestriction.ahk
-#Include .\SPropValue.ahk
-#Include .\SPropertyRestriction.ahk
 #Include .\SBitMaskRestriction.ahk
+#Include .\SPropValue.ahk
+#Include .\SComparePropsRestriction.ahk
 #Include .\SSizeRestriction.ahk
+#Include .\SAndRestriction.ahk
+#Include .\SOrRestriction.ahk
+#Include .\SRestriction.ahk
 #Include .\SExistRestriction.ahk
+#Include .\SContentRestriction.ahk
 #Include .\SSubRestriction.ahk
 #Include .\SCommentRestriction.ahk
+#Include .\SPropertyRestriction.ahk
+#Include .\SNotRestriction.ahk
 
 /**
  * Describes a filter for limiting the view of a table to particular rows for Outlook 2013 and Outlook 2016.
@@ -28,7 +28,7 @@ class SRestriction extends Win32Struct {
 
     static packingSize => 8
 
-    class _res_e__Union extends Win32Struct {
+    class _res extends Win32Struct {
         static sizeof => 24
         static packingSize => 8
 
@@ -224,12 +224,12 @@ class SRestriction extends Win32Struct {
      * |RES_PROPERTY  <br/> |[SPropertyRestriction](spropertyrestriction.md) <br/> |
      * |RES_SIZE  <br/> |[SSizeRestriction](ssizerestriction.md) <br/> |
      * |RES_SUBRESTRICTION  <br/> |[SSubRestriction](ssubrestriction.md) <br/> |
-     * @type {_res_e__Union}
+     * @type {_res}
      */
     res {
         get {
             if(!this.HasProp("__res"))
-                this.__res := SRestriction._res_e__Union(8, this)
+                this.__res := SRestriction._res(8, this)
             return this.__res
         }
     }

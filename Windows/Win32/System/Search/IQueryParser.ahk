@@ -1,10 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\STRUCTURED_QUERY_MULTIOPTION.ahk
+#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\ICondition.ahk
+#Include .\ISchemaProvider.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\STRUCTURED_QUERY_SINGLE_OPTION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Com\IEnumUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IQuerySolution.ahk
-#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\ISchemaProvider.ahk
 
 /**
  * Provides methods to parse an input string into an IQuerySolution object.

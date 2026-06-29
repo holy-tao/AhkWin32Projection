@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\RDV_TASK_STATUS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes properties that the Remote Desktop Connection Broker uses to set a plugin’s queue.
@@ -100,7 +103,7 @@ class ITsSbTaskInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_targetid
      */
     get_TargetId() {
-        pName := BSTR()
+        pName := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pName, "HRESULT")
         return pName
     }
@@ -144,7 +147,7 @@ class ITsSbTaskInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_identifier
      */
     get_Identifier() {
-        pIdentifier := BSTR()
+        pIdentifier := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pIdentifier, "HRESULT")
         return pIdentifier
     }
@@ -155,7 +158,7 @@ class ITsSbTaskInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_label
      */
     get_Label() {
-        pLabel := BSTR()
+        pLabel := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pLabel, "HRESULT")
         return pLabel
     }
@@ -176,7 +179,7 @@ class ITsSbTaskInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_plugin
      */
     get_Plugin() {
-        pPlugin := BSTR()
+        pPlugin := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pPlugin, "HRESULT")
         return pPlugin
     }

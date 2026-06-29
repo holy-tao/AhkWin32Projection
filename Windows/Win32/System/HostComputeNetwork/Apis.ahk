@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\HCN_PORT_PROTOCOL.ahk
+#Include .\HCN_PORT_ACCESS.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\HCN_PORT_RANGE_RESERVATION.ahk
+#Include .\HCN_PORT_RANGE_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.System.HostComputeNetwork
@@ -592,7 +599,7 @@ class HostComputeNetwork {
     static HcnReserveGuestNetworkServicePort(GuestNetworkService, Protocol, Access, Port) {
         GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
 
-        PortReservationHandle := HANDLE()
+        PortReservationHandle := HANDLE({Value: 0}, True)
         result := DllCall("computenetwork.dll\HcnReserveGuestNetworkServicePort", GuestNetworkServiceMarshal, GuestNetworkService, "int", Protocol, "int", Access, "ushort", Port, "ptr", PortReservationHandle, "HRESULT")
         return PortReservationHandle
     }
@@ -608,7 +615,7 @@ class HostComputeNetwork {
     static HcnReserveGuestNetworkServicePortRange(GuestNetworkService, PortCount, PortRangeReservation) {
         GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
 
-        PortReservationHandle := HANDLE()
+        PortReservationHandle := HANDLE({Value: 0}, True)
         result := DllCall("computenetwork.dll\HcnReserveGuestNetworkServicePortRange", GuestNetworkServiceMarshal, GuestNetworkService, "ushort", PortCount, "ptr", PortRangeReservation, "ptr", PortReservationHandle, "HRESULT")
         return PortReservationHandle
     }

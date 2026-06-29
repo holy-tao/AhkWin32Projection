@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IEnumUnknown.ahk
+#Include .\DO_DOWNLOAD_ENUM_CATEGORY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDODownload.ahk
-#Include ..\..\System\Com\IEnumUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to create a new download, and to enumerate existing downloads.

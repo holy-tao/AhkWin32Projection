@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\..\..\Guid.ahk
 
 /**
  * Contains version information about an NLS capability.
@@ -9,9 +10,9 @@
  * @namespace Windows.Win32.Globalization
  */
 class NLSVERSIONINFOEX extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Size, in bytes, of the structure.
@@ -55,10 +56,13 @@ class NLSVERSIONINFOEX extends Win32Struct {
 
     /**
      * Unique GUID for the behavior of a custom sort used by the locale for the represented version.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidCustomVersion {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__guidCustomVersion"))
+                this.__guidCustomVersion := Guid(16, this)
+            return this.__guidCustomVersion
+        }
     }
 }

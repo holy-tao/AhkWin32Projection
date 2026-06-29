@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
-#Include .\VBICODECFILTERING_STATISTICS_NABTS.ahk
 #Include .\VBICODECFILTERING_STATISTICS_COMMON.ahk
+#Include .\VBICODECFILTERING_STATISTICS_NABTS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\KSIDENTIFIER.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSPROPERTY_VBICODECFILTERING_STATISTICS_NABTS_S extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -29,7 +30,7 @@ class KSPROPERTY_VBICODECFILTERING_STATISTICS_NABTS_S extends Win32Struct {
     Statistics {
         get {
             if(!this.HasProp("__Statistics"))
-                this.__Statistics := VBICODECFILTERING_STATISTICS_NABTS(16, this)
+                this.__Statistics := VBICODECFILTERING_STATISTICS_NABTS(24, this)
             return this.__Statistics
         }
     }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_READER_ENCODING.ahk
-#Include .\WS_XML_READER_ENCODING_TYPE.ahk
 #Include .\WS_XML_DICTIONARY.ahk
+#Include .\WS_XML_READER_ENCODING_TYPE.ahk
+#Include .\WS_XML_READER_ENCODING.ahk
 
 /**
  * Used to indicate that the reader should interpret the bytes it reads as binary xml.

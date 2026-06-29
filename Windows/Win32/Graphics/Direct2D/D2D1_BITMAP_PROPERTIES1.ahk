@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include Common\D2D1_PIXEL_FORMAT.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include Common\D2D1_ALPHA_MODE.ahk
-#Include .\D2D1_BITMAP_OPTIONS.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include Common\D2D1_PIXEL_FORMAT.ahk
 #Include .\ID2D1ColorContext.ahk
+#Include .\D2D1_BITMAP_OPTIONS.ahk
 
 /**
  * This structure allows a ID2D1Bitmap1 to be created with bitmap options and color context information available.

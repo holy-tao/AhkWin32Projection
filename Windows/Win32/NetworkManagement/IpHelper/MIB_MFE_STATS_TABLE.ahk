@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPMCAST_MFE_STATS.ahk
 #Include .\MIB_IPMCAST_OIF_STATS_LH.ahk
+#Include .\MIB_IPMCAST_MFE_STATS.ahk
 
 /**
  * Stores statistics for a group of Multicast Forwarding Entries (MFEs).

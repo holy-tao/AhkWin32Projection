@@ -4,6 +4,7 @@
 #Include ..\Com\IDispatch.ahk
 #Include .\ISecurityIdentityColl.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to information about individual callers in a collection of callers.

@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MLOperatorParameterOptions.ahk
 #Include .\MLOperatorSchemaEdgeTypeFormat.ahk
 #Include .\MLOperatorEdgeDescription.ahk
-#Include .\MLOperatorEdgeType.ahk
 #Include .\MLOperatorTensorDataType.ahk
+#Include .\MLOperatorEdgeType.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include .\MLOperatorParameterOptions.ahk
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML

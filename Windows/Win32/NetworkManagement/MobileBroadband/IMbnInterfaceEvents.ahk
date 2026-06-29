@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMbnInterface.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface is a notification interface used to handle asynchronous IMbnInterface method calls as well as changes in the device state.

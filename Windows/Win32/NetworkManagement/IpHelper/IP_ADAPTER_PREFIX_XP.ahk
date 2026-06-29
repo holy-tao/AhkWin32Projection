@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADAPTER_PREFIX_XP.ahk
-#Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR.ahk
+#Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
+#Include .\IP_ADAPTER_PREFIX_XP.ahk
 
 /**
  * Stores an IP address prefix.I

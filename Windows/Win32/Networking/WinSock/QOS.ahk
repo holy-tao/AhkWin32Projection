@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FLOWSPEC.ahk
 #Include .\WSABUF.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\FLOWSPEC.ahk
 
 /**
  * The QOS structure provides the means by which QOS-enabled applications can specify quality of service parameters for sent and received traffic on a particular flow.

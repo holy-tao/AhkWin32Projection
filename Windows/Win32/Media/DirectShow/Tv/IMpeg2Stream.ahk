@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\MPEG2_FILTER.ahk
+#Include .\MPEG_CONTEXT.ahk
+#Include .\MPEG_REQUEST_TYPE.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\MPEG_STREAM_BUFFER.ahk
+#Include .\IMpeg2Data.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMpeg2Stream interface represents a stream of MPEG-2 data. The IMpeg2Data::GetStreamOfSections method returns a pointer to this interface.

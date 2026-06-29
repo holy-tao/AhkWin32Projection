@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\HANDLE_ACCESS_OPTIONS.ahk
+#Include .\HANDLE_SHARING_OPTIONS.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include .\IOplockBreakingHandler.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\HANDLE_OPTIONS.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to the operating system handle of a storage file.
@@ -40,7 +45,7 @@ class IStorageItemHandleAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nf-windowsstoragecom-istorageitemhandleaccess-create
      */
     Create(accessOptions, sharingOptions, options, oplockBreakingHandler) {
-        interopHandle := HANDLE()
+        interopHandle := HANDLE({Value: 0}, True)
         result := ComCall(3, this, "int", accessOptions, "int", sharingOptions, "uint", options, "ptr", oplockBreakingHandler, "ptr", interopHandle, "HRESULT")
         return interopHandle
     }

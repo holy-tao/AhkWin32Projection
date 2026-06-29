@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509Attribute.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509Attribute.ahk
+#Include .\X509KeySpec.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an attribute that identifies the cryptographic provider used by the entity requesting the certificate.
@@ -147,7 +150,7 @@ class IX509AttributeCspProvider extends IX509Attribute {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributecspprovider-get_providername
      */
     get_ProviderName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -170,7 +173,7 @@ class IX509AttributeCspProvider extends IX509Attribute {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributecspprovider-get_signature
      */
     get_Signature(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(14, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }

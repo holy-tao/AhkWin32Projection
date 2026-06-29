@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_ServerFT.ahk
-#Include .\MI_ContextFT.ahk
-#Include .\MI_InstanceFT.ahk
 #Include .\MI_PropertySetFT.ahk
+#Include .\MI_InstanceFT.ahk
+#Include .\MI_ServerFT.ahk
 #Include .\MI_FilterFT.ahk
+#Include .\MI_ContextFT.ahk
 
 /**
  * This structure defines default function tables for all types:\_Context, Instance, PropertySet, and Filter.

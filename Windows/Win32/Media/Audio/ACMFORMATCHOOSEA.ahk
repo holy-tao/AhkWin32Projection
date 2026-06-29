@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\WAVEFORMATEX.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\WAVEFORMATEX.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio

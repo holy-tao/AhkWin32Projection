@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IPrintAsyncNotifyChannel.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\PrintAsyncNotifyUserFilter.ahk
+#Include .\PrintAsyncNotifyConversationStyle.ahk
+#Include .\IPrintAsyncNotifyCallback.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IPrintAsyncNotifyRegistration.ahk
 
 /**
- * Creates and manages a communication channel used by applications and components that are hosted by the print spooler.
- * @remarks
- * For an application to receive notifications from a Print Spooler-hosted component, it must provide an <b>IPrintAsyncNotifyCallback</b> object when it registers for notifications.
- * 
- * A Print Spooler-hosted component that opens a bidirectional communication channel with a listening application must provide an <b>IPrintAsyncNotifyCallback</b> object.
- * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nn-prnasnot-iprintasyncnotifycallback
  * @namespace Windows.Win32.Graphics.Printing
  */
 class IPrintAsyncNotify extends IUnknown {

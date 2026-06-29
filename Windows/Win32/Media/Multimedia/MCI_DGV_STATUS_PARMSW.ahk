@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MCI_DGV_STATUS_PARMSW (Unicode) structure contains parameters for the MCI_STATUS command for digital-video devices.

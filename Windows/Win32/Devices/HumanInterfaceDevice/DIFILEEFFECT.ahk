@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DIEFFECT.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
 class DIFILEEFFECT extends Win32Struct {
-    static sizeof => 288
+    static sizeof => 296
 
     static packingSize => 8
 
@@ -19,26 +20,29 @@ class DIFILEEFFECT extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     GuidEffect {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__GuidEffect"))
+                this.__GuidEffect := Guid(4, this)
+            return this.__GuidEffect
+        }
     }
 
     /**
      * @type {Pointer<DIEFFECT>}
      */
     lpDiEffect {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {String}
      */
     szFriendlyName {
-        get => StrGet(this.ptr + 24, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 24, 259, "UTF-8")
+        get => StrGet(this.ptr + 32, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 32, 259, "UTF-8")
     }
 }

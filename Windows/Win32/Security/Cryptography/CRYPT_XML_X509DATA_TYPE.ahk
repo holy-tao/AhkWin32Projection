@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The X.509 data is a certificate.
- * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_x509data_item
  * @namespace Windows.Win32.Security.Cryptography
  */
 class CRYPT_XML_X509DATA_TYPE extends Win32Enum {

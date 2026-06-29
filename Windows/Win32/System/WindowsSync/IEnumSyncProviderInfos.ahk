@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISyncProviderInfo.ahk
 
 /**
  * Enumerates ISyncProviderInfo objects that contain the information used to create an instance of a synchronization provider.

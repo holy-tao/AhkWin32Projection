@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PFFORWARD_ACTION.ahk
-#Include .\PF_FILTER_STATS.ahk
 #Include .\PF_FILTER_DESCRIPTOR.ahk
+#Include .\PF_FILTER_STATS.ahk
 #Include .\PFADDRESSTYPE.ahk
+#Include .\PFFORWARD_ACTION.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper

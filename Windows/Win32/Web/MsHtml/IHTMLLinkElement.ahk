@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLStyleSheet.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -139,7 +141,7 @@ class IHTMLLinkElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_href() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -161,7 +163,7 @@ class IHTMLLinkElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_rel() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -183,7 +185,7 @@ class IHTMLLinkElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_rev() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -205,7 +207,7 @@ class IHTMLLinkElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", p, "HRESULT")
         return p
     }
@@ -215,7 +217,7 @@ class IHTMLLinkElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_readyState() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", p, "HRESULT")
         return p
     }
@@ -325,7 +327,7 @@ class IHTMLLinkElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_media() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", p, "HRESULT")
         return p
     }

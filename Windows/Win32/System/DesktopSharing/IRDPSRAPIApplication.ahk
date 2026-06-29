@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IRDPSRAPIWindowList.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IRDPSRAPIWindowList.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Groups the sharable windows within a process. Each application object contains a list of window objects. If an application object is shared, all its windows are shared.
@@ -120,7 +122,7 @@ class IRDPSRAPIApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_name
      */
     get_Name() {
-        pRetVal := BSTR()
+        pRetVal := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pRetVal, "HRESULT")
         return pRetVal
     }

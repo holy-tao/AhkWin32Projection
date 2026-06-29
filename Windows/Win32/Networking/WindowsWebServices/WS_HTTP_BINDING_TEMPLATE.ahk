@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_CHANNEL_PROPERTIES.ahk
 #Include .\WS_CHANNEL_PROPERTY.ahk
+#Include .\WS_CHANNEL_PROPERTIES.ahk
 
 /**
  * HTTP template structure to be filled in by application for http binding.

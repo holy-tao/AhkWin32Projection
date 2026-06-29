@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IXmlReader.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\XmlStandalone.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.XmlLite
@@ -53,13 +58,10 @@ class IXmlWriter extends IUnknown {
     }
 
     /**
-     * Sets Interaction Context object properties.
+     * 
      * @param {Integer} nProperty 
      * @param {Pointer} pValue 
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
-     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext
+     * @returns {HRESULT} 
      */
     SetProperty(nProperty, pValue) {
         result := ComCall(5, this, "uint", nProperty, "ptr", pValue, "HRESULT")

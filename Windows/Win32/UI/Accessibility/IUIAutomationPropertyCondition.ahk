@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationCondition.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\PropertyConditionFlags.ahk
+#Include .\UIA_PROPERTY_ID.ahk
+#Include .\IUIAutomationCondition.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a condition based on a property value that is used to find UI Automation elements.

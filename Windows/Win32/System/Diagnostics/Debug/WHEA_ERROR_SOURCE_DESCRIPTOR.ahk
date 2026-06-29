@@ -1,29 +1,31 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_ERROR_SOURCE_TYPE.ahk
-#Include .\WHEA_ERROR_SOURCE_STATE.ahk
-#Include .\WHEA_XPF_MCE_DESCRIPTOR.ahk
-#Include .\XPF_MCE_FLAGS.ahk
-#Include .\WHEA_XPF_MC_BANK_DESCRIPTOR.ahk
-#Include .\XPF_MC_BANK_FLAGS.ahk
+#Include .\WHEA_IPF_MCA_DESCRIPTOR.ahk
 #Include .\WHEA_XPF_CMC_DESCRIPTOR.ahk
 #Include .\WHEA_NOTIFICATION_DESCRIPTOR.ahk
-#Include .\WHEA_NOTIFICATION_FLAGS.ahk
+#Include .\WHEA_ERROR_SOURCE_STATE.ahk
 #Include .\WHEA_XPF_NMI_DESCRIPTOR.ahk
-#Include .\WHEA_IPF_MCA_DESCRIPTOR.ahk
-#Include .\WHEA_IPF_CMC_DESCRIPTOR.ahk
-#Include .\WHEA_IPF_CPE_DESCRIPTOR.ahk
-#Include .\WHEA_AER_ROOTPORT_DESCRIPTOR.ahk
-#Include .\WHEA_PCI_SLOT_NUMBER.ahk
-#Include .\AER_ROOTPORT_DESCRIPTOR_FLAGS.ahk
-#Include .\WHEA_AER_ENDPOINT_DESCRIPTOR.ahk
-#Include .\AER_ENDPOINT_DESCRIPTOR_FLAGS.ahk
-#Include .\WHEA_AER_BRIDGE_DESCRIPTOR.ahk
-#Include .\AER_BRIDGE_DESCRIPTOR_FLAGS.ahk
-#Include .\WHEA_GENERIC_ERROR_DESCRIPTOR.ahk
-#Include .\WHEA_GENERIC_ERROR_DESCRIPTOR_V2.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
+#Include .\WHEA_XPF_MCE_DESCRIPTOR.ahk
+#Include .\WHEA_XPF_MC_BANK_DESCRIPTOR.ahk
 #Include .\WHEA_DEVICE_DRIVER_DESCRIPTOR.ahk
+#Include .\AER_BRIDGE_DESCRIPTOR_FLAGS.ahk
+#Include .\WHEA_NOTIFICATION_FLAGS.ahk
+#Include .\WHEA_IPF_CPE_DESCRIPTOR.ahk
+#Include .\AER_ENDPOINT_DESCRIPTOR_FLAGS.ahk
+#Include .\WHEA_IPF_CMC_DESCRIPTOR.ahk
+#Include .\WHEA_GENERIC_ERROR_DESCRIPTOR.ahk
+#Include .\WHEA_AER_ROOTPORT_DESCRIPTOR.ahk
+#Include .\WHEA_AER_ENDPOINT_DESCRIPTOR.ahk
+#Include .\WHEA_ERROR_SOURCE_TYPE.ahk
+#Include .\XPF_MCE_FLAGS.ahk
 #Include .\WHEA_ERROR_SOURCE_CONFIGURATION_DD.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\WHEA_PCI_SLOT_NUMBER.ahk
+#Include .\WHEA_GENERIC_ERROR_DESCRIPTOR_V2.ahk
+#Include .\WHEA_AER_BRIDGE_DESCRIPTOR.ahk
+#Include .\AER_ROOTPORT_DESCRIPTOR_FLAGS.ahk
+#Include .\XPF_MC_BANK_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
@@ -33,7 +35,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct {
 
     static packingSize => 8
 
-    class _Info_e__Union extends Win32Struct {
+    class _Info extends Win32Struct {
         static sizeof => 1064
         static packingSize => 8
 
@@ -251,12 +253,12 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {_Info_e__Union}
+     * @type {_Info}
      */
     Info {
         get {
             if(!this.HasProp("__Info"))
-                this.__Info := WHEA_ERROR_SOURCE_DESCRIPTOR._Info_e__Union(40, this)
+                this.__Info := WHEA_ERROR_SOURCE_DESCRIPTOR._Info(40, this)
             return this.__Info
         }
     }

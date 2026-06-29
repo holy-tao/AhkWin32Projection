@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAsyncResult.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\MFBYTESTREAM_SEEK_ORIGIN.ahk
+#Include .\IMFAsyncCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a byte stream from some data source, which might be a local file, a network file, or some other source.

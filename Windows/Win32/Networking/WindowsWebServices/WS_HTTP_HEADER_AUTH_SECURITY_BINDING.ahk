@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_BINDING.ahk
-#Include .\WS_SECURITY_BINDING_TYPE.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
 #Include .\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL.ahk
+#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
+#Include .\WS_SECURITY_BINDING_TYPE.ahk
+#Include .\WS_SECURITY_BINDING.ahk
 
 /**
  * The security binding subtype for specifying the use of HTTP header authentication against a target service or a HTTP proxy server based on the basic, digest (RFC 2617) and the SPNEGO (RFC4559) protocols.

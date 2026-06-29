@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINT.ahk
 #Include .\TVHITTESTINFO_FLAGS.ahk
+#Include .\HTREEITEM.ahk
+#Include ..\..\Foundation\POINT.ahk
 
 /**
  * Contains information used to determine the location of a point relative to a tree-view control.

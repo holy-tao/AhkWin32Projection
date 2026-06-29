@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITLocationInfo interface is used to get information related to the location of the calling party. This is the location information that is entered by using the Telephony applet under the Control Panel.
@@ -186,7 +187,7 @@ class ITLocationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_locationname
      */
     get_LocationName() {
-        ppLocationName := BSTR()
+        ppLocationName := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", ppLocationName, "HRESULT")
         return ppLocationName
     }
@@ -204,7 +205,7 @@ class ITLocationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_citycode
      */
     get_CityCode() {
-        ppCode := BSTR()
+        ppCode := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", ppCode, "HRESULT")
         return ppCode
     }
@@ -222,7 +223,7 @@ class ITLocationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_localaccesscode
      */
     get_LocalAccessCode() {
-        ppCode := BSTR()
+        ppCode := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", ppCode, "HRESULT")
         return ppCode
     }
@@ -240,7 +241,7 @@ class ITLocationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_longdistanceaccesscode
      */
     get_LongDistanceAccessCode() {
-        ppCode := BSTR()
+        ppCode := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", ppCode, "HRESULT")
         return ppCode
     }
@@ -258,7 +259,7 @@ class ITLocationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_tollprefixlist
      */
     get_TollPrefixList() {
-        ppTollList := BSTR()
+        ppTollList := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", ppTollList, "HRESULT")
         return ppTollList
     }
@@ -276,7 +277,7 @@ class ITLocationInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_cancelcallwaitingcode
      */
     get_CancelCallWaitingCode() {
-        ppCode := BSTR()
+        ppCode := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", ppCode, "HRESULT")
         return ppCode
     }

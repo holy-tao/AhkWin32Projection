@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSMAN_RECEIVE_DATA_RESULT.ahk
 #Include .\WSMAN_DATA.ahk
 #Include .\WSManDataType.ahk
-#Include .\WSMAN_DATA_TEXT.ahk
-#Include .\WSMAN_DATA_BINARY.ahk
-#Include .\WSMAN_CONNECT_DATA.ahk
 #Include .\WSMAN_CREATE_SHELL_DATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WSMAN_DATA_BINARY.ahk
+#Include .\WSMAN_RECEIVE_DATA_RESULT.ahk
+#Include .\WSMAN_DATA_TEXT.ahk
+#Include .\WSMAN_CONNECT_DATA.ahk
 
 /**
  * Represents the output data received from a WSMan operation.

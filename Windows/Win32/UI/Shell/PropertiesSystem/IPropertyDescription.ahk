@@ -1,8 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\PROPDESC_FORMAT_FLAGS.ahk
 #Include ..\..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\..\System\Search\Common\CONDITION_OPERATION.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\PROPDESC_GROUPING_RANGE.ahk
+#Include .\PROPDESC_SORTDESCRIPTION.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\PROPDESC_VIEW_FLAGS.ahk
+#Include .\PROPDESC_CONDITION_TYPE.ahk
+#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\PROPDESC_DISPLAYTYPE.ahk
+#Include .\PROPDESC_AGGREGATION_TYPE.ahk
+#Include .\PROPDESC_TYPE_FLAGS.ahk
+#Include .\PROPDESC_RELATIVEDESCRIPTION_TYPE.ahk
 
 /**
  * Exposes methods that enumerate and retrieve individual property description details. (IPropertyDescription)

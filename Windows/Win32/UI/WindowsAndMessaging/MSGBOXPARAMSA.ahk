@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include .\MESSAGEBOX_STYLE.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information used to display a message box. The MessageBoxIndirect function uses this structure. (ANSI)

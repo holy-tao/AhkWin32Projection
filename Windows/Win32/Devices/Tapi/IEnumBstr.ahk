@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IEnumBstr interface provides COM-standard methods to enumerate BSTR strings.
@@ -43,7 +44,7 @@ class IEnumBstr extends IUnknown {
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        ppStrings := BSTR()
+        ppStrings := BSTR({Value: 0}, True)
         result := ComCall(3, this, "uint", celt, "ptr", ppStrings, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return ppStrings
     }

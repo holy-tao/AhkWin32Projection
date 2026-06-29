@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLIPOBJ.ahk
-#Include ..\..\Foundation\RECTL.ahk
 #Include .\SURFOBJ.ahk
+#Include ..\..\Foundation\RECTL.ahk
+#Include .\CLIPOBJ.ahk
 
 /**
  * The WNDOBJ structure allows the driver to keep track of the position, size, and visible client region changes of a window.

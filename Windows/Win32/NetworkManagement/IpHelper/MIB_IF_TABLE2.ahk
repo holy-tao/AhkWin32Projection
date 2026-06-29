@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IF_ROW2.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\Ndis\TUNNEL_TYPE.ahk
-#Include ..\Ndis\NDIS_MEDIUM.ahk
-#Include ..\Ndis\NDIS_PHYSICAL_MEDIUM.ahk
-#Include ..\Ndis\NET_IF_ACCESS_TYPE.ahk
-#Include ..\Ndis\NET_IF_DIRECTION_TYPE.ahk
-#Include ..\Ndis\IF_OPER_STATUS.ahk
-#Include ..\Ndis\NET_IF_ADMIN_STATUS.ahk
 #Include ..\Ndis\NET_IF_MEDIA_CONNECT_STATE.ahk
+#Include ..\Ndis\NET_IF_ADMIN_STATUS.ahk
 #Include ..\Ndis\NET_IF_CONNECTION_TYPE.ahk
+#Include ..\Ndis\IF_OPER_STATUS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\Ndis\NDIS_PHYSICAL_MEDIUM.ahk
+#Include ..\Ndis\NDIS_MEDIUM.ahk
+#Include ..\Ndis\NET_LUID_LH.ahk
+#Include .\MIB_IF_ROW2.ahk
+#Include ..\Ndis\NET_IF_ACCESS_TYPE.ahk
+#Include ..\Ndis\TUNNEL_TYPE.ahk
+#Include ..\Ndis\NET_IF_DIRECTION_TYPE.ahk
 
 /**
  * Contains a table of logical and physical interface entries.
@@ -30,7 +31,7 @@
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
 class MIB_IF_TABLE2 extends Win32Struct {
-    static sizeof => 1360
+    static sizeof => 1368
 
     static packingSize => 8
 

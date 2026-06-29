@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Include .\FWP_BYTE_BLOB.ahk
 #Include .\FWP_IP_VERSION.ahk
 #Include .\FWP_BYTE_ARRAY16.ahk
-#Include .\FWP_BYTE_BLOB.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\..\Security\SID.ahk
 
 /**

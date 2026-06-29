@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PAGERANGE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Identifies one or more page-ranges to be printed and, optionally, identifies only the even or odd pages as part of a pageset.

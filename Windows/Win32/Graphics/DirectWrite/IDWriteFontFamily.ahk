@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontList.ahk
-#Include .\IDWriteLocalizedStrings.ahk
+#Include .\DWRITE_FONT_STRETCH.ahk
+#Include .\DWRITE_FONT_WEIGHT.ahk
+#Include .\DWRITE_FONT_STYLE.ahk
 #Include .\IDWriteFont.ahk
+#Include .\IDWriteLocalizedStrings.ahk
+#Include .\IDWriteFontList.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a family of related fonts. (IDWriteFontFamily)

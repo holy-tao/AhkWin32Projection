@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Below normal memory priority.
- * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-memory_priority_information
  * @namespace Windows.Win32.System.Threading
  */
 class MEMORY_PRIORITY extends Win32Enum {

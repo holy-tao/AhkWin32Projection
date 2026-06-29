@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TOOLTIP_FLAGS.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\TOOLTIP_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * The TOOLINFO structure contains information about a tool in a tooltip control. (Unicode)

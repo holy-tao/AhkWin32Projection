@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOYRANGE.ahk
 #Include .\JOYPOS.ahk
+#Include .\JOYRANGE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice

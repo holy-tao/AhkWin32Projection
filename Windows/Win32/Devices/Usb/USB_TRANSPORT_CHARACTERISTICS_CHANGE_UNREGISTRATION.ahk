@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USB_CHANGE_REGISTRATION_HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_XML_TEXT.ahk
 #Include .\WS_XML_TEXT_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * A Boolean value that represents the text &quot;true&quot; or &quot;false&quot;.

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SearchScope.ahk
 #Include .\IUpdateSearcher2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Searches for updates on a server. (IUpdateSearcher3)

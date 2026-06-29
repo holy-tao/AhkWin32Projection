@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\ITransactionResourcePool.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to get the transaction resource pool.

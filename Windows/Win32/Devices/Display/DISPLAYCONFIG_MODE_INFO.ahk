@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISPLAYCONFIG_MODE_INFO_TYPE.ahk
-#Include ..\..\Foundation\LUID.ahk
-#Include .\DISPLAYCONFIG_TARGET_MODE.ahk
 #Include .\DISPLAYCONFIG_VIDEO_SIGNAL_INFO.ahk
-#Include .\DISPLAYCONFIG_RATIONAL.ahk
-#Include .\DISPLAYCONFIG_2DREGION.ahk
-#Include .\DISPLAYCONFIG_SCANLINE_ORDERING.ahk
-#Include .\DISPLAYCONFIG_SOURCE_MODE.ahk
+#Include ..\..\Foundation\LUID.ahk
 #Include .\DISPLAYCONFIG_PIXELFORMAT.ahk
 #Include ..\..\Foundation\POINTL.ahk
-#Include .\DISPLAYCONFIG_DESKTOP_IMAGE_INFO.ahk
 #Include ..\..\Foundation\RECTL.ahk
+#Include .\DISPLAYCONFIG_RATIONAL.ahk
+#Include .\DISPLAYCONFIG_TARGET_MODE.ahk
+#Include .\DISPLAYCONFIG_DESKTOP_IMAGE_INFO.ahk
+#Include .\DISPLAYCONFIG_SCANLINE_ORDERING.ahk
+#Include .\DISPLAYCONFIG_SOURCE_MODE.ahk
+#Include .\DISPLAYCONFIG_2DREGION.ahk
+#Include .\DISPLAYCONFIG_MODE_INFO_TYPE.ahk
 
 /**
  * The DISPLAYCONFIG_MODE_INFO structure contains either source mode or target mode information.

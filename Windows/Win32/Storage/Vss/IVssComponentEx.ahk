@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVssComponent.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\VSS_ROLLFORWARD_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IVssComponent.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines additional methods for examining and modifying information about components contained in a requester's Backup Components Document.
@@ -178,7 +181,7 @@ class IVssComponentEx extends IVssComponent {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getprepareforbackupfailuremsg
      */
     GetPrepareForBackupFailureMsg() {
-        pbstrFailureMsg := BSTR()
+        pbstrFailureMsg := BSTR({Value: 0}, True)
         result := ComCall(43, this, "ptr", pbstrFailureMsg, "HRESULT")
         return pbstrFailureMsg
     }
@@ -193,7 +196,7 @@ class IVssComponentEx extends IVssComponent {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getpostsnapshotfailuremsg
      */
     GetPostSnapshotFailureMsg() {
-        pbstrFailureMsg := BSTR()
+        pbstrFailureMsg := BSTR({Value: 0}, True)
         result := ComCall(44, this, "ptr", pbstrFailureMsg, "HRESULT")
         return pbstrFailureMsg
     }
@@ -294,7 +297,7 @@ class IVssComponentEx extends IVssComponent {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getrestorename
      */
     GetRestoreName() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(47, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }

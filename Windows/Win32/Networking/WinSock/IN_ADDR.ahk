@@ -15,7 +15,7 @@ class IN_ADDR extends Win32Struct {
 
     static packingSize => 4
 
-    class _S_un_e__Union extends Win32Struct {
+    class _S_un extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -83,7 +83,7 @@ class IN_ADDR extends Win32Struct {
         S_un_b {
             get {
                 if(!this.HasProp("__S_un_b"))
-                    this.__S_un_b := IN_ADDR._S_un_e__Union._S_un_b(0, this)
+                    this.__S_un_b := IN_ADDR._S_un._S_un_b(0, this)
                 return this.__S_un_b
             }
         }
@@ -94,7 +94,7 @@ class IN_ADDR extends Win32Struct {
         S_un_w {
             get {
                 if(!this.HasProp("__S_un_w"))
-                    this.__S_un_w := IN_ADDR._S_un_e__Union._S_un_w(0, this)
+                    this.__S_un_w := IN_ADDR._S_un._S_un_w(0, this)
                 return this.__S_un_w
             }
         }
@@ -109,12 +109,12 @@ class IN_ADDR extends Win32Struct {
     }
 
     /**
-     * @type {_S_un_e__Union}
+     * @type {_S_un}
      */
     S_un {
         get {
             if(!this.HasProp("__S_un"))
-                this.__S_un := IN_ADDR._S_un_e__Union(0, this)
+                this.__S_un := IN_ADDR._S_un(0, this)
             return this.__S_un
         }
     }

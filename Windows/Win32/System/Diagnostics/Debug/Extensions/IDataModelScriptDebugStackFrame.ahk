@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Include .\IDataModelScript.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
 #Include .\IModelObject.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include .\ScriptDebugPosition.ahk
 #Include .\IDataModelScriptDebugVariableSetEnumerator.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -36,18 +40,17 @@ class IDataModelScriptDebugStackFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", name, "HRESULT")
         return name
     }
 
     /**
-     * Registers an event handler that is invoked when the asynchronous operation started by GetPositionInformationAsync completes, and provides a method that returns the results of the operation.
+     * 
      * @param {Pointer<ScriptDebugPosition>} position 
      * @param {Pointer<ScriptDebugPosition>} positionSpanEnd 
      * @param {Pointer<BSTR>} lineText 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/mediastreaming/getpositioninformationoperation
      */
     GetPosition(position, positionSpanEnd, lineText) {
         result := ComCall(4, this, "ptr", position, "ptr", positionSpanEnd, "ptr", lineText, "HRESULT")
@@ -77,12 +80,9 @@ class IDataModelScriptDebugStackFrame extends IUnknown {
     }
 
     /**
-     * Evaluates at the indexed sample location.
-     * @remarks
-     * Interpolation mode can be **linear** or **linear\_no\_perspective** on the variable. Use of **centroid** or **sample** is ignored. Attributes with constant interpolation are also allowed, in which case the sample index is ignored.
+     * 
      * @param {PWSTR} pwszExpression 
      * @returns {IModelObject} 
-     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/evaluateattributeatsample
      */
     Evaluate(pwszExpression) {
         pwszExpression := pwszExpression is String ? StrPtr(pwszExpression) : pwszExpression

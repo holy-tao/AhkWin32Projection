@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CF_CONNECTION_KEY.ahk
-#Include ..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CF_PROCESS_INFO.ahk
+#Include ..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk
 
 /**
  * Contains common callback information.

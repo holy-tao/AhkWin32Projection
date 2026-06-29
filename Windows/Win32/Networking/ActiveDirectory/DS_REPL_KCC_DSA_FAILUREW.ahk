@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -8,7 +10,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
 class DS_REPL_KCC_DSA_FAILUREW extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -23,11 +25,14 @@ class DS_REPL_KCC_DSA_FAILUREW extends Win32Struct {
 
     /**
      * Contains the <b>objectGuid</b> of the directory system agent object represented by the <b>pszDsaDN</b> member.
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidDsaObjGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__uuidDsaObjGuid"))
+                this.__uuidDsaObjGuid := Guid(8, this)
+            return this.__uuidDsaObjGuid
+        }
     }
 
     /**
@@ -37,7 +42,7 @@ class DS_REPL_KCC_DSA_FAILUREW extends Win32Struct {
     ftimeFirstFailure {
         get {
             if(!this.HasProp("__ftimeFirstFailure"))
-                this.__ftimeFirstFailure := FILETIME(16, this)
+                this.__ftimeFirstFailure := FILETIME(24, this)
             return this.__ftimeFirstFailure
         }
     }
@@ -47,8 +52,8 @@ class DS_REPL_KCC_DSA_FAILUREW extends Win32Struct {
      * @type {Integer}
      */
     cNumFailures {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -56,7 +61,7 @@ class DS_REPL_KCC_DSA_FAILUREW extends Win32Struct {
      * @type {Integer}
      */
     dwLastResult {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

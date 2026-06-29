@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Stores information used to subscribe to notifications about a vSwitch event.
@@ -9,9 +10,9 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class FWPM_VSWITCH_EVENT_SUBSCRIPTION0 extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>UINT32</b>
@@ -28,10 +29,13 @@ class FWPM_VSWITCH_EVENT_SUBSCRIPTION0 extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * Identifies the session which created the subscription.
-     * @type {Pointer}
+     * @type {Guid}
      */
     sessionKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__sessionKey"))
+                this.__sessionKey := Guid(4, this)
+            return this.__sessionKey
+        }
     }
 }

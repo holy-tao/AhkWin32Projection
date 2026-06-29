@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The PDH_DATA_ITEM_PATH_ELEMENTS structure contains the path elements of a specific data item. (ANSI)
@@ -8,7 +10,7 @@
  * @charset ANSI
  */
 class PDH_DATA_ITEM_PATH_ELEMENTS_A extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -23,11 +25,14 @@ class PDH_DATA_ITEM_PATH_ELEMENTS_A extends Win32Struct {
 
     /**
      * GUID of the object where the data item resides.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ObjectGUID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ObjectGUID"))
+                this.__ObjectGUID := Guid(8, this)
+            return this.__ObjectGUID
+        }
     }
 
     /**
@@ -35,8 +40,8 @@ class PDH_DATA_ITEM_PATH_ELEMENTS_A extends Win32Struct {
      * @type {Integer}
      */
     dwItemId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -44,7 +49,7 @@ class PDH_DATA_ITEM_PATH_ELEMENTS_A extends Win32Struct {
      * @type {PSTR}
      */
     szInstanceName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

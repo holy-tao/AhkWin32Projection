@@ -1,7 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\THUMBBUTTON.ahk
+#Include .\TBPFLAG.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include .\ITaskbarList2.ahk
+#Include ..\Controls\HIMAGELIST.ahk
 
 /**
  * Extends ITaskbarList2 by exposing methods that support the unified launching and switching taskbar button functionality added in Windows 7.

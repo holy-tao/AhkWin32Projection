@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMSMQApplication2.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\IMSMQApplication2.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
@@ -97,7 +99,7 @@ class IMSMQApplication3 extends IMSMQApplication2 {
      * @returns {BSTR} 
      */
     get_DirectoryServiceServer() {
-        pbstrDirectoryServiceServer := BSTR()
+        pbstrDirectoryServiceServer := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pbstrDirectoryServiceServer, "HRESULT")
         return pbstrDirectoryServiceServer
     }
@@ -138,15 +140,14 @@ class IMSMQApplication3 extends IMSMQApplication2 {
      * @returns {BSTR} 
      */
     get_Machine() {
-        pbstrMachine := BSTR()
+        pbstrMachine := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", pbstrMachine, "HRESULT")
         return pbstrMachine
     }
 
     /**
-     * Defines each configuration setting and associates it with a name. The Connection element is optional.
+     * 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/eaphost/eapconnectionpropertiesv1schema-connection-connections-element
      */
     Connect() {
         result := ComCall(22, this, "HRESULT")

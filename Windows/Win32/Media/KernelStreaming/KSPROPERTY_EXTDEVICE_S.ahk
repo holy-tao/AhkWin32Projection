@@ -1,17 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\DEVCAPS.ahk
+#Include .\KSIDENTIFIER.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSPROPERTY_EXTDEVICE_S extends Win32Struct {
-    static sizeof => 536
+    static sizeof => 544
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 520
         static packingSize => 4
 
@@ -74,12 +75,12 @@ class KSPROPERTY_EXTDEVICE_S extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := KSPROPERTY_EXTDEVICE_S._u_e__Union(16, this)
+                this.__u := KSPROPERTY_EXTDEVICE_S._u(24, this)
             return this.__u
         }
     }

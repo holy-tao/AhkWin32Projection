@@ -1,6 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
+#Include ..\..\..\Win32\System\Kernel\TIMER_TYPE.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\OBJECT_ATTRIBUTES.ahk
+#Include .\PROCESSINFOCLASS.ahk
+#Include ..\..\..\Win32\System\WindowsProgramming\CLIENT_ID.ahk
+#Include .\TIMER_SET_INFORMATION_CLASS.ahk
+#Include .\THREADINFOCLASS.ahk
 
 /**
  * @namespace Windows.Wdk.System.Threading

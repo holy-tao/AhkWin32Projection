@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\LM_OWF_PASSWORD.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\ENCRYPTED_LM_OWF_PASSWORD.ahk
+#Include .\SAMPR_ENCRYPTED_USER_PASSWORD.ahk
 
 /**
  * @namespace Windows.Win32.System.PasswordManagement

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DS_REPL_VALUE_META_DATA_EXT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\DS_REPL_VALUE_META_DATA_EXT.ahk
 
 /**
  * Provides metadata for a collection of attribute replication values.
@@ -9,7 +11,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
 class DS_REPL_ATTR_VALUE_META_DATA_EXT extends Win32Struct {
-    static sizeof => 120
+    static sizeof => 128
 
     static packingSize => 8
 

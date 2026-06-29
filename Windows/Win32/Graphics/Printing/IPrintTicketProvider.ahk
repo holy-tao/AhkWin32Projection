@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\PRINTER_HANDLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\Gdi\DEVMODEA.ahk
+#Include .\SHIMOPTS.ahk
 #Include ..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -78,14 +83,13 @@ class IPrintTicketProvider extends IUnknown {
     }
 
     /**
-     * Converts a print ticket to a DEVMODE structure.
-     * @param {IXMLDOMDocument2} pPrintTicket The buffer that contains the print ticket to convert.
+     * 
+     * @param {IXMLDOMDocument2} pPrintTicket 
      * @param {Integer} cbDevmodeIn 
      * @param {Pointer<DEVMODEA>} pDevmodeIn 
      * @param {Pointer<Integer>} pcbDevmodeOut 
      * @param {Pointer<Pointer<DEVMODEA>>} ppDevmodeOut 
-     * @returns {HRESULT} If the method succeeds, it returns **S\_OK**; otherwise, it returns an **HRESULT** error code. For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/convertprinttickettodevmodethunk2
+     * @returns {HRESULT} 
      */
     ConvertPrintTicketToDevMode(pPrintTicket, cbDevmodeIn, pDevmodeIn, pcbDevmodeOut, ppDevmodeOut) {
         pcbDevmodeOutMarshal := pcbDevmodeOut is VarRef ? "uint*" : "ptr"
@@ -96,12 +100,11 @@ class IPrintTicketProvider extends IUnknown {
     }
 
     /**
-     * Converts a DEVMODE structure to a print ticket.
+     * 
      * @param {Integer} cbDevmode 
-     * @param {Pointer<DEVMODEA>} pDevmode A pointer to the [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) to convert.
+     * @param {Pointer<DEVMODEA>} pDevmode 
      * @param {IXMLDOMDocument2} pPrintTicket 
-     * @returns {HRESULT} If the method succeeds, it returns **S\_OK**; otherwise, it returns an **HRESULT** error code. For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/convertdevmodetoprintticketthunk2
+     * @returns {HRESULT} 
      */
     ConvertDevModeToPrintTicket(cbDevmode, pDevmode, pPrintTicket) {
         result := ComCall(7, this, "uint", cbDevmode, "ptr", pDevmode, "ptr", pPrintTicket, "HRESULT")
@@ -109,10 +112,9 @@ class IPrintTicketProvider extends IUnknown {
     }
 
     /**
-     * Retrieves the printers capabilities formatted in compliance with the XML Print Schema.
-     * @param {IXMLDOMDocument2} pPrintTicket The buffer that contains the print ticket data, expressed in XML as described in the [Print Schema](./printschema.md).
+     * 
+     * @param {IXMLDOMDocument2} pPrintTicket 
      * @returns {IXMLDOMDocument2} 
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprintcapabilitiesthunk2
      */
     GetPrintCapabilities(pPrintTicket) {
         result := ComCall(8, this, "ptr", pPrintTicket, "ptr*", &ppCapabilities := 0, "HRESULT")

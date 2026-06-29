@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\BLOB.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Is the means by which the CRM Worker and CRM Compensator write records to the log and make them durable.
@@ -47,7 +51,7 @@ class ICrmLogControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmlogcontrol-get_transactionuow
      */
     get_TransactionUOW() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pVal, "HRESULT")
         return pVal
     }

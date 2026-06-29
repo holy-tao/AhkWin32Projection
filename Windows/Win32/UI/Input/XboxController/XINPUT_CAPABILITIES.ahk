@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\XINPUT_DEVTYPE.ahk
 #Include .\XINPUT_DEVSUBTYPE.ahk
+#Include .\XINPUT_DEVTYPE.ahk
 #Include .\XINPUT_CAPABILITIES_FLAGS.ahk
+#Include .\XINPUT_VIBRATION.ahk
 #Include .\XINPUT_GAMEPAD.ahk
 #Include .\XINPUT_GAMEPAD_BUTTON_FLAGS.ahk
-#Include .\XINPUT_VIBRATION.ahk
 
 /**
  * Describes the capabilities of a connected controller. The XInputGetCapabilities function returns XINPUT_CAPABILITIES.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines an event payload filter predicate that describes how to filter on a single field in a trace session.

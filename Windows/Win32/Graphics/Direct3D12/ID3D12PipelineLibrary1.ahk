@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_PIPELINE_STATE_STREAM_DESC.ahk
 #Include .\ID3D12PipelineLibrary.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Manages a pipeline library. This interface extends ID3D12PipelineLibrary to load PSOs from a pipeline state stream description.

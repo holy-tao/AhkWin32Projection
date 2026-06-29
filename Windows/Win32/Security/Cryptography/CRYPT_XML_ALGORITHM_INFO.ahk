@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_XML_GROUP_ID.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains algorithm information.

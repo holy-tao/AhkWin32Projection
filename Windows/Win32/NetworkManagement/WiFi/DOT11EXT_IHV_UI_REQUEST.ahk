@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
 class DOT11EXT_IHV_UI_REQUEST extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -18,34 +19,40 @@ class DOT11EXT_IHV_UI_REQUEST extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidUIRequest {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidUIRequest"))
+                this.__guidUIRequest := Guid(4, this)
+            return this.__guidUIRequest
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     UIPageClsid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__UIPageClsid"))
+                this.__UIPageClsid := Guid(20, this)
+            return this.__UIPageClsid
+        }
     }
 
     /**
      * @type {Integer}
      */
     dwByteCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
      * @type {Pointer<Integer>}
      */
     pvUIRequest {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

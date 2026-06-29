@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_VIDEO_DECODER_BUFFER_TYPE.ahk
 #Include .\D3D11_ENCRYPTED_BLOCK_INFO.ahk
+#Include .\D3D11_VIDEO_DECODER_BUFFER_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes a compressed buffer for decoding. (D3D11_VIDEO_DECODER_BUFFER_DESC)

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISensor.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SensorState.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The callback interface for receiving sensor manager events.

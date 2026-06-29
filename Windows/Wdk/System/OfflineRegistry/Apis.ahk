@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\Win32\Foundation\PWSTR.ahk
+#Include ..\..\..\Win32\Foundation\FILETIME.ahk
+#Include .\ORHKEY.ahk
+#Include ..\..\..\Win32\Foundation\WIN32_ERROR.ahk
+#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include ..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Wdk.System.OfflineRegistry

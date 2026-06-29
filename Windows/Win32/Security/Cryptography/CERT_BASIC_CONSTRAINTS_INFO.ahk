@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The CERT_BASIC_CONSTRAINTS_INFO structure contains information that indicates whether the certified subject can act as a certification authority (CA), an end entity, or both.

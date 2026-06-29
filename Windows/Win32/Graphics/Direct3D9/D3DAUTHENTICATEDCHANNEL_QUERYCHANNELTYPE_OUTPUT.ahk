@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
-#Include .\D3D_OMAC.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3DAUTHENTICATEDCHANNELTYPE.ahk
+#Include .\D3D_OMAC.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the response to a D3DAUTHENTICATEDQUERY\_CHANNELTYPE query.
@@ -11,7 +13,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
 class D3DAUTHENTICATEDCHANNEL_QUERYCHANNELTYPE_OUTPUT extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -32,7 +34,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYCHANNELTYPE_OUTPUT extends Win32Struct {
      * @type {D3DAUTHENTICATEDCHANNELTYPE}
      */
     ChannelType {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 }

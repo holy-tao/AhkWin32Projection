@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugHostMemory.ahk
 #Include .\Location.ahk
+#Include .\IDebugHostMemory.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\IDebugHostContext.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

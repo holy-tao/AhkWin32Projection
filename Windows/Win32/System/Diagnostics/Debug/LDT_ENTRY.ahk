@@ -18,7 +18,7 @@ class LDT_ENTRY extends Win32Struct {
 
     static packingSize => 4
 
-    class _HighWord_e__Union extends Win32Struct {
+    class _HighWord extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -169,7 +169,7 @@ class LDT_ENTRY extends Win32Struct {
         Bytes {
             get {
                 if(!this.HasProp("__Bytes"))
-                    this.__Bytes := LDT_ENTRY._HighWord_e__Union._Bytes(0, this)
+                    this.__Bytes := LDT_ENTRY._HighWord._Bytes(0, this)
                 return this.__Bytes
             }
         }
@@ -180,7 +180,7 @@ class LDT_ENTRY extends Win32Struct {
         Bits {
             get {
                 if(!this.HasProp("__Bits"))
-                    this.__Bits := LDT_ENTRY._HighWord_e__Union._Bits(0, this)
+                    this.__Bits := LDT_ENTRY._HighWord._Bits(0, this)
                 return this.__Bits
             }
         }
@@ -206,12 +206,12 @@ class LDT_ENTRY extends Win32Struct {
 
     /**
      * The high-order portion of the descriptor. This member may be interpreted as bytes or collections of bits, depending on the level of detail required.
-     * @type {_HighWord_e__Union}
+     * @type {_HighWord}
      */
     HighWord {
         get {
             if(!this.HasProp("__HighWord"))
-                this.__HighWord := LDT_ENTRY._HighWord_e__Union(4, this)
+                this.__HighWord := LDT_ENTRY._HighWord(4, this)
             return this.__HighWord
         }
     }

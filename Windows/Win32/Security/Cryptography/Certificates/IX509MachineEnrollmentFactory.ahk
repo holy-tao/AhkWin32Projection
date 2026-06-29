@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IX509EnrollmentHelper.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Can be used to create an IX509EnrollmentHelper object on a webpage.

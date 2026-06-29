@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_AUTH_ALGORITHM.ahk
-#Include .\DOT11_CIPHER_ALGORITHM.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\DOT11_DS_INFO.ahk
+#Include .\DOT11_CIPHER_ALGORITHM.ahk
+#Include .\DOT11_AUTH_ALGORITHM.ahk
+#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

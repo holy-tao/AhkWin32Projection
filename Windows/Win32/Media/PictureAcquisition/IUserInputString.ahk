@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include .\USER_INPUT_STRING_TYPE.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IUserInputString interface represents the object created when asking the user for a string�for example, when obtaining the name of a tag.
@@ -36,7 +40,7 @@ class IUserInputString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getsubmitbuttontext
      */
     GetSubmitButtonText() {
-        pbstrSubmitButtonText := BSTR()
+        pbstrSubmitButtonText := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pbstrSubmitButtonText, "HRESULT")
         return pbstrSubmitButtonText
     }
@@ -47,7 +51,7 @@ class IUserInputString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getprompt
      */
     GetPrompt() {
-        pbstrPromptTitle := BSTR()
+        pbstrPromptTitle := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", pbstrPromptTitle, "HRESULT")
         return pbstrPromptTitle
     }
@@ -58,7 +62,7 @@ class IUserInputString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getstringid
      */
     GetStringId() {
-        pbstrStringId := BSTR()
+        pbstrStringId := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", pbstrStringId, "HRESULT")
         return pbstrStringId
     }
@@ -96,7 +100,7 @@ class IUserInputString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-gettooltiptext
      */
     GetTooltipText() {
-        pbstrTooltipText := BSTR()
+        pbstrTooltipText := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrTooltipText, "HRESULT")
         return pbstrTooltipText
     }
@@ -117,7 +121,7 @@ class IUserInputString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getdefault
      */
     GetDefault() {
-        pbstrDefault := BSTR()
+        pbstrDefault := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrDefault, "HRESULT")
         return pbstrDefault
     }
@@ -141,7 +145,7 @@ class IUserInputString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getmruentryat
      */
     GetMruEntryAt(nIndex) {
-        pbstrMruEntry := BSTR()
+        pbstrMruEntry := BSTR({Value: 0}, True)
         result := ComCall(11, this, "uint", nIndex, "ptr", pbstrMruEntry, "HRESULT")
         return pbstrMruEntry
     }

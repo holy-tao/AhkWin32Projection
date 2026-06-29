@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ATTRIBUTE.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * An element of a certificate trust list (CTL).

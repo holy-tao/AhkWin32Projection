@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MBN_CONTEXT_TYPE.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\MBN_CONTEXT_TYPE.ahk
 #Include .\MBN_COMPRESSION.ahk
 #Include .\MBN_AUTH_PROTOCOL.ahk
 

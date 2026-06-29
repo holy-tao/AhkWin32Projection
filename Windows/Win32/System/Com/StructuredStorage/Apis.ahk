@@ -1,13 +1,40 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include .\IStorage.ahk
-#Include .\IFillLockBytes.ahk
-#Include ..\IStream.ahk
-#Include ..\..\..\Foundation\HGLOBAL.ahk
-#Include .\IPropertyStorage.ahk
+#Include .\PROPVAR_COMPARE_FLAGS.ahk
+#Include ..\..\..\Foundation\FILETIME.ahk
+#Include ..\..\Variant\VARENUM.ahk
+#Include .\PROPVARIANT.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include .\IPropertySetStorage.ahk
+#Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include ..\CLSCTX.ahk
+#Include ..\MULTI_QI.ahk
+#Include .\IStorage.ahk
+#Include ..\..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\..\Security\PSECURITY_DESCRIPTOR.ahk
+#Include .\PROPVAR_CHANGE_FLAGS.ahk
+#Include ..\STGMEDIUM.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\SERIALIZEDPROPERTYVALUE.ahk
+#Include .\IPropertyStorage.ahk
 #Include .\ILockBytes.ahk
+#Include .\PROPVAR_COMPARE_UNIT.ahk
+#Include .\IMemoryAllocator.ahk
+#Include ..\..\Variant\VARIANT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\STGOPTIONS.ahk
+#Include ..\..\Variant\PSTIME_FLAGS.ahk
+#Include .\IFillLockBytes.ahk
+#Include ..\STGM.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\IStream.ahk
+#Include ..\IUnknown.ahk
+#Include ..\COSERVERINFO.ahk
+#Include .\OLESTREAM.ahk
+#Include .\STGFMT.ahk
+#Include ..\DVTARGETDEVICE.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage
@@ -638,7 +665,7 @@ class StructuredStorage {
      * @since windows5.0
      */
     static GetHGlobalFromStream(pstm) {
-        phglobal := HGLOBAL()
+        phglobal := HGLOBAL({Value: 0}, True)
         result := DllCall("OLE32.dll\GetHGlobalFromStream", "ptr", pstm, "ptr", phglobal, "HRESULT")
         return phglobal
     }
@@ -1493,7 +1520,7 @@ class StructuredStorage {
      * @since windows5.0
      */
     static GetHGlobalFromILockBytes(plkbyt) {
-        phglobal := HGLOBAL()
+        phglobal := HGLOBAL({Value: 0}, True)
         result := DllCall("OLE32.dll\GetHGlobalFromILockBytes", "ptr", plkbyt, "ptr", phglobal, "HRESULT")
         return phglobal
     }
@@ -3012,7 +3039,7 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToBSTR(propvar) {
-        pbstrOut := BSTR()
+        pbstrOut := BSTR({Value: 0}, True)
         result := DllCall("PROPSYS.dll\PropVariantToBSTR", "ptr", propvar, "ptr", pbstrOut, "HRESULT")
         return pbstrOut
     }

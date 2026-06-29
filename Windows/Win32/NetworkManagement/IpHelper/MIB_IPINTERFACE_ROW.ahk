@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\..\Networking\WinSock\NL_ROUTER_DISCOVERY_BEHAVIOR.ahk
-#Include ..\..\Networking\WinSock\NL_LINK_LOCAL_ADDRESS_BEHAVIOR.ahk
 #Include ..\..\Networking\WinSock\NL_INTERFACE_OFFLOAD_ROD.ahk
+#Include ..\..\Networking\WinSock\NL_LINK_LOCAL_ADDRESS_BEHAVIOR.ahk
+#Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\..\Networking\WinSock\NL_ROUTER_DISCOVERY_BEHAVIOR.ahk
 
 /**
  * Stores interface management information for a particular IP address family on a network interface.

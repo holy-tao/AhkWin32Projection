@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmRule.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\FsrmExecutionOption.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFsrmRule.ahk
 
 /**
  * Defines a classification rule.
@@ -91,7 +93,7 @@ class IFsrmClassificationRule extends IFsrmRule {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-get_propertyaffected
      */
     get_PropertyAffected() {
-        _property := BSTR()
+        _property := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", _property, "HRESULT")
         return _property
     }
@@ -126,7 +128,7 @@ class IFsrmClassificationRule extends IFsrmRule {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-get_value
      */
     get_Value() {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", value, "HRESULT")
         return value
     }

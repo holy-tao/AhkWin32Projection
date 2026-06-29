@@ -2,8 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\HANDLE_PTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\IInkDrawingAttributes.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Displays the tablet pen data in real-time as that data is being handled by the RealTimeStylus Class object.

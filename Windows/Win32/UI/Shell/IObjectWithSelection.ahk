@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IShellItemArray.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that get or set selected items represented by a Shell item array.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LOGICAL_PROCESSOR_RELATIONSHIP.ahk
-#Include .\CACHE_DESCRIPTOR.ahk
 #Include .\PROCESSOR_CACHE_TYPE.ahk
+#Include .\CACHE_DESCRIPTOR.ahk
+#Include .\LOGICAL_PROCESSOR_RELATIONSHIP.ahk
 
 /**
  * Describes the relationship between the specified processor set. This structure is used with the GetLogicalProcessorInformation function.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCS_CREATE_OPTIONS.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Security\SECURITY_DESCRIPTOR.ahk
 #Include .\HCS_EVENT_OPTIONS.ahk
+#Include .\HCS_CREATE_OPTIONS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.HostComputeSystem

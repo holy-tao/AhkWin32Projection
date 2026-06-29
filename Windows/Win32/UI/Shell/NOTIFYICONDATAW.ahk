@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\NOTIFY_ICON_DATA_FLAGS.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
 #Include .\NOTIFY_ICON_STATE.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\NOTIFY_ICON_INFOTIP_FLAGS.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
+#Include .\NOTIFY_ICON_DATA_FLAGS.ahk
 
 /**
  * Contains information that the system needs to display notifications in the notification area. Used by Shell_NotifyIcon. (Unicode)
@@ -26,7 +27,7 @@
  * @architecture X64, Arm64
  */
 class NOTIFYICONDATAW extends Win32Struct {
-    static sizeof => 968
+    static sizeof => 976
 
     static packingSize => 8
 
@@ -219,11 +220,14 @@ class NOTIFYICONDATAW extends Win32Struct {
      * If you identify the notification icon with a GUID in one call to <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shell_notifyicona">Shell_NotifyIcon</a>, you must use that same GUID to identify the icon in any subsequent <b>Shell_NotifyIcon</b> calls that deal with that same icon.
      * 
      * To generate a GUID for use in this member, use a GUID-generating tool such as Guidgen.exe.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidItem {
-        get => NumGet(this, 952, "ptr")
-        set => NumPut("ptr", value, this, 952)
+        get {
+            if(!this.HasProp("__guidItem"))
+                this.__guidItem := Guid(952, this)
+            return this.__guidItem
+        }
     }
 
     /**
@@ -235,13 +239,13 @@ class NOTIFYICONDATAW extends Win32Struct {
     hBalloonIcon {
         get {
             if(!this.HasProp("__hBalloonIcon"))
-                this.__hBalloonIcon := HICON(960, this)
+                this.__hBalloonIcon := HICON(968, this)
             return this.__hBalloonIcon
         }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 968
+        this.cbSize := 976
     }
 }

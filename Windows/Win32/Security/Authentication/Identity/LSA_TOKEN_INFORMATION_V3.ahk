@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\TOKEN_USER.ahk
-#Include ..\..\SID_AND_ATTRIBUTES.ahk
-#Include ..\..\TOKEN_GROUPS.ahk
 #Include ..\..\TOKEN_PRIMARY_GROUP.ahk
 #Include ..\..\TOKEN_PRIVILEGES.ahk
-#Include ..\..\TOKEN_OWNER.ahk
-#Include ..\..\TOKEN_DEFAULT_DACL.ahk
-#Include ..\..\ACL.ahk
-#Include ..\..\TOKEN_USER_CLAIMS.ahk
+#Include ..\..\PSID.ahk
+#Include ..\..\TOKEN_USER.ahk
+#Include ..\..\TOKEN_GROUPS.ahk
 #Include ..\..\TOKEN_DEVICE_CLAIMS.ahk
+#Include ..\..\TOKEN_USER_CLAIMS.ahk
+#Include ..\..\SID_AND_ATTRIBUTES.ahk
+#Include ..\..\ACL.ahk
+#Include ..\..\TOKEN_DEFAULT_DACL.ahk
+#Include ..\..\TOKEN_OWNER.ahk
 
 /**
  * Adds claim support to the LSA token and contains information an authentication package can place in a Version 3 Windows token object and has superceded LSA_TOKEN_INFORMATION_V1.

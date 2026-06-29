@@ -2,8 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkRectangle.ahk
 #Include .\InkRecoGuide.ahk
+#Include .\IInkRectangle.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * . (IInkRecognizerGuide)

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PDH_RAW_COUNTER.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The PDH_RAW_COUNTER_ITEM structure contains the instance name and raw value of a counter. (ANSI)

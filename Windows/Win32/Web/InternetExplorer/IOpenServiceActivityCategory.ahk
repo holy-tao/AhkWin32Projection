@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IOpenServiceActivity.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IOpenServiceActivityInput.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IOpenServiceActivity.ahk
 #Include .\IEnumOpenServiceActivity.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IOpenServiceActivityOutputContext.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -67,7 +72,7 @@ class IOpenServiceActivityCategory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }

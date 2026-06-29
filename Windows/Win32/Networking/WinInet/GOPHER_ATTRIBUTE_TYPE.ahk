@@ -1,23 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\GOPHER_ADMIN_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_MOD_DATE_ATTRIBUTE_TYPE.ahk
+#Include .\GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE.ahk
+#Include .\GOPHER_UNKNOWN_ATTRIBUTE_TYPE.ahk
+#Include .\GOPHER_VERONICA_ATTRIBUTE_TYPE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\GOPHER_TTL_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_SCORE_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_SITE_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_ORGANIZATION_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_LOCATION_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_TIMEZONE_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_PROVIDER_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_VERSION_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_ABSTRACT_ATTRIBUTE_TYPE.ahk
 #Include .\GOPHER_VIEW_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_VERONICA_ATTRIBUTE_TYPE.ahk
+#Include .\GOPHER_MOD_DATE_ATTRIBUTE_TYPE.ahk
+#Include .\GOPHER_ADMIN_ATTRIBUTE_TYPE.ahk
+#Include .\GOPHER_ORGANIZATION_ATTRIBUTE_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\GOPHER_LOCATION_ATTRIBUTE_TYPE.ahk
+#Include .\GOPHER_ABSTRACT_ATTRIBUTE_TYPE.ahk
+#Include .\GOPHER_PROVIDER_ATTRIBUTE_TYPE.ahk
+#Include .\GOPHER_SCORE_ATTRIBUTE_TYPE.ahk
+#Include .\GOPHER_SITE_ATTRIBUTE_TYPE.ahk
+#Include .\GOPHER_VERSION_ATTRIBUTE_TYPE.ahk
+#Include .\GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE.ahk
 #Include .\GOPHER_ASK_ATTRIBUTE_TYPE.ahk
-#Include .\GOPHER_UNKNOWN_ATTRIBUTE_TYPE.ahk
+#Include .\GOPHER_TIMEZONE_ATTRIBUTE_TYPE.ahk
 
 /**
  * Contains the relevant information of a single Gopher attribute for an object.
@@ -32,7 +33,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct {
 
     static packingSize => 8
 
-    class _AttributeType_e__Union extends Win32Struct {
+    class _AttributeType extends Win32Struct {
         static sizeof => 24
         static packingSize => 8
 
@@ -251,12 +252,12 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct {
     /**
      * Data for the Gopher attribute. The specific structure depends on the 
      * <b>AttributeId</b> member. The definitions of these data structures are available in Wininet.h.
-     * @type {_AttributeType_e__Union}
+     * @type {_AttributeType}
      */
     AttributeType {
         get {
             if(!this.HasProp("__AttributeType"))
-                this.__AttributeType := GOPHER_ATTRIBUTE_TYPE._AttributeType_e__Union(8, this)
+                this.__AttributeType := GOPHER_ATTRIBUTE_TYPE._AttributeType(8, this)
             return this.__AttributeType
         }
     }

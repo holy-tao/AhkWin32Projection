@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRTCPresenceContact.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRTCPresenceContact.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\RTC_PRESENCE_STATUS.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -56,7 +58,7 @@ class IRTCBuddy extends IRTCPresenceContact {
      * @returns {BSTR} 
      */
     get_Notes() {
-        pbstrNotes := BSTR()
+        pbstrNotes := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstrNotes, "HRESULT")
         return pbstrNotes
     }

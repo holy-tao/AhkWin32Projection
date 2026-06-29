@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_VALUE.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
 #Include .\CLUS_FTSET_INFO.ahk
+#Include .\CLUSPROP_SYNTAX.ahk
+#Include .\CLUSPROP_VALUE.ahk
 
 /**
  * Contains information about an FT (fault tolerant) set. It is used as an entry in a value list and consists of a CLUSPROP_VALUE and a CLUS_FTSET_INFO structure.

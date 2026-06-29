@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IComponent.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMPEG2Component interface contains methods for getting and setting properties that describe an MPEG2 elementary stream.

@@ -2,8 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IObjectId.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IObjectId.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IObjectIds interface defines methods and properties that enable you to manage a collection of IObjectId objects.

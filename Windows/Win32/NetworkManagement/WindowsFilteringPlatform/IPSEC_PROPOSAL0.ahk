@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IPSEC_PFS_GROUP.ahk
 #Include .\IPSEC_SA_LIFETIME0.ahk
 #Include .\IPSEC_SA_TRANSFORM0.ahk
-#Include .\IPSEC_PFS_GROUP.ahk
 
 /**
  * Used to store an IPsec quick mode proposal.

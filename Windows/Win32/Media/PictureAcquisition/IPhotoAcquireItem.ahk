@@ -1,11 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * The IPhotoAcquireItem interface provides methods for working with items as they are acquired from a device.
@@ -41,7 +45,7 @@ class IPhotoAcquireItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireitem-getitemname
      */
     GetItemName() {
-        pbstrItemName := BSTR()
+        pbstrItemName := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pbstrItemName, "HRESULT")
         return pbstrItemName
     }
@@ -53,7 +57,7 @@ class IPhotoAcquireItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireitem-getthumbnail
      */
     GetThumbnail(sizeThumbnail) {
-        phbmpThumbnail := HBITMAP()
+        phbmpThumbnail := HBITMAP({Value: 0}, True)
         result := ComCall(4, this, "ptr", sizeThumbnail, "ptr", phbmpThumbnail, "HRESULT")
         return phbmpThumbnail
     }

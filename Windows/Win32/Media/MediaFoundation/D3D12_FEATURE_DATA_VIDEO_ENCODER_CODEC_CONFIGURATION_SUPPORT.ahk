@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264.ahk
 #Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
 #Include .\D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION_SUPPORT.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264.ahk
 
 /**
  * Retrieves a value indicating if the specified codec configuration support parameters are supported for the provided HEVC encoding configuration or retrieves the supported configuration for H.264 encoding.

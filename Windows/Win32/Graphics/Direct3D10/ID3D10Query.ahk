@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D10Asynchronous.ahk
+#Include .\D3D10_QUERY_DESC.ahk
 
 /**
  * A query interface queries information from the GPU. (ID3D10Query)

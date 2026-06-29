@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfUIElement interface is a base interface of the UIElement object and is implemented by a text service.
@@ -39,7 +41,7 @@ class ITfUIElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielement-getdescription
      */
     GetDescription() {
-        pbstrDescription := BSTR()
+        pbstrDescription := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pbstrDescription, "HRESULT")
         return pbstrDescription
     }

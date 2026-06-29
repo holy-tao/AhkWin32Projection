@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\EVENT_FILTER_DESCRIPTOR.ahk
 
 /**
@@ -22,7 +23,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
 class ENABLE_TRACE_PARAMETERS_V1 extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -90,11 +91,14 @@ class ENABLE_TRACE_PARAMETERS_V1 extends Win32Struct {
      * provider. If the provider does not implement
      * [EnableCallback](/windows/desktop/api/evntprov/nc-evntprov-penablecallback), the
      * GUID is not used.
-     * @type {Pointer}
+     * @type {Guid}
      */
     SourceId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__SourceId"))
+                this.__SourceId := Guid(12, this)
+            return this.__SourceId
+        }
     }
 
     /**
@@ -111,7 +115,7 @@ class ENABLE_TRACE_PARAMETERS_V1 extends Win32Struct {
      * @type {Pointer<EVENT_FILTER_DESCRIPTOR>}
      */
     EnableFilterDesc {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

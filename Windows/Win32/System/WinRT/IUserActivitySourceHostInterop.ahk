@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IInspectable.ahk
+#Include .\HSTRING.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @see https://learn.microsoft.com/windows/win32/api/useractivityinterop/nn-useractivityinterop-iuseractivitysourcehostinterop

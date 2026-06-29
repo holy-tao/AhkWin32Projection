@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that allow the runtime to disconnect a custom client in RemoteApp and Desktop Connection.
@@ -36,7 +37,7 @@ class IWorkspaceClientExt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-getresourceid
      */
     GetResourceId() {
-        bstrWorkspaceId := BSTR()
+        bstrWorkspaceId := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", bstrWorkspaceId, "HRESULT")
         return bstrWorkspaceId
     }
@@ -47,7 +48,7 @@ class IWorkspaceClientExt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-getresourcedisplayname
      */
     GetResourceDisplayName() {
-        bstrWorkspaceDisplayName := BSTR()
+        bstrWorkspaceDisplayName := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", bstrWorkspaceDisplayName, "HRESULT")
         return bstrWorkspaceDisplayName
     }

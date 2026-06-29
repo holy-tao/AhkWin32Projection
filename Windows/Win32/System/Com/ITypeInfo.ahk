@@ -1,9 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include .\ITypeComp.ahk
+#Include .\TYPEATTR.ahk
+#Include .\FUNCDESC.ahk
+#Include .\DISPPARAMS.ahk
+#Include .\IMPLTYPEFLAGS.ahk
+#Include .\VARDESC.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\INVOKEKIND.ahk
+#Include .\ITypeLib.ahk
+#Include .\DISPATCH_FLAGS.ahk
+#Include .\IUnknown.ahk
+#Include .\EXCEPINFO.ahk
+#Include .\ITypeComp.ahk
 
 /**
  * Used for reading information about objects. (ITypeInfo)
@@ -547,7 +560,7 @@ class ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getmops
      */
     GetMops(memid) {
-        pBstrMops := BSTR()
+        pBstrMops := BSTR({Value: 0}, True)
         result := ComCall(17, this, "int", memid, "ptr", pBstrMops, "HRESULT")
         return pBstrMops
     }

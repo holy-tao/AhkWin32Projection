@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IPhotoAcquireProgressCB.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IPhotoAcquireItem.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\IPhotoAcquireSettings.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IPhotoAcquireSource interface is used for acquisition of items from a device.
@@ -38,7 +43,7 @@ class IPhotoAcquireSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getfriendlyname
      */
     GetFriendlyName() {
-        pbstrFriendlyName := BSTR()
+        pbstrFriendlyName := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pbstrFriendlyName, "HRESULT")
         return pbstrFriendlyName
     }
@@ -174,7 +179,7 @@ class IPhotoAcquireSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getdeviceid
      */
     GetDeviceId() {
-        pbstrDeviceId := BSTR()
+        pbstrDeviceId := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrDeviceId, "HRESULT")
         return pbstrDeviceId
     }

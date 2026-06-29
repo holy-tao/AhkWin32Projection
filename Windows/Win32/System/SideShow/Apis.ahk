@@ -31,8 +31,7 @@ class SideShow {
     static SIDESHOW_CAPABILITY_DEVICE_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}").CopyTo(value.fmtid.ptr)
             value.pid := 1
             return value
         }
@@ -44,8 +43,7 @@ class SideShow {
     static SIDESHOW_CAPABILITY_SCREEN_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -57,8 +55,7 @@ class SideShow {
     static SIDESHOW_CAPABILITY_SCREEN_WIDTH {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -70,8 +67,7 @@ class SideShow {
     static SIDESHOW_CAPABILITY_SCREEN_HEIGHT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -83,8 +79,7 @@ class SideShow {
     static SIDESHOW_CAPABILITY_COLOR_DEPTH {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -96,8 +91,7 @@ class SideShow {
     static SIDESHOW_CAPABILITY_COLOR_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -109,8 +103,7 @@ class SideShow {
     static SIDESHOW_CAPABILITY_DATA_CACHE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -122,8 +115,7 @@ class SideShow {
     static SIDESHOW_CAPABILITY_SUPPORTED_LANGUAGES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -135,8 +127,7 @@ class SideShow {
     static SIDESHOW_CAPABILITY_CURRENT_LANGUAGE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -148,8 +139,7 @@ class SideShow {
     static SIDESHOW_CAPABILITY_SUPPORTED_THEMES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -161,8 +151,7 @@ class SideShow {
     static SIDESHOW_CAPABILITY_SUPPORTED_IMAGE_FORMATS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}").CopyTo(value.fmtid.ptr)
             value.pid := 14
             return value
         }
@@ -174,8 +163,7 @@ class SideShow {
     static SIDESHOW_CAPABILITY_CLIENT_AREA_WIDTH {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}").CopyTo(value.fmtid.ptr)
             value.pid := 15
             return value
         }
@@ -187,8 +175,7 @@ class SideShow {
     static SIDESHOW_CAPABILITY_CLIENT_AREA_HEIGHT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8abc88a8-857b-4ad7-a35a-b5942f492b99}").CopyTo(value.fmtid.ptr)
             value.pid := 16
             return value
         }

@@ -1,7 +1,32 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\DirectWrite\DWRITE_GLYPH_RUN_DESCRIPTION.ahk
+#Include .\D2D1_ANTIALIAS_MODE.ahk
+#Include Common\D2D1_COMPOSITE_MODE.ahk
+#Include .\D2D1_INTERPOLATION_MODE.ahk
+#Include .\D2D1_LAYER_PARAMETERS1.ahk
+#Include Common\D2D_MATRIX_4X4_F.ahk
+#Include .\D2D1_UNIT_MODE.ahk
+#Include .\ID2D1StrokeStyle.ahk
+#Include ..\DirectWrite\DWRITE_MEASURING_MODE.ahk
+#Include Common\D2D_MATRIX_3X2_F.ahk
+#Include .\ID2D1Geometry.ahk
+#Include ..\DirectWrite\IDWriteRenderingParams.ahk
+#Include .\ID2D1Bitmap.ahk
+#Include ..\DirectWrite\DWRITE_GLYPH_RUN.ahk
+#Include .\ID2D1Image.ahk
+#Include .\ID2D1Brush.ahk
+#Include Common\D2D_RECT_F.ahk
+#Include Common\D2D1_COLOR_F.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID2D1GdiMetafile.ahk
+#Include .\ID2D1Mesh.ahk
+#Include .\D2D1_PRIMITIVE_BLEND.ahk
+#Include Common\D2D_POINT_2F.ahk
+#Include .\ID2D1Layer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\D2D1_TEXT_ANTIALIAS_MODE.ahk
 
 /**
  * The command sink is implemented by you for an application when you want to receive a playback of the commands recorded in a command list.

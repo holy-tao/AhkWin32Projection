@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
  */
 class SUBSCRIPTIONITEMINFO extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -34,23 +35,29 @@ class SUBSCRIPTIONITEMINFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ScheduleGroup {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__ScheduleGroup"))
+                this.__ScheduleGroup := Guid(12, this)
+            return this.__ScheduleGroup
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidAgent {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__clsidAgent"))
+                this.__clsidAgent := Guid(28, this)
+            return this.__clsidAgent
+        }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 32
+        this.cbSize := 44
     }
 }

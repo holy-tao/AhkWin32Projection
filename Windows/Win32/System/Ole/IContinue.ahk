@@ -2,10 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
- * Provides a generic callback mechanism for interruptible processes that should periodically ask an object whether to continue.
- * @see https://learn.microsoft.com/windows/win32/api/docobj/nn-docobj-icontinuecallback
  * @namespace Windows.Win32.System.Ole
  */
 class IContinue extends IUnknown {

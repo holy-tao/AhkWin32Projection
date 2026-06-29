@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WCN_ATTRIBUTE_TYPE.ahk
+#Include .\WCN_VENDOR_EXTENSION_SPEC.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IWCNConnectNotify.ahk
+#Include .\WCN_PASSWORD_TYPE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to configure the device and initiate the session.

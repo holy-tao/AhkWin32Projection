@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\WMDM_SESSION_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMDMDeviceSession interface improves the efficiency of device operations by bundling multiple operations into one session.

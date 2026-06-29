@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDialEventSink.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -87,13 +90,10 @@ class IDialEngine extends IUnknown {
     }
 
     /**
-     * Sets Interaction Context object properties.
+     * 
      * @param {PWSTR} pwzProperty 
      * @param {PWSTR} pwzValue 
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
-     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext
+     * @returns {HRESULT} 
      */
     SetProperty(pwzProperty, pwzValue) {
         pwzProperty := pwzProperty is String ? StrPtr(pwzProperty) : pwzProperty
@@ -104,9 +104,8 @@ class IDialEngine extends IUnknown {
     }
 
     /**
-     * . | Dialog Box Overviews
+     * 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/dlgbox/dialog-box-overviews
      */
     Dial() {
         result := ComCall(6, this, "HRESULT")

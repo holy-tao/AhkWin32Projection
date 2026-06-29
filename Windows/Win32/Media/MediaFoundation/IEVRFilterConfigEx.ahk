@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IEVRFilterConfig.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Configures the DirectShow Enhanced Video Renderer (EVR) filter.

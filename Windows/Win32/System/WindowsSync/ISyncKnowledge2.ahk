@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncKnowledge.ahk
+#Include .\SYNC_STATISTICS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\KNOWLEDGE_COOKIE_COMPARISON_RESULT.ahk
+#Include .\SYNC_SERIALIZATION_VERSION.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ID_PARAMETERS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISyncKnowledge.ahk
 
 /**
  * Represents additional information about the knowledge that a replica has about its item store.

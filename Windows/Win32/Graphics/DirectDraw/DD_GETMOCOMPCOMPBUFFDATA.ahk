@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_LOCAL.ahk
-#Include .\DDPIXELFORMAT.ahk
 #Include .\DDCOMPBUFFERINFO.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DDPIXELFORMAT.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
 
 /**
  * The DD_GETMOCOMPCOMPBUFFDATA structure contains the compressed buffer information.

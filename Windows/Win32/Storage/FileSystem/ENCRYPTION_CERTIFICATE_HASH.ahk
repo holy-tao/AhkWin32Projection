@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\SID.ahk
 #Include .\EFS_HASH_BLOB.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\SID.ahk
 
 /**
  * Contains a certificate hash and display information for the certificate.

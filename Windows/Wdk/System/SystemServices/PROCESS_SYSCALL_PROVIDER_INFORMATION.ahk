@@ -1,27 +1,31 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
 class PROCESS_SYSCALL_PROVIDER_INFORMATION extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ProviderId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__ProviderId"))
+                this.__ProviderId := Guid(0, this)
+            return this.__ProviderId
+        }
     }
 
     /**
      * @type {Integer}
      */
     Level {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 }

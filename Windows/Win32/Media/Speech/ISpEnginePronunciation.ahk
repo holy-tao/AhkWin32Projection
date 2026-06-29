@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\SPWORDPRONUNCIATIONLIST.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SPNORMALIZATIONLIST.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -28,14 +32,13 @@ class ISpEnginePronunciation extends IUnknown {
     static VTableNames => ["Normalize", "GetPronunciations"]
 
     /**
-     * Contains values that specify the behavior of UiaGetUpdatedCache.
+     * 
      * @param {PWSTR} pszWord 
      * @param {PWSTR} pszLeftContext 
      * @param {PWSTR} pszRightContext 
      * @param {Integer} LangID 
      * @param {Pointer<SPNORMALIZATIONLIST>} pNormalizationList 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate
      */
     Normalize(pszWord, pszLeftContext, pszRightContext, LangID, pNormalizationList) {
         pszWord := pszWord is String ? StrPtr(pszWord) : pszWord

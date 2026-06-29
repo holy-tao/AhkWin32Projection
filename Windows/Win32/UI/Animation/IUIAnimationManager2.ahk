@@ -1,9 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAnimationPriorityComparison2.ahk
+#Include .\UI_ANIMATION_UPDATE_RESULT.ahk
+#Include .\UI_ANIMATION_MANAGER_STATUS.ahk
+#Include .\IUIAnimationManagerEventHandler2.ahk
 #Include .\IUIAnimationVariable2.ahk
+#Include .\IUIAnimationTransition2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IUIAnimationStoryboard2.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\UI_ANIMATION_MODE.ahk
 
 /**
  * Defines an animation manager, which provides a central interface for creating and managing animations in multiple dimensions.

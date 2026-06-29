@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWICBitmapSource.ahk
+#Include .\WICBitmapInterpolationMode.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a resized version of the input bitmap using a resampling or filtering algorithm.

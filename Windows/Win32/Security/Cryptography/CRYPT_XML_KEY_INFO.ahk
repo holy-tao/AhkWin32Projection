@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_XML_KEY_INFO_ITEM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\BCRYPT_KEY_HANDLE.ahk
+#Include .\CRYPT_XML_KEY_INFO_ITEM.ahk
 
 /**
  * Encapsulates key information data.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Direct2D\Common\D2D_SIZE_U.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\Direct2D\Common\D2D_SIZE_U.ahk
 
 /**
  * Data for a single glyph from GetGlyphImageData.

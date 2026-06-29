@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DNS_SVCB_PARAM_IPV4.ahk
-#Include .\DNS_SVCB_PARAM_IPV6.ahk
-#Include .\DNS_SVCB_PARAM_MANDATORY.ahk
-#Include .\DNS_SVCB_PARAM_ALPN.ahk
 #Include .\DNS_SVCB_PARAM_UNKNOWN.ahk
+#Include .\DNS_SVCB_PARAM_IPV4.ahk
+#Include .\DNS_SVCB_PARAM_MANDATORY.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\DNS_SVCB_PARAM_ALPN.ahk
+#Include .\DNS_SVCB_PARAM_IPV6.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns

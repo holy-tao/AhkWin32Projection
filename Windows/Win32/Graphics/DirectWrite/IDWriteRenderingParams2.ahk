@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_GRID_FIT_MODE.ahk
 #Include .\IDWriteRenderingParams1.ahk
 
 /**

@@ -1,8 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFace1.ahk
+#Include .\DWRITE_OUTLINE_THRESHOLD.ahk
+#Include .\DWRITE_MEASURING_MODE.ahk
+#Include .\IDWriteRenderingParams.ahk
 #Include .\DWRITE_COLOR_F.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DWRITE_RENDERING_MODE.ahk
+#Include .\DWRITE_MATRIX.ahk
+#Include .\DWRITE_GRID_FIT_MODE.ahk
+#Include .\IDWriteFontFace1.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace2)

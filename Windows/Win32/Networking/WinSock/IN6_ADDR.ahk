@@ -13,7 +13,7 @@ class IN6_ADDR extends Win32Struct {
 
     static packingSize => 2
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 16
         static packingSize => 2
 
@@ -43,12 +43,12 @@ class IN6_ADDR extends Win32Struct {
     /**
      * A union that contains the following different representations of the IPv6 transport
      *      address:
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := IN6_ADDR._u_e__Union(0, this)
+                this.__u := IN6_ADDR._u(0, this)
             return this.__u
         }
     }

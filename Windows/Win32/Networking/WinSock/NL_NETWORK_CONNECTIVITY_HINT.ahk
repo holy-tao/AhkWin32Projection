@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NL_NETWORK_CONNECTIVITY_LEVEL_HINT.ahk
 #Include .\NL_NETWORK_CONNECTIVITY_COST_HINT.ahk
+#Include .\NL_NETWORK_CONNECTIVITY_LEVEL_HINT.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes a level of network connectivity, the usage charge for a network connection, and other members reflecting cost factors.

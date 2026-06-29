@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\IUnknown.ahk
+#Include .\ICallFrame.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Delivers method call notifications.

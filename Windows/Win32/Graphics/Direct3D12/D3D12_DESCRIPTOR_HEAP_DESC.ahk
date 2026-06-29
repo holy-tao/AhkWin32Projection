@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_DESCRIPTOR_HEAP_TYPE.ahk
 #Include .\D3D12_DESCRIPTOR_HEAP_FLAGS.ahk
+#Include .\D3D12_DESCRIPTOR_HEAP_TYPE.ahk
 
 /**
  * Describes the descriptor heap.

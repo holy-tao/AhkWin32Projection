@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFAttributes.ahk
 #Include .\IMFMediaType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * . (IMFSensorStream)

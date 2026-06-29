@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\FAX_LOG_LEVEL_ENUM.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFaxEventLogging interface defines a configuration object used by a fax client application to configure the event logging categories used by the fax service.

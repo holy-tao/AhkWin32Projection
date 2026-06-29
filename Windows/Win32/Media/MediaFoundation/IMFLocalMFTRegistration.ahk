@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MFT_REGISTRATION_INFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Registers Media Foundation transforms (MFTs) in the caller's process.

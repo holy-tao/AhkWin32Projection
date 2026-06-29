@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\System\Com\CLSCTX.ahk
 #Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\STGM.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DEVICE_STATE.ahk
 
 /**
  * The IMMDevice interface encapsulates the generic features of a multimedia device resource.

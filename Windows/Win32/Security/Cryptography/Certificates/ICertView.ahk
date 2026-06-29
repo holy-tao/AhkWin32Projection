@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\CERT_VIEW_COLUMN_INDEX.ahk
 #Include .\IEnumCERTVIEWCOLUMN.ahk
+#Include .\CERT_VIEW_SEEK_OPERATOR_FLAGS.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumCERTVIEWROW.ahk
+#Include .\CVRC_COLUMN.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Allows properly authorized clients to create a customized or complete view of the Certificate Services database.

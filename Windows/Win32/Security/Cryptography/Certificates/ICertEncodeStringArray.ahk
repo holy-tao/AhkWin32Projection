@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\CERT_RDN_ATTR_VALUE_TYPE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods for handling string arrays used in certificate extensions.
@@ -128,7 +130,7 @@ class ICertEncodeStringArray extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-getvalue
      */
     GetValue(Index) {
-        _pstr := BSTR()
+        _pstr := BSTR({Value: 0}, True)
         result := ComCall(10, this, "int", Index, "ptr", _pstr, "HRESULT")
         return _pstr
     }
@@ -171,7 +173,7 @@ class ICertEncodeStringArray extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-encode
      */
     Encode() {
-        pstrBinary := BSTR()
+        pstrBinary := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pstrBinary, "HRESULT")
         return pstrBinary
     }

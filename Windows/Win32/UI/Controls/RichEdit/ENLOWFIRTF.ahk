@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\NMHDR.ahk
 #Include ..\..\..\Foundation\HWND.ahk
+#Include ..\NMHDR.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about an unsupported Rich Text Format (RTF) keyword in a Microsoft Rich Edit control.

@@ -1,7 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\PSID.ahk
+#Include ..\..\TOKEN_GROUPS.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\AUTHZ_SECURITY_ATTRIBUTE_OPERATION.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\EFFPERM_RESULT_LIST.ahk
+#Include ..\AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.ahk
+#Include .\SECURITY_OBJECT.ahk
+#Include ..\AUTHZ_SID_OPERATION.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides a way to determine effective permission for a security principal on an object.

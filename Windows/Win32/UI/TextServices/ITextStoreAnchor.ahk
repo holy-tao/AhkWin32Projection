@@ -1,12 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\TS_STATUS.ahk
-#Include ..\..\System\Com\IDataObject.ahk
 #Include .\IAnchor.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\System\Com\IDataObject.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Com\FORMATETC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\TS_STATUS.ahk
+#Include .\TS_ATTRVAL.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\TS_SELECTION_ANCHOR.ahk
 
 /**
  * The ITextStoreAnchor interface is implemented by a Microsoft Active Accessibility client and is used by the TSF manager to manipulate text streams.

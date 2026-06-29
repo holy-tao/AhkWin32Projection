@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\TRACE_PROVIDER_INFO.ahk
 
 /**
@@ -8,9 +9,9 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
 class PROVIDER_ENUMERATION_INFO extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Number of elements in the <b>TraceProviderInfoArray</b> array.

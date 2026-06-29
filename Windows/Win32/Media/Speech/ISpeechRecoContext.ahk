@@ -1,13 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISpeechRecognizer.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\SpeechInterference.ahk
 #Include .\ISpeechVoice.ahk
-#Include .\ISpeechAudioFormat.ahk
-#Include .\ISpeechRecoGrammar.ahk
+#Include .\SpeechRecoEvents.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\SpeechRecoContextState.ahk
 #Include .\ISpeechRecoResult.ahk
+#Include .\ISpeechRecognizer.ahk
+#Include .\SpeechRetainedAudioOptions.ahk
+#Include .\ISpeechRecoGrammar.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\ISpeechAudioFormat.ahk
+#Include .\SpeechBookmarkOptions.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -139,7 +147,7 @@ class ISpeechRecoContext extends IDispatch {
      * @returns {BSTR} 
      */
     get_RequestedUIType() {
-        UIType := BSTR()
+        UIType := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", UIType, "HRESULT")
         return UIType
     }
@@ -339,14 +347,11 @@ class ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * The DVDAdm.BookmarkOnClose property sets or retrieves a value that tells the MSDVDAdm object whether to automatically save a bookmark of the current location and settings when the user closes the application.
-     * @remarks
-     * This property is read/write with a default value of true.
+     * 
      * @param {SpeechBookmarkOptions} Options 
      * @param {VARIANT} StreamPos 
      * @param {VARIANT} BookmarkId 
-     * @returns {HRESULT} Returns a Boolean value, which if true, indicates that the MSDVDAdm control will save a bookmark of all DVD settings, including position on disc, parental level, and parental country/region when the user closes the DVD player application.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/bookmarkonclose-property
+     * @returns {HRESULT} 
      */
     Bookmark(Options, StreamPos, BookmarkId) {
         result := ComCall(30, this, "int", Options, "ptr", StreamPos, "ptr", BookmarkId, "HRESULT")

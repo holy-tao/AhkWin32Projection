@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Describes the content protection capabilities of a display driver.
@@ -8,7 +9,7 @@
  * @architecture X64, Arm64
  */
 class D3DCONTENTPROTECTIONCAPS extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -156,11 +157,14 @@ class D3DCONTENTPROTECTIONCAPS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
+     * @type {Guid}
      */
     KeyExchangeType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__KeyExchangeType"))
+                this.__KeyExchangeType := Guid(4, this)
+            return this.__KeyExchangeType
+        }
     }
 
     /**
@@ -168,8 +172,8 @@ class D3DCONTENTPROTECTIONCAPS extends Win32Struct {
      * @type {Integer}
      */
     BufferAlignmentStart {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -177,8 +181,8 @@ class D3DCONTENTPROTECTIONCAPS extends Win32Struct {
      * @type {Integer}
      */
     BlockAlignmentSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -186,7 +190,7 @@ class D3DCONTENTPROTECTIONCAPS extends Win32Struct {
      * @type {Integer}
      */
     ProtectedMemorySize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

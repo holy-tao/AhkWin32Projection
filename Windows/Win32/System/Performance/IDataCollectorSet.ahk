@@ -1,12 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IDataCollectorCollection.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IScheduleCollection.ahk
-#Include .\IDataManager.ahk
+#Include .\DataCollectorSetStatus.ahk
 #Include .\IValueMap.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IDataCollectorCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\AutoPathFormat.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include .\CommitMode.ahk
+#Include .\IDataManager.ahk
 
 /**
  * Manages the configuration information that is common to all data collector objects in the set; adds and removes data collectors from the set; and starts data collection. This is the primary PLA interface that you use.
@@ -446,7 +452,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_description
      */
     get_Description() {
-        description := BSTR()
+        description := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", description, "HRESULT")
         return description
     }
@@ -476,7 +482,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_descriptionunresolved
      */
     get_DescriptionUnresolved() {
-        Descr := BSTR()
+        Descr := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", Descr, "HRESULT")
         return Descr
     }
@@ -491,7 +497,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_displayname
      */
     get_DisplayName() {
-        DisplayName := BSTR()
+        DisplayName := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", DisplayName, "HRESULT")
         return DisplayName
     }
@@ -521,7 +527,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_displaynameunresolved
      */
     get_DisplayNameUnresolved() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", name, "HRESULT")
         return name
     }
@@ -561,7 +567,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_latestoutputlocation
      */
     get_LatestOutputLocation() {
-        _path := BSTR()
+        _path := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", _path, "HRESULT")
         return _path
     }
@@ -591,7 +597,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_name
      */
     get_Name() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", name, "HRESULT")
         return name
     }
@@ -604,7 +610,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_outputlocation
      */
     get_OutputLocation() {
-        _path := BSTR()
+        _path := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", _path, "HRESULT")
         return _path
     }
@@ -617,7 +623,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_rootpath
      */
     get_RootPath() {
-        _folder := BSTR()
+        _folder := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", _folder, "HRESULT")
         return _folder
     }
@@ -769,7 +775,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_server
      */
     get_Server() {
-        server := BSTR()
+        server := BSTR({Value: 0}, True)
         result := ComCall(32, this, "ptr", server, "HRESULT")
         return server
     }
@@ -796,7 +802,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_subdirectory
      */
     get_Subdirectory() {
-        _folder := BSTR()
+        _folder := BSTR({Value: 0}, True)
         result := ComCall(34, this, "ptr", _folder, "HRESULT")
         return _folder
     }
@@ -970,7 +976,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_subdirectoryformatpattern
      */
     get_SubdirectoryFormatPattern() {
-        pattern := BSTR()
+        pattern := BSTR({Value: 0}, True)
         result := ComCall(38, this, "ptr", pattern, "HRESULT")
         return pattern
     }
@@ -1117,7 +1123,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_task
      */
     get_Task() {
-        task := BSTR()
+        task := BSTR({Value: 0}, True)
         result := ComCall(40, this, "ptr", task, "HRESULT")
         return task
     }
@@ -1194,7 +1200,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_taskarguments
      */
     get_TaskArguments() {
-        task := BSTR()
+        task := BSTR({Value: 0}, True)
         result := ComCall(44, this, "ptr", task, "HRESULT")
         return task
     }
@@ -1269,7 +1275,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_taskusertextarguments
      */
     get_TaskUserTextArguments() {
-        UserText := BSTR()
+        UserText := BSTR({Value: 0}, True)
         result := ComCall(46, this, "ptr", UserText, "HRESULT")
         return UserText
     }
@@ -1359,7 +1365,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_useraccount
      */
     get_UserAccount() {
-        user := BSTR()
+        user := BSTR({Value: 0}, True)
         result := ComCall(51, this, "ptr", user, "HRESULT")
         return user
     }
@@ -1372,7 +1378,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_xml
      */
     get_Xml() {
-        xml := BSTR()
+        xml := BSTR({Value: 0}, True)
         result := ComCall(52, this, "ptr", xml, "HRESULT")
         return xml
     }
@@ -1385,7 +1391,7 @@ class IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_security
      */
     get_Security() {
-        pbstrSecurity := BSTR()
+        pbstrSecurity := BSTR({Value: 0}, True)
         result := ComCall(53, this, "ptr", pbstrSecurity, "HRESULT")
         return pbstrSecurity
     }
@@ -1939,7 +1945,7 @@ class IDataCollectorSet extends IDispatch {
     GetValue(key) {
         key := key is String ? BSTR.Alloc(key).Value : key
 
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(66, this, "ptr", key, "ptr", value, "HRESULT")
         return value
     }

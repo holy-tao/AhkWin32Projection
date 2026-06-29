@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ZoomUnit.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\IUIAutomationTransformPattern.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IUIAutomationTransformPattern interface to enable Microsoft UI Automation clients to programmatically access the viewport zooming functionality of a control.

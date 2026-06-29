@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DS_DOMAIN_CONTROLLER_INFO_2 structure contains data about a domain controller. This structure is returned by the DsGetDomainControllerInfo function. (ANSI)
@@ -17,7 +20,7 @@
  * @charset ANSI
  */
 class DS_DOMAIN_CONTROLLER_INFO_2A extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -113,37 +116,49 @@ class DS_DOMAIN_CONTROLLER_INFO_2A extends Win32Struct {
 
     /**
      * Contains the <b>GUID</b> for the site object on the domain controller.
-     * @type {Pointer}
+     * @type {Guid}
      */
     SiteObjectGuid {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get {
+            if(!this.HasProp("__SiteObjectGuid"))
+                this.__SiteObjectGuid := Guid(68, this)
+            return this.__SiteObjectGuid
+        }
     }
 
     /**
      * Contains the <b>GUID</b> for the computer object on the domain controller.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ComputerObjectGuid {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get {
+            if(!this.HasProp("__ComputerObjectGuid"))
+                this.__ComputerObjectGuid := Guid(84, this)
+            return this.__ComputerObjectGuid
+        }
     }
 
     /**
      * Contains the <b>GUID</b> for the server object on the domain controller.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ServerObjectGuid {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get {
+            if(!this.HasProp("__ServerObjectGuid"))
+                this.__ServerObjectGuid := Guid(100, this)
+            return this.__ServerObjectGuid
+        }
     }
 
     /**
      * Contains the <b>GUID</b> for the NTDS DSA object on the domain controller.
-     * @type {Pointer}
+     * @type {Guid}
      */
     NtdsDsaObjectGuid {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get {
+            if(!this.HasProp("__NtdsDsaObjectGuid"))
+                this.__NtdsDsaObjectGuid := Guid(116, this)
+            return this.__NtdsDsaObjectGuid
+        }
     }
 }

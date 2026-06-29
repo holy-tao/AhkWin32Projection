@@ -1,6 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\AM_LINE21_CCSTATE.ahk
+#Include ..\..\Graphics\Gdi\BITMAPINFO.ahk
+#Include .\AM_LINE21_DRAWBGMODE.ahk
+#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Include .\AM_LINE21_CCLEVEL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\AM_LINE21_CCSERVICE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

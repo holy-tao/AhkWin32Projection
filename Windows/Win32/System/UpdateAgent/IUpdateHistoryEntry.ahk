@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IUpdateIdentity.ahk
+#Include .\OperationResultCode.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IStringCollection.ahk
+#Include .\UpdateOperation.ahk
+#Include .\ServerSelection.ahk
+#Include .\IUpdateIdentity.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the recorded history of an update. (IUpdateHistoryEntry)
@@ -195,7 +199,7 @@ class IUpdateHistoryEntry extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_title
      */
     get_Title() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -213,7 +217,7 @@ class IUpdateHistoryEntry extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_description
      */
     get_Description() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -238,7 +242,7 @@ class IUpdateHistoryEntry extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_clientapplicationid
      */
     get_ClientApplicationID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -259,7 +263,7 @@ class IUpdateHistoryEntry extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_serviceid
      */
     get_ServiceID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -294,7 +298,7 @@ class IUpdateHistoryEntry extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_uninstallationnotes
      */
     get_UninstallationNotes() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -312,7 +316,7 @@ class IUpdateHistoryEntry extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_supporturl
      */
     get_SupportUrl() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", retval, "HRESULT")
         return retval
     }

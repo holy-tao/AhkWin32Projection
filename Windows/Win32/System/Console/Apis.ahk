@@ -1,10 +1,38 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\HPCON.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
+#Include .\CONSOLE_FONT_INFOEX.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\CONSOLE_CHARACTER_ATTRIBUTES.ahk
+#Include .\APPKEY.ahk
 #Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\UI\WindowsAndMessaging\HCURSOR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\CHAR.ahk
+#Include .\CHAR_INFO.ahk
+#Include .\CONSOLE_MODE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\CONSOLE_CURSOR_INFO.ahk
+#Include .\STD_HANDLE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\CONSOLE_SCREEN_BUFFER_INFOEX.ahk
+#Include .\CONSOLECONTROL.ahk
+#Include .\ALLOC_CONSOLE_RESULT.ahk
+#Include .\INPUT_RECORD.ahk
+#Include .\SMALL_RECT.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\CONSOLE_HISTORY_INFO.ahk
+#Include .\CONSOLE_SCREEN_BUFFER_INFO.ahk
+#Include .\CONSOLE_READCONSOLE_CONTROL.ahk
+#Include .\CONSOLE_SELECTION_INFO.ahk
+#Include .\HPCON.ahk
+#Include .\COORD.ahk
+#Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
+#Include .\ALLOC_CONSOLE_OPTIONS.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include .\CONSOLE_FONT_INFO.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -1095,7 +1123,7 @@ class Console {
         hInput := hInput is Win32Handle ? NumGet(hInput, "ptr") : hInput
         hOutput := hOutput is Win32Handle ? NumGet(hOutput, "ptr") : hOutput
 
-        phPC := HPCON()
+        phPC := HPCON({Value: 0}, True)
         result := DllCall("KERNEL32.dll\CreatePseudoConsole", "ptr", _size, "ptr", hInput, "ptr", hOutput, "uint", dwFlags, "ptr", phPC, "HRESULT")
         return phPC
     }
@@ -3222,18 +3250,10 @@ class Console {
     }
 
     /**
-     * Sets the size and visibility of the cursor for the specified console screen buffer.
-     * @remarks
-     * When a screen buffer's cursor is visible, its appearance can vary, ranging from completely filling a character cell to showing up as a horizontal line at the bottom of the cell. The **dwSize** member of the [**CONSOLE\_CURSOR\_INFO**](console-cursor-info-str.md) structure specifies the percentage of a character cell that is filled by the cursor. If this member is less than 1 or greater than 100, **SetConsoleCursorInfo** fails.
      * 
-     * > [!TIP]
-     * > This API has a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent in the **[cursor visibility](console-virtual-terminal-sequences.md#cursor-visibility)** section with the `^[[?25h` and `^[[?25l` sequences.
-     * @param {HANDLE} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {HANDLE} hConsoleOutput 
      * @param {HCURSOR} _hCursor 
-     * @returns {BOOL} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsolecursorinfo
+     * @returns {BOOL} 
      */
     static SetConsoleCursor(hConsoleOutput, _hCursor) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput

@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1EffectContext1.ahk
+#Include ..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
+#Include .\D2D1_SIMPLE_COLOR_PROFILE.ahk
 #Include .\ID2D1ColorContext1.ahk
+#Include .\ID2D1EffectContext1.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct2D

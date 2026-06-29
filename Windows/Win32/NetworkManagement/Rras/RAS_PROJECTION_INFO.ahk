@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RASAPIVERSION.ahk
-#Include .\RASPROJECTION_INFO_TYPE.ahk
-#Include .\RASPPP_PROJECTION_INFO.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
 #Include .\RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL.ahk
-#Include .\RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA.ahk
+#Include ..\..\Networking\WinSock\IN_ADDR.ahk
 #Include .\RASIKEV2_PROJECTION_INFO.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 #Include .\RASIKEV_PROJECTION_INFO_FLAGS.ahk
+#Include .\RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA.ahk
+#Include .\RASPROJECTION_INFO_TYPE.ahk
+#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Include .\RASAPIVERSION.ahk
+#Include .\RASPPP_PROJECTION_INFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the Point-to-Point (PPP) or Internet Key Exchange version 2 (IKEv2) projection information for a RAS connection.

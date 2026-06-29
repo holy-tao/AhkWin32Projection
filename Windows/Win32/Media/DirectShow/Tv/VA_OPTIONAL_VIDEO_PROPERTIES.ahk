@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\VA_VIDEO_FORMAT.ahk
-#Include .\VA_COLOR_PRIMARIES.ahk
 #Include .\VA_TRANSFER_CHARACTERISTICS.ahk
 #Include .\VA_MATRIX_COEFFICIENTS.ahk
+#Include .\VA_COLOR_PRIMARIES.ahk
+#Include .\VA_VIDEO_FORMAT.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv

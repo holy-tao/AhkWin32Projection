@@ -1,8 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\..\..\Guid.ahk
+#Include .\KSNODE_CREATE.ahk
+#Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\KSMULTIPLE_ITEM.ahk
+#Include .\KSDATAFORMAT.ahk
+#Include .\KSPIN_CONNECT.ahk
+#Include .\KSCLOCK_CREATE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\KSALLOCATOR_FRAMING.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -947,8 +955,7 @@ class KernelStreaming {
     static DEVPKEY_KsAudio_PacketSize_Constraints {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{13e004d6-b066-43bd-913b-a415cd13da87}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{13e004d6-b066-43bd-913b-a415cd13da87}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -960,8 +967,7 @@ class KernelStreaming {
     static DEVPKEY_KsAudio_Controller_DeviceInterface_Path {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{13e004d6-b066-43bd-913b-a415cd13da87}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{13e004d6-b066-43bd-913b-a415cd13da87}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -973,8 +979,7 @@ class KernelStreaming {
     static DEVPKEY_KsAudio_PacketSize_Constraints2 {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{9404f781-7191-409b-8b0b-80bf6ec229ae}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{9404f781-7191-409b-8b0b-80bf6ec229ae}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -3334,7 +3339,7 @@ class KernelStreaming {
     static KsCreateAllocator2(ConnectionHandle, AllocatorFraming) {
         ConnectionHandle := ConnectionHandle is Win32Handle ? NumGet(ConnectionHandle, "ptr") : ConnectionHandle
 
-        AllocatorHandle := HANDLE()
+        AllocatorHandle := HANDLE({Value: 0}, True)
         result := DllCall("ksuser.dll\KsCreateAllocator2", "ptr", ConnectionHandle, "ptr", AllocatorFraming, "ptr", AllocatorHandle, "HRESULT")
         return AllocatorHandle
     }
@@ -3348,7 +3353,7 @@ class KernelStreaming {
     static KsCreateClock2(ConnectionHandle, ClockCreate) {
         ConnectionHandle := ConnectionHandle is Win32Handle ? NumGet(ConnectionHandle, "ptr") : ConnectionHandle
 
-        ClockHandle := HANDLE()
+        ClockHandle := HANDLE({Value: 0}, True)
         result := DllCall("ksuser.dll\KsCreateClock2", "ptr", ConnectionHandle, "ptr", ClockCreate, "ptr", ClockHandle, "HRESULT")
         return ClockHandle
     }
@@ -3363,7 +3368,7 @@ class KernelStreaming {
     static KsCreatePin2(FilterHandle, Connect, DesiredAccess) {
         FilterHandle := FilterHandle is Win32Handle ? NumGet(FilterHandle, "ptr") : FilterHandle
 
-        ConnectionHandle := HANDLE()
+        ConnectionHandle := HANDLE({Value: 0}, True)
         result := DllCall("ksuser.dll\KsCreatePin2", "ptr", FilterHandle, "ptr", Connect, "uint", DesiredAccess, "ptr", ConnectionHandle, "HRESULT")
         return ConnectionHandle
     }
@@ -3378,7 +3383,7 @@ class KernelStreaming {
     static KsCreateTopologyNode2(ParentHandle, NodeCreate, DesiredAccess) {
         ParentHandle := ParentHandle is Win32Handle ? NumGet(ParentHandle, "ptr") : ParentHandle
 
-        NodeHandle := HANDLE()
+        NodeHandle := HANDLE({Value: 0}, True)
         result := DllCall("ksuser.dll\KsCreateTopologyNode2", "ptr", ParentHandle, "ptr", NodeCreate, "uint", DesiredAccess, "ptr", NodeHandle, "HRESULT")
         return NodeHandle
     }
@@ -3401,7 +3406,7 @@ class KernelStreaming {
      * @returns {HANDLE} 
      */
     static KsOpenDefaultDevice(Category, Access) {
-        DeviceHandle := HANDLE()
+        DeviceHandle := HANDLE({Value: 0}, True)
         result := DllCall("ksproxy.ax\KsOpenDefaultDevice", "ptr", Category, "uint", Access, "ptr", DeviceHandle, "HRESULT")
         return DeviceHandle
     }

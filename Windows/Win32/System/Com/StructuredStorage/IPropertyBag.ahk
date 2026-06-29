@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IErrorLog.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\Variant\VARIANT.ahk
 #Include ..\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides an object with a property bag in which the object can save its properties persistently.

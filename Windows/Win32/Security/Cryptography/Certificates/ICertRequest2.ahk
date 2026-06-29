@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\CERT_PROPERTY_TYPE.ahk
 #Include .\ICertRequest.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\CERT_REQUEST_OUT_TYPE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\FULL_RESPONSE_PROPERTY_ID.ahk
+#Include .\CR_DISP.ahk
 
 /**
  * Provide communications between a client or intermediary application and Certificate Services. (ICertRequest2)
@@ -85,7 +90,7 @@ class ICertRequest2 extends ICertRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-geterrormessagetext
      */
     GetErrorMessageText(hrMessage, Flags) {
-        pstrErrorMessageText := BSTR()
+        pstrErrorMessageText := BSTR({Value: 0}, True)
         result := ComCall(15, this, "int", hrMessage, "int", Flags, "ptr", pstrErrorMessageText, "HRESULT")
         return pstrErrorMessageText
     }
@@ -298,7 +303,7 @@ class ICertRequest2 extends ICertRequest {
     GetCAPropertyDisplayName(strConfig, PropId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pstrDisplayName := BSTR()
+        pstrDisplayName := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", strConfig, "int", PropId, "ptr", pstrDisplayName, "HRESULT")
         return pstrDisplayName
     }

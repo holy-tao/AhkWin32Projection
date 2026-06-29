@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\TERMINAL_DIRECTION.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumTerminal.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\ITTerminal.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This ITMultiTrackTerminal interface is exposed on all multitrack terminals. The interface includes methods for enumerating, creating, and removing tracks. The ITMultiTrackTerminal interface is created by calling QueryInterface on ITTerminal.

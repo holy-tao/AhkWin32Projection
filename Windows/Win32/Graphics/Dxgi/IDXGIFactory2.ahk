@@ -1,9 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIFactory1.ahk
-#Include .\IDXGISwapChain1.ahk
 #Include ..\..\Foundation\LUID.ahk
+#Include .\IDXGIOutput.ahk
+#Include .\DXGI_SWAP_CHAIN_DESC1.ahk
+#Include .\DXGI_SWAP_CHAIN_FULLSCREEN_DESC.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDXGIFactory1.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDXGISwapChain1.ahk
 
 /**
  * The IDXGIFactory2 interface includes methods to create a newer version swap chain with more features than IDXGISwapChain and to monitor stereoscopic 3D capabilities.

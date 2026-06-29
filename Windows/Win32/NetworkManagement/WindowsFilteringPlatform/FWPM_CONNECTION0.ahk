@@ -1,21 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_IP_VERSION.ahk
-#Include .\IPSEC_TRAFFIC_TYPE.ahk
-#Include .\IKEEXT_KEY_MODULE_TYPE.ahk
-#Include .\IKEEXT_PROPOSAL0.ahk
-#Include .\IKEEXT_CIPHER_ALGORITHM0.ahk
 #Include .\IKEEXT_CIPHER_TYPE.ahk
-#Include .\IKEEXT_INTEGRITY_ALGORITHM0.ahk
-#Include .\IKEEXT_INTEGRITY_TYPE.ahk
-#Include .\IKEEXT_DH_GROUP.ahk
-#Include .\IKEEXT_CREDENTIAL2.ahk
 #Include .\IKEEXT_AUTHENTICATION_METHOD_TYPE.ahk
-#Include .\IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE.ahk
-#Include .\IKEEXT_PRESHARED_KEY_AUTHENTICATION1.ahk
-#Include .\IKEEXT_CERTIFICATE_CREDENTIAL1.ahk
 #Include .\IKEEXT_NAME_CREDENTIAL0.ahk
+#Include .\IKEEXT_CERTIFICATE_CREDENTIAL1.ahk
+#Include .\IKEEXT_PRESHARED_KEY_AUTHENTICATION1.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include .\IKEEXT_CREDENTIAL2.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\IKEEXT_KEY_MODULE_TYPE.ahk
+#Include .\IKEEXT_INTEGRITY_ALGORITHM0.ahk
+#Include .\IKEEXT_PROPOSAL0.ahk
+#Include .\IPSEC_TRAFFIC_TYPE.ahk
+#Include .\IKEEXT_CIPHER_ALGORITHM0.ahk
+#Include .\IKEEXT_DH_GROUP.ahk
+#Include .\IKEEXT_INTEGRITY_TYPE.ahk
+#Include .\IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE.ahk
 
 /**
  * Stores the state associated with a connection object.

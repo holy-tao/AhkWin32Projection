@@ -1,5 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\JsErrorCode.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\JsRuntimeAttributes.ahk
+#Include ..\Diagnostics\Debug\ActiveScript\PROFILER_EVENT_MASK.ahk
+#Include .\JsValueType.ahk
+#Include ..\Diagnostics\Debug\ActiveScript\IDebugApplication64.ahk
+#Include .\JsRuntimeVersion.ahk
+#Include ..\Diagnostics\Debug\ActiveScript\IActiveScriptProfilerHeapEnum.ahk
+#Include ..\Diagnostics\Debug\ActiveScript\IActiveScriptProfilerCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Js

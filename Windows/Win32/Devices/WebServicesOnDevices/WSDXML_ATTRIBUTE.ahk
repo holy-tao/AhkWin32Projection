@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSDXML_ELEMENT.ahk
 #Include .\WSDXML_ATTRIBUTE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WSDXML_ELEMENT.ahk
 #Include .\WSDXML_NAME.ahk
 
 /**

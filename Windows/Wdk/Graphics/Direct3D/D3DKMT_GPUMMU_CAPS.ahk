@@ -9,7 +9,7 @@ class D3DKMT_GPUMMU_CAPS extends Win32Struct {
 
     static packingSize => 4
 
-    class _Flags_e__Union extends Win32Struct {
+    class _Flags extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -60,12 +60,12 @@ class D3DKMT_GPUMMU_CAPS extends Win32Struct {
     }
 
     /**
-     * @type {_Flags_e__Union}
+     * @type {_Flags}
      */
     Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := D3DKMT_GPUMMU_CAPS._Flags_e__Union(0, this)
+                this.__Flags := D3DKMT_GPUMMU_CAPS._Flags(0, this)
             return this.__Flags
         }
     }

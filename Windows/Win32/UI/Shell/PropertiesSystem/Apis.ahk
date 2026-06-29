@@ -1,8 +1,35 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include .\PROPDESC_FORMAT_FLAGS.ahk
+#Include ..\..\..\Foundation\POINTS.ahk
+#Include .\PROPDESC_ENUMFILTER.ahk
+#Include ..\..\..\System\Com\IBindCtx.ahk
+#Include ..\..\..\Foundation\PROPERTYKEY.ahk
+#Include .\IDelayedPropertyStoreFactory.ahk
+#Include ..\..\..\System\Variant\VARENUM.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\System\Com\IStream.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\POINTL.ahk
+#Include ..\..\..\System\Com\StructuredStorage\PROPSPEC.ahk
+#Include .\GETPROPERTYSTOREFLAGS.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\Common\ITEMIDLIST.ahk
+#Include ..\..\..\System\Com\StructuredStorage\IPropertyBag.ahk
+#Include ..\..\..\System\Com\StructuredStorage\IPropertyStorage.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\System\Com\StructuredStorage\IPropertySetStorage.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IPropertyDescription.ahk
+#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\PKA_FLAGS.ahk
+#Include ..\..\..\Foundation\RECTL.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\IPropertyStore.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
@@ -2318,7 +2345,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadBSTR(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadBSTR", "ptr", propBag, "ptr", propName, "ptr", value, "HRESULT")
         return value
     }

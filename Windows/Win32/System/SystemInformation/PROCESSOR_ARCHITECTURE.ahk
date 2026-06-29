@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_system_info">MINIDUMP_SYSTEM_INFO</see>, <see href="https://learn.microsoft.com/windows/win32/api/sysinfoapi/ns-sysinfoapi-system_info">SYSTEM_INFO</see>, <see href="https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagearchitecture">WdsCliGetImageArchitecture</see>, <see href="https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscliinitializelog">WdsCliInitializeLog</see>.
  * @namespace Windows.Win32.System.SystemInformation
  */
 class PROCESSOR_ARCHITECTURE extends Win32Enum {

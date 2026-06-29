@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\RDPSRAPI_KBD_CODE_TYPE.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\RDPSRAPI_MOUSE_BUTTON_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Sends mouse and keyboard events, and supports touch input.

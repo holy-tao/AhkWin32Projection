@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\tomConstants.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Text Object Model (TOM) rich text-range attributes are accessed through a pair of dual interfaces, ITextFont and ITextPara. (ITextFont)
@@ -1481,7 +1483,7 @@ class ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getname
      */
     GetName() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(36, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }

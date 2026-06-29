@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IAppxManifestPackageDependency.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Describes the dependency of one package on another package. (IAppxManifestPackageDependency2)

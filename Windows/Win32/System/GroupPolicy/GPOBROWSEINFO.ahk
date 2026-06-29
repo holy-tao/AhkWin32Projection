@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\GROUP_POLICY_OBJECT_TYPE.ahk
 #Include .\GROUP_POLICY_HINT_TYPE.ahk
 

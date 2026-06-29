@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DIAGNOSTIC_REPORT_SIGNATURE.ahk
-#Include .\DIAGNOSTIC_REPORT_PARAMETER.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\DIAGNOSTIC_REPORT_PARAMETER.ahk
+#Include .\DIAGNOSTIC_REPORT_SIGNATURE.ahk
 
 /**
  * This resource contains information about a diagnostic report.
@@ -13,7 +15,7 @@
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  */
 class DIAGNOSTIC_REPORT_DATA extends Win32Struct {
-    static sizeof => 8040
+    static sizeof => 8064
 
     static packingSize => 8
 
@@ -33,21 +35,27 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct {
     /**
      * Type: **[GUID](../guiddef/ns-guiddef-guid.md)**
      * A hash of the signature. Can be used to cross reference with other crash reports with the same signature (currently not implemented).
-     * @type {Pointer}
+     * @type {Guid}
      */
     bucketId {
-        get => NumGet(this, 7912, "ptr")
-        set => NumPut("ptr", value, this, 7912)
+        get {
+            if(!this.HasProp("__bucketId"))
+                this.__bucketId := Guid(7912, this)
+            return this.__bucketId
+        }
     }
 
     /**
      * Type: **[GUID](../guiddef/ns-guiddef-guid.md)**
      * A locally unique identifier for the report.
-     * @type {Pointer}
+     * @type {Guid}
      */
     reportId {
-        get => NumGet(this, 7920, "ptr")
-        set => NumPut("ptr", value, this, 7920)
+        get {
+            if(!this.HasProp("__reportId"))
+                this.__reportId := Guid(7928, this)
+            return this.__reportId
+        }
     }
 
     /**
@@ -58,7 +66,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct {
     creationTime {
         get {
             if(!this.HasProp("__creationTime"))
-                this.__creationTime := FILETIME(7928, this)
+                this.__creationTime := FILETIME(7944, this)
             return this.__creationTime
         }
     }
@@ -69,8 +77,8 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct {
      * @type {Integer}
      */
     sizeInBytes {
-        get => NumGet(this, 7936, "uint")
-        set => NumPut("uint", value, this, 7936)
+        get => NumGet(this, 7952, "uint")
+        set => NumPut("uint", value, this, 7952)
     }
 
     /**
@@ -79,8 +87,8 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct {
      * @type {PWSTR}
      */
     cabId {
-        get => NumGet(this, 7944, "ptr")
-        set => NumPut("ptr", value, this, 7944)
+        get => NumGet(this, 7960, "ptr")
+        set => NumPut("ptr", value, this, 7960)
     }
 
     /**
@@ -89,18 +97,21 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct {
      * @type {Integer}
      */
     reportStatus {
-        get => NumGet(this, 7952, "uint")
-        set => NumPut("uint", value, this, 7952)
+        get => NumGet(this, 7968, "uint")
+        set => NumPut("uint", value, this, 7968)
     }
 
     /**
      * Type: **[GUID](../guiddef/ns-guiddef-guid.md)**
      * The integrator ID of the report.
-     * @type {Pointer}
+     * @type {Guid}
      */
     reportIntegratorId {
-        get => NumGet(this, 7960, "ptr")
-        set => NumPut("ptr", value, this, 7960)
+        get {
+            if(!this.HasProp("__reportIntegratorId"))
+                this.__reportIntegratorId := Guid(7972, this)
+            return this.__reportIntegratorId
+        }
     }
 
     /**
@@ -109,8 +120,8 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct {
      * @type {Pointer<PWSTR>}
      */
     fileNames {
-        get => NumGet(this, 7968, "ptr")
-        set => NumPut("ptr", value, this, 7968)
+        get => NumGet(this, 7992, "ptr")
+        set => NumPut("ptr", value, this, 7992)
     }
 
     /**
@@ -119,8 +130,8 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct {
      * @type {Integer}
      */
     fileCount {
-        get => NumGet(this, 7976, "uint")
-        set => NumPut("uint", value, this, 7976)
+        get => NumGet(this, 8000, "uint")
+        set => NumPut("uint", value, this, 8000)
     }
 
     /**
@@ -129,8 +140,8 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct {
      * @type {PWSTR}
      */
     friendlyEventName {
-        get => NumGet(this, 7984, "ptr")
-        set => NumPut("ptr", value, this, 7984)
+        get => NumGet(this, 8008, "ptr")
+        set => NumPut("ptr", value, this, 8008)
     }
 
     /**
@@ -139,8 +150,8 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct {
      * @type {PWSTR}
      */
     applicationName {
-        get => NumGet(this, 7992, "ptr")
-        set => NumPut("ptr", value, this, 7992)
+        get => NumGet(this, 8016, "ptr")
+        set => NumPut("ptr", value, this, 8016)
     }
 
     /**
@@ -149,8 +160,8 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct {
      * @type {PWSTR}
      */
     applicationPath {
-        get => NumGet(this, 8000, "ptr")
-        set => NumPut("ptr", value, this, 8000)
+        get => NumGet(this, 8024, "ptr")
+        set => NumPut("ptr", value, this, 8024)
     }
 
     /**
@@ -159,8 +170,8 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct {
      * @type {PWSTR}
      */
     description {
-        get => NumGet(this, 8008, "ptr")
-        set => NumPut("ptr", value, this, 8008)
+        get => NumGet(this, 8032, "ptr")
+        set => NumPut("ptr", value, this, 8032)
     }
 
     /**
@@ -169,8 +180,8 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct {
      * @type {PWSTR}
      */
     bucketIdString {
-        get => NumGet(this, 8016, "ptr")
-        set => NumPut("ptr", value, this, 8016)
+        get => NumGet(this, 8040, "ptr")
+        set => NumPut("ptr", value, this, 8040)
     }
 
     /**
@@ -179,8 +190,8 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct {
      * @type {Integer}
      */
     legacyBucketId {
-        get => NumGet(this, 8024, "uint")
-        set => NumPut("uint", value, this, 8024)
+        get => NumGet(this, 8048, "uint")
+        set => NumPut("uint", value, this, 8048)
     }
 
     /**
@@ -189,7 +200,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct {
      * @type {PWSTR}
      */
     reportKey {
-        get => NumGet(this, 8032, "ptr")
-        set => NumPut("ptr", value, this, 8032)
+        get => NumGet(this, 8056, "ptr")
+        set => NumPut("ptr", value, this, 8056)
     }
 }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSCAMERA_METADATA_ITEMHEADER.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

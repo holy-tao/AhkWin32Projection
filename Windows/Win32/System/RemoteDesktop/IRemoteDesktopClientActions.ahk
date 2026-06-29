@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Include .\RemoteActionType.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\SnapshotFormatType.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\SnapshotEncodingType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the methods used to interact with the Remote Desktop Protocol (RDP) app container client control.
@@ -71,7 +75,7 @@ class IRemoteDesktopClientActions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientactions-getsnapshot
      */
     GetSnapshot(snapshotEncoding, snapshotFormat, snapshotWidth, snapshotHeight) {
-        snapshotData := BSTR()
+        snapshotData := BSTR({Value: 0}, True)
         result := ComCall(10, this, "int", snapshotEncoding, "int", snapshotFormat, "uint", snapshotWidth, "uint", snapshotHeight, "ptr", snapshotData, "HRESULT")
         return snapshotData
     }

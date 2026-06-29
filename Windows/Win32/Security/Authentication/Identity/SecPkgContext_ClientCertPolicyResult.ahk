@@ -1,13 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
 class SecPkgContext_ClientCertPolicyResult extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {HRESULT}
@@ -18,10 +20,13 @@ class SecPkgContext_ClientCertPolicyResult extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidPolicyId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidPolicyId"))
+                this.__guidPolicyId := Guid(4, this)
+            return this.__guidPolicyId
+        }
     }
 }

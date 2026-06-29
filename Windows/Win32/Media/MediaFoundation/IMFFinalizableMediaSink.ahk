@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAsyncResult.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFMediaSink.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFAsyncCallback.ahk
 
 /**
  * Optionally supported by media sinks to perform required tasks before shutdown.

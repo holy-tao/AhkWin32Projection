@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Storage\IndexServer\DBID.ahk
 
 /**
@@ -7,16 +9,19 @@
  * @architecture X64, Arm64
  */
 class SEC_OBJECT_ELEMENT extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidObjectType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guidObjectType"))
+                this.__guidObjectType := Guid(0, this)
+            return this.__guidObjectType
+        }
     }
 
     /**
@@ -25,7 +30,7 @@ class SEC_OBJECT_ELEMENT extends Win32Struct {
     ObjectID {
         get {
             if(!this.HasProp("__ObjectID"))
-                this.__ObjectID := DBID(8, this)
+                this.__ObjectID := DBID(16, this)
             return this.__ObjectID
         }
     }

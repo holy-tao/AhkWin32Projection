@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITfRange.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\ITfPropertyStore.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfCreatePropertyStore interface is implemented by a text service to support persistence of property store data.

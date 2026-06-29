@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_BINDING.ahk
-#Include .\WS_SECURITY_BINDING_TYPE.ahk
+#Include .\WS_SAML_AUTHENTICATOR.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTY.ahk
 #Include .\WS_MESSAGE_SECURITY_USAGE.ahk
-#Include .\WS_SAML_AUTHENTICATOR.ahk
+#Include .\WS_SECURITY_BINDING_TYPE.ahk
+#Include .\WS_SECURITY_BINDING.ahk
 
 /**
  * The security binding subtype for specifying the use of a SAML assertion as a message security token.

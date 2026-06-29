@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IOfflineFilesErrorInfo.ahk
+#Include .\OFFLINEFILES_SYNC_OPERATION.ahk
 #Include .\IOfflineFilesSyncErrorItemInfo.ahk
+#Include .\IOfflineFilesErrorInfo.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Supplied with the IOfflineFilesSyncProgress::SyncItemResult method to communicate details about the item that experienced a sync error.

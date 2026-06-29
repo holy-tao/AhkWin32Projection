@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Defines an unordered set of keying modules that will be tried for IPsec. (IPSEC_KEYING_POLICY0)

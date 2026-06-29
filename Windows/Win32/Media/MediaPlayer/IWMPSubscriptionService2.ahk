@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWMPSubscriptionService.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\WMPSubscriptionServiceEvent.ahk
+#Include .\IWMPSubscriptionServiceCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Note  This section describes functionality designed for use by online stores.

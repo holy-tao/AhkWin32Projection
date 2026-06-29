@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\TASK_STATE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the methods to get information from and control a running task.
@@ -80,7 +82,7 @@ class IRunningTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_name
      */
     get_Name() {
-        pName := BSTR()
+        pName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pName, "HRESULT")
         return pName
     }
@@ -93,7 +95,7 @@ class IRunningTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_instanceguid
      */
     get_InstanceGuid() {
-        pGuid := BSTR()
+        pGuid := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pGuid, "HRESULT")
         return pGuid
     }
@@ -106,7 +108,7 @@ class IRunningTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_path
      */
     get_Path() {
-        pPath := BSTR()
+        pPath := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pPath, "HRESULT")
         return pPath
     }
@@ -131,7 +133,7 @@ class IRunningTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_currentaction
      */
     get_CurrentAction() {
-        pName := BSTR()
+        pName := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pName, "HRESULT")
         return pName
     }

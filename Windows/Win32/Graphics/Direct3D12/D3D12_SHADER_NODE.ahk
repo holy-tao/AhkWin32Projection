@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_NODE_OVERRIDES_TYPE.ahk
-#Include .\D3D12_BROADCASTING_LAUNCH_OVERRIDES.ahk
-#Include .\D3D12_COALESCING_LAUNCH_OVERRIDES.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\D3D12_THREAD_LAUNCH_OVERRIDES.ahk
 #Include .\D3D12_COMMON_COMPUTE_NODE_OVERRIDES.ahk
+#Include .\D3D12_BROADCASTING_LAUNCH_OVERRIDES.ahk
+#Include .\D3D12_COALESCING_LAUNCH_OVERRIDES.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ITargetFramePriv.ahk
+#Include ..\..\System\Com\IBindStatusCallback.ahk
+#Include ..\..\System\Com\IBindCtx.ahk
+#Include ..\..\System\Com\IUri.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer

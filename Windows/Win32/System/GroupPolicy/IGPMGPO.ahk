@@ -1,11 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IGPMWMIFilter.ahk
 #Include .\IGPMSecurityInfo.ahk
+#Include .\IGPMBackup.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IGPMResult.ahk
+#Include .\IGPMDomain.ahk
+#Include .\GPMReportType.ahk
 
 /**
  * The IGPMGPO interface supports methods that enable you to manage Group Policy Objects (GPOs) in the directory service.
@@ -115,7 +121,7 @@ class IGPMGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_DisplayName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -137,7 +143,7 @@ class IGPMGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_Path() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -147,7 +153,7 @@ class IGPMGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_ID() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -157,7 +163,7 @@ class IGPMGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_DomainName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pVal, "HRESULT")
         return pVal
     }

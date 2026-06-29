@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1Bitmap1.ahk
+#Include .\ID2D1RenderInfo.ahk
 #Include .\ID2D1Transform.ahk
+#Include Common\D2D_POINT_2U.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Represents a CPU-based rasterization stage in the transform pipeline graph.

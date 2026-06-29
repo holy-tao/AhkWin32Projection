@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcPart.ahk
+#Include .\IOpcPartUri.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\IOpcPartEnumerator.ahk
+#Include .\OPC_COMPRESSION_OPTIONS.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * An unordered set of IOpcPart interface pointers to part objects that represent the parts in a package that are not Relationships parts.

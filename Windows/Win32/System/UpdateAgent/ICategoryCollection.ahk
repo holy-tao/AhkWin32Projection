@@ -2,8 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\ICategory.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ICategory.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an ordered read-only list of ICategory interfaces.

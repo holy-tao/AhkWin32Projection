@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SETUP_DI_DEVICE_INSTALL_FLAGS.ahk
-#Include .\SETUP_DI_DEVICE_INSTALL_FLAGS_EX.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\SETUP_DI_DEVICE_INSTALL_FLAGS_EX.ahk
 
 /**
  * An SP_DEVINSTALL_PARAMS structure contains device installation parameters associated with a particular device information element or associated globally with a device information set. (Unicode)

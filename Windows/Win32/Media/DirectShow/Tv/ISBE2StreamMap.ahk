@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\ISBE2EnumStream.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Handles the mapping between output pins and streams for the Stream Buffer Source filter.

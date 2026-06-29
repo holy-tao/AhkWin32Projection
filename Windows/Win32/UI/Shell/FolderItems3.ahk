@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\FolderItems2.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\FolderItemVerbs.ahk
+#Include .\FolderItems2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the FolderItems2 object. This object supports an additional method and property.

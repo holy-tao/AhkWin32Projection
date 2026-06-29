@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Describes a presentation buffer that has been registered with a presentation manager.
@@ -42,7 +43,7 @@ class IPresentationBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationbuffer-getavailableevent
      */
     GetAvailableEvent() {
-        availableEventHandle := HANDLE()
+        availableEventHandle := HANDLE({Value: 0}, True)
         result := ComCall(3, this, "ptr", availableEventHandle, "HRESULT")
         return availableEventHandle
     }

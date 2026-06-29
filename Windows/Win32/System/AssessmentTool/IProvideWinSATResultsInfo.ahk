@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IProvideWinSATAssessmentInfo.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\WINSAT_ASSESSMENT_TYPE.ahk
+#Include .\IProvideWinSATAssessmentInfo.ahk
+#Include .\WINSAT_ASSESSMENT_STATE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Gets information about the results of an assessment, for example, the base score and the date that the assessment was run.
@@ -123,7 +126,7 @@ class IProvideWinSATResultsInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_ratingstatedesc
      */
     get_RatingStateDesc() {
-        description := BSTR()
+        description := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", description, "HRESULT")
         return description
     }

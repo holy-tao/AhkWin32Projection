@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
 #Include ..\..\Security\Cryptography\CERT_QUERY_ENCODING_TYPE.ahk
-#Include ..\..\Security\Cryptography\CERT_INFO.ahk
 #Include ..\..\Security\Cryptography\HCERTSTORE.ahk
+#Include ..\..\Security\Cryptography\CERT_INFO.ahk
+#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis

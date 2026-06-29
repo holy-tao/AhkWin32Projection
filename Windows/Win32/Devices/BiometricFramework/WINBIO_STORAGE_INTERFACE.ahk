@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WINBIO_ADAPTER_INTERFACE_VERSION.ahk
 
 /**
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
 class WINBIO_STORAGE_INTERFACE extends Win32Struct {
-    static sizeof => 264
+    static sizeof => 272
 
     static packingSize => 8
 
@@ -50,11 +51,14 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
 
     /**
      * A GUID that uniquely identifies the storage adapter. You must generate this value.
-     * @type {Pointer}
+     * @type {Guid}
      */
     AdapterId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__AdapterId"))
+                this.__AdapterId := Guid(16, this)
+            return this.__AdapterId
+        }
     }
 
     /**
@@ -62,8 +66,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_ATTACH_FN>}
      */
     Attach {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -71,8 +75,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_DETACH_FN>}
      */
     Detach {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -80,8 +84,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_CLEAR_CONTEXT_FN>}
      */
     ClearContext {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -89,8 +93,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_CREATE_DATABASE_FN>}
      */
     CreateDatabase {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -98,8 +102,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_ERASE_DATABASE_FN>}
      */
     EraseDatabase {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -107,8 +111,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_OPEN_DATABASE_FN>}
      */
     OpenDatabase {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -116,8 +120,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_CLOSE_DATABASE_FN>}
      */
     CloseDatabase {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -125,8 +129,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_GET_DATA_FORMAT_FN>}
      */
     GetDataFormat {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -134,8 +138,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_GET_DATABASE_SIZE_FN>}
      */
     GetDatabaseSize {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -143,8 +147,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_ADD_RECORD_FN>}
      */
     AddRecord {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -152,8 +156,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_DELETE_RECORD_FN>}
      */
     DeleteRecord {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -161,8 +165,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_QUERY_BY_SUBJECT_FN>}
      */
     QueryBySubject {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
@@ -170,8 +174,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_QUERY_BY_CONTENT_FN>}
      */
     QueryByContent {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
@@ -179,8 +183,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_GET_RECORD_COUNT_FN>}
      */
     GetRecordCount {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
@@ -188,8 +192,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_FIRST_RECORD_FN>}
      */
     FirstRecord {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
@@ -197,8 +201,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_NEXT_RECORD_FN>}
      */
     NextRecord {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
@@ -206,8 +210,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_GET_CURRENT_RECORD_FN>}
      */
     GetCurrentRecord {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
+        get => NumGet(this, 160, "ptr")
+        set => NumPut("ptr", value, this, 160)
     }
 
     /**
@@ -215,8 +219,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_CONTROL_UNIT_FN>}
      */
     ControlUnit {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
+        get => NumGet(this, 168, "ptr")
+        set => NumPut("ptr", value, this, 168)
     }
 
     /**
@@ -224,8 +228,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_CONTROL_UNIT_PRIVILEGED_FN>}
      */
     ControlUnitPrivileged {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
+        get => NumGet(this, 176, "ptr")
+        set => NumPut("ptr", value, this, 176)
     }
 
     /**
@@ -233,8 +237,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_NOTIFY_POWER_CHANGE_FN>}
      */
     NotifyPowerChange {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 
     /**
@@ -242,8 +246,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_PIPELINE_INIT_FN>}
      */
     PipelineInit {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 
     /**
@@ -251,8 +255,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_PIPELINE_CLEANUP_FN>}
      */
     PipelineCleanup {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+        get => NumGet(this, 200, "ptr")
+        set => NumPut("ptr", value, this, 200)
     }
 
     /**
@@ -260,8 +264,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_ACTIVATE_FN>}
      */
     Activate {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
+        get => NumGet(this, 208, "ptr")
+        set => NumPut("ptr", value, this, 208)
     }
 
     /**
@@ -269,8 +273,8 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_DEACTIVATE_FN>}
      */
     Deactivate {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
+        get => NumGet(this, 216, "ptr")
+        set => NumPut("ptr", value, this, 216)
     }
 
     /**
@@ -278,47 +282,47 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_STORAGE_QUERY_EXTENDED_INFO_FN>}
      */
     QueryExtendedInfo {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
+        get => NumGet(this, 224, "ptr")
+        set => NumPut("ptr", value, this, 224)
     }
 
     /**
      * @type {Pointer<PIBIO_STORAGE_NOTIFY_DATABASE_CHANGE_FN>}
      */
     NotifyDatabaseChange {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
+        get => NumGet(this, 232, "ptr")
+        set => NumPut("ptr", value, this, 232)
     }
 
     /**
      * @type {Pointer<PIBIO_STORAGE_RESERVED_1_FN>}
      */
     Reserved1 {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
+        get => NumGet(this, 240, "ptr")
+        set => NumPut("ptr", value, this, 240)
     }
 
     /**
      * @type {Pointer<PIBIO_STORAGE_RESERVED_2_FN>}
      */
     Reserved2 {
-        get => NumGet(this, 240, "ptr")
-        set => NumPut("ptr", value, this, 240)
+        get => NumGet(this, 248, "ptr")
+        set => NumPut("ptr", value, this, 248)
     }
 
     /**
      * @type {Pointer<PIBIO_STORAGE_UPDATE_RECORD_BEGIN_FN>}
      */
     UpdateRecordBegin {
-        get => NumGet(this, 248, "ptr")
-        set => NumPut("ptr", value, this, 248)
+        get => NumGet(this, 256, "ptr")
+        set => NumPut("ptr", value, this, 256)
     }
 
     /**
      * @type {Pointer<PIBIO_STORAGE_UPDATE_RECORD_COMMIT_FN>}
      */
     UpdateRecordCommit {
-        get => NumGet(this, 256, "ptr")
-        set => NumPut("ptr", value, this, 256)
+        get => NumGet(this, 264, "ptr")
+        set => NumPut("ptr", value, this, 264)
     }
 }

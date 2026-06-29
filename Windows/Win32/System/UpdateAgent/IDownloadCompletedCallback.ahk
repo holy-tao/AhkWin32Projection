@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDownloadCompletedCallbackArgs.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IDownloadJob.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the callback that is used when an asynchronous download is completed.

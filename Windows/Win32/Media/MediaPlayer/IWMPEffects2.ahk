@@ -1,7 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IWMPCore.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\TimedLevel.ahk
 #Include .\IWMPEffects.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWMPMedia.ahk
 
 /**
  * IWMPEffects2 interface

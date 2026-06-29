@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\WSD_ENDPOINT_REFERENCE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WSDXML_ELEMENT.ahk
+#Include .\WSD_NAME_LIST.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\WSD_URI_LIST.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface represents a remotely discovered host.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCERTCHAINENGINE.ahk
-#Include .\HCERTSTORE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\HCERTSTORE.ahk
+#Include .\HCERTCHAINENGINE.ahk
 
 /**
  * Contains parameters used for building a chain for an independent online certificate status protocol (OCSP) response signer certificate.

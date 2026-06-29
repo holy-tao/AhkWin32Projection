@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\WCM_PROPERTY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\NET_INTERFACE_CONTEXT_TABLE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WCM_PROFILE_INFO_LIST.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
@@ -297,7 +304,7 @@ class WindowsConnectionManager {
     static OnDemandRegisterNotification(callback, callbackContext) {
         callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
 
-        registrationHandle := HANDLE()
+        registrationHandle := HANDLE({Value: 0}, True)
         result := DllCall("OnDemandConnRouteHelper.dll\OnDemandRegisterNotification", "ptr", callback, callbackContextMarshal, callbackContext, "ptr", registrationHandle, "HRESULT")
         return registrationHandle
     }

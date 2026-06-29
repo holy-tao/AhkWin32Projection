@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\TVITEMW.ahk
-#Include .\TVITEM_MASK.ahk
 #Include .\TREE_VIEW_ITEM_STATE_FLAGS.ahk
+#Include .\HTREEITEM.ahk
+#Include .\NMHDR.ahk
+#Include .\TVITEM_MASK.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\TVITEMEXW_CHILDREN.ahk
+#Include .\TVITEMW.ahk
 
 /**
  * Contains and receives display information for a tree-view item. This structure is identical to the TV_DISPINFO structure, but it has been renamed to follow current naming conventions. (Unicode)

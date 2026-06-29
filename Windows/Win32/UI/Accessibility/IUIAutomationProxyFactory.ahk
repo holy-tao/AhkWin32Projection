@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IRawElementProviderSimple.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IRawElementProviderSimple.ahk
 
 /**
  * Exposes properties and methods of an object that creates a Microsoft UI Automation provider for UI elements that do not have native support for UI Automation. This interface is implemented by proxies.
@@ -69,7 +71,7 @@ class IUIAutomationProxyFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactory-get_proxyfactoryid
      */
     get_ProxyFactoryId() {
-        factoryId := BSTR()
+        factoryId := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", factoryId, "HRESULT")
         return factoryId
     }

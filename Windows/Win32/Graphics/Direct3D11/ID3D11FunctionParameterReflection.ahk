@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\D3D11_PARAMETER_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A function-parameter-reflection interface accesses function-parameter info. (ID3D11FunctionParameterReflection)

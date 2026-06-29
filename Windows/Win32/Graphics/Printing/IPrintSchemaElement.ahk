@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -64,7 +65,7 @@ class IPrintSchemaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -74,7 +75,7 @@ class IPrintSchemaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_NamespaceUri() {
-        pbstrNamespaceUri := BSTR()
+        pbstrNamespaceUri := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrNamespaceUri, "HRESULT")
         return pbstrNamespaceUri
     }

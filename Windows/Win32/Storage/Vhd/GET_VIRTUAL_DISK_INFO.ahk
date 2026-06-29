@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\GET_VIRTUAL_DISK_INFO_VERSION.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VIRTUAL_STORAGE_TYPE.ahk
+#Include .\GET_VIRTUAL_DISK_INFO_VERSION.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains virtual hard disk (VHD) information.
@@ -154,11 +156,14 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Identifier {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__Identifier"))
+                this.__Identifier := Guid(8, this)
+            return this.__Identifier
+        }
     }
 
     /**
@@ -173,11 +178,14 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ParentIdentifier {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ParentIdentifier"))
+                this.__ParentIdentifier := Guid(8, this)
+            return this.__ParentIdentifier
+        }
     }
 
     /**
@@ -259,11 +267,14 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     VirtualDiskId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__VirtualDiskId"))
+                this.__VirtualDiskId := Guid(8, this)
+            return this.__VirtualDiskId
+        }
     }
 
     /**

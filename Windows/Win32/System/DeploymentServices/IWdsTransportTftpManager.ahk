@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IWdsTransportCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface provides a method to retrieve all the clients currently connected to the TFTP server.

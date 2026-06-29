@@ -41,7 +41,7 @@ class DHCP_ALL_OPTIONS extends Win32Struct {
 
     /**
      * Pointer to a list of structures that contain the following fields.
-     * @type {Pointer<_Anonymous_e__Struct>}
+     * @type {Pointer<_Anonymous>}
      */
     VendorOptions {
         get => NumGet(this, 24, "ptr")

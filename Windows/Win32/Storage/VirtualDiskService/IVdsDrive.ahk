@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_DRIVE_STATUS.ahk
+#Include .\VDS_DRIVE_EXTENT.ahk
+#Include .\IVdsSubSystem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_DRIVE_PROP.ahk
-#Include .\IVdsSubSystem.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IVdsDrive (vdshwprv.h) interface provides methods for performing query and configuration operations on a drive.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FUNCDESC.ahk
-#Include .\VARDESC.ahk
 #Include .\ITypeComp.ahk
+#Include .\VARDESC.ahk
+#Include .\FUNCDESC.ahk
 
 /**
  * Describes a pointer.

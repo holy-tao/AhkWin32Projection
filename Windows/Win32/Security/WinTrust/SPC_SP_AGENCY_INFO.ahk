@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPC_LINK.ahk
 #Include .\SPC_IMAGE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\SPC_LINK.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust

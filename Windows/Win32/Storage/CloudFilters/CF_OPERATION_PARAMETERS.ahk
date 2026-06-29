@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CF_OPERATION_TRANSFER_DATA_FLAGS.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include .\CF_OPERATION_ACK_RENAME_FLAGS.ahk
+#Include .\CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS.ahk
 #Include .\CF_OPERATION_RETRIEVE_DATA_FLAGS.ahk
 #Include .\CF_OPERATION_ACK_DATA_FLAGS.ahk
 #Include .\CF_OPERATION_RESTART_HYDRATION_FLAGS.ahk
-#Include .\CF_FS_METADATA.ahk
-#Include .\CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS.ahk
+#Include .\CF_OPERATION_ACK_DELETE_FLAGS.ahk
 #Include .\CF_PLACEHOLDER_CREATE_INFO.ahk
 #Include .\CF_OPERATION_ACK_DEHYDRATE_FLAGS.ahk
-#Include .\CF_OPERATION_ACK_RENAME_FLAGS.ahk
-#Include .\CF_OPERATION_ACK_DELETE_FLAGS.ahk
+#Include .\CF_FS_METADATA.ahk
 
 /**
  * Parameters of an operation on a placeholder file or folder.

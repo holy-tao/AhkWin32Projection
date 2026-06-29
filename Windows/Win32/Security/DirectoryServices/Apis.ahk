@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\Authorization\UI\ISecurityInformation.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Security.DirectoryServices
@@ -366,7 +370,7 @@ class DirectoryServices {
         pwszObjectPath := pwszObjectPath is String ? StrPtr(pwszObjectPath) : pwszObjectPath
         pwszObjectClass := pwszObjectClass is String ? StrPtr(pwszObjectClass) : pwszObjectClass
 
-        phPage := HPROPSHEETPAGE()
+        phPage := HPROPSHEETPAGE({Value: 0}, True)
         result := DllCall("DSSEC.dll\DSCreateSecurityPage", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr", phPage, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "HRESULT")
         return phPage
     }

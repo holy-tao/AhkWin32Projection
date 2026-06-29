@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\PAN_MIDLINE.ahk
 #Include ..\..\Foundation\POINTL.ahk
-#Include ..\..\Foundation\RECTL.ahk
-#Include ..\..\Graphics\Gdi\PANOSE.ahk
 #Include ..\..\Graphics\Gdi\PAN_FAMILY_TYPE.ahk
-#Include ..\..\Graphics\Gdi\PAN_SERIF_STYLE.ahk
+#Include ..\..\Graphics\Gdi\PAN_STROKE_VARIATION.ahk
 #Include ..\..\Graphics\Gdi\PAN_WEIGHT.ahk
 #Include ..\..\Graphics\Gdi\PAN_PROPORTION.ahk
-#Include ..\..\Graphics\Gdi\PAN_CONTRAST.ahk
-#Include ..\..\Graphics\Gdi\PAN_STROKE_VARIATION.ahk
-#Include ..\..\Graphics\Gdi\PAN_ARM_STYLE.ahk
-#Include ..\..\Graphics\Gdi\PAN_LETT_FORM.ahk
-#Include ..\..\Graphics\Gdi\PAN_MIDLINE.ahk
 #Include ..\..\Graphics\Gdi\PAN_XHEIGHT.ahk
+#Include ..\..\Graphics\Gdi\PAN_LETT_FORM.ahk
+#Include ..\..\Graphics\Gdi\PANOSE.ahk
+#Include ..\..\Graphics\Gdi\PAN_SERIF_STYLE.ahk
+#Include ..\..\Foundation\RECTL.ahk
+#Include ..\..\Graphics\Gdi\PAN_CONTRAST.ahk
+#Include ..\..\Graphics\Gdi\PAN_ARM_STYLE.ahk
 
 /**
  * The IFIMETRICS structure defines information for a given typeface that GDI can use.

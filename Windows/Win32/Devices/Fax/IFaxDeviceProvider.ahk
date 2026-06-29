@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\FAX_PROVIDER_STATUS_ENUM.ahk
 
 /**
  * The IFaxDeviceProvider interface defines a configuration object used by a fax client application to retrieve information about a fax service provider (FSP) registered with the fax service.
@@ -129,7 +132,7 @@ class IFaxDeviceProvider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceprovider-get_friendlyname
      */
     get_FriendlyName() {
-        pbstrFriendlyName := BSTR()
+        pbstrFriendlyName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrFriendlyName, "HRESULT")
         return pbstrFriendlyName
     }
@@ -140,7 +143,7 @@ class IFaxDeviceProvider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceprovider-get_imagename
      */
     get_ImageName() {
-        pbstrImageName := BSTR()
+        pbstrImageName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrImageName, "HRESULT")
         return pbstrImageName
     }
@@ -151,7 +154,7 @@ class IFaxDeviceProvider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceprovider-get_uniquename
      */
     get_UniqueName() {
-        pbstrUniqueName := BSTR()
+        pbstrUniqueName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrUniqueName, "HRESULT")
         return pbstrUniqueName
     }
@@ -162,7 +165,7 @@ class IFaxDeviceProvider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceprovider-get_tapiprovidername
      */
     get_TapiProviderName() {
-        pbstrTapiProviderName := BSTR()
+        pbstrTapiProviderName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbstrTapiProviderName, "HRESULT")
         return pbstrTapiProviderName
     }

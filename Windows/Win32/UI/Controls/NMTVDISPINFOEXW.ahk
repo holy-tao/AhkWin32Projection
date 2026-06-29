@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTREEITEM.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\TVITEMEXW.ahk
 #Include .\TVITEM_MASK.ahk
+#Include .\TVITEMEXW.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\TVITEMEXW_CHILDREN.ahk
 
 /**

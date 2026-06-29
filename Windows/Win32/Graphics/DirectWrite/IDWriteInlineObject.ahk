@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteTextRenderer.ahk
+#Include .\DWRITE_OVERHANG_METRICS.ahk
+#Include .\DWRITE_BREAK_CONDITION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\DWRITE_INLINE_OBJECT_METRICS.ahk
-#Include .\DWRITE_OVERHANG_METRICS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Wraps an application-defined inline graphic, allowing DWrite to query metrics as if the graphic were a glyph inline with the text.

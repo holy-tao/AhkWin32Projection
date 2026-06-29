@@ -1,14 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkDrawingAttributes.ahk
-#Include .\IInkRecognizer.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ScrollBarsConstants.ahk
 #Include ..\..\System\Ole\OLE_HANDLE.ahk
+#Include .\InkEditStatus.ahk
+#Include .\IInkDrawingAttributes.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Ole\IFontDisp.ahk
+#Include .\InkMousePointer.ahk
+#Include .\InkDisplayMode.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\InkMode.ahk
+#Include .\BorderStyleConstants.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\AppearanceConstants.ahk
+#Include .\IInkRecognizer.ahk
 #Include ..\..\System\Ole\IPictureDisp.ahk
+#Include .\InkApplicationGesture.ahk
+#Include .\InkInsertMode.ahk
 
 /**
  * . (IInkEdit)
@@ -519,7 +530,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_factoid
      */
     get_Factoid() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -900,7 +911,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_text
      */
     get_Text() {
-        pbstrText := BSTR()
+        pbstrText := BSTR({Value: 0}, True)
         result := ComCall(38, this, "ptr", pbstrText, "HRESULT")
         return pbstrText
     }
@@ -1409,7 +1420,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_textrtf
      */
     get_TextRTF() {
-        pbstrTextRTF := BSTR()
+        pbstrTextRTF := BSTR({Value: 0}, True)
         result := ComCall(73, this, "ptr", pbstrTextRTF, "HRESULT")
         return pbstrTextRTF
     }
@@ -1487,7 +1498,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_seltext
      */
     get_SelText() {
-        pbstrSelText := BSTR()
+        pbstrSelText := BSTR({Value: 0}, True)
         result := ComCall(79, this, "ptr", pbstrSelText, "HRESULT")
         return pbstrSelText
     }
@@ -1515,7 +1526,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_selrtf
      */
     get_SelRTF() {
-        pbstrSelRTF := BSTR()
+        pbstrSelRTF := BSTR({Value: 0}, True)
         result := ComCall(81, this, "ptr", pbstrSelRTF, "HRESULT")
         return pbstrSelRTF
     }

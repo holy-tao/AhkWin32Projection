@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk
 #Include .\SE_OBJECT_TYPE.ahk
+#Include ..\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains a string that identifies a trustee by name and additional strings that identify the object types of an object-specific access control entry (ACE). (ANSI)

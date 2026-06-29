@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IPSEC_CIPHER_TRANSFORM_ID0.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IPSEC_CIPHER_TYPE.ahk
 
 /**

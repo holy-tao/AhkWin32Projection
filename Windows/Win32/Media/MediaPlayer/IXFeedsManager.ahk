@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\FEEDS_BACKGROUNDSYNC_STATUS.ahk
+#Include .\FEEDS_BACKGROUNDSYNC_ACTION.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
@@ -185,10 +191,9 @@ class IXFeedsManager extends IUnknown {
     }
 
     /**
-     * Contains values that specify the behavior of UiaGetUpdatedCache.
+     * 
      * @param {IStream} pStreamIn 
      * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate
      */
     Normalize(pStreamIn) {
         result := ComCall(17, this, "ptr", pStreamIn, "ptr*", &ppStreamOut := 0, "HRESULT")

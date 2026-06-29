@@ -1,5 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\SW_DEVICE_CREATE_INFO.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\SW_DEVICE_LIFETIME.ahk
+#Include ..\..\Properties\DEVPROPERTY.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\HSWDEVICE.ahk
 
 /**
@@ -289,7 +296,7 @@ class Pnp {
 
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        phSwDevice := HSWDEVICE()
+        phSwDevice := HSWDEVICE({Value: 0}, True)
         result := DllCall("CFGMGR32.dll\SwDeviceCreate", "ptr", pszEnumeratorName, "ptr", pszParentDeviceInstance, "ptr", pCreateInfo, "uint", cPropertyCount, "ptr", pProperties, "ptr", pCallback, pContextMarshal, pContext, "ptr", phSwDevice, "HRESULT")
         return phSwDevice
     }

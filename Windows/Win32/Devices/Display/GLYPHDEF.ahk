@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\GLYPHBITS.ahk
 #Include .\PATHOBJ.ahk
+#Include .\GLYPHBITS.ahk
 
 /**
  * The GLYPHDEF union identifies individual glyphs and provides either a pointer to a GLYPHBITS structure or a pointer to a PATHOBJ structure.

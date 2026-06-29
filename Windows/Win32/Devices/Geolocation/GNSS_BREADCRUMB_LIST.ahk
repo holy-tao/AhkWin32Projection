@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\GNSS_BREADCRUMB_V1.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\GNSS_BREADCRUMB_V1.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation

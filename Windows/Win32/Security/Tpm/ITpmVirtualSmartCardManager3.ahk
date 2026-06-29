@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ITpmVirtualSmartCardManager2.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\TPMVSC_ATTESTATION_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\ITpmVirtualSmartCardManagerStatusCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Security.Tpm

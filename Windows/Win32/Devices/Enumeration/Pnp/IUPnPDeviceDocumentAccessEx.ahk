@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides a method to obtain the entire XML device description document for a specific device.
@@ -43,7 +44,7 @@ class IUPnPDeviceDocumentAccessEx extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicedocumentaccessex-getdocument
      */
     GetDocument() {
-        pbstrDocument := BSTR()
+        pbstrDocument := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pbstrDocument, "HRESULT")
         return pbstrDocument
     }

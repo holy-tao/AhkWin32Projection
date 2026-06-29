@@ -33,7 +33,7 @@ class NVMEOF_PROPERTY_SET_COMMAND extends Win32Struct {
         }
     }
 
-    class _VALUE_e__Union extends Win32Struct {
+    class _VALUE extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -64,7 +64,7 @@ class NVMEOF_PROPERTY_SET_COMMAND extends Win32Struct {
         FourBytes {
             get {
                 if(!this.HasProp("__FourBytes"))
-                    this.__FourBytes := NVMEOF_PROPERTY_SET_COMMAND._VALUE_e__Union._FourBytes(0, this)
+                    this.__FourBytes := NVMEOF_PROPERTY_SET_COMMAND._VALUE._FourBytes(0, this)
                 return this.__FourBytes
             }
         }
@@ -152,12 +152,12 @@ class NVMEOF_PROPERTY_SET_COMMAND extends Win32Struct {
     }
 
     /**
-     * @type {_VALUE_e__Union}
+     * @type {_VALUE}
      */
     VALUE {
         get {
             if(!this.HasProp("__VALUE"))
-                this.__VALUE := NVMEOF_PROPERTY_SET_COMMAND._VALUE_e__Union(48, this)
+                this.__VALUE := NVMEOF_PROPERTY_SET_COMMAND._VALUE(48, this)
             return this.__VALUE
         }
     }

@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_INPUT_DISK.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IVdsAsync.ahk
+#Include .\VDS_VOLUME_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides a method to create aligned volumes on a pack.

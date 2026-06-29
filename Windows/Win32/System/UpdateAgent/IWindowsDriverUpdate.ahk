@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUpdate.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IUpdate.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the properties and the methods that are available only from a Windows driver update.
@@ -94,7 +95,7 @@ class IWindowsDriverUpdate extends IUpdate {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driverclass
      */
     get_DriverClass() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(52, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -105,7 +106,7 @@ class IWindowsDriverUpdate extends IUpdate {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driverhardwareid
      */
     get_DriverHardwareID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(53, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -116,7 +117,7 @@ class IWindowsDriverUpdate extends IUpdate {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_drivermanufacturer
      */
     get_DriverManufacturer() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(54, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -127,7 +128,7 @@ class IWindowsDriverUpdate extends IUpdate {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_drivermodel
      */
     get_DriverModel() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(55, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -138,7 +139,7 @@ class IWindowsDriverUpdate extends IUpdate {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driverprovider
      */
     get_DriverProvider() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(56, this, "ptr", retval, "HRESULT")
         return retval
     }

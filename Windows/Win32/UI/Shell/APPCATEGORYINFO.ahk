@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Provides application category information to Add/Remove Programs in Control Panel. The APPCATEGORYINFOLIST structure is used create a complete list of categories for an application publisher.
@@ -7,7 +9,7 @@
  * @namespace Windows.Win32.UI.Shell
  */
 class APPCATEGORYINFO extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -37,10 +39,13 @@ class APPCATEGORYINFO extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * A GUID identifying the application category.
-     * @type {Pointer}
+     * @type {Guid}
      */
     AppCategoryId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__AppCategoryId"))
+                this.__AppCategoryId := Guid(16, this)
+            return this.__AppCategoryId
+        }
     }
 }

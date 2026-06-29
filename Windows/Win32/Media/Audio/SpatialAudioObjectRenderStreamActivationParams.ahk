@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WAVEFORMATEX.ahk
+#Include .\ISpatialAudioObjectRenderStreamNotify.ahk
 #Include .\AudioObjectType.ahk
 #Include .\AUDIO_STREAM_CATEGORY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\ISpatialAudioObjectRenderStreamNotify.ahk
+#Include .\WAVEFORMATEX.ahk
 
 /**
  * Represents activation parameters for a spatial audio render stream. Pass this structure to ISpatialAudioClient::ActivateSpatialAudioStream when activating a stream.

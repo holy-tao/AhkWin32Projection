@@ -1,11 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\PartType.ahk
+#Include .\IDeviceTopology.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IControlInterface.ahk
+#Include .\IControlChangeNotify.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IPartsList.ahk
-#Include .\IDeviceTopology.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IPart interface represents a part (connector or subunit) of a device topology.

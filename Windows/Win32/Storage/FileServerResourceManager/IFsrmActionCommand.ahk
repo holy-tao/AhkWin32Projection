@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmAction.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\FsrmAccountType.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IFsrmAction.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to run a command or script in response to a quota, file screen, or file management job event.
@@ -102,7 +105,7 @@ class IFsrmActionCommand extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_executablepath
      */
     get_ExecutablePath() {
-        executablePath := BSTR()
+        executablePath := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", executablePath, "HRESULT")
         return executablePath
     }
@@ -136,7 +139,7 @@ class IFsrmActionCommand extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_arguments
      */
     get_Arguments() {
-        arguments := BSTR()
+        arguments := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", arguments, "HRESULT")
         return arguments
     }
@@ -186,7 +189,7 @@ class IFsrmActionCommand extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_workingdirectory
      */
     get_WorkingDirectory() {
-        workingDirectory := BSTR()
+        workingDirectory := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", workingDirectory, "HRESULT")
         return workingDirectory
     }

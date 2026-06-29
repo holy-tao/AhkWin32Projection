@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\VMRGUID.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Graphics\Gdi\HMONITOR.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * The VMRMONITORINFO structure is used in the IVMRMonitorConfig::GetAvailableMonitors method to set and retrieve information about monitors on the system (VMR-7 only).
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  */
 class VMRMONITORINFO extends Win32Struct {
-    static sizeof => 648
+    static sizeof => 656
 
     static packingSize => 8
 
@@ -33,7 +34,7 @@ class VMRMONITORINFO extends Win32Struct {
     rcMonitor {
         get {
             if(!this.HasProp("__rcMonitor"))
-                this.__rcMonitor := RECT(16, this)
+                this.__rcMonitor := RECT(24, this)
             return this.__rcMonitor
         }
     }
@@ -45,7 +46,7 @@ class VMRMONITORINFO extends Win32Struct {
     hMon {
         get {
             if(!this.HasProp("__hMon"))
-                this.__hMon := HMONITOR(32, this)
+                this.__hMon := HMONITOR(40, this)
             return this.__hMon
         }
     }
@@ -55,8 +56,8 @@ class VMRMONITORINFO extends Win32Struct {
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -64,8 +65,8 @@ class VMRMONITORINFO extends Win32Struct {
      * @type {String}
      */
     szDevice {
-        get => StrGet(this.ptr + 44, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 44, 31, "UTF-16")
+        get => StrGet(this.ptr + 52, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 52, 31, "UTF-16")
     }
 
     /**
@@ -73,38 +74,22 @@ class VMRMONITORINFO extends Win32Struct {
      * @type {String}
      */
     szDescription {
-        get => StrGet(this.ptr + 108, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 108, 255, "UTF-16")
+        get => StrGet(this.ptr + 116, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 116, 255, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     liDriverVersion {
-        get => NumGet(this, 624, "int64")
-        set => NumPut("int64", value, this, 624)
+        get => NumGet(this, 632, "int64")
+        set => NumPut("int64", value, this, 632)
     }
 
     /**
      * @type {Integer}
      */
     dwVendorId {
-        get => NumGet(this, 632, "uint")
-        set => NumPut("uint", value, this, 632)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwDeviceId {
-        get => NumGet(this, 636, "uint")
-        set => NumPut("uint", value, this, 636)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwSubSysId {
         get => NumGet(this, 640, "uint")
         set => NumPut("uint", value, this, 640)
     }
@@ -112,8 +97,24 @@ class VMRMONITORINFO extends Win32Struct {
     /**
      * @type {Integer}
      */
-    dwRevision {
+    dwDeviceId {
         get => NumGet(this, 644, "uint")
         set => NumPut("uint", value, this, 644)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwSubSysId {
+        get => NumGet(this, 648, "uint")
+        set => NumPut("uint", value, this, 648)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwRevision {
+        get => NumGet(this, 652, "uint")
+        set => NumPut("uint", value, this, 652)
     }
 }

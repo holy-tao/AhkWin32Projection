@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_HUB_TYPE.ahk
 #Include .\USB_HUB_DESCRIPTOR.ahk
 #Include .\USB_30_HUB_DESCRIPTOR.ahk
+#Include .\USB_HUB_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
@@ -12,7 +12,7 @@ class USB_HUB_INFORMATION_EX extends Win32Struct {
 
     static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 72
         static packingSize => 2
 
@@ -56,12 +56,12 @@ class USB_HUB_INFORMATION_EX extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := USB_HUB_INFORMATION_EX._u_e__Union(6, this)
+                this.__u := USB_HUB_INFORMATION_EX._u(6, this)
             return this.__u
         }
     }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\BITMAP.ahk
-#Include .\BITMAPINFOHEADER.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\BITMAPINFOHEADER.ahk
 
 /**
  * The DIBSECTION structure contains information about a DIB created by calling the CreateDIBSection function.

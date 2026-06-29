@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The DRM_VIDEO_OUTPUT_PROTECTION structure holds a video output technology identifier and the configuration data required by that technology.
@@ -9,17 +10,20 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
 class DRM_OUTPUT_PROTECTION extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Technology identifier.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guidId"))
+                this.__guidId := Guid(0, this)
+            return this.__guidId
+        }
     }
 
     /**
@@ -27,7 +31,7 @@ class DRM_OUTPUT_PROTECTION extends Win32Struct {
      * @type {Integer}
      */
     bConfigData {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 }

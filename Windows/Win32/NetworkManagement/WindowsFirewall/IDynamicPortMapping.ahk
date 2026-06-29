@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
@@ -96,7 +98,7 @@ class IDynamicPortMapping extends IDispatch {
      * @returns {BSTR} 
      */
     get_ExternalIPAddress() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -106,7 +108,7 @@ class IDynamicPortMapping extends IDispatch {
      * @returns {BSTR} 
      */
     get_RemoteHost() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -125,7 +127,7 @@ class IDynamicPortMapping extends IDispatch {
      * @returns {BSTR} 
      */
     get_Protocol() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -144,7 +146,7 @@ class IDynamicPortMapping extends IDispatch {
      * @returns {BSTR} 
      */
     get_InternalClient() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -163,7 +165,7 @@ class IDynamicPortMapping extends IDispatch {
      * @returns {BSTR} 
      */
     get_Description() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pVal, "HRESULT")
         return pVal
     }

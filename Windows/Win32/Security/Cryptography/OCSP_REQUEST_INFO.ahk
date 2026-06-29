@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_ALT_NAME_ENTRY.ahk
 #Include .\OCSP_REQUEST_ENTRY.ahk
+#Include .\CERT_ALT_NAME_ENTRY.ahk
 #Include .\CERT_EXTENSION.ahk
 
 /**

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRL_DIST_POINT_NAME.ahk
 #Include .\CERT_ALT_NAME_INFO.ahk
-#Include .\CERT_ALT_NAME_ENTRY.ahk
+#Include .\CRL_DIST_POINT_NAME.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
+#Include .\CERT_ALT_NAME_ENTRY.ahk
 
 /**
  * Identifies a single certificate revocation list (CRL) distribution point that a certificate user can reference to determine whether certificates have been revoked.

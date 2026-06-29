@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ITpmVirtualSmartCardManager.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\ITpmVirtualSmartCardManagerStatusCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Security.Tpm

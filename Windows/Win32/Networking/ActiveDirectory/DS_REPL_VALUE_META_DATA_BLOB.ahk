@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
 class DS_REPL_VALUE_META_DATA_BLOB extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -95,11 +96,14 @@ class DS_REPL_VALUE_META_DATA_BLOB extends Win32Struct {
 
     /**
      * Contains the invocation identifier of the server on which the last change was made to this attribute. Replication of the change does not affect this value.
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidLastOriginatingDsaInvocationID {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get {
+            if(!this.HasProp("__uuidLastOriginatingDsaInvocationID"))
+                this.__uuidLastOriginatingDsaInvocationID := Guid(44, this)
+            return this.__uuidLastOriginatingDsaInvocationID
+        }
     }
 
     /**
@@ -107,8 +111,8 @@ class DS_REPL_VALUE_META_DATA_BLOB extends Win32Struct {
      * @type {Integer}
      */
     usnOriginatingChange {
-        get => NumGet(this, 56, "int64")
-        set => NumPut("int64", value, this, 56)
+        get => NumGet(this, 64, "int64")
+        set => NumPut("int64", value, this, 64)
     }
 
     /**
@@ -116,8 +120,8 @@ class DS_REPL_VALUE_META_DATA_BLOB extends Win32Struct {
      * @type {Integer}
      */
     usnLocalChange {
-        get => NumGet(this, 64, "int64")
-        set => NumPut("int64", value, this, 64)
+        get => NumGet(this, 72, "int64")
+        set => NumPut("int64", value, this, 72)
     }
 
     /**
@@ -125,7 +129,7 @@ class DS_REPL_VALUE_META_DATA_BLOB extends Win32Struct {
      * @type {Integer}
      */
     oszLastOriginatingDsaDN {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 }

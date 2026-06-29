@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
 #Include .\NEWTEXTMETRICEXW.ahk
-#Include ..\Graphics\Gdi\NEWTEXTMETRICW.ahk
-#Include ..\Graphics\Gdi\TMPF_FLAGS.ahk
 #Include .\FONTSIGNATURE.ahk
-#Include ..\Graphics\Gdi\AXESLISTW.ahk
+#Include ..\Graphics\Gdi\TMPF_FLAGS.ahk
 #Include ..\Graphics\Gdi\AXISINFOW.ahk
+#Include ..\Graphics\Gdi\NEWTEXTMETRICW.ahk
+#Include ..\Graphics\Gdi\AXESLISTW.ahk
 
 /**
  * The ENUMTEXTMETRIC structure contains information about a physical font. (Unicode)

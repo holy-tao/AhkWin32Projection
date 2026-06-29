@@ -1,12 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX509PublicKey.ahk
+#Include .\X509PrivateKeyVerify.ahk
+#Include .\X509ProviderType.ahk
+#Include .\X509PrivateKeyUsageFlags.ahk
 #Include .\ICspInformations.ahk
-#Include .\ICspStatus.ahk
+#Include .\IX509PublicKey.ahk
+#Include .\X509PrivateKeyExportFlags.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IObjectId.ahk
+#Include .\X509KeySpec.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\X509PrivateKeyProtection.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\ICspStatus.ahk
+#Include .\EncodingType.ahk
 
 /**
  * Represents an asymmetric private key that can be used for encryption, signing, and key agreement.
@@ -621,7 +630,7 @@ class IX509PrivateKey extends IDispatch {
     Export(strExportType, Encoding) {
         strExportType := strExportType is String ? BSTR.Alloc(strExportType).Value : strExportType
 
-        pstrEncodedKey := BSTR()
+        pstrEncodedKey := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", strExportType, "int", Encoding, "ptr", pstrEncodedKey, "HRESULT")
         return pstrEncodedKey
     }
@@ -646,7 +655,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_containername
      */
     get_ContainerName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -674,7 +683,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_containernameprefix
      */
     get_ContainerNamePrefix() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -702,7 +711,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_readername
      */
     get_ReaderName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -808,7 +817,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_providername
      */
     get_ProviderName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(25, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -1185,7 +1194,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_securitydescriptor
      */
     get_SecurityDescriptor() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(45, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -1224,7 +1233,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_certificate
      */
     get_Certificate(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(47, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -1255,7 +1264,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_uniquecontainername
      */
     get_UniqueContainerName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(49, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -1363,7 +1372,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_uicontextmessage
      */
     get_UIContextMessage() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(58, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -1402,7 +1411,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_friendlyname
      */
     get_FriendlyName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(61, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -1430,7 +1439,7 @@ class IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_description
      */
     get_Description() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(63, this, "ptr", pValue, "HRESULT")
         return pValue
     }

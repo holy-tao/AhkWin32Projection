@@ -14,7 +14,7 @@ class MLOperatorTensorDataType extends Win32Enum {
     /**
      * @type {Integer (UInt32)}
      */
-    static Float => 1
+    static Win32Float => 1
 
     /**
      * @type {Integer (UInt32)}
@@ -49,7 +49,7 @@ class MLOperatorTensorDataType extends Win32Enum {
     /**
      * @type {Integer (UInt32)}
      */
-    static String => 8
+    static Win32String => 8
 
     /**
      * @type {Integer (UInt32)}

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IATSCChannelTuneRequest.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IDigitalCableTuneRequest interface provides methods for tuning to a channel in a digital cable network.

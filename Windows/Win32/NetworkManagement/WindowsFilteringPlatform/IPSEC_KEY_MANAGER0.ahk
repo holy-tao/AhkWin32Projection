@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\FWPM_DISPLAY_DATA0.ahk
 
 /**
@@ -8,7 +10,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class IPSEC_KEY_MANAGER0 extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -16,11 +18,14 @@ class IPSEC_KEY_MANAGER0 extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * Uniquely identifies the Key Manager.
-     * @type {Pointer}
+     * @type {Guid}
      */
     keyManagerKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__keyManagerKey"))
+                this.__keyManagerKey := Guid(0, this)
+            return this.__keyManagerKey
+        }
     }
 
     /**
@@ -32,7 +37,7 @@ class IPSEC_KEY_MANAGER0 extends Win32Struct {
     displayData {
         get {
             if(!this.HasProp("__displayData"))
-                this.__displayData := FWPM_DISPLAY_DATA0(8, this)
+                this.__displayData := FWPM_DISPLAY_DATA0(16, this)
             return this.__displayData
         }
     }
@@ -61,8 +66,8 @@ class IPSEC_KEY_MANAGER0 extends Win32Struct {
      * @type {Integer}
      */
     flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -72,7 +77,7 @@ class IPSEC_KEY_MANAGER0 extends Win32Struct {
      * @type {Integer}
      */
     keyDictationTimeoutHint {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
+        get => NumGet(this, 36, "char")
+        set => NumPut("char", value, this, 36)
     }
 }

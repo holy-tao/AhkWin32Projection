@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMemoryData.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Audio\WAVEFORMATEX.ahk
+#Include .\IMemoryData.ahk
 
 /**
  * Note  This interface is deprecated.

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 
 /**
  * Describes a request initiated by a call to the lineGetRequest function. This data structure is obsolete and should not be used.

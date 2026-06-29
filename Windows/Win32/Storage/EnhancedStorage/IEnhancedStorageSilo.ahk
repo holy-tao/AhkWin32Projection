@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnhancedStorageSiloAction.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Devices\PortableDevices\IPortableDevice.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\SILO_INFO.ahk
-#Include ..\..\Devices\PortableDevices\IPortableDevice.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * IEnhancedStorageSilo interface is the point of access for an IEEE 1667 silo and is used to obtain information and perform operations at the silo level.

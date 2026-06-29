@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\TOUCHINPUTMASKF_MASK.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\TOUCHEVENTF_FLAGS.ahk
-#Include .\TOUCHINPUTMASKF_MASK.ahk
 
 /**
  * Encapsulates data for touch input.

@@ -1,6 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\Authentication\Identity\LSA_TOKEN_INFORMATION_TYPE.ahk
+#Include .\CSBACKUP_TYPE.ahk
+#Include ..\CERT_CONTEXT.ahk
+#Include ..\..\..\Foundation\UNICODE_STRING.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\Authentication\Identity\SecPkgContext_IssuerListInfoEx.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\CERT_CHAIN_CONTEXT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\CERT_USAGE_MATCH.ahk
+#Include ..\CERT_SELECT_CRITERIA.ahk
+#Include .\CSEDB_RSTMAPW.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\HCERTSTORE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates

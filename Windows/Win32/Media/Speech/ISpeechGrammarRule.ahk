@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISpeechGrammarRuleState.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SpeechRuleAttributes.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -80,7 +82,7 @@ class ISpeechGrammarRule extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        Name := BSTR()
+        Name := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", Name, "HRESULT")
         return Name
     }
@@ -123,14 +125,10 @@ class ISpeechGrammarRule extends IDispatch {
     }
 
     /**
-     * Adds a SYSTEM_RESOURCE_ATTRIBUTE_ACEaccess control entry (ACE) to the end of a system access control list (SACL).
+     * 
      * @param {BSTR} ResourceName 
      * @param {BSTR} ResourceValue 
-     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>.
-     * 
-     * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addresourceattributeace
+     * @returns {HRESULT} 
      */
     AddResource(ResourceName, ResourceValue) {
         ResourceName := ResourceName is String ? BSTR.Alloc(ResourceName).Value : ResourceName

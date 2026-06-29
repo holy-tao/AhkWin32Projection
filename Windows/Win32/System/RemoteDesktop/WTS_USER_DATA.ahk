@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTS_TIME_ZONE_INFORMATION.ahk
 #Include .\WTS_SYSTEMTIME.ahk
+#Include .\WTS_TIME_ZONE_INFORMATION.ahk
 
 /**
  * Contains select client property values.

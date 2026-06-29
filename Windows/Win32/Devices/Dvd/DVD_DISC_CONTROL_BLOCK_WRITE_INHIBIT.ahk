@@ -10,7 +10,7 @@ class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT extends Win32Struct {
 
     static packingSize => 1
 
-    class _WriteProtectActions_e__Union extends Win32Struct {
+    class _WriteProtectActions extends Win32Struct {
         static sizeof => 4
         static packingSize => 1
 
@@ -96,12 +96,12 @@ class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT extends Win32Struct {
     }
 
     /**
-     * @type {_WriteProtectActions_e__Union}
+     * @type {_WriteProtectActions}
      */
     WriteProtectActions {
         get {
             if(!this.HasProp("__WriteProtectActions"))
-                this.__WriteProtectActions := DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT._WriteProtectActions_e__Union(44, this)
+                this.__WriteProtectActions := DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT._WriteProtectActions(44, this)
             return this.__WriteProtectActions
         }
     }

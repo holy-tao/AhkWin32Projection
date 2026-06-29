@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\WindowsProgramming\ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The ACTCTX_SECTION_KEYED_DATA structure is used by the FindActCtxSectionString and FindActCtxSectionGuid functions to return the activation context information along with either the GUID or 32-bit integer-tagged activation context section.

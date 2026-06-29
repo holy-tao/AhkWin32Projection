@@ -1,10 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\TextPatternRangeEndpoint.ahk
+#Include .\TextUnit.ahk
 #Include .\IRawElementProviderSimple.ahk
+#Include .\UIA_TEXTATTRIBUTE_ID.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides access to a span of continuous text in a text container that implements ITextProvider or ITextProvider2.
@@ -280,7 +286,7 @@ class ITextRangeProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-gettext
      */
     GetText(maxLength) {
-        pRetVal := BSTR()
+        pRetVal := BSTR({Value: 0}, True)
         result := ComCall(12, this, "int", maxLength, "ptr", pRetVal, "HRESULT")
         return pRetVal
     }

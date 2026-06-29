@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include Common\ITEMIDLIST.ahk
 #Include .\CATEGORY_INFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\CATSORT_FLAGS.ahk
 
 /**
  * Exposes methods that are used to obtain information about item identifier lists.

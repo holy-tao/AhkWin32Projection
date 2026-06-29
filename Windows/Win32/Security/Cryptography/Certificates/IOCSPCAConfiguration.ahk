@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a set of definitions that enable an Online Certificate Status Protocol (OCSP) service to respond to a certificate status request for a specific certification authority (CA).
@@ -153,7 +155,7 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_identifier
      */
     get_Identifier() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -177,7 +179,7 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_hashalgorithm
      */
     get_HashAlgorithm() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -417,7 +419,7 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_cspname
      */
     get_CSPName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -445,7 +447,7 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_providerclsid
      */
     get_ProviderCLSID() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -623,7 +625,7 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_signingcertificatetemplate
      */
     get_SigningCertificateTemplate() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(27, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -647,7 +649,7 @@ class IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_caconfig
      */
     get_CAConfig() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(29, this, "ptr", pVal, "HRESULT")
         return pVal
     }

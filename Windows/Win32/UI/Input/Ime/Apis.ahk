@@ -1,10 +1,36 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\KeyboardAndMouse\HKL.ahk
-#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include .\IMEMENUITEMINFOW.ahk
 #Include .\HIMC.ahk
+#Include ..\..\..\Graphics\Gdi\LOGFONTW.ahk
+#Include .\COMPOSITIONFORM.ahk
+#Include .\IME_SENTENCE_MODE.ahk
+#Include .\IME_CONVERSION_MODE.ahk
 #Include .\HIMCC.ahk
+#Include .\STYLEBUFW.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\NOTIFY_IME_ACTION.ahk
+#Include .\IMEMENUITEMINFOA.ahk
+#Include .\IME_HOTKEY_IDENTIFIER.ahk
+#Include .\IME_COMPOSITION_STRING.ahk
+#Include .\GET_GUIDE_LINE_TYPE.ahk
+#Include .\SET_COMPOSITION_STRING_TYPE.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\KeyboardAndMouse\HKL.ahk
+#Include .\INPUTCONTEXT.ahk
+#Include ..\..\..\Foundation\WPARAM.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include .\GET_CONVERSION_LIST_FLAG.ahk
+#Include ..\..\..\Foundation\LRESULT.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
+#Include .\CANDIDATEFORM.ahk
+#Include .\NOTIFY_IME_INDEX.ahk
+#Include ..\..\..\Foundation\POINT.ahk
+#Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
+#Include .\IME_ESCAPE.ahk
+#Include .\STYLEBUFA.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime

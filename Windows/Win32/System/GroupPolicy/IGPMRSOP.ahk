@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IGPMResult.ahk
+#Include .\GPMRSOPMode.ahk
+#Include .\GPMReportType.ahk
 
 /**
  * The IGPMRSOP interface provides methods that support making Resultant Set of Policy (RSoP) queries in both logging and planning mode.
@@ -181,7 +184,7 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_Namespace() {
-        bstrVal := BSTR()
+        bstrVal := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", bstrVal, "HRESULT")
         return bstrVal
     }
@@ -203,7 +206,7 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_LoggingComputer() {
-        bstrVal := BSTR()
+        bstrVal := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", bstrVal, "HRESULT")
         return bstrVal
     }
@@ -225,7 +228,7 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_LoggingUser() {
-        bstrVal := BSTR()
+        bstrVal := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", bstrVal, "HRESULT")
         return bstrVal
     }
@@ -285,7 +288,7 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_PlanningDomainController() {
-        bstrVal := BSTR()
+        bstrVal := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", bstrVal, "HRESULT")
         return bstrVal
     }
@@ -307,7 +310,7 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_PlanningSiteName() {
-        bstrVal := BSTR()
+        bstrVal := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", bstrVal, "HRESULT")
         return bstrVal
     }
@@ -329,7 +332,7 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_PlanningUser() {
-        bstrVal := BSTR()
+        bstrVal := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", bstrVal, "HRESULT")
         return bstrVal
     }
@@ -351,7 +354,7 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_PlanningUserSOM() {
-        bstrVal := BSTR()
+        bstrVal := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", bstrVal, "HRESULT")
         return bstrVal
     }
@@ -413,7 +416,7 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_PlanningComputer() {
-        bstrVal := BSTR()
+        bstrVal := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", bstrVal, "HRESULT")
         return bstrVal
     }
@@ -435,7 +438,7 @@ class IGPMRSOP extends IDispatch {
      * @returns {BSTR} 
      */
     get_PlanningComputerSOM() {
-        bstrVal := BSTR()
+        bstrVal := BSTR({Value: 0}, True)
         result := ComCall(32, this, "ptr", bstrVal, "HRESULT")
         return bstrVal
     }

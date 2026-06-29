@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -65,13 +67,12 @@ class IDialBranding extends IUnknown {
     }
 
     /**
-     * The GetBitmapBits function copies the bitmap bits of a specified device-dependent bitmap into a buffer.
+     * 
      * @param {Integer} dwIndex 
      * @returns {HBITMAP} 
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getbitmapbits
      */
     GetBitmap(dwIndex) {
-        phBitmap := HBITMAP()
+        phBitmap := HBITMAP({Value: 0}, True)
         result := ComCall(4, this, "uint", dwIndex, "ptr", phBitmap, "HRESULT")
         return phBitmap
     }

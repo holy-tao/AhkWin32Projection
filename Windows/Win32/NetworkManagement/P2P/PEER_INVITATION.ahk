@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\PEER_DATA.ahk
 
 /**
@@ -10,17 +12,20 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
 class PEER_INVITATION extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
     /**
      * GUID value that uniquely identifies the registered software or software component for the peer collaboration activity.
-     * @type {Pointer}
+     * @type {Guid}
      */
     applicationId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__applicationId"))
+                this.__applicationId := Guid(0, this)
+            return this.__applicationId
+        }
     }
 
     /**
@@ -31,7 +36,7 @@ class PEER_INVITATION extends Win32Struct {
     applicationData {
         get {
             if(!this.HasProp("__applicationData"))
-                this.__applicationData := PEER_DATA(8, this)
+                this.__applicationData := PEER_DATA(16, this)
             return this.__applicationData
         }
     }
@@ -41,7 +46,7 @@ class PEER_INVITATION extends Win32Struct {
      * @type {PWSTR}
      */
     pwzMessage {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

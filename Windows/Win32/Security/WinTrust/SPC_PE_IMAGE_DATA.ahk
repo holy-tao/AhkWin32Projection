@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Cryptography\CRYPT_BIT_BLOB.ahk
 #Include .\SPC_LINK.ahk
+#Include ..\Cryptography\CRYPT_BIT_BLOB.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\NLM_DOMAIN_AUTHENTICATION_KIND.ahk
 #Include .\INetwork.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The **INetwork2** interface represents a network on the local machine. It can also represent a collection of network connections with a similar network signature.

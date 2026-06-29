@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\Folder.ahk
-#Include .\FolderItems.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\FolderItem.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\FolderItems.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that modify the view and select items in the current folder. (IShellFolderViewDual)
@@ -170,7 +172,7 @@ class IShellFolderViewDual extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual-popupitemmenu
      */
     PopupItemMenu(pfi, vx, vy) {
-        pbs := BSTR()
+        pbs := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pfi, "ptr", vx, "ptr", vy, "ptr", pbs, "HRESULT")
         return pbs
     }

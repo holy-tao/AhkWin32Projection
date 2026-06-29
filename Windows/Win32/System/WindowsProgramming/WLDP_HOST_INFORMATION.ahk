@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLDP_HOST_ID.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\WLDP_HOST_ID.ahk
 
 /**
  * A structure identifying the host and source file to be evaluated.

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IADsBackLink interface provides methods for an ADSI client to access the Back Link attribute. You can call the property methods of this interface to obtain and modify the attribute.
@@ -70,7 +71,7 @@ class IADsBackLink extends IDispatch {
      * @returns {BSTR} 
      */
     get_ObjectName() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", retval, "HRESULT")
         return retval
     }

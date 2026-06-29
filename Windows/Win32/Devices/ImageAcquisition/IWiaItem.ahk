@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumWiaItem.ahk
-#Include .\IEnumWIA_DEV_CAPS.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IEnumWIA_DEV_CAPS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IEnumWiaItem.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Each Windows Image Acquisition (WIA) hardware device is represented to an application as a hierarchical tree of IWiaItem objects.
@@ -393,7 +396,7 @@ class IWiaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-dumpitemdata
      */
     DumpItemData() {
-        bstrData := BSTR()
+        bstrData := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", bstrData, "HRESULT")
         return bstrData
     }
@@ -404,7 +407,7 @@ class IWiaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-dumpdrvitemdata
      */
     DumpDrvItemData() {
-        bstrData := BSTR()
+        bstrData := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", bstrData, "HRESULT")
         return bstrData
     }
@@ -415,7 +418,7 @@ class IWiaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-dumptreeitemdata
      */
     DumpTreeItemData() {
-        bstrData := BSTR()
+        bstrData := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", bstrData, "HRESULT")
         return bstrData
     }

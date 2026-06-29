@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IInkRecognitionAlternate.ahk
-#Include .\IInkStrokes.ahk
+#Include .\InkRecognitionConfidence.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IInkRecognitionAlternates.ahk
+#Include .\IInkStrokes.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the result of the recognition. The results of recognizing handwritten ink are returned in an IInkRecognitionResult object.
@@ -83,7 +85,7 @@ class IInkRecognitionResult extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionresult-get_topstring
      */
     get_TopString() {
-        TopString := BSTR()
+        TopString := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", TopString, "HRESULT")
         return TopString
     }

@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IObjectId.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\EncodingType.ahk
+#Include .\KeyIdentifierHashAlgorithm.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a public key in a public/private key pair.
@@ -185,7 +188,7 @@ class IX509PublicKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509publickey-get_encodedkey
      */
     get_EncodedKey(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(11, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -283,7 +286,7 @@ class IX509PublicKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509publickey-get_encodedparameters
      */
     get_EncodedParameters(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(12, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -302,7 +305,7 @@ class IX509PublicKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509publickey-computekeyidentifier
      */
     ComputeKeyIdentifier(Algorithm, Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(13, this, "int", Algorithm, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }

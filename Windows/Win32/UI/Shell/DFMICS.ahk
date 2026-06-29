@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CMINVOKECOMMANDINFO.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\CMINVOKECOMMANDINFO.ahk
 
 /**
  * Contains additional arguments used by DFM_INVOKECOMMANDEX.

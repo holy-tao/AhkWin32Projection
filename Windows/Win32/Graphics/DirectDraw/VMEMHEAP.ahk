@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HEAPALIGNMENT.ahk
-#Include .\DDSCAPS.ahk
-#Include .\SURFACEALIGNMENT.ahk
 #Include .\DDSCAPSEX.ahk
+#Include .\DDSCAPS.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\SURFACEALIGNMENT.ahk
 
 /**
  * The VMEMHEAP structure contains information about the heap.

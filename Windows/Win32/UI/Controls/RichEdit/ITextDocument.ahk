@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ITextSelection.ahk
-#Include .\ITextStoryRanges.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\ITextRange.ahk
+#Include .\ITextSelection.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\ITextStoryRanges.ahk
+#Include .\tomConstants.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITextDocument interface is the Text Object Model (TOM) top-level interface, which retrieves the active selection and range objects for any story in the document�whether active or not.
@@ -41,7 +44,7 @@ class ITextDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-getname
      */
     GetName() {
-        pName := BSTR()
+        pName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pName, "HRESULT")
         return pName
     }

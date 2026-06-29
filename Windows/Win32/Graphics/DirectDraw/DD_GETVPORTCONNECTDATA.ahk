@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_LOCAL.ahk
 #Include .\DDVIDEOPORTCONNECT.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The DD_GETVPORTCONNECTDATA structure contains the connection combinations supported by the specified video port extensions (VPE) object.

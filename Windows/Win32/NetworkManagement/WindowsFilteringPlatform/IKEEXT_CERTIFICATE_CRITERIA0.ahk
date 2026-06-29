@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IKEEXT_CERT_NAME0.ahk
 #Include .\FWP_BYTE_BLOB.ahk
 #Include .\IKEEXT_CERT_EKUS0.ahk
-#Include .\IKEEXT_CERT_NAME0.ahk
 
 /**
  * Contains a set of criteria to applied to an authentication method.

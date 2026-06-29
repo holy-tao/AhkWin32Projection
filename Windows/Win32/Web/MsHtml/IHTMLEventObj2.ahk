@@ -1,13 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IHTMLDataTransfer.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IHTMLElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLBookmarkCollection.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLElementCollection.ahk
-#Include .\IHTMLElement.ahk
-#Include .\IHTMLDataTransfer.ahk
+#Include .\IHTMLBookmarkCollection.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -299,7 +301,7 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_propertyName() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", p, "HRESULT")
         return p
     }
@@ -359,7 +361,7 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_dataFld() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", p, "HRESULT")
         return p
     }
@@ -419,7 +421,7 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_srcUrn() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", p, "HRESULT")
         return p
     }
@@ -574,7 +576,7 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(39, this, "ptr", p, "HRESULT")
         return p
     }
@@ -596,7 +598,7 @@ class IHTMLEventObj2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_qualifier() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(41, this, "ptr", p, "HRESULT")
         return p
     }

@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\ID3D12Device.ahk
+#Include .\D3D12_MULTIPLE_FENCE_WAIT_FLAGS.ahk
+#Include .\D3D12_RESIDENCY_PRIORITY.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\ID3D12Fence.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D12Pageable.ahk
 
 /**
  * Represents a virtual adapter, and expands on the range of methods provided by ID3D12Device.

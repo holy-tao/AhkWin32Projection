@@ -1,14 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkDrawingAttributes.ahk
 #Include .\IInkRenderer.ahk
+#Include .\InkCollectionMode.ahk
 #Include .\IInkDisp.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Ole\IPictureDisp.ahk
-#Include .\IInkCursors.ahk
+#Include .\IInkDrawingAttributes.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IInkTablet.ahk
+#Include .\IInkCursors.ahk
+#Include .\InkMousePointer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\InkCollectorEventInterest.ahk
+#Include .\IInkRectangle.ahk
+#Include ..\..\System\Ole\IPictureDisp.ahk
+#Include .\InkApplicationGesture.ahk
 
 /**
  * . (IInkCollector)

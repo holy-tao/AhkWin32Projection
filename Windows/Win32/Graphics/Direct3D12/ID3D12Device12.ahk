@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_RESOURCE_DESC1.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_RESOURCE_ALLOCATION_INFO.ahk
 #Include .\ID3D12Device11.ahk
+#Include .\D3D12_RESOURCE_ALLOCATION_INFO1.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

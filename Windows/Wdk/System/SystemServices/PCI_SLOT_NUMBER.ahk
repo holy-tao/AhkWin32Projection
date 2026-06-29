@@ -9,7 +9,7 @@ class PCI_SLOT_NUMBER extends Win32Struct {
 
     static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -52,7 +52,7 @@ class PCI_SLOT_NUMBER extends Win32Struct {
         bits {
             get {
                 if(!this.HasProp("__bits"))
-                    this.__bits := PCI_SLOT_NUMBER._u_e__Union._bits(0, this)
+                    this.__bits := PCI_SLOT_NUMBER._u._bits(0, this)
                 return this.__bits
             }
         }
@@ -67,12 +67,12 @@ class PCI_SLOT_NUMBER extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := PCI_SLOT_NUMBER._u_e__Union(0, this)
+                this.__u := PCI_SLOT_NUMBER._u(0, this)
             return this.__u
         }
     }

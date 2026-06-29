@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
 class KEY_TYPE_SUBTYPE extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -18,18 +19,24 @@ class KEY_TYPE_SUBTYPE extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Type {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__Type"))
+                this.__Type := Guid(4, this)
+            return this.__Type
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Subtype {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__Subtype"))
+                this.__Subtype := Guid(20, this)
+            return this.__Subtype
+        }
     }
 }

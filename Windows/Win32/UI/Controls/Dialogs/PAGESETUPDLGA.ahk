@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\HGLOBAL.ahk
-#Include .\PAGESETUPDLG_FLAGS.ahk
-#Include ..\..\..\Foundation\POINT.ahk
-#Include ..\..\..\Foundation\RECT.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include .\PAGESETUPDLG_FLAGS.ahk
+#Include ..\..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\..\Foundation\POINT.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\RECT.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information the PageSetupDlg function uses to initialize the Page Setup dialog box. After the user closes the dialog box, the system returns information about the user-defined page parameters in this structure. (ANSI)

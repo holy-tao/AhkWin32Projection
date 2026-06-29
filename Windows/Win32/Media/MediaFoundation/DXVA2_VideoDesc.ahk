@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVA2_ExtendedFormat.ahk
-#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
 #Include .\DXVA2_Frequency.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
+#Include .\DXVA2_ExtendedFormat.ahk
 
 /**
  * Describes a video stream for a DXVA decoder device or video processor device.

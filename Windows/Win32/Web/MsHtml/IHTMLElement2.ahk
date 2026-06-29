@@ -1,15 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IHTMLCurrentStyle.ahk
-#Include .\IHTMLRectCollection.ahk
 #Include .\IHTMLRect.ahk
-#Include .\IHTMLElement.ahk
 #Include .\IHTMLStyle.ahk
+#Include .\IHTMLElement.ahk
+#Include .\IHTMLRectCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLElementCollection.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -371,7 +374,7 @@ class IHTMLElement2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_scopeName() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", p, "HRESULT")
         return p
     }
@@ -422,7 +425,7 @@ class IHTMLElement2 extends IDispatch {
      * @returns {BSTR} 
      */
     componentFromPoint(x, y) {
-        _component := BSTR()
+        _component := BSTR({Value: 0}, True)
         result := ComCall(12, this, "int", x, "int", y, "ptr", _component, "HRESULT")
         return _component
     }
@@ -830,7 +833,7 @@ class IHTMLElement2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_accessKey() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(52, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1093,7 +1096,7 @@ class IHTMLElement2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_dir() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(78, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1236,7 +1239,7 @@ class IHTMLElement2 extends IDispatch {
     getAdjacentText(where) {
         where := where is String ? BSTR.Alloc(where).Value : where
 
-        text := BSTR()
+        text := BSTR({Value: 0}, True)
         result := ComCall(92, this, "ptr", where, "ptr", text, "HRESULT")
         return text
     }
@@ -1251,7 +1254,7 @@ class IHTMLElement2 extends IDispatch {
         where := where is String ? BSTR.Alloc(where).Value : where
         newText := newText is String ? BSTR.Alloc(newText).Value : newText
 
-        oldText := BSTR()
+        oldText := BSTR({Value: 0}, True)
         result := ComCall(93, this, "ptr", where, "ptr", newText, "ptr", oldText, "HRESULT")
         return oldText
     }
@@ -1323,7 +1326,7 @@ class IHTMLElement2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_tagUrn() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(100, this, "ptr", p, "HRESULT")
         return p
     }

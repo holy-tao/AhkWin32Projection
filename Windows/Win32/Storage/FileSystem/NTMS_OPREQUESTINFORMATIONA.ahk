@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -20,9 +21,9 @@
  * @charset ANSI
  */
 class NTMS_OPREQUESTINFORMATIONA extends Win32Struct {
-    static sizeof => 504
+    static sizeof => 512
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -71,28 +72,34 @@ class NTMS_OPREQUESTINFORMATIONA extends Win32Struct {
 
     /**
      * <b>Arg1</b> object ID used for move requests or other operator requests that require a reference object. The purpose of this object varies based on the type of operator request. For appropriate uses of <b>Arg1</b>, see the <b>Request</b> description.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Arg1 {
-        get => NumGet(this, 288, "ptr")
-        set => NumPut("ptr", value, this, 288)
+        get {
+            if(!this.HasProp("__Arg1"))
+                this.__Arg1 := Guid(284, this)
+            return this.__Arg1
+        }
     }
 
     /**
      * @type {Integer}
      */
     Arg2Type {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
+        get => NumGet(this, 300, "uint")
+        set => NumPut("uint", value, this, 300)
     }
 
     /**
      * <b>Arg2</b> object ID used for operator requests that require a second reference object. The purpose of this object varies based on the type of operator request. For appropriate uses of <b>Arg2</b>, see the <b>Request</b> description.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Arg2 {
-        get => NumGet(this, 304, "ptr")
-        set => NumPut("ptr", value, this, 304)
+        get {
+            if(!this.HasProp("__Arg2"))
+                this.__Arg2 := Guid(304, this)
+            return this.__Arg2
+        }
     }
 
     /**
@@ -100,8 +107,8 @@ class NTMS_OPREQUESTINFORMATIONA extends Win32Struct {
      * @type {String}
      */
     szApplication {
-        get => StrGet(this.ptr + 312, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 312, 63, "UTF-8")
+        get => StrGet(this.ptr + 320, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 320, 63, "UTF-8")
     }
 
     /**
@@ -109,8 +116,8 @@ class NTMS_OPREQUESTINFORMATIONA extends Win32Struct {
      * @type {String}
      */
     szUser {
-        get => StrGet(this.ptr + 376, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 376, 63, "UTF-8")
+        get => StrGet(this.ptr + 384, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 384, 63, "UTF-8")
     }
 
     /**
@@ -118,7 +125,7 @@ class NTMS_OPREQUESTINFORMATIONA extends Win32Struct {
      * @type {String}
      */
     szComputer {
-        get => StrGet(this.ptr + 440, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 440, 63, "UTF-8")
+        get => StrGet(this.ptr + 448, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 448, 63, "UTF-8")
     }
 }

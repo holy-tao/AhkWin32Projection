@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IBindStatusCallback.ahk
+#Include ..\..\System\Com\IBindCtx.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IHlinkBrowseContext.ahk
+#Include .\IHlinkSite.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IMoniker.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -122,13 +129,9 @@ class IHlink extends IUnknown {
     }
 
     /**
-     * Retrieves the display name for a certificate. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The cryptdlg.h header defines GetFriendlyNameOfCert as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {Integer} grfHLFNAMEF 
      * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/cryptdlg/nf-cryptdlg-getfriendlynameofcerta
      */
     GetFriendlyName(grfHLFNAMEF) {
         result := ComCall(10, this, "uint", grfHLFNAMEF, "ptr*", &ppwzFriendlyName := 0, "HRESULT")

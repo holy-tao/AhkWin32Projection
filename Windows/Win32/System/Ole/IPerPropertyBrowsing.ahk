@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Variant\VARIANT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\CADWORD.ahk
+#Include .\CALPOLESTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Retrieves the information in the property pages offered by an object.
@@ -39,7 +42,7 @@ class IPerPropertyBrowsing extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iperpropertybrowsing-getdisplaystring
      */
     GetDisplayString(dispID) {
-        pBstr := BSTR()
+        pBstr := BSTR({Value: 0}, True)
         result := ComCall(3, this, "int", dispID, "ptr", pBstr, "HRESULT")
         return pBstr
     }

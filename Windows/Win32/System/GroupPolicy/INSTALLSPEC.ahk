@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The INSTALLSPEC structure specifies a group policy application by its user-friendly name and group policy GUID or by its file name extension. The Spec member of the INSTALLDATA structure provides this information to the InstallApplication function.
@@ -7,12 +9,12 @@
  * @namespace Windows.Win32.System.GroupPolicy
  */
 class INSTALLSPEC extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 64
 
     static packingSize => 8
 
     class _AppName extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -24,32 +26,38 @@ class INSTALLSPEC extends Win32Struct {
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         GPOId {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+            get {
+                if(!this.HasProp("__GPOId"))
+                    this.__GPOId := Guid(8, this)
+                return this.__GPOId
+            }
         }
     }
 
     class _COMClass extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+        static sizeof => 20
+        static packingSize => 4
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         Clsid {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__Clsid"))
+                    this.__Clsid := Guid(0, this)
+                return this.__Clsid
+            }
         }
 
         /**
          * @type {Integer}
          */
         ClsCtx {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
         }
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D2D1_THREADING_MODE.ahk
-#Include .\D2D1_DEBUG_LEVEL.ahk
 #Include .\D2D1_DEVICE_CONTEXT_OPTIONS.ahk
+#Include .\D2D1_DEBUG_LEVEL.ahk
 
 /**
  * Specifies the options with which the Direct2D device, factory, and device context are created.

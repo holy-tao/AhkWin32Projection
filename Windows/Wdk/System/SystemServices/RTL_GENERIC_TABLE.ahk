@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RTL_SPLAY_LINKS.ahk
 #Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
+#Include ..\..\Foundation\RTL_SPLAY_LINKS.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

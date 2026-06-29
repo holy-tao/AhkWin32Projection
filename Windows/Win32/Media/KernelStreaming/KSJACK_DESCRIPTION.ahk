@@ -2,8 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EPcxConnectionType.ahk
 #Include .\EPcxGeoLocation.ahk
-#Include .\EPcxGenLocation.ahk
 #Include .\EPxcPortConnection.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\EPcxGenLocation.ahk
 
 /**
  * The KSJACK_DESCRIPTION structure describes an audio jack.

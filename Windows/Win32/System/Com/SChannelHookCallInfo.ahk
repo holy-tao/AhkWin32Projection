@@ -1,64 +1,71 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
  */
 class SChannelHookCallInfo extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 56
 
     static packingSize => 8
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     iid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__iid"))
+                this.__iid := Guid(0, this)
+            return this.__iid
+        }
     }
 
     /**
      * @type {Integer}
      */
     cbSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     uCausality {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__uCausality"))
+                this.__uCausality := Guid(20, this)
+            return this.__uCausality
+        }
     }
 
     /**
      * @type {Integer}
      */
     dwServerPid {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
      * @type {Integer}
      */
     iMethod {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     pObject {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 40
+        this.cbSize := 56
     }
 }

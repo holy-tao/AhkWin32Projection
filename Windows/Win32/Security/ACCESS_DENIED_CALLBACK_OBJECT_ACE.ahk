@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\ACE_HEADER.ahk
 #Include .\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk
+#Include ..\..\..\Guid.ahk
+#Include .\ACE_HEADER.ahk
 
 /**
  * The ACCESS_DENIED_CALLBACK_OBJECT_ACE structure defines an access control entry that controls denied access to an object, a property set, or property.
@@ -19,9 +20,9 @@
  * @namespace Windows.Win32.Security
  */
 class ACCESS_DENIED_CALLBACK_OBJECT_ACE extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure that specifies the size and type of ACE. It contains flags that control inheritance of the ACE by child objects. The <b>AceType</b> member of the <b>ACE_HEADER</b> structure should be set to ACCESS_DENIED_CALLBACK_ACE_TYPE, and the <b>AceSize</b> member should be set to the total number of bytes allocated for the <b>ACCESS_DENIED_CALLBACK_OBJECT_ACE</b> structure.
@@ -118,11 +119,14 @@ class ACCESS_DENIED_CALLBACK_OBJECT_ACE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
+     * @type {Guid}
      */
     ObjectType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__ObjectType"))
+                this.__ObjectType := Guid(12, this)
+            return this.__ObjectType
+        }
     }
 
     /**
@@ -136,11 +140,14 @@ class ACCESS_DENIED_CALLBACK_OBJECT_ACE extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a>, as well as by any protection against inheritance placed on the child objects.
      * 
      * The offset of this member can vary. If the <b>Flags</b> member does not contain the ACE_OBJECT_TYPE_PRESENT flag, the <b>InheritedObjectType</b> member starts at the offset specified by the <b>ObjectType</b> member.
-     * @type {Pointer}
+     * @type {Guid}
      */
     InheritedObjectType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__InheritedObjectType"))
+                this.__InheritedObjectType := Guid(28, this)
+            return this.__InheritedObjectType
+        }
     }
 
     /**
@@ -149,7 +156,7 @@ class ACCESS_DENIED_CALLBACK_OBJECT_ACE extends Win32Struct {
      * @type {Integer}
      */
     SidStart {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

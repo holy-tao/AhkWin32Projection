@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The RPC_ENDPOINT_TEMPLATEW (Unicode) structure (rpcdce.h) specifies the properties of an RPC interface group server endpoint, including protocol sequence and name.

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFaxSender interface defines a messaging object used by a fax client application to retrieve and set sender information about fax senders. The object also includes methods to store sender data in and retrieve sender data from the local registry.
@@ -172,7 +173,7 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_billingcode
      */
     get_BillingCode() {
-        pbstrBillingCode := BSTR()
+        pbstrBillingCode := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrBillingCode, "HRESULT")
         return pbstrBillingCode
     }
@@ -195,7 +196,7 @@ class IFaxSender extends IDispatch {
      * @returns {BSTR} 
      */
     get_City() {
-        pbstrCity := BSTR()
+        pbstrCity := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrCity, "HRESULT")
         return pbstrCity
     }
@@ -218,7 +219,7 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_company
      */
     get_Company() {
-        pbstrCompany := BSTR()
+        pbstrCompany := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrCompany, "HRESULT")
         return pbstrCompany
     }
@@ -241,7 +242,7 @@ class IFaxSender extends IDispatch {
      * @returns {BSTR} 
      */
     get_Country() {
-        pbstrCountry := BSTR()
+        pbstrCountry := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstrCountry, "HRESULT")
         return pbstrCountry
     }
@@ -264,7 +265,7 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_department
      */
     get_Department() {
-        pbstrDepartment := BSTR()
+        pbstrDepartment := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstrDepartment, "HRESULT")
         return pbstrDepartment
     }
@@ -288,7 +289,7 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_email
      */
     get_Email() {
-        pbstrEmail := BSTR()
+        pbstrEmail := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pbstrEmail, "HRESULT")
         return pbstrEmail
     }
@@ -312,7 +313,7 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_faxnumber
      */
     get_FaxNumber() {
-        pbstrFaxNumber := BSTR()
+        pbstrFaxNumber := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", pbstrFaxNumber, "HRESULT")
         return pbstrFaxNumber
     }
@@ -336,7 +337,7 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_homephone
      */
     get_HomePhone() {
-        pbstrHomePhone := BSTR()
+        pbstrHomePhone := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", pbstrHomePhone, "HRESULT")
         return pbstrHomePhone
     }
@@ -360,7 +361,7 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_name
      */
     get_Name() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -384,7 +385,7 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_tsid
      */
     get_TSID() {
-        pbstrTSID := BSTR()
+        pbstrTSID := BSTR({Value: 0}, True)
         result := ComCall(25, this, "ptr", pbstrTSID, "HRESULT")
         return pbstrTSID
     }
@@ -408,7 +409,7 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_officephone
      */
     get_OfficePhone() {
-        pbstrOfficePhone := BSTR()
+        pbstrOfficePhone := BSTR({Value: 0}, True)
         result := ComCall(27, this, "ptr", pbstrOfficePhone, "HRESULT")
         return pbstrOfficePhone
     }
@@ -432,7 +433,7 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_officelocation
      */
     get_OfficeLocation() {
-        pbstrOfficeLocation := BSTR()
+        pbstrOfficeLocation := BSTR({Value: 0}, True)
         result := ComCall(29, this, "ptr", pbstrOfficeLocation, "HRESULT")
         return pbstrOfficeLocation
     }
@@ -455,7 +456,7 @@ class IFaxSender extends IDispatch {
      * @returns {BSTR} 
      */
     get_State() {
-        pbstrState := BSTR()
+        pbstrState := BSTR({Value: 0}, True)
         result := ComCall(31, this, "ptr", pbstrState, "HRESULT")
         return pbstrState
     }
@@ -480,7 +481,7 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_streetaddress
      */
     get_StreetAddress() {
-        pbstrStreetAddress := BSTR()
+        pbstrStreetAddress := BSTR({Value: 0}, True)
         result := ComCall(33, this, "ptr", pbstrStreetAddress, "HRESULT")
         return pbstrStreetAddress
     }
@@ -506,7 +507,7 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_title
      */
     get_Title() {
-        pbstrTitle := BSTR()
+        pbstrTitle := BSTR({Value: 0}, True)
         result := ComCall(35, this, "ptr", pbstrTitle, "HRESULT")
         return pbstrTitle
     }
@@ -529,7 +530,7 @@ class IFaxSender extends IDispatch {
      * @returns {BSTR} 
      */
     get_ZipCode() {
-        pbstrZipCode := BSTR()
+        pbstrZipCode := BSTR({Value: 0}, True)
         result := ComCall(37, this, "ptr", pbstrZipCode, "HRESULT")
         return pbstrZipCode
     }

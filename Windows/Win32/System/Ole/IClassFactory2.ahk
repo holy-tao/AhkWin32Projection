@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IClassFactory.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\LICINFO.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\IClassFactory.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables a class factory object, in any sort of object server, to control object creation through licensing.
@@ -90,7 +94,7 @@ class IClassFactory2 extends IClassFactory {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iclassfactory2-requestlickey
      */
     RequestLicKey(dwReserved) {
-        pBstrKey := BSTR()
+        pBstrKey := BSTR({Value: 0}, True)
         result := ComCall(6, this, "uint", dwReserved, "ptr", pBstrKey, "HRESULT")
         return pBstrKey
     }

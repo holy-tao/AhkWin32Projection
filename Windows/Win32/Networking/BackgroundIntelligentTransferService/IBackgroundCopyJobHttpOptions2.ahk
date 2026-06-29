@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IBackgroundCopyJobHttpOptions.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\Apis.ahk
 
 /**

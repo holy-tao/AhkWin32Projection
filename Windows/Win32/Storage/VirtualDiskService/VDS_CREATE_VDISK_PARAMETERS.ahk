@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains the parameters to be used when a virtual disk is created.
@@ -7,17 +9,20 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_CREATE_VDISK_PARAMETERS extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
     /**
      * A unique GUID value to be assigned to the virtual disk.
-     * @type {Pointer}
+     * @type {Guid}
      */
     UniqueId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__UniqueId"))
+                this.__UniqueId := Guid(0, this)
+            return this.__UniqueId
+        }
     }
 
     /**
@@ -25,8 +30,8 @@ class VDS_CREATE_VDISK_PARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     MaximumSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -34,8 +39,8 @@ class VDS_CREATE_VDISK_PARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     BlockSizeInBytes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -43,8 +48,8 @@ class VDS_CREATE_VDISK_PARAMETERS extends Win32Struct {
      * @type {Integer}
      */
     SectorSizeInBytes {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -52,8 +57,8 @@ class VDS_CREATE_VDISK_PARAMETERS extends Win32Struct {
      * @type {PWSTR}
      */
     pParentPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -61,7 +66,7 @@ class VDS_CREATE_VDISK_PARAMETERS extends Win32Struct {
      * @type {PWSTR}
      */
     pSourcePath {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

@@ -3,7 +3,9 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
+#Include .\DownloadPhase.ahk
 #Include .\IUpdateDownloadResult.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the progress of an asynchronous download operation.

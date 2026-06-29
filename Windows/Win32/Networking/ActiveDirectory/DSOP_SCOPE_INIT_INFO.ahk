@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DSOP_FILTER_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DSOP_UPLEVEL_FILTER_FLAGS.ahk
+#Include .\DSOP_FILTER_FLAGS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The DSOP_SCOPE_INIT_INFO structure describes one or more scope types that have the same attributes.

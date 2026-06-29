@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\DOT11_ADHOC_CONNECT_FAIL_REASON.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DOT11_ADHOC_NETWORK_CONNECTION_STATUS.ahk
 
 /**
  * Defines the notifications supported by the IDot11AdHocNetwork interface.

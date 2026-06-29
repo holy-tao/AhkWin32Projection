@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\FWPM_FILTER_CONDITION0.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * Used for enumerating net events.

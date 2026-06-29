@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\FLT_CONTEXT_REGISTRATION.ahk
 #Include .\FLT_OPERATION_REGISTRATION.ahk
+#Include .\FLT_CONTEXT_REGISTRATION.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters

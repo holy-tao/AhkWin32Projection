@@ -1,13 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WRDS_CONNECTION_SETTINGS_1.ahk
-#Include .\WTS_SOCKADDR.ahk
-#Include .\WTS_TIME_ZONE_INFORMATION.ahk
-#Include .\WTS_SYSTEMTIME.ahk
-#Include .\WRDS_LISTENER_SETTINGS.ahk
 #Include .\WRDS_LISTENER_SETTING_LEVEL.ahk
 #Include .\WRDS_LISTENER_SETTING.ahk
 #Include .\WRDS_LISTENER_SETTINGS_1.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\WRDS_CONNECTION_SETTINGS_1.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\WTS_TIME_ZONE_INFORMATION.ahk
+#Include .\WTS_SYSTEMTIME.ahk
+#Include .\WTS_SOCKADDR.ahk
+#Include .\WRDS_LISTENER_SETTINGS.ahk
 
 /**
  * Contains different levels of settings for a remote desktop connection.
@@ -15,7 +17,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  */
 class WRDS_CONNECTION_SETTING extends Win32Struct {
-    static sizeof => 3752
+    static sizeof => 3760
 
     static packingSize => 8
 

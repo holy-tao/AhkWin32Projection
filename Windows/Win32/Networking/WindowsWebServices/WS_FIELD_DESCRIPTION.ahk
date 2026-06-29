@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_FIELD_MAPPING.ahk
-#Include .\WS_XML_STRING.ahk
-#Include .\WS_TYPE.ahk
-#Include .\WS_DEFAULT_VALUE.ahk
 #Include .\WS_ITEM_RANGE.ahk
+#Include .\WS_XML_STRING.ahk
+#Include .\WS_DEFAULT_VALUE.ahk
+#Include .\WS_TYPE.ahk
 
 /**
  * Represents serialization information about a field within a structure.

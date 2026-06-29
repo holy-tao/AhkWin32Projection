@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISpeechWaveFormatEx.ahk
+#Include .\SpeechAudioFormatType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -69,7 +71,7 @@ class ISpeechAudioFormat extends IDispatch {
      * @returns {BSTR} 
      */
     get_Guid() {
-        Guid := BSTR()
+        Guid := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", Guid, "HRESULT")
         return Guid
     }

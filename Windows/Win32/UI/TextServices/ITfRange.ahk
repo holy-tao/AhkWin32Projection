@@ -1,9 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\TF_HALTCOND.ahk
 #Include ..\..\System\Com\IDataObject.ahk
 #Include .\ITfContext.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\TfGravity.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\TfAnchor.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\TfShiftDir.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfRange interface is used by text services and applications to reference and manipulate text within a given context. The interface ID is IID_ITfRange.

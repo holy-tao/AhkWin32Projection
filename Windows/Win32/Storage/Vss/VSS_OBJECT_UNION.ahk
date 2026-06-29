@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VSS_SNAPSHOT_PROP.ahk
-#Include .\VSS_SNAPSHOT_STATE.ahk
-#Include .\VSS_PROVIDER_PROP.ahk
 #Include .\VSS_PROVIDER_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\VSS_PROVIDER_PROP.ahk
+#Include .\VSS_SNAPSHOT_STATE.ahk
+#Include .\VSS_SNAPSHOT_PROP.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Vss
  */
 class VSS_OBJECT_UNION extends Win32Struct {
-    static sizeof => 152
+    static sizeof => 200
 
     static packingSize => 8
 

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D11View.ahk
+#Include .\D3D11_RENDER_TARGET_VIEW_DESC.ahk
 
 /**
  * A render-target-view interface identifies the render-target subresources that can be accessed during rendering. (ID3D11RenderTargetView)

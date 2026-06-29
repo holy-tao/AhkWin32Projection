@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IXpsOMResource.ahk
 #Include .\IXpsOMDictionary.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides an interface that enables pages in an XPS package to share resources.

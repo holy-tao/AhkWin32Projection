@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains a list of files locked by a transacted writer.
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.System.Ioctl
  */
 class TXFS_LIST_TRANSACTION_LOCKED_FILES extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
     /**
      * The KTM transaction to enumerate locked files for in this RM.
-     * @type {Pointer}
+     * @type {Guid}
      */
     KtmTransaction {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__KtmTransaction"))
+                this.__KtmTransaction := Guid(0, this)
+            return this.__KtmTransaction
+        }
     }
 
     /**
@@ -25,8 +29,8 @@ class TXFS_LIST_TRANSACTION_LOCKED_FILES extends Win32Struct {
      * @type {Integer}
      */
     NumberOfFiles {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -34,8 +38,8 @@ class TXFS_LIST_TRANSACTION_LOCKED_FILES extends Win32Struct {
      * @type {Integer}
      */
     BufferSizeRequired {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -43,7 +47,7 @@ class TXFS_LIST_TRANSACTION_LOCKED_FILES extends Win32Struct {
      * @type {Integer}
      */
     Offset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

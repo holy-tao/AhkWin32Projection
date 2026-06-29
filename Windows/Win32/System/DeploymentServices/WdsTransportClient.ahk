@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Increments the reference count on a buffer owned by the multicast client.
- * @see https://learn.microsoft.com/windows/win32/api/wdstci/nf-wdstci-wdstransportclientaddrefbuffer
  * @namespace Windows.Win32.System.DeploymentServices
  */
 class WdsTransportClient extends Win32Struct {

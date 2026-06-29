@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * Specifies a security event type and when to audit that type.
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
 class AUDIT_POLICY_INFORMATION extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <b>GUID</b> structure that specifies an audit subcategory.
-     * @type {Pointer}
+     * @type {Guid}
      */
     AuditSubCategoryGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__AuditSubCategoryGuid"))
+                this.__AuditSubCategoryGuid := Guid(0, this)
+            return this.__AuditSubCategoryGuid
+        }
     }
 
     /**
@@ -164,16 +168,19 @@ class AUDIT_POLICY_INFORMATION extends Win32Struct {
      * @type {Integer}
      */
     AuditingInformation {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * A <b>GUID</b> structure that specifies an audit-policy category.
-     * @type {Pointer}
+     * @type {Guid}
      */
     AuditCategoryGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__AuditCategoryGuid"))
+                this.__AuditCategoryGuid := Guid(20, this)
+            return this.__AuditCategoryGuid
+        }
     }
 }

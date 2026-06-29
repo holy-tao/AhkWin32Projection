@@ -1,44 +1,51 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class DXVA_COPPCommand extends Win32Struct {
-    static sizeof => 4080
+    static sizeof => 4096
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     macKDI {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__macKDI"))
+                this.__macKDI := Guid(0, this)
+            return this.__macKDI
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidCommandID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidCommandID"))
+                this.__guidCommandID := Guid(16, this)
+            return this.__guidCommandID
+        }
     }
 
     /**
      * @type {Integer}
      */
     dwSequence {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     cbSizeData {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -47,7 +54,7 @@ class DXVA_COPPCommand extends Win32Struct {
     CommandData {
         get {
             if(!this.HasProp("__CommandDataProxyArray"))
-                this.__CommandDataProxyArray := Win32FixedArray(this.ptr + 24, 4056, Primitive, "char")
+                this.__CommandDataProxyArray := Win32FixedArray(this.ptr + 40, 4056, Primitive, "char")
             return this.__CommandDataProxyArray
         }
     }

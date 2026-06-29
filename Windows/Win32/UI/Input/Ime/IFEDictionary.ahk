@@ -1,7 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\POSTBL.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\IMEDP.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include .\IMESHF.ahk
+#Include .\IMEREL.ahk
+#Include .\IMEFMT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IMEREG.ahk
+#Include .\IMEWRD.ahk
 
 /**
  * The IFEDictionary interface allows clients to access a Microsoft IME user dictionary.

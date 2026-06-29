@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\PSID.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USER_MODALS_INFO_2 structure contains the Security Account Manager (SAM) domain name and identifier.

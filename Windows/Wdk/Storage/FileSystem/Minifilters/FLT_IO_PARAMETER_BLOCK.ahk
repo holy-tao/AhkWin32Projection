@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\FILE_OBJECT.ahk
+#Include .\PFLT_INSTANCE.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters

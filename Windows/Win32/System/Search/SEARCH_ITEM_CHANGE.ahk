@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SEARCH_KIND_OF_CHANGE.ahk
-#Include .\SEARCH_NOTIFICATION_PRIORITY.ahk
 #Include ..\Com\BLOB.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\SEARCH_NOTIFICATION_PRIORITY.ahk
+#Include .\SEARCH_KIND_OF_CHANGE.ahk
 
 /**
  * Specifies the changes to an indexed item.

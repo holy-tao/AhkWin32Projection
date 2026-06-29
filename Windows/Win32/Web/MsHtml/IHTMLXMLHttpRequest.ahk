@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -109,7 +110,7 @@ class IHTMLXMLHttpRequest extends IDispatch {
      * @returns {BSTR} 
      */
     get_responseText() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", p, "HRESULT")
         return p
     }
@@ -137,7 +138,7 @@ class IHTMLXMLHttpRequest extends IDispatch {
      * @returns {BSTR} 
      */
     get_statusText() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -547,7 +548,7 @@ class IHTMLXMLHttpRequest extends IDispatch {
      * @returns {BSTR} 
      */
     getAllResponseHeaders() {
-        __MIDL__IHTMLXMLHttpRequest0000 := BSTR()
+        __MIDL__IHTMLXMLHttpRequest0000 := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", __MIDL__IHTMLXMLHttpRequest0000, "HRESULT")
         return __MIDL__IHTMLXMLHttpRequest0000
     }
@@ -560,7 +561,7 @@ class IHTMLXMLHttpRequest extends IDispatch {
     getResponseHeader(bstrHeader) {
         bstrHeader := bstrHeader is String ? BSTR.Alloc(bstrHeader).Value : bstrHeader
 
-        __MIDL__IHTMLXMLHttpRequest0001 := BSTR()
+        __MIDL__IHTMLXMLHttpRequest0001 := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", bstrHeader, "ptr", __MIDL__IHTMLXMLHttpRequest0001, "HRESULT")
         return __MIDL__IHTMLXMLHttpRequest0001
     }

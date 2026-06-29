@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Win32\Foundation\HWND.ahk
-#Include ..\..\..\Win32\Foundation\RECT.ahk
 #Include .\D3DDDI_FLIPINTERVAL_TYPE.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
 #Include .\D3DKMT_PRESENT_RGNS.ahk
+#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include ..\..\..\Win32\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The LINEAGENTSESSIONENTRY structure describes an ACD agent session. The LINEAGENTSESSIONLIST structure can contain an array of LINEAGENTSESSIONENTRY structures.
@@ -7,9 +8,9 @@
  * @namespace Windows.Win32.Devices.Tapi
  */
 class LINEAGENTSESSIONENTRY extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Unique identifier for an agent session. It is the responsibility of the agent handler to generate and maintain uniqueness of these identifiers.
@@ -31,11 +32,14 @@ class LINEAGENTSESSIONENTRY extends Win32Struct {
 
     /**
      * Universally unique identifier for an ACD group. It is the responsibility of the agent handler to generate and maintain uniqueness of this identifier.
-     * @type {Pointer}
+     * @type {Guid}
      */
     GroupID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__GroupID"))
+                this.__GroupID := Guid(8, this)
+            return this.__GroupID
+        }
     }
 
     /**
@@ -43,7 +47,7 @@ class LINEAGENTSESSIONENTRY extends Win32Struct {
      * @type {Integer}
      */
     dwWorkingAddressID {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

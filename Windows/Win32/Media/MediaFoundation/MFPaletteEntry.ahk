@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFARGB.ahk
 #Include .\MFAYUVSample.ahk
+#Include .\MFARGB.ahk
 
 /**
  * Contains one palette entry in a color table.

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -958,7 +959,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msScrollChaining() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -980,7 +981,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msContentZooming() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1002,7 +1003,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msContentZoomSnapType() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1024,7 +1025,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msScrollRails() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1046,7 +1047,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msContentZoomChaining() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1068,7 +1069,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msScrollSnapType() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1090,7 +1091,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msContentZoomLimit() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1112,7 +1113,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msContentZoomSnap() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1134,7 +1135,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msContentZoomSnapPoints() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1196,7 +1197,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msScrollSnapX() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1218,7 +1219,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msScrollSnapY() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(32, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1240,7 +1241,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msScrollSnapPointsX() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(34, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1262,7 +1263,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msScrollSnapPointsY() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(36, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1304,7 +1305,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msGridColumnAlign() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(40, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1326,7 +1327,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msGridColumns() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(42, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1388,7 +1389,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msGridRowAlign() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(48, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1410,7 +1411,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msGridRows() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(50, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1452,7 +1453,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msWrapThrough() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(54, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1494,7 +1495,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msWrapFlow() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(58, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1516,7 +1517,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msAnimationName() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(60, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1538,7 +1539,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msAnimationDuration() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(62, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1560,7 +1561,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msAnimationTimingFunction() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(64, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1582,7 +1583,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msAnimationDelay() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(66, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1604,7 +1605,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msAnimationDirection() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(68, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1626,7 +1627,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msAnimationPlayState() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(70, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1648,7 +1649,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msAnimationIterationCount() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(72, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1670,7 +1671,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msAnimation() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(74, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1692,7 +1693,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msAnimationFillMode() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(76, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1714,7 +1715,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_colorInterpolationFilters() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(78, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1796,7 +1797,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_columnFill() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(86, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1818,7 +1819,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_columnSpan() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(88, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1840,7 +1841,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_columns() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(90, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1862,7 +1863,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_columnRule() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(92, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1904,7 +1905,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_columnRuleStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(96, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1946,7 +1947,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_breakBefore() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(100, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1968,7 +1969,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_breakAfter() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(102, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1990,7 +1991,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_breakInside() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(104, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2152,7 +2153,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msScrollLimit() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(120, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2174,7 +2175,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_textShadow() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(122, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2196,7 +2197,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msFlowFrom() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(124, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2218,7 +2219,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msFlowInto() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(126, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2240,7 +2241,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msHyphens() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(128, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2282,7 +2283,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msHyphenateLimitChars() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(132, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2324,7 +2325,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msHighContrastAdjust() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(136, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2346,7 +2347,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_enableBackground() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(138, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2368,7 +2369,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msFontFeatureSettings() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(140, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2390,7 +2391,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msUserSelect() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(142, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2412,7 +2413,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msOverflowStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(144, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2434,7 +2435,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msTransformStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(146, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2456,7 +2457,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msBackfaceVisibility() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(148, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2498,7 +2499,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msPerspectiveOrigin() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(152, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2520,7 +2521,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msTransitionProperty() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(154, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2542,7 +2543,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msTransitionDuration() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(156, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2564,7 +2565,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msTransitionTimingFunction() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(158, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2586,7 +2587,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msTransitionDelay() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(160, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2608,7 +2609,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msTransition() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(162, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2630,7 +2631,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msTouchAction() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(164, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2652,7 +2653,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msScrollTranslation() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(166, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2674,7 +2675,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msFlex() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(168, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2756,7 +2757,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msFlexFlow() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(176, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2778,7 +2779,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msFlexDirection() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(178, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2800,7 +2801,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msFlexWrap() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(180, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2822,7 +2823,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msFlexAlign() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(182, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2844,7 +2845,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msFlexItemAlign() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(184, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2866,7 +2867,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msFlexPack() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(186, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2888,7 +2889,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msFlexLinePack() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(188, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2930,7 +2931,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msTouchSelect() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(192, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2952,7 +2953,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_transform() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(194, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2974,7 +2975,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_transformOrigin() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(196, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2996,7 +2997,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_transformStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(198, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3018,7 +3019,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_backfaceVisibility() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(200, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3060,7 +3061,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_perspectiveOrigin() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(204, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3082,7 +3083,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_transitionProperty() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(206, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3104,7 +3105,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_transitionDuration() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(208, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3126,7 +3127,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_transitionTimingFunction() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(210, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3148,7 +3149,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_transitionDelay() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(212, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3170,7 +3171,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_transition() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(214, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3192,7 +3193,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_fontFeatureSettings() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(216, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3214,7 +3215,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_animationName() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(218, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3236,7 +3237,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_animationDuration() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(220, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3258,7 +3259,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_animationTimingFunction() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(222, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3280,7 +3281,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_animationDelay() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(224, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3302,7 +3303,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_animationDirection() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(226, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3324,7 +3325,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_animationPlayState() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(228, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3346,7 +3347,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_animationIterationCount() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(230, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3368,7 +3369,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_animation() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(232, this, "ptr", p, "HRESULT")
         return p
     }
@@ -3390,7 +3391,7 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_animationFillMode() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(234, this, "ptr", p, "HRESULT")
         return p
     }

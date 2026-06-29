@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMGradientBrush.ahk
-#Include .\XPS_POINT.ahk
 #Include .\XPS_SIZE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\XPS_POINT.ahk
+#Include .\IXpsOMGradientBrush.ahk
 
 /**
  * Specifies a radial gradient.

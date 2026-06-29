@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ISWbemObject.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\ISWbemServices.ahk
+#Include .\ISWbemObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -48,7 +49,7 @@ class IWMIExtension extends IDispatch {
      * @returns {BSTR} 
      */
     get_WMIObjectPath() {
-        strWMIObjectPath := BSTR()
+        strWMIObjectPath := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", strWMIObjectPath, "HRESULT")
         return strWMIObjectPath
     }

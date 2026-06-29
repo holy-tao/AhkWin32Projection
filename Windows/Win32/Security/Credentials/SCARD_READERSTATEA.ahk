@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SCARD_STATE.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Used by functions for tracking smart cards within readers. (ANSI)

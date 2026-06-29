@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12DeviceTools.ahk
 #Include ..\Direct3D\ID3DBlob.ahk
+#Include .\D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS.ahk
+#Include .\ID3D12DeviceTools.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

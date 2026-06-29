@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines task variables that can be passed as parameters to task handlers and external executables that are launched by tasks.
@@ -36,7 +37,7 @@ class ITaskVariables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskvariables-getinput
      */
     GetInput() {
-        pInput := BSTR()
+        pInput := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pInput, "HRESULT")
         return pInput
     }
@@ -60,7 +61,7 @@ class ITaskVariables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskvariables-getcontext
      */
     GetContext() {
-        pContext := BSTR()
+        pContext := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", pContext, "HRESULT")
         return pContext
     }

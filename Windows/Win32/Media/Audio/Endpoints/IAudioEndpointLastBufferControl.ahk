@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\Apo\APO_CONNECTION_PROPERTY.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Provides functionality to allow an offload stream client to notify the endpoint that the last buffer has been sent only partially filled.

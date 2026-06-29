@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
 class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct {
-    static sizeof => 504
+    static sizeof => 512
 
-    static packingSize => 8
+    static packingSize => 4
 
-    class _State_e__Union extends Win32Struct {
+    class _State extends Win32Struct {
         static sizeof => 1
         static packingSize => 1
 
@@ -69,12 +70,12 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct {
     }
 
     /**
-     * @type {_State_e__Union}
+     * @type {_State}
      */
     State {
         get {
             if(!this.HasProp("__State"))
-                this.__State := NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG._State_e__Union(0, this)
+                this.__State := NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG._State(0, this)
             return this.__State
         }
     }
@@ -238,10 +239,13 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     LogPageGUID {
-        get => NumGet(this, 496, "ptr")
-        set => NumPut("ptr", value, this, 496)
+        get {
+            if(!this.HasProp("__LogPageGUID"))
+                this.__LogPageGUID := Guid(496, this)
+            return this.__LogPageGUID
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains information about a reparse point.
@@ -12,9 +13,9 @@
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class REPARSE_GUID_DATA_BUFFER extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _GenericReparseBuffer extends Win32Struct {
         static sizeof => 1
@@ -67,11 +68,14 @@ class REPARSE_GUID_DATA_BUFFER extends Win32Struct {
      *       <b>ReparseGuid</b> member. When retrieving a reparse point from the file system, 
      *       <b>ReparseGuid</b> is the <b>GUID</b> assigned when the reparse point 
      *       was set.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ReparseGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ReparseGuid"))
+                this.__ReparseGuid := Guid(8, this)
+            return this.__ReparseGuid
+        }
     }
 
     /**
@@ -80,7 +84,7 @@ class REPARSE_GUID_DATA_BUFFER extends Win32Struct {
     GenericReparseBuffer {
         get {
             if(!this.HasProp("__GenericReparseBuffer"))
-                this.__GenericReparseBuffer := REPARSE_GUID_DATA_BUFFER._GenericReparseBuffer(16, this)
+                this.__GenericReparseBuffer := REPARSE_GUID_DATA_BUFFER._GenericReparseBuffer(24, this)
             return this.__GenericReparseBuffer
         }
     }

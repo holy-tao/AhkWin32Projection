@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D10DeviceChild.ahk
+#Include .\D3D10_RASTERIZER_DESC.ahk
 
 /**
  * A rasterizer-state interface accesses rasterizer state for the rasterizer stage.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_CLIENTHINT.ahk
 #Include .\D3DDDI_ALLOCATIONLIST.ahk
+#Include .\D3DKMT_CLIENTHINT.ahk
 #Include .\D3DDDI_PATCHLOCATIONLIST.ahk
 
 /**

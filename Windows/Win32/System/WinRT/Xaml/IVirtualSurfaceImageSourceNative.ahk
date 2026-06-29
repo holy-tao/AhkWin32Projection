@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\ISurfaceImageSourceNative.ahk
+#Include .\IVirtualSurfaceUpdatesCallbackNative.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\RECT.ahk
 
 /**

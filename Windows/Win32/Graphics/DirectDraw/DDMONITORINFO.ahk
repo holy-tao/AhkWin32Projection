@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
 class DDMONITORINFO extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -34,33 +35,20 @@ class DDMONITORINFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     DeviceIdentifier {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__DeviceIdentifier"))
+                this.__DeviceIdentifier := Guid(8, this)
+            return this.__DeviceIdentifier
+        }
     }
 
     /**
      * @type {Integer}
      */
     Mode640x480 {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Mode800x600 {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Mode1024x768 {
         get => NumGet(this, 24, "int")
         set => NumPut("int", value, this, 24)
     }
@@ -68,7 +56,7 @@ class DDMONITORINFO extends Win32Struct {
     /**
      * @type {Integer}
      */
-    Mode1280x1024 {
+    Mode800x600 {
         get => NumGet(this, 28, "int")
         set => NumPut("int", value, this, 28)
     }
@@ -76,7 +64,7 @@ class DDMONITORINFO extends Win32Struct {
     /**
      * @type {Integer}
      */
-    Mode1600x1200 {
+    Mode1024x768 {
         get => NumGet(this, 32, "int")
         set => NumPut("int", value, this, 32)
     }
@@ -84,7 +72,7 @@ class DDMONITORINFO extends Win32Struct {
     /**
      * @type {Integer}
      */
-    ModeReserved1 {
+    Mode1280x1024 {
         get => NumGet(this, 36, "int")
         set => NumPut("int", value, this, 36)
     }
@@ -92,7 +80,7 @@ class DDMONITORINFO extends Win32Struct {
     /**
      * @type {Integer}
      */
-    ModeReserved2 {
+    Mode1600x1200 {
         get => NumGet(this, 40, "int")
         set => NumPut("int", value, this, 40)
     }
@@ -100,8 +88,24 @@ class DDMONITORINFO extends Win32Struct {
     /**
      * @type {Integer}
      */
-    ModeReserved3 {
+    ModeReserved1 {
         get => NumGet(this, 44, "int")
         set => NumPut("int", value, this, 44)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ModeReserved2 {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ModeReserved3 {
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 }

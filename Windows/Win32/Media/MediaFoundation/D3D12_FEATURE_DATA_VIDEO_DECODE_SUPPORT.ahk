@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
-#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
-#Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
 #Include .\D3D12_VIDEO_DECODE_SUPPORT_FLAGS.ahk
+#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
 #Include .\D3D12_VIDEO_DECODE_CONFIGURATION_FLAGS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
 #Include .\D3D12_VIDEO_DECODE_TIER.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
+#Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
 
 /**
  * Retrieves support information for video decoding.
@@ -17,7 +18,7 @@
 class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct {
     static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * For single GPU operation, set this to zero. If there are multiple GPU nodes, set a bit to identify the node (the device's physical adapter) to which the command queue applies. Each bit in the mask corresponds to a single node. Only 1 bit may be set.
@@ -35,7 +36,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct {
     Configuration {
         get {
             if(!this.HasProp("__Configuration"))
-                this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(8, this)
+                this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(4, this)
             return this.__Configuration
         }
     }
@@ -45,8 +46,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct {
      * @type {Integer}
      */
     Width {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -54,8 +55,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct {
      * @type {Integer}
      */
     Height {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -63,8 +64,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct {
      * @type {DXGI_FORMAT}
      */
     DecodeFormat {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -74,7 +75,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct {
     FrameRate {
         get {
             if(!this.HasProp("__FrameRate"))
-                this.__FrameRate := DXGI_RATIONAL(36, this)
+                this.__FrameRate := DXGI_RATIONAL(40, this)
             return this.__FrameRate
         }
     }
@@ -84,8 +85,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct {
      * @type {Integer}
      */
     BitRate {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -93,8 +94,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct {
      * @type {D3D12_VIDEO_DECODE_SUPPORT_FLAGS}
      */
     SupportFlags {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -102,8 +103,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct {
      * @type {D3D12_VIDEO_DECODE_CONFIGURATION_FLAGS}
      */
     ConfigurationFlags {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
@@ -111,7 +112,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct {
      * @type {D3D12_VIDEO_DECODE_TIER}
      */
     DecodeTier {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 60, "int")
+        set => NumPut("int", value, this, 60)
     }
 }

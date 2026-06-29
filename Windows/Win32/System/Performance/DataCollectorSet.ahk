@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines the running status of the data collector set.
- * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-datacollectorsetstatus
  * @namespace Windows.Win32.System.Performance
  */
 class DataCollectorSet extends Win32Struct {

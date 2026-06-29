@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS.ahk
-#Include .\DRM_OPL_OUTPUT_IDS.ahk
-#Include .\DRM_VIDEO_OUTPUT_PROTECTION_IDS.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\DRM_OUTPUT_PROTECTION.ahk
+#Include .\DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS.ahk
+#Include .\DRM_VIDEO_OUTPUT_PROTECTION_IDS.ahk
+#Include .\DRM_OPL_OUTPUT_IDS.ahk
 
 /**
  * The DRM_PLAY_OPL structure holds information about the output protection levels (OPL) specified in a license for play actions.

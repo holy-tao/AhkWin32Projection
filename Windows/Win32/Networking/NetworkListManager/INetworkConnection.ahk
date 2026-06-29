@@ -2,8 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\INetwork.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\NLM_CONNECTIVITY.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\INetwork.ahk
+#Include .\NLM_DOMAIN_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The INetworkConnection interface represents a single network connection.

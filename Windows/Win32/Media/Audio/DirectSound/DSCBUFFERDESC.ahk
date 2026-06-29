@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\WAVEFORMATEX.ahk
 #Include .\DSCEFFECTDESC.ahk
+#Include ..\WAVEFORMATEX.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound

@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMPart.ahk
-#Include .\IXpsOMPackage.ahk
-#Include .\IXpsOMDocumentCollection.ahk
 #Include .\IXpsOMPrintTicketResource.ahk
+#Include .\IXpsOMDocumentCollection.ahk
+#Include .\IXpsOMPackage.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IXpsOMPart.ahk
 
 /**
  * The root object that has the XPS document content.

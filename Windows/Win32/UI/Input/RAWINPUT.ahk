@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RAWINPUTHEADER.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\RAWMOUSE.ahk
-#Include .\MOUSE_STATE.ahk
 #Include .\RAWKEYBOARD.ahk
 #Include .\RAWHID.ahk
+#Include .\MOUSE_STATE.ahk
+#Include .\RAWMOUSE.ahk
+#Include .\RAWINPUTHEADER.ahk
 
 /**
  * Contains the raw input from a device.
@@ -27,7 +28,7 @@ class RAWINPUT extends Win32Struct {
 
     static packingSize => 8
 
-    class _data_e__Union extends Win32Struct {
+    class _data extends Win32Struct {
         static sizeof => 24
         static packingSize => 4
 
@@ -80,12 +81,12 @@ class RAWINPUT extends Win32Struct {
     }
 
     /**
-     * @type {_data_e__Union}
+     * @type {_data}
      */
     data {
         get {
             if(!this.HasProp("__data"))
-                this.__data := RAWINPUT._data_e__Union(24, this)
+                this.__data := RAWINPUT._data(24, this)
             return this.__data
         }
     }

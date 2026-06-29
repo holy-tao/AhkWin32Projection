@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FWPM_CHANGE_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Change notification dispatched to subscribers. (FWPM_PROVIDER_CONTEXT_CHANGE0)
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class FWPM_PROVIDER_CONTEXT_CHANGE0 extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -27,11 +28,14 @@ class FWPM_PROVIDER_CONTEXT_CHANGE0 extends Win32Struct {
 
     /**
      * GUID of the provider context that changed.
-     * @type {Pointer}
+     * @type {Guid}
      */
     providerContextKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__providerContextKey"))
+                this.__providerContextKey := Guid(4, this)
+            return this.__providerContextKey
+        }
     }
 
     /**
@@ -39,7 +43,7 @@ class FWPM_PROVIDER_CONTEXT_CHANGE0 extends Win32Struct {
      * @type {Integer}
      */
     providerContextId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\AD_GENERAL_PARAMS.ahk
-#Include .\AD_GUARANTEED.ahk
 #Include .\PARAM_BUFFER.ahk
+#Include .\AD_GUARANTEED.ahk
+#Include .\AD_GENERAL_PARAMS.ahk
 
 /**
  * The CONTROL_SERVICE structure contains supported RSVP service types.

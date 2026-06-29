@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_ENDPOINT_REFERENCE_LIST.ahk
 #Include .\WSD_ENDPOINT_REFERENCE.ahk
+#Include .\WSD_ENDPOINT_REFERENCE_LIST.ahk
 
 /**
  * Represents a node in a single-linked list of WSD_ENDPOINT_REFERENCE structures.

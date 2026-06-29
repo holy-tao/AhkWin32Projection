@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EVENT_FIELD_TYPE.ahk
 #Include .\PROVIDER_FIELD_INFO.ahk
+#Include .\EVENT_FIELD_TYPE.ahk
 
 /**
  * Defines metadata information about the requested field.

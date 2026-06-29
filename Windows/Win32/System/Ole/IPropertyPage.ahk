@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Include ..\..\UI\WindowsAndMessaging\MSG.ahk
 #Include .\PROPPAGEINFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\IPropertyPageSite.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * Provides the main features of a property page object that manages a particular page within a property sheet.

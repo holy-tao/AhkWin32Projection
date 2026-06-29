@@ -1,10 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFaxSender.ahk
 #Include .\IFaxRecipient.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\FAX_JOB_OPERATIONS_ENUM.ahk
+#Include .\FAX_JOB_STATUS_ENUM.ahk
+#Include .\FAX_PRIORITY_TYPE_ENUM.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FAX_RECEIPT_TYPE_ENUM.ahk
+#Include .\FAX_JOB_EXTENDED_STATUS_ENUM.ahk
+#Include .\IFaxSender.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFaxOutgoingJob interface describes an object that is used by a fax client application to retrieve information about an outgoing fax job in a fax server's queue.
@@ -221,7 +228,7 @@ class IFaxOutgoingJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_subject
      */
     get_Subject() {
-        pbstrSubject := BSTR()
+        pbstrSubject := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrSubject, "HRESULT")
         return pbstrSubject
     }
@@ -232,7 +239,7 @@ class IFaxOutgoingJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_documentname
      */
     get_DocumentName() {
-        pbstrDocumentName := BSTR()
+        pbstrDocumentName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrDocumentName, "HRESULT")
         return pbstrDocumentName
     }
@@ -265,7 +272,7 @@ class IFaxOutgoingJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_submissionid
      */
     get_SubmissionId() {
-        pbstrSubmissionId := BSTR()
+        pbstrSubmissionId := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrSubmissionId, "HRESULT")
         return pbstrSubmissionId
     }
@@ -276,7 +283,7 @@ class IFaxOutgoingJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_id
      */
     get_Id() {
-        pbstrId := BSTR()
+        pbstrId := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstrId, "HRESULT")
         return pbstrId
     }
@@ -399,7 +406,7 @@ class IFaxOutgoingJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_extendedstatus
      */
     get_ExtendedStatus() {
-        pbstrExtendedStatus := BSTR()
+        pbstrExtendedStatus := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", pbstrExtendedStatus, "HRESULT")
         return pbstrExtendedStatus
     }
@@ -466,7 +473,7 @@ class IFaxOutgoingJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_csid
      */
     get_CSID() {
-        pbstrCSID := BSTR()
+        pbstrCSID := BSTR({Value: 0}, True)
         result := ComCall(29, this, "ptr", pbstrCSID, "HRESULT")
         return pbstrCSID
     }
@@ -477,7 +484,7 @@ class IFaxOutgoingJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_tsid
      */
     get_TSID() {
-        pbstrTSID := BSTR()
+        pbstrTSID := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", pbstrTSID, "HRESULT")
         return pbstrTSID
     }

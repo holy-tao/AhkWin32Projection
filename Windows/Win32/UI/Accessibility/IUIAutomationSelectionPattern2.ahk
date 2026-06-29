@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUIAutomationSelectionPattern.ahk
 #Include .\IUIAutomationElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IUIAutomationSelectionPattern interface to provide information about selected items.

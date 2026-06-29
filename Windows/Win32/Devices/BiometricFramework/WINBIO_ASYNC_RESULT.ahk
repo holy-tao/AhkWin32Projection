@@ -1,15 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINBIO_IDENTITY.ahk
-#Include .\WINBIO_BIR.ahk
+#Include .\WINBIO_STORAGE_SCHEMA.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\WINBIO_PRESENCE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\WINBIO_EVENT.ahk
+#Include .\WINBIO_BIR.ahk
 #Include .\WINBIO_COMPONENT.ahk
+#Include .\WINBIO_EXTENDED_UNIT_STATUS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\WINBIO_IDENTITY.ahk
+#Include .\WINBIO_PROTECTION_POLICY.ahk
 #Include .\WINBIO_BSP_SCHEMA.ahk
 #Include .\WINBIO_UNIT_SCHEMA.ahk
-#Include .\WINBIO_STORAGE_SCHEMA.ahk
-#Include .\WINBIO_PRESENCE.ahk
-#Include .\WINBIO_PROTECTION_POLICY.ahk
-#Include .\WINBIO_EXTENDED_UNIT_STATUS.ahk
 
 /**
  * Contains the results of an asynchronous operation.
@@ -151,7 +154,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
 
     static packingSize => 8
 
-    class _Parameters_e__Union extends Win32Struct {
+    class _Parameters extends Win32Struct {
         static sizeof => 320
         static packingSize => 8
 
@@ -177,8 +180,8 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         }
 
         class _Identify extends Win32Struct {
-            static sizeof => 88
-            static packingSize => 8
+            static sizeof => 84
+            static packingSize => 4
 
             /**
              * @type {WINBIO_IDENTITY}
@@ -195,16 +198,16 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
              * @type {Integer}
              */
             SubFactor {
-                get => NumGet(this, 80, "char")
-                set => NumPut("char", value, this, 80)
+                get => NumGet(this, 76, "char")
+                set => NumPut("char", value, this, 76)
             }
 
             /**
              * @type {Integer}
              */
             RejectDetail {
-                get => NumGet(this, 84, "uint")
-                set => NumPut("uint", value, this, 84)
+                get => NumGet(this, 80, "uint")
+                set => NumPut("uint", value, this, 80)
             }
         }
 
@@ -235,8 +238,8 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         }
 
         class _EnrollCommit extends Win32Struct {
-            static sizeof => 88
-            static packingSize => 8
+            static sizeof => 80
+            static packingSize => 4
 
             /**
              * @type {WINBIO_IDENTITY}
@@ -253,8 +256,8 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
              * @type {BOOLEAN}
              */
             IsNewTemplate {
-                get => NumGet(this, 80, "char")
-                set => NumPut("char", value, this, 80)
+                get => NumGet(this, 76, "char")
+                set => NumPut("char", value, this, 76)
             }
         }
 
@@ -320,8 +323,8 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         }
 
         class _DeleteTemplate extends Win32Struct {
-            static sizeof => 88
-            static packingSize => 8
+            static sizeof => 80
+            static packingSize => 4
 
             /**
              * @type {WINBIO_IDENTITY}
@@ -338,13 +341,13 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
              * @type {Integer}
              */
             SubFactor {
-                get => NumGet(this, 80, "char")
-                set => NumPut("char", value, this, 80)
+                get => NumGet(this, 76, "char")
+                set => NumPut("char", value, this, 76)
             }
         }
 
         class _GetProperty extends Win32Struct {
-            static sizeof => 112
+            static sizeof => 104
             static packingSize => 8
 
             /**
@@ -378,29 +381,29 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
              * @type {Integer}
              */
             SubFactor {
-                get => NumGet(this, 88, "char")
-                set => NumPut("char", value, this, 88)
+                get => NumGet(this, 84, "char")
+                set => NumPut("char", value, this, 84)
             }
 
             /**
              * @type {Pointer}
              */
             PropertyBufferSize {
-                get => NumGet(this, 96, "ptr")
-                set => NumPut("ptr", value, this, 96)
+                get => NumGet(this, 88, "ptr")
+                set => NumPut("ptr", value, this, 88)
             }
 
             /**
              * @type {Pointer<Void>}
              */
             PropertyBuffer {
-                get => NumGet(this, 104, "ptr")
-                set => NumPut("ptr", value, this, 104)
+                get => NumGet(this, 96, "ptr")
+                set => NumPut("ptr", value, this, 96)
             }
         }
 
         class _SetProperty extends Win32Struct {
-            static sizeof => 112
+            static sizeof => 104
             static packingSize => 8
 
             /**
@@ -434,30 +437,30 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
              * @type {Integer}
              */
             SubFactor {
-                get => NumGet(this, 88, "char")
-                set => NumPut("char", value, this, 88)
+                get => NumGet(this, 84, "char")
+                set => NumPut("char", value, this, 84)
             }
 
             /**
              * @type {Pointer}
              */
             PropertyBufferSize {
-                get => NumGet(this, 96, "ptr")
-                set => NumPut("ptr", value, this, 96)
+                get => NumGet(this, 88, "ptr")
+                set => NumPut("ptr", value, this, 88)
             }
 
             /**
              * @type {Pointer<Void>}
              */
             PropertyBuffer {
-                get => NumGet(this, 104, "ptr")
-                set => NumPut("ptr", value, this, 104)
+                get => NumGet(this, 96, "ptr")
+                set => NumPut("ptr", value, this, 96)
             }
         }
 
         class _GetEvent extends Win32Struct {
-            static sizeof => 104
-            static packingSize => 8
+            static sizeof => 92
+            static packingSize => 4
 
             /**
              * @type {WINBIO_EVENT}
@@ -651,16 +654,16 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
              * @type {Integer}
              */
             SubFactor {
-                get => NumGet(this, 80, "char")
-                set => NumPut("char", value, this, 80)
+                get => NumGet(this, 76, "char")
+                set => NumPut("char", value, this, 76)
             }
 
             /**
              * @type {Integer}
              */
             RejectDetail {
-                get => NumGet(this, 84, "uint")
-                set => NumPut("uint", value, this, 84)
+                get => NumGet(this, 80, "uint")
+                set => NumPut("uint", value, this, 80)
             }
 
             /**
@@ -763,7 +766,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         Verify {
             get {
                 if(!this.HasProp("__Verify"))
-                    this.__Verify := WINBIO_ASYNC_RESULT._Parameters_e__Union._Verify(0, this)
+                    this.__Verify := WINBIO_ASYNC_RESULT._Parameters._Verify(0, this)
                 return this.__Verify
             }
         }
@@ -774,7 +777,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         Identify {
             get {
                 if(!this.HasProp("__Identify"))
-                    this.__Identify := WINBIO_ASYNC_RESULT._Parameters_e__Union._Identify(0, this)
+                    this.__Identify := WINBIO_ASYNC_RESULT._Parameters._Identify(0, this)
                 return this.__Identify
             }
         }
@@ -785,7 +788,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         EnrollBegin {
             get {
                 if(!this.HasProp("__EnrollBegin"))
-                    this.__EnrollBegin := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnrollBegin(0, this)
+                    this.__EnrollBegin := WINBIO_ASYNC_RESULT._Parameters._EnrollBegin(0, this)
                 return this.__EnrollBegin
             }
         }
@@ -796,7 +799,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         EnrollCapture {
             get {
                 if(!this.HasProp("__EnrollCapture"))
-                    this.__EnrollCapture := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnrollCapture(0, this)
+                    this.__EnrollCapture := WINBIO_ASYNC_RESULT._Parameters._EnrollCapture(0, this)
                 return this.__EnrollCapture
             }
         }
@@ -807,7 +810,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         EnrollCommit {
             get {
                 if(!this.HasProp("__EnrollCommit"))
-                    this.__EnrollCommit := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnrollCommit(0, this)
+                    this.__EnrollCommit := WINBIO_ASYNC_RESULT._Parameters._EnrollCommit(0, this)
                 return this.__EnrollCommit
             }
         }
@@ -818,7 +821,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         EnumEnrollments {
             get {
                 if(!this.HasProp("__EnumEnrollments"))
-                    this.__EnumEnrollments := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnumEnrollments(0, this)
+                    this.__EnumEnrollments := WINBIO_ASYNC_RESULT._Parameters._EnumEnrollments(0, this)
                 return this.__EnumEnrollments
             }
         }
@@ -829,7 +832,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         CaptureSample {
             get {
                 if(!this.HasProp("__CaptureSample"))
-                    this.__CaptureSample := WINBIO_ASYNC_RESULT._Parameters_e__Union._CaptureSample(0, this)
+                    this.__CaptureSample := WINBIO_ASYNC_RESULT._Parameters._CaptureSample(0, this)
                 return this.__CaptureSample
             }
         }
@@ -840,7 +843,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         DeleteTemplate {
             get {
                 if(!this.HasProp("__DeleteTemplate"))
-                    this.__DeleteTemplate := WINBIO_ASYNC_RESULT._Parameters_e__Union._DeleteTemplate(0, this)
+                    this.__DeleteTemplate := WINBIO_ASYNC_RESULT._Parameters._DeleteTemplate(0, this)
                 return this.__DeleteTemplate
             }
         }
@@ -851,7 +854,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         GetProperty {
             get {
                 if(!this.HasProp("__GetProperty"))
-                    this.__GetProperty := WINBIO_ASYNC_RESULT._Parameters_e__Union._GetProperty(0, this)
+                    this.__GetProperty := WINBIO_ASYNC_RESULT._Parameters._GetProperty(0, this)
                 return this.__GetProperty
             }
         }
@@ -862,7 +865,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         SetProperty {
             get {
                 if(!this.HasProp("__SetProperty"))
-                    this.__SetProperty := WINBIO_ASYNC_RESULT._Parameters_e__Union._SetProperty(0, this)
+                    this.__SetProperty := WINBIO_ASYNC_RESULT._Parameters._SetProperty(0, this)
                 return this.__SetProperty
             }
         }
@@ -873,7 +876,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         GetEvent {
             get {
                 if(!this.HasProp("__GetEvent"))
-                    this.__GetEvent := WINBIO_ASYNC_RESULT._Parameters_e__Union._GetEvent(0, this)
+                    this.__GetEvent := WINBIO_ASYNC_RESULT._Parameters._GetEvent(0, this)
                 return this.__GetEvent
             }
         }
@@ -884,7 +887,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         ControlUnit {
             get {
                 if(!this.HasProp("__ControlUnit"))
-                    this.__ControlUnit := WINBIO_ASYNC_RESULT._Parameters_e__Union._ControlUnit(0, this)
+                    this.__ControlUnit := WINBIO_ASYNC_RESULT._Parameters._ControlUnit(0, this)
                 return this.__ControlUnit
             }
         }
@@ -895,7 +898,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         EnumServiceProviders {
             get {
                 if(!this.HasProp("__EnumServiceProviders"))
-                    this.__EnumServiceProviders := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnumServiceProviders(0, this)
+                    this.__EnumServiceProviders := WINBIO_ASYNC_RESULT._Parameters._EnumServiceProviders(0, this)
                 return this.__EnumServiceProviders
             }
         }
@@ -906,7 +909,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         EnumBiometricUnits {
             get {
                 if(!this.HasProp("__EnumBiometricUnits"))
-                    this.__EnumBiometricUnits := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnumBiometricUnits(0, this)
+                    this.__EnumBiometricUnits := WINBIO_ASYNC_RESULT._Parameters._EnumBiometricUnits(0, this)
                 return this.__EnumBiometricUnits
             }
         }
@@ -917,7 +920,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         EnumDatabases {
             get {
                 if(!this.HasProp("__EnumDatabases"))
-                    this.__EnumDatabases := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnumDatabases(0, this)
+                    this.__EnumDatabases := WINBIO_ASYNC_RESULT._Parameters._EnumDatabases(0, this)
                 return this.__EnumDatabases
             }
         }
@@ -928,7 +931,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         VerifyAndReleaseTicket {
             get {
                 if(!this.HasProp("__VerifyAndReleaseTicket"))
-                    this.__VerifyAndReleaseTicket := WINBIO_ASYNC_RESULT._Parameters_e__Union._VerifyAndReleaseTicket(0, this)
+                    this.__VerifyAndReleaseTicket := WINBIO_ASYNC_RESULT._Parameters._VerifyAndReleaseTicket(0, this)
                 return this.__VerifyAndReleaseTicket
             }
         }
@@ -939,7 +942,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         IdentifyAndReleaseTicket {
             get {
                 if(!this.HasProp("__IdentifyAndReleaseTicket"))
-                    this.__IdentifyAndReleaseTicket := WINBIO_ASYNC_RESULT._Parameters_e__Union._IdentifyAndReleaseTicket(0, this)
+                    this.__IdentifyAndReleaseTicket := WINBIO_ASYNC_RESULT._Parameters._IdentifyAndReleaseTicket(0, this)
                 return this.__IdentifyAndReleaseTicket
             }
         }
@@ -950,7 +953,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         EnrollSelect {
             get {
                 if(!this.HasProp("__EnrollSelect"))
-                    this.__EnrollSelect := WINBIO_ASYNC_RESULT._Parameters_e__Union._EnrollSelect(0, this)
+                    this.__EnrollSelect := WINBIO_ASYNC_RESULT._Parameters._EnrollSelect(0, this)
                 return this.__EnrollSelect
             }
         }
@@ -961,7 +964,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         MonitorPresence {
             get {
                 if(!this.HasProp("__MonitorPresence"))
-                    this.__MonitorPresence := WINBIO_ASYNC_RESULT._Parameters_e__Union._MonitorPresence(0, this)
+                    this.__MonitorPresence := WINBIO_ASYNC_RESULT._Parameters._MonitorPresence(0, this)
                 return this.__MonitorPresence
             }
         }
@@ -972,7 +975,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         GetProtectionPolicy {
             get {
                 if(!this.HasProp("__GetProtectionPolicy"))
-                    this.__GetProtectionPolicy := WINBIO_ASYNC_RESULT._Parameters_e__Union._GetProtectionPolicy(0, this)
+                    this.__GetProtectionPolicy := WINBIO_ASYNC_RESULT._Parameters._GetProtectionPolicy(0, this)
                 return this.__GetProtectionPolicy
             }
         }
@@ -983,7 +986,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         NotifyUnitStatusChange {
             get {
                 if(!this.HasProp("__NotifyUnitStatusChange"))
-                    this.__NotifyUnitStatusChange := WINBIO_ASYNC_RESULT._Parameters_e__Union._NotifyUnitStatusChange(0, this)
+                    this.__NotifyUnitStatusChange := WINBIO_ASYNC_RESULT._Parameters._NotifyUnitStatusChange(0, this)
                 return this.__NotifyUnitStatusChange
             }
         }
@@ -1054,12 +1057,12 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
 
     /**
      * Union that encloses nested structures that contain additional information about the success or failure of asynchronous operations begun by the client application.
-     * @type {_Parameters_e__Union}
+     * @type {_Parameters}
      */
     Parameters {
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := WINBIO_ASYNC_RESULT._Parameters_e__Union(40, this)
+                this.__Parameters := WINBIO_ASYNC_RESULT._Parameters(40, this)
             return this.__Parameters
         }
     }

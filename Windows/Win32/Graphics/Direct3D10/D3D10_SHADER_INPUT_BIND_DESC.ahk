@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Direct3D\D3D_SHADER_INPUT_TYPE.ahk
 #Include ..\Direct3D\D3D_RESOURCE_RETURN_TYPE.ahk
 #Include ..\Direct3D\D3D_SRV_DIMENSION.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\Direct3D\D3D_SHADER_INPUT_TYPE.ahk
 
 /**
  * Describes how a shader resource is bound to a shader input. (D3D10_SHADER_INPUT_BIND_DESC)

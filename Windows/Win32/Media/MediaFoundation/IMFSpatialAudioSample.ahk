@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFSample.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMFSpatialAudioObjectBuffer.ahk
 
 /**

@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\XmlNodeType.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.XmlLite
@@ -28,29 +32,9 @@ class IXmlReader extends IUnknown {
     static VTableNames => ["SetInput", "GetProperty", "SetProperty", "Read", "GetNodeType", "MoveToFirstAttribute", "MoveToNextAttribute", "MoveToAttributeByName", "MoveToElement", "GetQualifiedName", "GetNamespaceUri", "GetLocalName", "GetPrefix", "GetValue", "ReadValueChunk", "GetBaseUri", "IsDefault", "IsEmptyElement", "GetLineNumber", "GetLinePosition", "GetAttributeCount", "GetDepth", "IsEOF"]
 
     /**
-     * Sets an input scope for the specified window.
-     * @remarks
-     * Calling this method replaces whatever scope is associated with the window.
      * 
-     * An application must call this method, passing in IS_DEFAULT to the <i>hwnd</i> parameter, to remove the input scope association before the window is destroyed.
-     * 
-     * This API works only when the window (<i>hwnd</i> parameter) and the calling thread are in the same thread. If you call this API for a different thread's window, it fails with E_INVALIDARG.
-     * 
-     * If you call this method on a window (<i>hwnd</i> parameter) that has 
-     * not been associated with a Document Manager, then no text service notifications are sent to interested clients (such as the touch keyboard) that may want to respond to the 
-     * scope change.
      * @param {IUnknown} pInput 
-     * @returns {HRESULT} <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>S_OK</td>
-     * <td>The method was successful.</td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-setinputscope
+     * @returns {HRESULT} 
      */
     SetInput(pInput) {
         result := ComCall(3, this, "ptr", pInput, "HRESULT")
@@ -73,13 +57,10 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * Sets Interaction Context object properties.
+     * 
      * @param {Integer} nProperty 
      * @param {Pointer} pValue 
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
-     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext
+     * @returns {HRESULT} 
      */
     SetProperty(nProperty, pValue) {
         result := ComCall(5, this, "uint", nProperty, "ptr", pValue, "HRESULT")
@@ -87,9 +68,8 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * The ReadBlobFromFile function reads a BLOB in a file.
+     * 
      * @returns {XmlNodeType} 
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
      */
     Read() {
         result := ComCall(6, this, "int*", &pNodeType := 0, "int")
@@ -203,11 +183,10 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
+     * 
      * @param {Pointer<PWSTR>} ppwszValue 
      * @param {Pointer<Integer>} pcwchValue 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecmetadata-getvalueandname
      */
     GetValue(ppwszValue, pcwchValue) {
         ppwszValueMarshal := ppwszValue is VarRef ? "ptr*" : "ptr"

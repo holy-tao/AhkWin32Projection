@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Include .\GPMEntryType.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\GPMDestinationOption.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IGPMMapEntry interface provides access to a map entry.
@@ -69,7 +72,7 @@ class IGPMMapEntry extends IDispatch {
      * @returns {BSTR} 
      */
     get_Source() {
-        pbstrSource := BSTR()
+        pbstrSource := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrSource, "HRESULT")
         return pbstrSource
     }
@@ -79,7 +82,7 @@ class IGPMMapEntry extends IDispatch {
      * @returns {BSTR} 
      */
     get_Destination() {
-        pbstrDestination := BSTR()
+        pbstrDestination := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrDestination, "HRESULT")
         return pbstrDestination
     }

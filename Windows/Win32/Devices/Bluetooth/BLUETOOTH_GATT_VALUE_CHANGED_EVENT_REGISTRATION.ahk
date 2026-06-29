@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\BTH_LE_GATT_CHARACTERISTIC.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\BTH_LE_UUID.ahk
 
 /**
@@ -9,9 +11,9 @@
  * @namespace Windows.Win32.Devices.Bluetooth
  */
 class BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of characteristics that follow this member in memory.
@@ -29,7 +31,7 @@ class BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION extends Win32Struct {
     Characteristics {
         get {
             if(!this.HasProp("__CharacteristicsProxyArray"))
-                this.__CharacteristicsProxyArray := Win32FixedArray(this.ptr + 8, 1, BTH_LE_GATT_CHARACTERISTIC, "")
+                this.__CharacteristicsProxyArray := Win32FixedArray(this.ptr + 4, 1, BTH_LE_GATT_CHARACTERISTIC, "")
             return this.__CharacteristicsProxyArray
         }
     }

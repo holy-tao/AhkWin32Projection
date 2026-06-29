@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SUB_Q_CURRENT_POSITION.ahk
-#Include .\SUB_Q_HEADER.ahk
 #Include .\SUB_Q_MEDIA_CATALOG_NUMBER.ahk
+#Include .\SUB_Q_HEADER.ahk
+#Include .\SUB_Q_CURRENT_POSITION.ahk
 #Include .\SUB_Q_TRACK_ISRC.ahk
 
 /**

@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWICComponentInfo.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IWICFormatConverter.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that provide information about a pixel format converter.

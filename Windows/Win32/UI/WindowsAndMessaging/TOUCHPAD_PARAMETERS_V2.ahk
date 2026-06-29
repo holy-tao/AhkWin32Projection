@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TOUCHPAD_SENSITIVITY_LEVEL.ahk
 #Include .\TOUCHPAD_PARAMETERS_V1.ahk
 #Include .\LEGACY_TOUCHPAD_FEATURES.ahk
-#Include .\TOUCHPAD_SENSITIVITY_LEVEL.ahk
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging

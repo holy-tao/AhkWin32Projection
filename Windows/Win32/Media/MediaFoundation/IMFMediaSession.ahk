@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaEventGenerator.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include .\IMFClock.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IMFTopology.ahk
+#Include .\IMFMediaEventGenerator.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides playback controls for protected and unprotected content.

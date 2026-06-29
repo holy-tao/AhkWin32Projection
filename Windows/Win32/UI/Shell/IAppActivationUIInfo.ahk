@@ -3,7 +3,9 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Gdi\HMONITOR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -30,17 +32,8 @@ class IAppActivationUIInfo extends IUnknown {
     static VTableNames => ["GetMonitor", "GetInvokePoint", "GetShowCommand", "GetShowUI", "GetKeyState"]
 
     /**
-     * Retrieves a monitor's minimum, maximum, and current brightness settings.
-     * @remarks
-     * If this function is supported, the <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcapabilities">GetMonitorCapabilities</a> function returns the MC_CAPS_BRIGHTNESS flag.
-     *       
      * 
-     * This function takes about 40 milliseconds to return.
-     *       
-     * 
-     * The brightness setting is a continuous monitor setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
      * @returns {HMONITOR} 
-     * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorbrightness
      */
     GetMonitor() {
         value := HMONITOR()

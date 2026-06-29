@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PNP_REPLACE_PROCESSOR_LIST.ahk
 #Include .\PNP_REPLACE_MEMORY_LIST.ahk
+#Include .\PNP_REPLACE_PROCESSOR_LIST.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

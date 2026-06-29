@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include .\VMR9NormalizedRect.ahk
 #Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include .\VMR9NormalizedRect.ahk
 
 /**
  * The VMR9AlphaBitmap structure is used with the IVMRMixerBitmap9 interface when an application provides a static bitmap for alpha blending with the video frame.

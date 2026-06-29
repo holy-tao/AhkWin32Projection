@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\IXSLTemplate.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IXMLDOMNode.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IXSLTemplate.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -130,7 +132,7 @@ class IXSLProcessor extends IDispatch {
      * @returns {BSTR} 
      */
     get_startMode() {
-        _mode := BSTR()
+        _mode := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", _mode, "HRESULT")
         return _mode
     }
@@ -140,7 +142,7 @@ class IXSLProcessor extends IDispatch {
      * @returns {BSTR} 
      */
     get_startModeURI() {
-        namespaceURI := BSTR()
+        namespaceURI := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", namespaceURI, "HRESULT")
         return namespaceURI
     }

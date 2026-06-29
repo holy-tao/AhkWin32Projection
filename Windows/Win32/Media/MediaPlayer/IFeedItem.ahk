@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FEEDS_XML_INCLUDE_FLAGS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
@@ -128,13 +131,12 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * Resource string ids set by caller to be returned in xml data for visualizing objects.
+     * 
      * @param {FEEDS_XML_INCLUDE_FLAGS} includeFlags 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/direct3dtools/xml-resource-ids
      */
     Xml(includeFlags) {
-        xml := BSTR()
+        xml := BSTR({Value: 0}, True)
         result := ComCall(7, this, "int", includeFlags, "ptr", xml, "HRESULT")
         return xml
     }
@@ -144,7 +146,7 @@ class IFeedItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_Title() {
-        title := BSTR()
+        title := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", title, "HRESULT")
         return title
     }
@@ -154,7 +156,7 @@ class IFeedItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_Link() {
-        linkUrl := BSTR()
+        linkUrl := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", linkUrl, "HRESULT")
         return linkUrl
     }
@@ -164,7 +166,7 @@ class IFeedItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_Guid() {
-        itemGuid := BSTR()
+        itemGuid := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", itemGuid, "HRESULT")
         return itemGuid
     }
@@ -174,7 +176,7 @@ class IFeedItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_Description() {
-        description := BSTR()
+        description := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", description, "HRESULT")
         return description
     }
@@ -193,7 +195,7 @@ class IFeedItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_Comments() {
-        comments := BSTR()
+        comments := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", comments, "HRESULT")
         return comments
     }
@@ -203,7 +205,7 @@ class IFeedItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_Author() {
-        author := BSTR()
+        author := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", author, "HRESULT")
         return author
     }
@@ -255,17 +257,8 @@ class IFeedItem extends IDispatch {
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete() {
         result := ComCall(20, this, "HRESULT")
@@ -277,7 +270,7 @@ class IFeedItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_DownloadUrl() {
-        itemUrl := BSTR()
+        itemUrl := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", itemUrl, "HRESULT")
         return itemUrl
     }

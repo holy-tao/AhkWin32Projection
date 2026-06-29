@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\BATTERY_TYPE.ahk
 #Include .\BATTERY_LEVEL.ahk
+#Include .\BATTERY_TYPE.ahk
 
 /**
  * Contains information on battery type and charge state.

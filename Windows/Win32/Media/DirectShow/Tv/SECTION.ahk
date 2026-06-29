@@ -33,7 +33,7 @@ class SECTION extends Win32Struct {
 
     static packingSize => 1
 
-    class _Header_e__Union extends Win32Struct {
+    class _Header extends Win32Struct {
         static sizeof => 2
         static packingSize => 1
 
@@ -68,12 +68,12 @@ class SECTION extends Win32Struct {
 
     /**
      * A union that contains the following members.
-     * @type {_Header_e__Union}
+     * @type {_Header}
      */
     Header {
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := SECTION._Header_e__Union(1, this)
+                this.__Header := SECTION._Header(1, this)
             return this.__Header
         }
     }

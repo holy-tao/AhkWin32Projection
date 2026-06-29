@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\FAX_JOB_OPERATIONS_ENUM.ahk
+#Include .\FAX_JOB_STATUS_ENUM.ahk
+#Include .\FAX_JOB_TYPE_ENUM.ahk
+#Include .\FAX_JOB_EXTENDED_STATUS_ENUM.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFaxJobStatus interface is used for notifications and to hold the dynamic information of the job.
@@ -213,7 +218,7 @@ class IFaxJobStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_csid
      */
     get_CSID() {
-        pbstrCSID := BSTR()
+        pbstrCSID := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstrCSID, "HRESULT")
         return pbstrCSID
     }
@@ -224,7 +229,7 @@ class IFaxJobStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_tsid
      */
     get_TSID() {
-        pbstrTSID := BSTR()
+        pbstrTSID := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstrTSID, "HRESULT")
         return pbstrTSID
     }
@@ -245,7 +250,7 @@ class IFaxJobStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_extendedstatus
      */
     get_ExtendedStatus() {
-        pbstrExtendedStatus := BSTR()
+        pbstrExtendedStatus := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstrExtendedStatus, "HRESULT")
         return pbstrExtendedStatus
     }
@@ -318,7 +323,7 @@ class IFaxJobStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_callerid
      */
     get_CallerId() {
-        pbstrCallerId := BSTR()
+        pbstrCallerId := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", pbstrCallerId, "HRESULT")
         return pbstrCallerId
     }
@@ -331,7 +336,7 @@ class IFaxJobStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_routinginformation
      */
     get_RoutingInformation() {
-        pbstrRoutingInformation := BSTR()
+        pbstrRoutingInformation := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", pbstrRoutingInformation, "HRESULT")
         return pbstrRoutingInformation
     }

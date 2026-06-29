@@ -1,13 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IRTCClient.ahk
 #Include .\IRTCProfile.ahk
-#Include .\IRTCCollection.ahk
-#Include .\IRTCParticipant.ahk
-#Include .\IRTCEnumParticipants.ahk
+#Include .\IRTCClient.ahk
+#Include .\RTC_SESSION_TYPE.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\RTC_SESSION_STATE.ahk
+#Include .\RTC_TERMINATE_REASON.ahk
+#Include .\RTC_MESSAGING_USER_STATUS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRTCEnumParticipants.ahk
+#Include .\IRTCParticipant.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IRTCCollection.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -144,10 +150,9 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * Eliminates the cache and ends asynchronous I/O with the DLL.
+     * 
      * @param {RTC_TERMINATE_REASON} enReason 
-     * @returns {HRESULT} Returns <b>TRUE</b> if the function succeeds; otherwise, it returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/filehc/nf-filehc-terminatecache
+     * @returns {HRESULT} 
      */
     Terminate(enReason) {
         result := ComCall(9, this, "int", enReason, "HRESULT")
@@ -155,13 +160,12 @@ class IRTCSession extends IUnknown {
     }
 
     /**
-     * The installer sets the RedirectedDLLSupport property if the system platform performing the installation supports Isolated Components.
+     * 
      * @param {RTC_SESSION_TYPE} enType 
      * @param {BSTR} bstrLocalPhoneURI 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lFlags 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Msi/redirecteddllsupport
      */
     Redirect(enType, bstrLocalPhoneURI, pProfile, lFlags) {
         bstrLocalPhoneURI := bstrLocalPhoneURI is String ? BSTR.Alloc(bstrLocalPhoneURI).Value : bstrLocalPhoneURI
@@ -217,7 +221,7 @@ class IRTCSession extends IUnknown {
      * @returns {BSTR} 
      */
     get_RedirectedUserURI() {
-        pbstrUserURI := BSTR()
+        pbstrUserURI := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstrUserURI, "HRESULT")
         return pbstrUserURI
     }
@@ -227,7 +231,7 @@ class IRTCSession extends IUnknown {
      * @returns {BSTR} 
      */
     get_RedirectedUserName() {
-        pbstrUserName := BSTR()
+        pbstrUserName := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pbstrUserName, "HRESULT")
         return pbstrUserName
     }

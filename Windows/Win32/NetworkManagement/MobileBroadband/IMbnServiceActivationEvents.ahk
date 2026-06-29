@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMbnServiceActivation.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This notification interface signals an application about the completion of a service activation request.

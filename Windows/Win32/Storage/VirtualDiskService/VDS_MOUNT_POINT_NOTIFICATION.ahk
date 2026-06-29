@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The VDS_MOUNT_POINT_NOTIFICATION structure (vdshwprv.h) represents data returned by the software provider because a drive letter or volume GUID path changed.
@@ -15,9 +16,9 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_MOUNT_POINT_NOTIFICATION extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Determines the event for which an application will be notified, as the following value.
@@ -48,10 +49,13 @@ class VDS_MOUNT_POINT_NOTIFICATION extends Win32Struct {
 
     /**
      * The GUID of the volume object associated with the drive letter or volume GUID path that triggered the event.
-     * @type {Pointer}
+     * @type {Guid}
      */
     volumeId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__volumeId"))
+                this.__volumeId := Guid(4, this)
+            return this.__volumeId
+        }
     }
 }

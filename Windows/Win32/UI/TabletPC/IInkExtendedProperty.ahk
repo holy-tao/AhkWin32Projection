@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the ability to add your own data to a variety of objects within the Tablet PC object model.
@@ -59,7 +60,7 @@ class IInkExtendedProperty extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkextendedproperty-get_guid
      */
     get_Guid() {
-        Guid := BSTR()
+        Guid := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", Guid, "HRESULT")
         return Guid
     }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\KQUEUE.ahk
 #Include .\KDPC.ahk
+#Include .\KQUEUE.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation

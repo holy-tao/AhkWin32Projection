@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\BTH_LE_GATT_DESCRIPTOR_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\BTH_LE_UUID.ahk
 
 /**
@@ -11,7 +13,7 @@
 class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct {
     static sizeof => 80
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The type of the descriptor value.
@@ -29,7 +31,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct {
     DescriptorUuid {
         get {
             if(!this.HasProp("__DescriptorUuid"))
-                this.__DescriptorUuid := BTH_LE_UUID(8, this)
+                this.__DescriptorUuid := BTH_LE_UUID(4, this)
             return this.__DescriptorUuid
         }
     }
@@ -91,7 +93,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct {
 
     class _CharacteristicFormat extends Win32Struct {
         static sizeof => 48
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -115,7 +117,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct {
         Unit {
             get {
                 if(!this.HasProp("__Unit"))
-                    this.__Unit := BTH_LE_UUID(8, this)
+                    this.__Unit := BTH_LE_UUID(4, this)
                 return this.__Unit
             }
         }
@@ -134,7 +136,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct {
         Description {
             get {
                 if(!this.HasProp("__Description"))
-                    this.__Description := BTH_LE_UUID(32, this)
+                    this.__Description := BTH_LE_UUID(28, this)
                 return this.__Description
             }
         }

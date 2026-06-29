@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
-#Include .\MFVideoAlphaBitmapParams.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include .\MFVideoNormalizedRect.ahk
+#Include .\MFVideoAlphaBitmapParams.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Specifies a bitmap for the enhanced video renderer (EVR) to alpha-blend with the video.
@@ -18,7 +20,7 @@ class MFVideoAlphaBitmap extends Win32Struct {
 
     static packingSize => 8
 
-    class _bitmap_e__Union extends Win32Struct {
+    class _bitmap extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -53,12 +55,12 @@ class MFVideoAlphaBitmap extends Win32Struct {
 
     /**
      * A union that contains the following members.
-     * @type {_bitmap_e__Union}
+     * @type {_bitmap}
      */
     bitmap {
         get {
             if(!this.HasProp("__bitmap"))
-                this.__bitmap := MFVideoAlphaBitmap._bitmap_e__Union(8, this)
+                this.__bitmap := MFVideoAlphaBitmap._bitmap(8, this)
             return this.__bitmap
         }
     }

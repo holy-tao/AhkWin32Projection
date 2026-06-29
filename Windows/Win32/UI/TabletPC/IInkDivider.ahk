@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IInkRecognizerContext.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IInkStrokes.ahk
-#Include .\IInkRecognizerContext.ahk
 #Include .\IInkDivisionResult.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * . (IInkDivider)

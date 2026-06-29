@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
 #Include .\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk
 #Include ..\..\Foundation\LUID.ahk
@@ -8,9 +9,9 @@
  * @namespace Windows.Win32.Devices.Display
  */
 class DISPLAYCONFIG_SET_MONITOR_SPECIALIZATION extends Win32Struct {
-    static sizeof => 296
+    static sizeof => 312
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DISPLAYCONFIG_DEVICE_INFO_HEADER}
@@ -59,26 +60,32 @@ class DISPLAYCONFIG_SET_MONITOR_SPECIALIZATION extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     specializationType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__specializationType"))
+                this.__specializationType := Guid(24, this)
+            return this.__specializationType
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     specializationSubType {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__specializationSubType"))
+                this.__specializationSubType := Guid(40, this)
+            return this.__specializationSubType
+        }
     }
 
     /**
      * @type {String}
      */
     specializationApplicationName {
-        get => StrGet(this.ptr + 40, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 40, 127, "UTF-16")
+        get => StrGet(this.ptr + 56, 127, "UTF-16")
+        set => StrPut(value, this.ptr + 56, 127, "UTF-16")
     }
 }

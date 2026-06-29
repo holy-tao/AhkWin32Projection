@@ -2,10 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\BOID.ahk
 
 /**
- * Maintains a list of pooled objects, keyed by IObjPool, that are used until the transaction completes.
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-itransactionresourcepool
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  */
 class ITransactionResource extends IUnknown {

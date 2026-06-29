@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\FORMATETC.ahk
 #Include ..\Com\DVTARGETDEVICE.ahk
+#Include ..\Com\FORMATETC.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * An array of entries to be specified in the OLEUIPASTESPECIAL structure for the Paste Special dialog box. (ANSI)

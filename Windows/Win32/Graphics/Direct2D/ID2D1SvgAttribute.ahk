@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1SvgElement.ahk
 #Include .\ID2D1Resource.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Interface describing an SVG attribute.

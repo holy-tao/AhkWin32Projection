@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MF_TIMED_TEXT_CUE_EVENT.ahk
+#Include .\IMFTimedTextCue.ahk
+#Include .\MF_TIMED_TEXT_ERROR_CODE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Interface that defines callbacks for Microsoft Media Foundation Timed Text notifications.

@@ -1,7 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC.ahk
+#Include .\ID3D12StateObject.ahk
+#Include .\D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC.ahk
+#Include .\D3D12_RENDER_PASS_DEPTH_STENCIL_DESC.ahk
+#Include .\D3D12_RENDER_PASS_FLAGS.ahk
+#Include .\D3D12_DISPATCH_RAYS_DESC.ahk
+#Include .\ID3D12MetaCommand.ahk
+#Include .\D3D12_RENDER_PASS_RENDER_TARGET_DESC.ahk
 #Include .\ID3D12GraphicsCommandList3.ahk
+#Include .\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE.ahk
 
 /**
  * Encapsulates a list of graphics commands for rendering, extending the interface to support ray tracing and render passes.

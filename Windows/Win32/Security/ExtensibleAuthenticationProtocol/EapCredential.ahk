@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\EapCredentialType.ahk
+#Include .\EapSimCredential.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\EapCredentialTypeData.ahk
 #Include .\EapUsernamePasswordCredential.ahk
 #Include .\EapCertificateCredential.ahk
-#Include .\EapSimCredential.ahk
+#Include .\EapCredentialType.ahk
 
 /**
  * Contains information about the credentials type and the appropriate credentials. This is passed as an input to the EapPeerGetConfigBlobAndUserBlob API.

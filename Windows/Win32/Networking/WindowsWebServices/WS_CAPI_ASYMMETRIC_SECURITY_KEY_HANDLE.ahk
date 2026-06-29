@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_KEY_HANDLE.ahk
 #Include .\WS_SECURITY_KEY_HANDLE_TYPE.ahk
+#Include .\WS_SECURITY_KEY_HANDLE.ahk
 
 /**
  * The type for specifying asymmetric cryptographic keys as CAPI 1.0 key handles.

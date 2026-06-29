@@ -1,7 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\EVT_CHANNEL_CONFIG_PROPERTY_ID.ahk
+#Include .\EVT_LOGIN_CLASS.ahk
+#Include .\EVT_EVENT_PROPERTY_ID.ahk
+#Include .\EVT_PUBLISHER_METADATA_PROPERTY_ID.ahk
+#Include ..\..\Security\PSID.ahk
+#Include .\EVT_VARIANT.ahk
+#Include .\EVT_EVENT_METADATA_PROPERTY_ID.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\EVT_HANDLE.ahk
+#Include .\EVT_LOG_PROPERTY_ID.ahk
+#Include .\READ_EVENT_LOG_READ_FLAGS.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\REPORT_EVENT_TYPE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\EVT_QUERY_PROPERTY_ID.ahk
 
 /**
  * @namespace Windows.Win32.System.EventLog

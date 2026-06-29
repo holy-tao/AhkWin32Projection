@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_CONTEXT.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRL_CONTEXT.ahk
 #Include .\CRYPT_ATTRIBUTE.ahk
+#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CERT_CONTEXT.ahk
 
 /**
  * The CRYPT_SIGN_MESSAGE_PARA structure contains information for signing messages using a specified signing certificate context.

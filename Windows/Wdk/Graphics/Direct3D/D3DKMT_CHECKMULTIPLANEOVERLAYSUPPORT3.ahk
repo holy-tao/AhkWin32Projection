@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_CHECK_MULTIPLANE_OVERLAY_PLANE3.ahk
 #Include .\D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION_WITH_SOURCE.ahk
+#Include .\D3DKMT_CHECK_MULTIPLANE_OVERLAY_PLANE3.ahk
+#Include ..\..\..\Win32\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

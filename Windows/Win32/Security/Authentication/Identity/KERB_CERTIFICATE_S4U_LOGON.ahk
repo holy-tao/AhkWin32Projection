@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_LOGON_SUBMIT_TYPE.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
+#Include .\KERB_LOGON_SUBMIT_TYPE.ahk
 
 /**
  * Contains information about the certificate for a service for user (S4U) logon.

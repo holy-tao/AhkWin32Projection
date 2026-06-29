@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\TRUSTED_DOMAIN_INFORMATION_EX2.ahk
-#Include .\LSA_UNICODE_STRING.ahk
 #Include .\TRUSTED_POSIX_OFFSET_INFO.ahk
+#Include ..\..\PSID.ahk
+#Include .\TRUSTED_DOMAIN_INFORMATION_EX2.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\LSA_UNICODE_STRING.ahk
 #Include .\TRUSTED_DOMAIN_AUTH_INFORMATION.ahk
 #Include .\LSA_AUTH_INFORMATION.ahk
 

@@ -29,7 +29,7 @@ class LONG_SECTION extends Win32Struct {
 
     static packingSize => 2
 
-    class _Header_e__Union extends Win32Struct {
+    class _Header extends Win32Struct {
         static sizeof => 2
         static packingSize => 1
 
@@ -53,7 +53,7 @@ class LONG_SECTION extends Win32Struct {
         }
     }
 
-    class _Version_e__Union extends Win32Struct {
+    class _Version extends Win32Struct {
         static sizeof => 1
         static packingSize => 1
 
@@ -88,12 +88,12 @@ class LONG_SECTION extends Win32Struct {
 
     /**
      * A union that contains the following members.
-     * @type {_Header_e__Union}
+     * @type {_Header}
      */
     Header {
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := LONG_SECTION._Header_e__Union(1, this)
+                this.__Header := LONG_SECTION._Header(1, this)
             return this.__Header
         }
     }
@@ -109,12 +109,12 @@ class LONG_SECTION extends Win32Struct {
 
     /**
      * A union that contains the following members.
-     * @type {_Version_e__Union}
+     * @type {_Version}
      */
     Version {
         get {
             if(!this.HasProp("__Version"))
-                this.__Version := LONG_SECTION._Version_e__Union(6, this)
+                this.__Version := LONG_SECTION._Version(6, this)
             return this.__Version
         }
     }

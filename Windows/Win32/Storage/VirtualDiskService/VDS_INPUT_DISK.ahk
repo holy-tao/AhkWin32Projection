@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Defines the details of an input disk.
@@ -14,17 +15,20 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_INPUT_DISK extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 48
 
     static packingSize => 8
 
     /**
      * The GUID of the disk. This field is required.
-     * @type {Pointer}
+     * @type {Guid}
      */
     diskId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__diskId"))
+                this.__diskId := Guid(0, this)
+            return this.__diskId
+        }
     }
 
     /**
@@ -32,8 +36,8 @@ class VDS_INPUT_DISK extends Win32Struct {
      * @type {Integer}
      */
     ullSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -42,11 +46,14 @@ class VDS_INPUT_DISK extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Callers can extend a volume only by extending all members of all plexes in the same operation.</div>
      * <div> </div>
-     * @type {Pointer}
+     * @type {Guid}
      */
     plexId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__plexId"))
+                this.__plexId := Guid(24, this)
+            return this.__plexId
+        }
     }
 
     /**
@@ -58,7 +65,7 @@ class VDS_INPUT_DISK extends Win32Struct {
      * @type {Integer}
      */
     memberIdx {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 }

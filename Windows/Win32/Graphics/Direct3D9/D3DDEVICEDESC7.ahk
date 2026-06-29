@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\D3DPRIMCAPS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
 class D3DDEVICEDESC7 extends Win32Struct {
-    static sizeof => 232
+    static sizeof => 236
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -209,41 +210,36 @@ class D3DDEVICEDESC7 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     deviceGUID {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
+        get {
+            if(!this.HasProp("__deviceGUID"))
+                this.__deviceGUID := Guid(196, this)
+            return this.__deviceGUID
+        }
     }
 
     /**
      * @type {Integer}
      */
     wMaxUserClipPlanes {
-        get => NumGet(this, 208, "ushort")
-        set => NumPut("ushort", value, this, 208)
+        get => NumGet(this, 212, "ushort")
+        set => NumPut("ushort", value, this, 212)
     }
 
     /**
      * @type {Integer}
      */
     wMaxVertexBlendMatrices {
-        get => NumGet(this, 210, "ushort")
-        set => NumPut("ushort", value, this, 210)
+        get => NumGet(this, 214, "ushort")
+        set => NumPut("ushort", value, this, 214)
     }
 
     /**
      * @type {Integer}
      */
     dwVertexProcessingCaps {
-        get => NumGet(this, 212, "uint")
-        set => NumPut("uint", value, this, 212)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
         get => NumGet(this, 216, "uint")
         set => NumPut("uint", value, this, 216)
     }
@@ -251,7 +247,7 @@ class D3DDEVICEDESC7 extends Win32Struct {
     /**
      * @type {Integer}
      */
-    dwReserved2 {
+    dwReserved1 {
         get => NumGet(this, 220, "uint")
         set => NumPut("uint", value, this, 220)
     }
@@ -259,7 +255,7 @@ class D3DDEVICEDESC7 extends Win32Struct {
     /**
      * @type {Integer}
      */
-    dwReserved3 {
+    dwReserved2 {
         get => NumGet(this, 224, "uint")
         set => NumPut("uint", value, this, 224)
     }
@@ -267,8 +263,16 @@ class D3DDEVICEDESC7 extends Win32Struct {
     /**
      * @type {Integer}
      */
-    dwReserved4 {
+    dwReserved3 {
         get => NumGet(this, 228, "uint")
         set => NumPut("uint", value, this, 228)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwReserved4 {
+        get => NumGet(this, 232, "uint")
+        set => NumPut("uint", value, this, 232)
     }
 }

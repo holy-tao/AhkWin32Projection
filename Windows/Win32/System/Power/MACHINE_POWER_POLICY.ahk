@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SYSTEM_POWER_STATE.ahk
 #Include .\POWER_ACTION_POLICY.ahk
-#Include .\POWER_ACTION.ahk
 #Include .\POWER_ACTION_POLICY_EVENT_CODE.ahk
+#Include .\POWER_ACTION.ahk
+#Include .\SYSTEM_POWER_STATE.ahk
 
 /**
  * Contains computer power policy settings that are unique to each power scheme on the computer.

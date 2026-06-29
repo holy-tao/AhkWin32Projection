@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The NTMS_PMIDINFORMATION structure defines the properties specific to a physical media object. (ANSI)
@@ -19,35 +20,44 @@
  * @charset ANSI
  */
 class NTMS_PMIDINFORMATIONA extends Win32Struct {
-    static sizeof => 176
+    static sizeof => 216
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Unique ID of the library in which the media is contained.
-     * @type {Pointer}
+     * @type {Guid}
      */
     CurrentLibrary {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__CurrentLibrary"))
+                this.__CurrentLibrary := Guid(0, this)
+            return this.__CurrentLibrary
+        }
     }
 
     /**
      * Unique ID of the media pool to which the media is assigned.
-     * @type {Pointer}
+     * @type {Guid}
      */
     MediaPool {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__MediaPool"))
+                this.__MediaPool := Guid(16, this)
+            return this.__MediaPool
+        }
     }
 
     /**
      * Unique ID of the physical location object for the media.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Location {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__Location"))
+                this.__Location := Guid(32, this)
+            return this.__Location
+        }
     }
 
     /**
@@ -55,26 +65,32 @@ class NTMS_PMIDINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     LocationType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * Unique ID of a media type object.
-     * @type {Pointer}
+     * @type {Guid}
      */
     MediaType {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__MediaType"))
+                this.__MediaType := Guid(52, this)
+            return this.__MediaType
+        }
     }
 
     /**
      * Unique ID of the library storage slot in which media is stored.
-     * @type {Pointer}
+     * @type {Guid}
      */
     HomeSlot {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__HomeSlot"))
+                this.__HomeSlot := Guid(68, this)
+            return this.__HomeSlot
+        }
     }
 
     /**
@@ -82,16 +98,16 @@ class NTMS_PMIDINFORMATIONA extends Win32Struct {
      * @type {String}
      */
     szBarCode {
-        get => StrGet(this.ptr + 48, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 48, 63, "UTF-8")
+        get => StrGet(this.ptr + 84, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 84, 63, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     BarCodeState {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 148, "uint")
+        set => NumPut("uint", value, this, 148)
     }
 
     /**
@@ -99,16 +115,16 @@ class NTMS_PMIDINFORMATIONA extends Win32Struct {
      * @type {String}
      */
     szSequenceNumber {
-        get => StrGet(this.ptr + 116, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 116, 31, "UTF-8")
+        get => StrGet(this.ptr + 152, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 152, 31, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     MediaState {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
+        get => NumGet(this, 184, "uint")
+        set => NumPut("uint", value, this, 184)
     }
 
     /**
@@ -116,8 +132,8 @@ class NTMS_PMIDINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     dwNumberOfPartitions {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
+        get => NumGet(this, 188, "uint")
+        set => NumPut("uint", value, this, 188)
     }
 
     /**
@@ -125,8 +141,8 @@ class NTMS_PMIDINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     dwMediaTypeCode {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
+        get => NumGet(this, 192, "uint")
+        set => NumPut("uint", value, this, 192)
     }
 
     /**
@@ -134,16 +150,19 @@ class NTMS_PMIDINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     dwDensityCode {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
+        get => NumGet(this, 196, "uint")
+        set => NumPut("uint", value, this, 196)
     }
 
     /**
      * Globally unique ID of the side of the media that is currently mounted.
-     * @type {Pointer}
+     * @type {Guid}
      */
     MountedPartition {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
+        get {
+            if(!this.HasProp("__MountedPartition"))
+                this.__MountedPartition := Guid(200, this)
+            return this.__MountedPartition
+        }
     }
 }

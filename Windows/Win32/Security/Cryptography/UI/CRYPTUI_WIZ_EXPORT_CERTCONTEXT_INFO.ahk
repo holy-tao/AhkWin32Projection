@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\CRYPTUI_WIZ_EXPORT_FORMAT.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information that controls the operation of the CryptUIWizExport function when a certificate is the object being exported.

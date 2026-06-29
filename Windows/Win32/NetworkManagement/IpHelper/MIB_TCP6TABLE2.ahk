@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_TCP6ROW2.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include .\MIB_TCP_STATE.ahk
 #Include .\TCP_CONNECTION_OFFLOAD_STATE.ahk
+#Include .\MIB_TCP_STATE.ahk
+#Include .\MIB_TCP6ROW2.ahk
 
 /**
  * Contains a table of IPv6 TCP connections on the local computer.

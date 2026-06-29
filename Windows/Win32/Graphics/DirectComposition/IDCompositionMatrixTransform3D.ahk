@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Direct3D\D3DMATRIX.ahk
+#Include .\IDCompositionAnimation.ahk
 #Include .\IDCompositionTransform3D.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an arbitrary 3D transformation defined by a 4-by-4 matrix.

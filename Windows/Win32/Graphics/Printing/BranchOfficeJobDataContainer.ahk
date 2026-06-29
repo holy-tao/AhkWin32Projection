@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BranchOfficeJobData.ahk
-#Include .\EBranchOfficeJobEventType.ahk
 #Include .\BranchOfficeJobDataPrinted.ahk
+#Include .\BranchOfficeJobData.ahk
 #Include .\BranchOfficeJobDataRendered.ahk
-#Include .\BranchOfficeJobDataError.ahk
-#Include .\BranchOfficeJobDataPipelineFailed.ahk
 #Include .\BranchOfficeLogOfflineFileFull.ahk
+#Include .\BranchOfficeJobDataPipelineFailed.ahk
+#Include .\BranchOfficeJobDataError.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\EBranchOfficeJobEventType.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

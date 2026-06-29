@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_STENCIL_OP.ahk
 #Include .\D3D11_COMPARISON_FUNC.ahk
+#Include .\D3D11_STENCIL_OP.ahk
 
 /**
  * Stencil operations that can be performed based on the results of stencil test.

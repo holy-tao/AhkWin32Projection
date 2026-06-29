@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFaxInboundRoutingMethod interface defines a configuration object used by a fax client application to retrieve information about an individual fax inbound routing method on a connected fax server.
@@ -87,7 +88,7 @@ class IFaxInboundRoutingMethod extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_name
      */
     get_Name() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -98,7 +99,7 @@ class IFaxInboundRoutingMethod extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_guid
      */
     get_GUID() {
-        pbstrGUID := BSTR()
+        pbstrGUID := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrGUID, "HRESULT")
         return pbstrGUID
     }
@@ -111,7 +112,7 @@ class IFaxInboundRoutingMethod extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_functionname
      */
     get_FunctionName() {
-        pbstrFunctionName := BSTR()
+        pbstrFunctionName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrFunctionName, "HRESULT")
         return pbstrFunctionName
     }
@@ -122,7 +123,7 @@ class IFaxInboundRoutingMethod extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_extensionfriendlyname
      */
     get_ExtensionFriendlyName() {
-        pbstrExtensionFriendlyName := BSTR()
+        pbstrExtensionFriendlyName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbstrExtensionFriendlyName, "HRESULT")
         return pbstrExtensionFriendlyName
     }
@@ -135,7 +136,7 @@ class IFaxInboundRoutingMethod extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_extensionimagename
      */
     get_ExtensionImageName() {
-        pbstrExtensionImageName := BSTR()
+        pbstrExtensionImageName := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrExtensionImageName, "HRESULT")
         return pbstrExtensionImageName
     }

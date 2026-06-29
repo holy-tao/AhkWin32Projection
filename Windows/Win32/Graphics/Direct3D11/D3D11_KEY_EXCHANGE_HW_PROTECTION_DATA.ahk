@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D11_KEY_EXCHANGE_HW_PROTECTION_INPUT_DATA.ahk
 #Include .\D3D11_KEY_EXCHANGE_HW_PROTECTION_OUTPUT_DATA.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents key exchange data for hardware content protection.

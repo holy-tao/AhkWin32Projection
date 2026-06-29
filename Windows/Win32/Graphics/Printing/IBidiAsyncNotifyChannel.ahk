@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IPrintAsyncNotifyChannel.ahk
+#Include .\IPrintAsyncCookie.ahk
+#Include .\IPrintAsyncNotifyDataObject.ahk
+#Include .\IAsyncGetSendNotificationCookie.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

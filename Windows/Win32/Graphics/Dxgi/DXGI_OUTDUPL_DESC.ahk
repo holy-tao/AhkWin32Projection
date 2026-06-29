@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include Common\DXGI_MODE_DESC.ahk
-#Include Common\DXGI_RATIONAL.ahk
-#Include Common\DXGI_FORMAT.ahk
 #Include Common\DXGI_MODE_SCANLINE_ORDER.ahk
-#Include Common\DXGI_MODE_SCALING.ahk
+#Include Common\DXGI_FORMAT.ahk
+#Include Common\DXGI_MODE_DESC.ahk
 #Include Common\DXGI_MODE_ROTATION.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include Common\DXGI_RATIONAL.ahk
+#Include Common\DXGI_MODE_SCALING.ahk
 
 /**
  * The DXGI_OUTDUPL_DESC structure describes the dimension of the output and the surface that contains the desktop image. The format of the desktop image is always DXGI_FORMAT_B8G8R8A8_UNORM.

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITAgentSession.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IEnumAgentSession interface (tapi3cc.h) provides COM-standard enumeration methods for the ITAgentSession interface.

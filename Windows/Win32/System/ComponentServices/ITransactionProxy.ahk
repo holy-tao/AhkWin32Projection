@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\DistributedTransactionCoordinator\ITransactionVoterNotifyAsync2.ahk
+#Include ..\DistributedTransactionCoordinator\ITransactionVoterBallotAsync2.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
 #Include ..\DistributedTransactionCoordinator\ITransaction.ahk
-#Include ..\DistributedTransactionCoordinator\ITransactionVoterBallotAsync2.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides a way for a COM+ transaction context to work with a non-DTC transaction.

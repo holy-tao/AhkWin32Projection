@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITCallInfo.ahk
+#Include .\CALL_NOTIFICATION_EVENT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITCallNotificationEvent interface contains methods that retrieve the description of call notification events.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
 #Include ..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
 
 /**
  * The VMRALLOCATIONINFO structure is used in the VMR-7 filter's IVMRSurfaceAllocator::AllocateSurface method.

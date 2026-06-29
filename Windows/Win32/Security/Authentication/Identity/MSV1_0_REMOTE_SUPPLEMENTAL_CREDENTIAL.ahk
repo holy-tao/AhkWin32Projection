@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MSV1_0_CREDENTIAL_KEY.ahk
 #Include .\MSV1_0_CREDENTIAL_KEY_TYPE.ahk
+#Include .\MSV1_0_CREDENTIAL_KEY.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

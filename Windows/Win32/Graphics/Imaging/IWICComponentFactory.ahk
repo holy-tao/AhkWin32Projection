@@ -1,12 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICImagingFactory.ahk
-#Include .\IWICMetadataReader.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
 #Include .\IWICMetadataWriter.ahk
 #Include .\IWICMetadataQueryReader.ahk
 #Include .\IWICMetadataQueryWriter.ahk
-#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWICMetadataBlockWriter.ahk
+#Include .\IWICImagingFactory.ahk
+#Include .\IWICMetadataBlockReader.ahk
+#Include .\IWICMetadataReader.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPBAG2.ahk
 
 /**
  * Exposes methods that create components used by component developers. This includes metadata readers, writers and other services for use by codec and metadata handler developers.

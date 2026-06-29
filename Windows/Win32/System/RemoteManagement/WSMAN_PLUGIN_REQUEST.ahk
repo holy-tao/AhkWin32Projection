@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WSMAN_SENDER_DETAILS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSMAN_OPERATION_INFO.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Specifies information for a plug-in request.

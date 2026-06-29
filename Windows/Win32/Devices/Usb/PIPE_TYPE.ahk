@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The named pipe is a byte pipe. This is the default.
- * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-getnamedpipeinfo
  * @namespace Windows.Win32.Devices.Usb
  */
 class PIPE_TYPE extends Win32Enum {

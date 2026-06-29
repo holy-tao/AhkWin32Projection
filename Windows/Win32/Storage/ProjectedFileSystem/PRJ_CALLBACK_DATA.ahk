@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PRJ_CALLBACK_DATA_FLAGS.ahk
-#Include .\PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\PRJ_PLACEHOLDER_VERSION_INFO.ahk
+#Include .\PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT.ahk
 
 /**
  * Defines the standard information passed to a provider for every operation callback.
@@ -10,7 +12,7 @@
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  */
 class PRJ_CALLBACK_DATA extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -61,20 +63,26 @@ class PRJ_CALLBACK_DATA extends Win32Struct {
 
     /**
      * A value that uniquely identifies the file handle for the callback.
-     * @type {Pointer}
+     * @type {Guid}
      */
     FileId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__FileId"))
+                this.__FileId := Guid(20, this)
+            return this.__FileId
+        }
     }
 
     /**
      * A value that uniquely identifies an open data stream for the callback.
-     * @type {Pointer}
+     * @type {Guid}
      */
     DataStreamId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__DataStreamId"))
+                this.__DataStreamId := Guid(36, this)
+            return this.__DataStreamId
+        }
     }
 
     /**
@@ -82,8 +90,8 @@ class PRJ_CALLBACK_DATA extends Win32Struct {
      * @type {PWSTR}
      */
     FilePathName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -91,8 +99,8 @@ class PRJ_CALLBACK_DATA extends Win32Struct {
      * @type {Pointer<PRJ_PLACEHOLDER_VERSION_INFO>}
      */
     VersionInfo {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -102,8 +110,8 @@ class PRJ_CALLBACK_DATA extends Win32Struct {
      * @type {Integer}
      */
     TriggeringProcessId {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -111,8 +119,8 @@ class PRJ_CALLBACK_DATA extends Win32Struct {
      * @type {PWSTR}
      */
     TriggeringProcessImageFileName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -123,7 +131,7 @@ class PRJ_CALLBACK_DATA extends Win32Struct {
      * @type {Pointer<Void>}
      */
     InstanceContext {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 }

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionDevice4.ahk
 #Include .\IDCompositionDynamicTexture.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDCompositionDevice4.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition

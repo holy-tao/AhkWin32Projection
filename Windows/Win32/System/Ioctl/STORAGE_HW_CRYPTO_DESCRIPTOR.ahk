@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_DESCRIPTOR_HEADER.ahk
-#Include .\STORAGE_ICE_TYPE.ahk
-#Include .\STORAGE_SECURITY_COMPLIANCE_BITMASK.ahk
 #Include .\STORAGE_CRYPTO_KEY_TYPE.ahk
+#Include .\STORAGE_SECURITY_COMPLIANCE_BITMASK.ahk
+#Include .\STORAGE_ICE_TYPE.ahk
+#Include .\STORAGE_DESCRIPTOR_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl

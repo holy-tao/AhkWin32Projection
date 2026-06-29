@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\MINIDUMP_MEMORY_INFO.ahk
 #Include ..\..\Memory\VIRTUAL_ALLOCATION_TYPE.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information returned by the MiniDumpCallback function.

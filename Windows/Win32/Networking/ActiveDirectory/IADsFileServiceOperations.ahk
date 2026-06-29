@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IADsServiceOperations.ahk
 #Include .\IADsCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IADsFileServiceOperations interface is a dual interface that inherits from IADsServiceOperations.

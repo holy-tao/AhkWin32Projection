@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ID3D11VideoProcessorInputView.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains stream-level data for the ID3D11VideoContext::VideoProcessorBlt method.

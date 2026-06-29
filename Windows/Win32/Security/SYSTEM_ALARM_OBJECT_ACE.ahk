@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\..\..\Guid.ahk
 #Include .\ACE_HEADER.ahk
 
 /**
@@ -8,9 +9,9 @@
  * @namespace Windows.Win32.Security
  */
 class SYSTEM_ALARM_OBJECT_ACE extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {ACE_HEADER}
@@ -40,26 +41,32 @@ class SYSTEM_ALARM_OBJECT_ACE extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ObjectType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__ObjectType"))
+                this.__ObjectType := Guid(12, this)
+            return this.__ObjectType
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     InheritedObjectType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__InheritedObjectType"))
+                this.__InheritedObjectType := Guid(28, this)
+            return this.__InheritedObjectType
+        }
     }
 
     /**
      * @type {Integer}
      */
     SidStart {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

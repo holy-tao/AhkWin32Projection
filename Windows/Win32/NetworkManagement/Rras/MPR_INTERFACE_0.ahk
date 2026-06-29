@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\ROUTER_INTERFACE_TYPE.ahk
 #Include .\ROUTER_CONNECTION_STATE.ahk
+#Include .\ROUTER_INTERFACE_TYPE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The MPR_INTERFACE_0 structure contains information for a particular router interface.

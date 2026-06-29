@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\IMAGEHLP_CBA_EVENT_SEVERITY.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * The IMAGEHLP_CBA_EVENT structure (dbghelp.h) contains information about a debugging event.
